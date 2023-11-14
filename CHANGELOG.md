@@ -1,5 +1,16 @@
 # ctx-core
 
+## 2.2.1
+
+### Patch Changes
+
+- package.json:
+
+      fix: missing exports
+      	+ all
+      	+ be
+      fix: missing tsconfig.json
+
 ## 2.2.0
 
 ### Minor Changes

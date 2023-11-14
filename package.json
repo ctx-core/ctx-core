@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -23,6 +23,8 @@
 	"type": "module",
 	"files": [
 		"*.d.ts",
+		"*.json",
+		"all",
 		"array",
 		"atob",
 		"base16",
@@ -62,9 +64,11 @@
 	"types": "./src/index.d.ts",
 	"exports": {
 		".": "./index.js",
+		"./all": "./all/index.js",
 		"./array": "./array/index.js",
 		"./atob": "./atob/index.js",
 		"./base16": "./base16/index.js",
+		"./be": "./be/index.js",
 		"./btoa": "./btoa/index.js",
 		"./buffer": "./buffer/index.js",
 		"./chain": "./chain/index.js",
