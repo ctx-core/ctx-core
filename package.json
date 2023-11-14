@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -26,6 +26,7 @@
 		"array",
 		"atob",
 		"base16",
+		"be",
 		"btoa",
 		"buffer",
 		"chain",
@@ -112,7 +113,7 @@
 		"check-dts": "^0.7.2",
 		"sinon": "^17.0.1",
 		"ts-node": "^10.9.1",
-		"tsx": "^4.0.0",
+		"tsx": "^4.1.2",
 		"typescript": "next",
 		"uvu": "^0.5.6"
 	},

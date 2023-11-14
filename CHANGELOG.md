@@ -1,5 +1,25 @@
 # ctx-core
 
+## 2.2.0
+
+### Minor Changes
+
+- - ctx-core/be:
+
+    be
+    be*
+    be**delete
+    be**has*
+    be**has**ctx*
+    be**set
+    be**val*
+    Ctx
+    ctx**delete
+    ctx**new
+    ctx\_\_set
+    MapCtx
+    NestedMapCtx
+
 ## 2.1.0
 
 ### Minor Changes
