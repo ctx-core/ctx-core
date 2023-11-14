@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "2.2.1",
+	"version": "2.2.2",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -23,6 +23,7 @@
 	"type": "module",
 	"files": [
 		"*.d.ts",
+		"*.js",
 		"*.json",
 		"all",
 		"array",

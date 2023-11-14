@@ -1,5 +1,11 @@
 # ctx-core
 
+## 2.2.2
+
+### Patch Changes
+
+- package.json: files: + \*.js
+
 ## 2.2.1
 
 ### Patch Changes
