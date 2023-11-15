@@ -13,7 +13,7 @@ export function intersection_set_(member_a_nowrap_a_nowrap) {
 		const rest_a_nowrap = rest_a_nowrap_a[i]
 		const rest_a = wrap_a_(rest_a_nowrap)
 		const current_set = new Set(rest_a)
-		member_set.forEach((member)=>{
+		member_set.forEach(member=>{
 			if (!current_set.has(member)) member_set.delete(member)
 		})
 	}

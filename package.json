@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "2.2.2",
+	"version": "2.3.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -53,6 +53,7 @@
 		"queue",
 		"random",
 		"regex",
+		"rememo",
 		"set",
 		"sleep",
 		"string",
@@ -113,6 +114,7 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.13.1",
+		"@types/node": "^20.9.0",
 		"@types/sinon": "^17.0.1",
 		"c8": "^8.0.1",
 		"check-dts": "^0.7.2",

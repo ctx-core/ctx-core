@@ -1,4 +1,4 @@
-import { isPromise } from '../isPromise/index.js'
+import { isPromiseLike } from '../isPromiseLike/index.js'
 /**
  * Returns an async function, that, as long as it continues to be invoked, will not
  * be triggered. The function will be called after it stops being called for
@@ -35,7 +35,7 @@ export function debounce(func, wait, immediate) {
 		async function invoke() {
 			try {
 				const in_rv = func.apply(apply_this, arg_a)
-				resolve(isPromise(in_rv) ? await in_rv : in_rv)
+				resolve(isPromiseLike(in_rv) ? await in_rv : in_rv)
 			} catch (e) {
 				reject(e)
 			}

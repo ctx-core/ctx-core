@@ -5,7 +5,10 @@
 		"moduleResolution": "nodenext",
 		"target": "ESNext",
 		"strict": true,
-		"skipLibCheck": true
-	},
-	"exclude": ["node_modules"]
+		"skipLibCheck": true,
+		"lib": ["ESNext"],
+		"types": [
+			"node"
+		]
+	}
 }

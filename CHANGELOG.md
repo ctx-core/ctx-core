@@ -1,5 +1,14 @@
 # ctx-core
 
+## 2.3.0
+
+### Minor Changes
+
+- - isPrimitive
+- - prototype\_
+- - isPromiseLike: aliased by isPromise
+- - memo\_
+
 ## 2.2.2
 
 ### Patch Changes
