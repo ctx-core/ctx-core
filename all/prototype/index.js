@@ -1,8 +1,6 @@
-/**
- * @param {Object}val
- * @returns {Object}
- * @private
- */
-export function prototype_(val) {
-  return Object.getPrototypeOf(val)
+export const { getPrototypeOf, setPrototypeOf, defineProperty, defineProperties } = Object
+export {
+	getPrototypeOf as prototype_,
+	setPrototypeOf as prototype__set,
 }
+export const fn__proto = getPrototypeOf(getPrototypeOf)

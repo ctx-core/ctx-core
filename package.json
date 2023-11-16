@@ -94,6 +94,7 @@
 		"./queue": "./queue/index.js",
 		"./random": "./random/index.js",
 		"./regex": "./regex/index.js",
+		"./rememo": "./rememo/index.js",
 		"./set": "./set/index.js",
 		"./sleep": "./sleep/index.js",
 		"./string": "./string/index.js",
@@ -108,17 +109,21 @@
 		"clean": ":",
 		"exec": "$@",
 		"prepublishOnly": "pnpm clean && pnpm build && pnpm test",
-		"test": "pnpm test-unit && check-dts",
-		"test-unit": "tsx node_modules/uvu/bin.js . '\\.test\\.(ts|js)$'",
-		"test-unit-coverage": "c8 pnpm test-unit"
+		"test": "pnpm run /^test:/",
+		"test:size": "size-limit",
+		"test:type": "check-dts",
+		"test:unit": "tsx node_modules/uvu/bin.js . '\\.test\\.(ts|js)$'",
+		"test:coverage": "c8 pnpm test-unit"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.13.1",
+		"@size-limit/preset-small-lib": "^11.0.0",
 		"@types/node": "^20.9.0",
 		"@types/sinon": "^17.0.1",
 		"c8": "^8.0.1",
 		"check-dts": "^0.7.2",
 		"sinon": "^17.0.1",
+		"size-limit": "^11.0.0",
 		"ts-node": "^10.9.1",
 		"tsx": "^4.1.2",
 		"typescript": "next",
@@ -128,5 +133,21 @@
 		"access": "public",
 		"cache": "~/.npm"
 	},
-	"sideEffects": false
+	"sideEffects": false,
+	"size-limit": [
+		{
+			"name": "be",
+			"import": {
+				"./be": "{ be_ }"
+			},
+			"limit": "600 B"
+		},
+		{
+			"name": "rememo",
+			"import": {
+				"./rememo": "{ signal_ }"
+			},
+			"limit": "385 B"
+		}
+	]
 }
