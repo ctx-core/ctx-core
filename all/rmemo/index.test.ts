@@ -37,21 +37,29 @@ test('rsig_|async subsubscriber|case 1', async ()=>{
 	let user0 = { id: 'id-0' }
 	let user1 = { id: 'id-1' }
 	let id$ = rsig_('id-0')
+	let call_count = 0
 	let user$ = rsig_<{ id:string }|null>(
 		null,
 		async (_user$)=>{
+			call_count++
 			id$()
 			let user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
 			_user$(user)
 		})
+	equal(call_count, 0)
 	equal(user$(), null)
+	equal(call_count, 1)
 	resolve!(user0)
 	await sleep(0)
+	equal(call_count, 1)
 	equal(user$(), user0)
+	equal(call_count, 1)
 	id$('id-1')
+	equal(call_count, 2)
 	equal(user$(), user0)
 	resolve!(user1)
 	await sleep(0)
+	equal(call_count, 2)
 })
 test('rsig_|async subsubscriber|case 2', async ()=>{
 	let a$ = rsig_(1)
