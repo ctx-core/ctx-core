@@ -65,15 +65,15 @@ export function be_(
 		is_source_ = be__params.is_source_
 		expired_ = be__params.expired_
 	}
-	let be = (argv__ctx, params = {})=>{
+	let be = (argv__ctx, params)=>{
 		if (!argv__ctx) {
 			throw new Error(`be: no Ctx`)
 		}
 		let saved__val = be__val_(be, argv__ctx)
 		if (
-			!params.force
+			!params?.force
 			&& be__has_(be, argv__ctx)
-			&& (!expired_ || !expired_(argv__ctx))
+			&& !expired_?.(argv__ctx)
 		) {
 			return saved__val
 		}
