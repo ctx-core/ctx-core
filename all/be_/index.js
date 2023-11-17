@@ -1,4 +1,5 @@
 import { globalThis__prop__ensure } from '../globalThis__prop__ensure/index.js'
+export * from './debug.js'
 let be_M_is_source_ = globalThis.be_M_is_source_ ||= new WeakMap()
 /** @typedef {import('./index.d.ts').Be}Be */
 /** @typedef {import('./index.d.ts').Ctx}Ctx */
@@ -66,9 +67,7 @@ export function be_(
 		expired_ = be__params.expired_
 	}
 	let be = (argv__ctx, params)=>{
-		if (!argv__ctx) {
-			throw new Error(`be: no Ctx`)
-		}
+		be_.argv__debug?.(argv__ctx)
 		let saved__val = be__val_(be, argv__ctx)
 		if (
 			!params?.force
@@ -78,24 +77,13 @@ export function be_(
 			return saved__val
 		}
 		let ctx = source__map_ctx_(argv__ctx, is_source_)
-		if (!ctx) {
-			throw new Error(
-				`be: ${String(id)}: no is_source_ returns true`)
-		}
+		be_.source__debug?.(ctx)
 		let pending = ctx.get(Symbol.for('pending'))
 		if (!pending) {
 			pending = new Map
 			ctx.set(Symbol.for('pending'), pending)
 		}
-		if (pending.get(be)) {
-			throw new Error(
-				`be_: ${
-					String(id)
-				}: circular:\n${pending.values().map(pending_value=>
-					typeof pending_value === 'string'
-						? pending_value
-						: 'Function').join('\n')}`)
-		}
+		be_.pending__debug?.(pending)
 		pending.set(be, id || be)
 		let val = val__new ? val__new(argv__ctx, be, params) : null
 		ctx.set(be, val)

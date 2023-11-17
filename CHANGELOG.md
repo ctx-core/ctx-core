@@ -1,5 +1,11 @@
 # ctx-core
 
+## 3.2.2
+
+### Patch Changes
+
+- be\_: + be\_\_debug: extracted error checking: - 67B
+
 ## 3.2.1
 
 ### Patch Changes
