@@ -19,8 +19,8 @@ export function rememo_(_f, ...subscriber_a) {
 	rememo$._f = _f
 	rememo$._r = _r
 	rememo$._rS = new Set
-	rememo$.onset = ()=>0
 	rememo$.go = ()=>(rememo$(), rememo$)
+	rememo$.onset = ()=>0
 	Object.defineProperty(rememo$, '_', {
 		get() {
 			if (!_a.length) {
@@ -62,7 +62,7 @@ export function rememo_(_f, ...subscriber_a) {
 					if (queue.some(_ref=>ref.l > _ref.l)) {
 						queue.push(ref)
 					} else {
-						ref.deref()?.() ?? rememo$._rS.delete(ref)
+						(ref.deref() || rememo$._rS.delete)(ref)
 					}
 				}
 			}
