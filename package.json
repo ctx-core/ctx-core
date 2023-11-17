@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "2.4.0",
+	"version": "3.0.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -53,7 +53,7 @@
 		"queue",
 		"random",
 		"regex",
-		"rememo",
+		"rmemo",
 		"set",
 		"sleep",
 		"string",
@@ -94,7 +94,7 @@
 		"./queue": "./queue/index.js",
 		"./random": "./random/index.js",
 		"./regex": "./regex/index.js",
-		"./rememo": "./rememo/index.js",
+		"./rmemo": "./rmemo/index.js",
 		"./set": "./set/index.js",
 		"./sleep": "./sleep/index.js",
 		"./string": "./string/index.js",
@@ -143,16 +143,16 @@
 			"limit": "600 B"
 		},
 		{
-			"name": "rememo",
+			"name": "rmemo",
 			"import": {
-				"./rememo": "{ rememo_ }"
+				"./rmemo": "{ rmemo_ }"
 			},
 			"limit": "351 B"
 		},
 		{
-			"name": "rememo signal",
+			"name": "rmemo signal",
 			"import": {
-				"./rememo": "{ signal_ }"
+				"./rmemo": "{ rsig_ }"
 			},
 			"limit": "377 B"
 		}

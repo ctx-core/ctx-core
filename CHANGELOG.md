@@ -1,5 +1,23 @@
 # ctx-core
 
+## 3.0.0
+
+### Major Changes
+
+- rememo→rmemo: a rememo npm package already exists:
+
+      rememo_→rmemo_
+      signal_→rsig_
+      rememo_T->rmemo_T
+      rememo_def_T→rmemo_def_T
+      rememo_subscriber_T→rmemo_subscriber_T
+      rememo_o_T→rmemo_o_T
+
+### Patch Changes
+
+- rmemo*,rsig*: size optimization
+- rmemo\_: always pass rmemo$ function passed into def function
+
 ## 2.4.0
 
 ### Minor Changes
