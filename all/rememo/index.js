@@ -49,7 +49,7 @@ export function rememo_(_f, ...subscriber_a) {
 		}
 	})
 	rememo$.refresh = val=>{
-		let { length } = _a
+		let length = _a.length
 		_a[0] = val
 		rememo$.onset(val)
 		if (length) {
