@@ -1,5 +1,11 @@
 # ctx-core
 
+## 3.3.1
+
+### Patch Changes
+
+- rmemo size-limit: ctx\_ instead of ctx\_\_new
+
 ## 3.3.0
 
 ### Minor Changes
