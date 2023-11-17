@@ -1,5 +1,26 @@
 # ctx-core
 
+## 3.3.0
+
+### Minor Changes
+
+- rmemo: export all/be\_ & all/ctx:
+
+      + be_
+      + globalThis__be_
+      + be__is_source__
+      + be__set
+      + ctx__set
+      + be__delete
+      + ctx__delete
+      + be__has_
+      + be__has__ctx_
+      + be__val_
+      + source__map_ctx_
+      + be__debug
+      + ctx__new
+      + is_ctx_
+
 ## 3.2.2
 
 ### Patch Changes

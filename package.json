@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "3.2.2",
+	"version": "3.3.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -136,25 +136,32 @@
 	"sideEffects": false,
 	"size-limit": [
 		{
-			"name": "be",
+			"name": "be_",
 			"import": {
 				"./be": "{ be_ }"
 			},
 			"limit": "398 B"
 		},
 		{
-			"name": "rmemo",
+			"name": "rmemo_",
 			"import": {
 				"./rmemo": "{ rmemo_ }"
 			},
 			"limit": "358 B"
 		},
 		{
-			"name": "rmemo signal",
+			"name": "rmemo_ signal_",
 			"import": {
-				"./rmemo": "{ rsig_ }"
+				"./rmemo": "{ rsig_, rmemo_ }"
 			},
-			"limit": "385 B"
+			"limit": "387 B"
+		},
+		{
+			"name": "rmemo_ signal_ be_ ctx__new",
+			"import": {
+				"./rmemo": "{ rsig_, rmemo_, be_, ctx__new }"
+			},
+			"limit": "771 B"
 		}
 	]
 }
