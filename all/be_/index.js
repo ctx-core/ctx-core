@@ -57,8 +57,8 @@ export function be_(
 	/** @type {expired__T} */
 	let expired_
 	if (proto_(id_OR_val__new) === string_proto) {
+		val__new = val__new_OR_be__params
 		id = id_OR_val__new
-		val__new = val__new_OR_be__params || (()=>null)
 	} else {
 		val__new = id_OR_val__new
 		be__params = val__new_OR_be__params
@@ -73,8 +73,8 @@ export function be_(
 		}
 		let saved__val = be__val_(be, argv__ctx)
 		if (
-			be__has_(be, argv__ctx)
-			&& !params.force
+			!params.force
+			&& be__has_(be, argv__ctx)
 			&& (!expired_ || !expired_(argv__ctx))
 		) {
 			return saved__val
@@ -99,7 +99,7 @@ export function be_(
 						: 'Function').join('\n')}`)
 		}
 		pending.set(be, id || be)
-		let val = val__new(argv__ctx, be, params)
+		let val = val__new ? val__new(argv__ctx, be, params) : null
 		ctx.set(be, val)
 		if (id) {
 			ctx.set(id, val)
