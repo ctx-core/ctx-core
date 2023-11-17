@@ -59,7 +59,11 @@ export function rememo_(_f, ...subscriber_a) {
 			}
 			if (run_queue) {
 				for (let ref; ref = queue.shift();) {
-					queue.some(_ref=>ref.l > _ref.l) ? queue.push(ref) : ref.deref()?.() ?? rememo$._rS.delete(ref)
+					if (queue.some(_ref=>ref.l > _ref.l)) {
+						queue.push(ref)
+					} else {
+						ref.deref()?.() ?? rememo$._rS.delete(ref)
+					}
 				}
 			}
 		}
