@@ -12,11 +12,10 @@ let cur_ref
  */
 export function rememo_(_f, ...subscriber_a) {
 	let _a = []
-	let _rS = new Set
 	let rememo$ = (...arg_a)=>arg_a.length ? rememo$._ = arg_a[0] : rememo$._
 	rememo$._a = _a
 	rememo$._f = _f
-	rememo$._rS = _rS
+	rememo$._rS = new Set
 	rememo$._r = new WeakRef(()=>rememo$.refresh(_f(rememo$)))
 	rememo$.onset = ()=>0
 	rememo$._r.l = 0
@@ -35,7 +34,7 @@ export function rememo_(_f, ...subscriber_a) {
 			// allow self-referencing
 			if (cur_ref && cur_ref !== rememo$._r) {
 				cur_ref.l = Math.max(rememo$._r.l + 1, cur_ref.l)
-				_rS.add(cur_ref)
+				rememo$._rS.add(cur_ref)
 			}
 			return _a[0]
 		},
@@ -52,12 +51,12 @@ export function rememo_(_f, ...subscriber_a) {
 		rememo$.onset(val)
 		if (length) {
 			let run_queue = !queue[0]
-			for (let ref of _rS) {
+			for (let ref of rememo$._rS) {
 				if (!~queue.indexOf(ref)) queue.push(ref)
 			}
 			if (run_queue) {
 				for (let ref; ref = queue.shift();) {
-					queue.some(_ref=>ref.l > _ref.l) ? queue.push(ref) : ref.deref()?.() ?? _rS.delete(ref)
+					queue.some(_ref=>ref.l > _ref.l) ? queue.push(ref) : ref.deref()?.() ?? rememo$._rS.delete(ref)
 				}
 			}
 		}
