@@ -1,7 +1,6 @@
 import { globalThis__prop__ensure } from '../globalThis__prop__ensure/index.js'
 let proto_ = Object.getPrototypeOf
 let string_proto = proto_('')
-let pending_sym = Symbol.for('pending')
 let be_M_is_source_ = globalThis.be_M_is_source_ ||= new WeakMap()
 /** @typedef {import('./index.d.ts').Be}Be */
 /** @typedef {import('./index.d.ts').Ctx}Ctx */
@@ -83,23 +82,21 @@ export function be_(
 		let ctx = source__map_ctx_(argv__ctx, is_source_)
 		if (!ctx) {
 			throw new Error(
-				`be: ${
-					String(id)
-				}: is_source_ must be true for at least one Ctx`)
+				`be: ${String(id)}: is_source_ must be true for at least one Ctx`)
 		}
-		let pending = ctx.get(pending_sym)
+		let pending = ctx.get(Symbol.for('pending'))
 		if (!pending) {
 			pending = new Map
-			ctx.set(pending_sym, pending)
+			ctx.set(Symbol.for('pending'), pending)
 		}
 		if (pending.get(be)) {
 			throw new Error(
 				`be_: ${
 					String(id)
 				}: circular:\n${pending.values().map(pending_value=>
-					typeof pending_value === 'function'
-						? 'Function'
-						: pending_value).join('\n')}`)
+					proto_(pending_value) === string_proto
+						? pending_value
+						: 'Function').join('\n')}`)
 		}
 		pending.set(be, id || be)
 		let val = val__new(argv__ctx, be, params)
@@ -151,7 +148,6 @@ export function ctx__set(
 	val,
 	is_source_
 ) {
-	if (!is_source_) is_source_ = ()=>true
 	let source__map_ctx = source__map_ctx_(ctx, is_source_)
 	if (source__map_ctx) {
 		source__map_ctx.set(be_OR_id, val)
@@ -206,7 +202,7 @@ export function ctx__delete(
  * @private
  */
 export function be__has_(be_or_id, argv__ctx) {
-	return !!be__has__ctx_(be_or_id, argv__ctx)
+	return Boolean(be__has__ctx_(be_or_id, argv__ctx))
 }
 /**
  * @param {Be|string}be_or_id

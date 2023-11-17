@@ -140,7 +140,7 @@
 			"import": {
 				"./be": "{ be_ }"
 			},
-			"limit": "513 B"
+			"limit": "504 B"
 		},
 		{
 			"name": "rmemo",
