@@ -13,7 +13,7 @@ let cur_ref
 export function rememo_(_f, ...subscriber_a) {
 	let rememo$ = (...arg_a)=>arg_a.length ? rememo$._ = arg_a[0] : rememo$._
 	let _a = []
-	let _r = new WeakRef(()=>rememo$.refresh(_f()))
+	let _r = new WeakRef(()=>rememo$.refresh(_f(rememo$)))
 	_r.l = 0
 	rememo$._a = _a
 	rememo$._f = _f

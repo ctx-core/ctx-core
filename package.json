@@ -147,14 +147,14 @@
 			"import": {
 				"./rememo": "{ rememo_ }"
 			},
-			"limit": "354 B"
+			"limit": "351 B"
 		},
 		{
 			"name": "rememo signal",
 			"import": {
 				"./rememo": "{ signal_ }"
 			},
-			"limit": "378 B"
+			"limit": "377 B"
 		}
 	]
 }

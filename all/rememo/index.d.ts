@@ -7,7 +7,7 @@ export declare function signal_<val_T>(
 	...subscriber_a:rememo_subscriber_T<val_T>[]
 ):rememo_T<val_T>
 export type rememo_T<val_T> = ((val?:val_T)=>val_T)&rememo_o_T<val_T>
-export type rememo_def_T<val_T> = ()=>val_T
+export type rememo_def_T<val_T> = (rememo:rememo_T<val_T>)=>val_T
 export type rememo_subscriber_T<val_T> = (rememo:rememo_T<val_T>)=>unknown
 export type rememo_o_T<val_T> = {
 	_:val_T

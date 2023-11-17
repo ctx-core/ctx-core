@@ -3,7 +3,7 @@ import { clock } from 'sinon'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { rememo_, signal_ } from './index.js'
+import { rememo_, rememo_T, signal_ } from './index.js'
 test('rememo_|static value', ()=>{
 	let count = 0
 	let rememo$ = rememo_(rememo=>{
@@ -21,6 +21,17 @@ test('signal_', ()=>{
 	equal(signal$(), 'val0')
 	signal$('val1')
 	equal(signal$(), 'val1')
+})
+test('rememo_|def function|rememo$ argument', ()=>{
+	let signal$ = signal_('val0')
+	let rememo$:rememo_T<string>&{custom?:string} = rememo_<string>((_rememo$:rememo_T<string>&{custom?:string})=>
+		`${_rememo$.custom}-${signal$()}`)
+	rememo$.custom = 'custom_val0'
+	equal(rememo$(), 'custom_val0-val0')
+	rememo$.custom = 'custom_val1'
+	equal(rememo$(), 'custom_val0-val0')
+	signal$('val1')
+	equal(rememo$(), 'custom_val1-val1')
 })
 test('signal_|async subsubscriber|case 1', async ()=>{
 	let resolve:(user:{ id:string })=>void
