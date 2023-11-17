@@ -22,7 +22,7 @@ test('signal_', ()=>{
 	signal$('val1')
 	equal(signal$(), 'val1')
 })
-test('rememo_|async subsubscriber', async ()=>{
+test('signal_|async subsubscriber|case 1', async ()=>{
 	let resolve:(user:{ id:string })=>void
 	let user0 = { id: 'id-0' }
 	let user1 = { id: 'id-1' }
@@ -42,6 +42,39 @@ test('rememo_|async subsubscriber', async ()=>{
 	equal(user$(), user0)
 	resolve!(user1)
 	await sleep(0)
+})
+test('signal_|async subsubscriber|case 2', async ()=>{
+	let a$ = signal_(1)
+	let b$ = signal_(2)
+	let sleepCycles = 5
+	let taskArgumentsCalls:number[][] = []
+	let sum$ = signal_<null|number>(null,
+		async sum$=>{
+			taskArgumentsCalls.push([a$(), b$()])
+			for (let i = 0; i < sleepCycles; i++) {
+				await Promise.resolve()
+			}
+			sum$(a$() + b$())
+		})
+	equal(sum$(), null)
+	deepStrictEqual(taskArgumentsCalls, [[1, 2]])
+	a$(10)
+	b$(20)
+	for (let i = 0; i < sleepCycles; i++) {
+		equal(sum$(), null)
+		await Promise.resolve()
+		deepStrictEqual(taskArgumentsCalls, [
+			[1, 2],
+			[10, 2],
+			[10, 20]
+		])
+	}
+	equal(sum$(), 30)
+	deepStrictEqual(taskArgumentsCalls, [
+		[1, 2],
+		[10, 2],
+		[10, 20]
+	])
 })
 test('rememo_+signal_|simple graph', ()=>{
 	let base$ = signal_('base0')
@@ -203,39 +236,5 @@ test('computes initial value when argument is undefined', ()=>{
 	let two$ = rememo_(()=>!!one$())
 	equal(one$(), undefined)
 	equal(two$(), false)
-})
-test('async computed using task', async ()=>{
-	let a$ = signal_(1)
-	let b$ = signal_(2)
-	let sleepCycles = 5
-	let taskArgumentsCalls:number[][] = []
-	let sum$ = signal_<null|number>(null,
-		async sum$=>{
-			taskArgumentsCalls.push([a$(), b$()])
-			for (let i = 0; i < sleepCycles; i++) {
-				await Promise.resolve()
-			}
-			sum$(a$() + b$())
-		})
-	equal(sum$(), null)
-	deepStrictEqual(taskArgumentsCalls, [[1, 2]])
-	// sleepCycles = 0
-	a$(10)
-	b$(20)
-	for (let i = 0; i < sleepCycles; i++) {
-		equal(sum$(), null)
-		await Promise.resolve()
-		deepStrictEqual(taskArgumentsCalls, [
-			[1, 2],
-			[10, 2],
-			[10, 20]
-		])
-	}
-	equal(sum$(), 30)
-	deepStrictEqual(taskArgumentsCalls, [
-		[1, 2],
-		[10, 2],
-		[10, 20]
-	])
 })
 test.run()
