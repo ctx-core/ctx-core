@@ -11,20 +11,21 @@ let cur_ref
  * @private
  */
 export function rememo_(_f, ...subscriber_a) {
-	let _a = []
 	let rememo$ = (...arg_a)=>arg_a.length ? rememo$._ = arg_a[0] : rememo$._
+	let _a = []
+	let _r = new WeakRef(()=>rememo$.refresh(_f()))
+	_r.l = 0
 	rememo$._a = _a
 	rememo$._f = _f
+	rememo$._r = _r
 	rememo$._rS = new Set
-	rememo$._r = new WeakRef(()=>rememo$.refresh(_f(rememo$)))
 	rememo$.onset = ()=>0
-	rememo$._r.l = 0
 	rememo$.init = ()=>(rememo$(), rememo$)
 	Object.defineProperty(rememo$, '_', {
 		get() {
 			if (!_a.length) {
 				let prev_ref = cur_ref
-				cur_ref = rememo$._r
+				cur_ref = _r
 				try {
 					_a[0] = _f(rememo$)
 				} finally {
@@ -32,8 +33,10 @@ export function rememo_(_f, ...subscriber_a) {
 				}
 			}
 			// allow self-referencing
-			if (cur_ref && cur_ref !== rememo$._r) {
-				cur_ref.l = Math.max(rememo$._r.l + 1, cur_ref.l)
+			if (cur_ref && cur_ref !== _r) {
+				// Math.max: bitwise is much faster on chrome
+				// https://measurethat.net/Benchmarks/Show/28483/0/mathmax-vs-bitwise
+				cur_ref.l = cur_ref.l ^ ((cur_ref.l ^ _r.l + 1) & -(cur_ref.l < _r.l + 1))
 				rememo$._rS.add(cur_ref)
 			}
 			return _a[0]

@@ -1,15 +1,13 @@
 export declare function rememo_<val_T>(
-	def:(rememo:rememo__T<val_T>)=>val_T,
+	def:rememo_def_T<val_T>,
 	...subscriber_a:rememo_subscriber_T<val_T>[]
 ):rememo_T<val_T>
 export declare function signal_<val_T>(
 	init_val:val_T,
 	...subscriber_a:rememo_subscriber_T<val_T>[]
 ):rememo_T<val_T>
-export type rememo__T<val_T> =
-	(def:rememo_def_T<val_T>, ...subscriber_a:rememo_subscriber_T<val_T>[])=>val_T
 export type rememo_T<val_T> = ((val?:val_T)=>val_T)&rememo_o_T<val_T>
-export type rememo_def_T<val_T> = (rememo:rememo__T<val>)=>val_T
+export type rememo_def_T<val_T> = ()=>val_T
 export type rememo_subscriber_T<val_T> = (rememo:rememo_T<val_T>)=>unknown
 export type rememo_o_T<val_T> = {
 	_:val_T
