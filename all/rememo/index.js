@@ -20,7 +20,7 @@ export function rememo_(_f, ...subscriber_a) {
 	rememo$._r = _r
 	rememo$._rS = new Set
 	rememo$.onset = ()=>0
-	rememo$.init = ()=>(rememo$(), rememo$)
+	rememo$.go = ()=>(rememo$(), rememo$)
 	Object.defineProperty(rememo$, '_', {
 		get() {
 			if (!_a.length) {
@@ -70,7 +70,7 @@ export function rememo_(_f, ...subscriber_a) {
 		return rememo$
 	}
 	rememo$._sa = subscriber_a.map(subscriber=>
-		rememo_(()=>subscriber(rememo$)).init())
+		rememo_(()=>subscriber(rememo$)).go())
 	return rememo$
 }
 /**

@@ -12,7 +12,7 @@ export type rememo_subscriber_T<val_T> = (rememo:rememo_T<val_T>)=>unknown
 export type rememo_o_T<val_T> = {
 	_:val_T
 	readonly val:val_T
-	init():unknown
+	go():unknown
 	onset(val:val_T):unknown
 	refresh():val_T
 }
