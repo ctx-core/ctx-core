@@ -1,12 +1,8 @@
 import { globalThis__prop__ensure } from '../globalThis__prop__ensure/index.js'
-import { isArray } from '../isArray/index.js'
 let proto_ = Object.getPrototypeOf
 let string_proto = proto_('')
-let _null = null
 let pending_sym = Symbol.for('pending')
-let be_M_is_source_ = globalThis__prop__ensure(
-	Symbol.for('be_M_is_source_'),
-	()=>new WeakMap())
+let be_M_is_source_ = globalThis.be_M_is_source_ ||= new WeakMap()
 /** @typedef {import('./index.d.ts').Be}Be */
 /** @typedef {import('./index.d.ts').Ctx}Ctx */
 /** @typedef {import('./index.d.ts').MapCtx}MapCtx */
@@ -54,27 +50,24 @@ export function be_(
 	be__params = {}
 ) {
 	/** @type {string} */
-	let id =
-		proto_(id_OR_val__new) === string_proto
-			? id_OR_val__new
-			: _null
+	let id
 	/** @type {be__val__T} */
-	let val__new =
-		proto_(id_OR_val__new) === string_proto
-			? val__new_OR_be__params || (()=>null)
-			: id_OR_val__new
-	be__params =
-		proto_(id_OR_val__new) === string_proto
-			? be__params
-			: val__new_OR_be__params
-	let is_source_ =
-		be__params
-			? be__params.is_source_
-			: _null
-	let expired_ =
-		be__params
-			? be__params.expired_
-			: ()=>0
+	let val__new
+	/** @type {is_source__T} */
+	let is_source_
+	/** @type {expired__T} */
+	let expired_
+	if (proto_(id_OR_val__new) === string_proto) {
+		id = id_OR_val__new
+		val__new = val__new_OR_be__params || (()=>null)
+	} else {
+		val__new = id_OR_val__new
+		be__params = val__new_OR_be__params
+	}
+	if (be__params) {
+		is_source_ = be__params.is_source_
+		expired_ = be__params.expired_
+	}
 	let be = (argv__ctx, params = {})=>{
 		if (!argv__ctx) {
 			throw new Error(`be must have a Ctx passed as an argument`)
@@ -96,18 +89,14 @@ export function be_(
 		}
 		let pending = ctx.get(pending_sym)
 		if (!pending) {
-			pending = new Map()
+			pending = new Map
 			ctx.set(pending_sym, pending)
 		}
 		if (pending.get(be)) {
-			let pending_value_a = []
-			for (let value of pending.values()) {
-				pending_value_a.push(value)
-			}
 			throw new Error(
 				`be_: ${
 					String(id)
-				}: circular dependency:\n${pending_value_a.map(pending_value=>
+				}: circular:\n${pending.values().map(pending_value=>
 					typeof pending_value === 'function'
 						? 'Function'
 						: pending_value).join('\n')}`)
@@ -192,10 +181,10 @@ export function ctx__delete(
 	const is_source_ =
 		be__is_source__(be_OR_id)
 		|| (()=>true)
-	if (isArray(ctx)) {
-		for (let i = 0; i < ctx.length; i++) {
-			if (is_source_(ctx[i], ctx)) {
-				ctx__delete(ctx[i], be_OR_id)
+	if (Array.isArray(ctx)) {
+		for (let _ctx of ctx) {
+			if (is_source_(_ctx, ctx)) {
+				ctx__delete(_ctx, be_OR_id)
 			}
 		}
 	} else {
@@ -226,7 +215,7 @@ export function be__has_(be_or_id, argv__ctx) {
  * @private
  */
 export function be__has__ctx_(be_or_id, argv__ctx) {
-	if (isArray(argv__ctx)) {
+	if (Array.isArray(argv__ctx)) {
 		for (let i = 0; i < argv__ctx.length; i++) {
 			const be__has__ctx = be__has__ctx_(be_or_id, argv__ctx[i])
 			if (be__has__ctx) return be__has__ctx
@@ -243,7 +232,7 @@ export function be__has__ctx_(be_or_id, argv__ctx) {
  * @private
  */
 export function be__val_(be_or_id, argv__ctx) {
-	if (isArray(argv__ctx)) {
+	if (Array.isArray(argv__ctx)) {
 		for (let i = 0; i < argv__ctx.length; i++) {
 			let ctx = argv__ctx[i]
 			const be__has__ctx = be__has__ctx_(be_or_id, ctx)
@@ -260,7 +249,7 @@ export function be__val_(be_or_id, argv__ctx) {
  * @private
  */
 export function source__map_ctx_(ctx, is_source_) {
-	if (isArray(ctx)) {
+	if (Array.isArray(ctx)) {
 		for (let i = 0; i < ctx.length; i++) {
 			let i_ctx = ctx[i]
 			let source__map_ctx = source__map_ctx_(i_ctx, is_source_)
