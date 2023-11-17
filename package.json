@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -113,12 +113,12 @@
 		"test:size": "size-limit",
 		"test:type": "check-dts",
 		"test:unit": "tsx node_modules/uvu/bin.js . '\\.test\\.(ts|js)$'",
-		"test:coverage": "c8 pnpm test-unit"
+		"disable:test:coverage": "c8 pnpm test-unit"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.13.1",
 		"@size-limit/preset-small-lib": "^11.0.0",
-		"@types/node": "^20.9.0",
+		"@types/node": "^20.9.1",
 		"@types/sinon": "^17.0.1",
 		"c8": "^8.0.1",
 		"check-dts": "^0.7.2",
@@ -144,6 +144,13 @@
 		},
 		{
 			"name": "rememo",
+			"import": {
+				"./rememo": "{ rememo_ }"
+			},
+			"limit": "358 B"
+		},
+		{
+			"name": "rememo signal",
 			"import": {
 				"./rememo": "{ signal_ }"
 			},

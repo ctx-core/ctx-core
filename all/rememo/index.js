@@ -34,7 +34,7 @@ export function rememo_(_f, ...subscriber_a) {
 				}
 			}
 			if (cur_ref && cur_ref !== rememo$._r) {
-				cur_ref.l = Math.max(rememo$._r.l+1, cur_ref.l)
+				cur_ref.l = Math.max(rememo$._r.l + 1, cur_ref.l)
 				_rS.add(cur_ref)
 			}
 			return _a[0]
@@ -63,8 +63,8 @@ export function rememo_(_f, ...subscriber_a) {
 		}
 		return rememo$
 	}
-  rememo$._sa = subscriber_a.map(subscriber=>
-    rememo_(()=>subscriber(rememo$)).init())
+	rememo$._sa = subscriber_a.map(subscriber=>
+		rememo_(()=>subscriber(rememo$)).init())
 	return rememo$
 }
 /**

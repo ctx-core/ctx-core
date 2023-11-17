@@ -1,5 +1,21 @@
 # ctx-core
 
+## 2.4.0
+
+### Minor Changes
+
+- - rememo\_
+- - prototype\_\_set
+- - signal\_
+- - defineProperty
+- - getPrototypeOf: aliased by prototype\_
+- - defineProperties
+- - setPrototypeOf: aliased by prototype\_\_set
+
+### Patch Changes
+
+- noop: js: empty arguments
+
 ## 2.3.0
 
 ### Minor Changes
