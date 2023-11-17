@@ -172,23 +172,18 @@ export function ctx__delete(
 	ctx,
 	be_OR_id,
 ) {
-	const is_source_ = be__is_source__(be_OR_id)
 	if (Array.isArray(ctx)) {
 		for (let _ctx of ctx) {
-			if (!is_source_ || is_source_(_ctx, ctx)) {
-				ctx__delete(_ctx, be_OR_id)
-			}
+			ctx__delete(_ctx, be_OR_id)
 		}
 	} else {
 		/** @type {MapCtx} */
 		let map_ctx = /** @type {any} */ctx
-		if (!is_source_ || is_source_(map_ctx, ctx)) {
-			let { id } = be_OR_id
-			if (id) {
-				map_ctx.delete(id)
-			}
-			map_ctx.delete(be_OR_id)
+		let { id } = be_OR_id
+		if (id) {
+			map_ctx.delete(id)
 		}
+		map_ctx.delete(be_OR_id)
 	}
 }
 /**
