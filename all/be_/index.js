@@ -1,6 +1,4 @@
 import { globalThis__prop__ensure } from '../globalThis__prop__ensure/index.js'
-let proto_ = Object.getPrototypeOf
-let string_proto = proto_('')
 let be_M_is_source_ = globalThis.be_M_is_source_ ||= new WeakMap()
 /** @typedef {import('./index.d.ts').Be}Be */
 /** @typedef {import('./index.d.ts').Ctx}Ctx */
@@ -46,7 +44,7 @@ export function globalThis__be_(
 export function be_(
 	id_OR_val__new,
 	val__new_OR_be__params,
-	be__params = {}
+	be__params
 ) {
 	/** @type {string} */
 	let id
@@ -56,7 +54,7 @@ export function be_(
 	let is_source_
 	/** @type {expired__T} */
 	let expired_
-	if (proto_(id_OR_val__new) === string_proto) {
+	if (typeof id_OR_val__new === 'string') {
 		val__new = val__new_OR_be__params
 		id = id_OR_val__new
 	} else {
@@ -94,7 +92,7 @@ export function be_(
 				`be_: ${
 					String(id)
 				}: circular:\n${pending.values().map(pending_value=>
-					proto_(pending_value) === string_proto
+					typeof pending_value === 'string'
 						? pending_value
 						: 'Function').join('\n')}`)
 		}
