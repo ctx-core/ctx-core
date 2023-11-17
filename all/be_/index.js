@@ -69,7 +69,7 @@ export function be_(
 	}
 	let be = (argv__ctx, params = {})=>{
 		if (!argv__ctx) {
-			throw new Error(`be must have a Ctx passed as an argument`)
+			throw new Error(`be must have a Ctx argument`)
 		}
 		let saved__val = be__val_(be, argv__ctx)
 		if (
@@ -82,7 +82,7 @@ export function be_(
 		let ctx = source__map_ctx_(argv__ctx, is_source_)
 		if (!ctx) {
 			throw new Error(
-				`be: ${String(id)}: is_source_ must be true for at least one Ctx`)
+				`be: ${String(id)}: is_source_ must be true for a Ctx`)
 		}
 		let pending = ctx.get(Symbol.for('pending'))
 		if (!pending) {
