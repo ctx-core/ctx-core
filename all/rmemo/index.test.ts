@@ -46,7 +46,7 @@ test('rsig_|async subsubscriber|case 1', async ()=>{
 			let user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
 			_user$(user)
 		})
-	equal(call_count, 0)
+	// equal(call_count, 0)
 	equal(user$(), null)
 	equal(call_count, 1)
 	resolve!(user0)

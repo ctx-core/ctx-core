@@ -1,5 +1,18 @@
 # ctx-core
 
+## 3.2.0
+
+### Minor Changes
+
+- rmemo\_: returns read_rmemo_T<val_T>
+- rsig\_: returns readwrite_rmemo_T<val_T>
+- - readwrite_rmemo_T<val_T>,read_rmemo_T<val_T>
+- - read_rmemo_o_T
+
+### Patch Changes
+
+- rmemo_o_T: - val
+
 ## 3.1.0
 
 ### Minor Changes
