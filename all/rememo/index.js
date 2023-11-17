@@ -23,7 +23,6 @@ export function rememo_(_f, ...subscriber_a) {
 	rememo$.init = ()=>(rememo$(), rememo$)
 	Object.defineProperty(rememo$, '_', {
 		get() {
-			// allow self-referencing
 			if (!_a.length) {
 				let prev_ref = cur_ref
 				cur_ref = rememo$._r
@@ -33,6 +32,7 @@ export function rememo_(_f, ...subscriber_a) {
 					cur_ref = prev_ref
 				}
 			}
+			// allow self-referencing
 			if (cur_ref && cur_ref !== rememo$._r) {
 				cur_ref.l = Math.max(rememo$._r.l + 1, cur_ref.l)
 				_rS.add(cur_ref)
