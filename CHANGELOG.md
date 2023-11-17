@@ -1,5 +1,15 @@
 # ctx-core
 
+## 3.1.0
+
+### Minor Changes
+
+- be\_: shorten error messages
+
+  ctx\__delete: - is_source_ check
+
+  size-limit: - 135B
+
 ## 3.0.0
 
 ### Major Changes
