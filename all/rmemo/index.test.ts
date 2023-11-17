@@ -37,29 +37,29 @@ test('rsig_|async subsubscriber|case 1', async ()=>{
 	let user0 = { id: 'id-0' }
 	let user1 = { id: 'id-1' }
 	let id$ = rsig_('id-0')
-	let call_count = 0
+	let count = 0
 	let user$ = rsig_<{ id:string }|null>(
 		null,
 		async (_user$)=>{
-			call_count++
+			count++
 			id$()
 			let user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
 			_user$(user)
 		})
-	// equal(call_count, 0)
+	equal(count, 0)
 	equal(user$(), null)
-	equal(call_count, 1)
+	equal(count, 1)
 	resolve!(user0)
 	await sleep(0)
-	equal(call_count, 1)
+	equal(count, 1)
 	equal(user$(), user0)
-	equal(call_count, 1)
+	equal(count, 1)
 	id$('id-1')
-	equal(call_count, 2)
+	equal(count, 2)
 	equal(user$(), user0)
 	resolve!(user1)
 	await sleep(0)
-	equal(call_count, 2)
+	equal(count, 2)
 })
 test('rsig_|async subsubscriber|case 2', async ()=>{
 	let a$ = rsig_(1)
@@ -122,9 +122,10 @@ test('prevents diamond dependency problem 1', ()=>{
 	let b$ = rmemo_(()=>a$().replace('a', 'b'))
 	let c$ = rmemo_(()=>a$().replace('a', 'c'))
 	let d$ = rmemo_(()=>a$().replace('a', 'd'))
-	let combined$ = rmemo_(()=>`${b$()}${c$()}${d$()}`,
+	rmemo_(()=>`${b$()}${c$()}${d$()}`,
 		combined$=>
-			values.push(combined$()))
+			values.push(combined$())
+	).go()
 	deepStrictEqual(values, ['b0c0d0'])
 	store$(1)
 	store$(2)
@@ -138,9 +139,10 @@ test('prevents diamond dependency problem 2', ()=>{
 	let c$ = rmemo_(()=>b$().replace('b', 'c'))
 	let d$ = rmemo_(()=>c$().replace('c', 'd'))
 	let e$ = rmemo_(()=>d$().replace('d', 'e'))
-	let combined$ = rmemo_<string>(
+	rmemo_<string>(
 		()=>[a$(), e$()].join(''),
-		combined$=>values.push(combined$()))
+		combined$=>values.push(combined$())
+	).go()
 	deepStrictEqual(values, ['a0e0'])
 	store$(1)
 	deepStrictEqual(values, ['a0e0', 'a1e1'])
@@ -154,7 +156,8 @@ test('prevents diamond dependency problem 3', ()=>{
 	let d$ = rmemo_(()=>c$().replace('c', 'd'))
 	rmemo_<string>(
 		()=>`${a$()}${b$()}${c$()}${d$()}`,
-		combined$=>values.push(combined$()))
+		combined$=>values.push(combined$())
+	).go()
 	deepStrictEqual(values, ['a0b0c0d0'])
 	store$(1)
 	deepStrictEqual(values, ['a0b0c0d0', 'a1b1c1d1'])
@@ -176,10 +179,12 @@ test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
 	let g$ = rmemo_(()=>`g${f$()}`)
 	rmemo_(
 		()=>e$(),
-		combined1$=>values.push(combined1$()))
+		combined1$=>values.push(combined1$())
+	).go()
 	rmemo_(
 		()=>[e$(), g$()].join(''),
-		combined2$=>values.push(combined2$()))
+		combined2$=>values.push(combined2$())
+	).go()
 	deepStrictEqual(values, ['eca0b0da0', 'eca0b0da0gfeca0b0da0'])
 	store1$(1)
 	store2$(2)
@@ -229,7 +234,8 @@ test('prevents diamond dependency problem 6', ()=>{
 	let c$ = rmemo_(()=>b$().replace('b', 'c'))
 	rmemo_(
 		()=>`${a$()}${c$()}`,
-		combined$=>values.push(combined$()))
+		combined$=>values.push(combined$())
+	).go()
 	deepStrictEqual(values, ['a0c0'])
 	store1$(1)
 	deepStrictEqual(values, ['a0c0', 'a1c0'])

@@ -21,13 +21,15 @@ export function rmemo_(_f, ...subscriber_a) {
 	rmemo$._rS = new Set
 	rmemo$.go = ()=>(rmemo$(), rmemo$)
 	rmemo$.onset = ()=>0
+	let c = 0
 	Object.defineProperty(rmemo$, '_', {
 		get() {
 			if (!_a.length) {
 				let prev_ref = cur_ref
 				cur_ref = _r
 				try {
-					_a[0] = _f(rmemo$)
+					// _a[0] = _f(rmemo$)
+					rmemo$._ = _f(rmemo$)
 				} finally {
 					cur_ref = prev_ref
 				}
@@ -49,13 +51,16 @@ export function rmemo_(_f, ...subscriber_a) {
 		}
 	})
 	rmemo$.refresh = val=>{
-		let length = _a.length
-		_a[0] = val
-		rmemo$.onset(val)
-		if (length) {
+		if (val !== _a[0]) {
+			_a[0] = val
+			rmemo$.onset(val)
 			let run_queue = !queue[0]
 			for (let ref of rmemo$._rS) {
 				if (!~queue.indexOf(ref)) queue.push(ref)
+			}
+			if (!rmemo$._sa) {
+				rmemo$._sa = subscriber_a.map(subscriber=>
+					rmemo_(()=>subscriber(rmemo$)).go())
 			}
 			if (run_queue) {
 				for (let ref; ref = queue.shift();) {
@@ -69,8 +74,6 @@ export function rmemo_(_f, ...subscriber_a) {
 		}
 		return rmemo$
 	}
-	rmemo$._sa = subscriber_a.map(subscriber=>
-		rmemo_(()=>subscriber(rmemo$)).go())
 	return rmemo$
 }
 /**
