@@ -69,7 +69,6 @@ export function rmemo_(_f, ...subscriber_a) {
 				}
 			}
 		}
-		return rmemo$
 	}
 	return rmemo$
 }
