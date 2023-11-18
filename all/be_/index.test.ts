@@ -17,9 +17,9 @@ test('be_|Map', ()=>{
 	const ctx = ctx__new()
 	let incrementer_num = 0
 	const incrementer = ()=>++incrementer_num
-	const root_ = be_('root_', ()=>incrementer())
-	const child_ = be_('child_', ctx=>root_(ctx) + incrementer())
-	const child1_ = be_('child1_', ctx=>root_(ctx) + child_(ctx))
+	const root_ = be_(()=>incrementer()).id__set('root_')
+	const child_ = be_(ctx=>root_(ctx) + incrementer()).id__set('child_')
+	const child1_ = be_(ctx=>root_(ctx) + child_(ctx)).id__set('child1_')
 	equal(root_(ctx), 1)
 	equal(ctx.get('root_'), 1)
 	equal(child_(ctx), 3)
@@ -31,12 +31,12 @@ test('be_|simple array', ()=>{
 	const ctx0 = ctx__new()
 	const ctx1 = ctx__new()
 	const ctx = [ctx0, ctx1]
-	const root_ = be_('root_', ()=>1)
+	const root_ = be_(()=>1).id__set('root_')
 	equal(root_(ctx1), 1)
 	equal(root_(ctx), 1)
 	equal(ctx0.has(root_), false)
 	equal(ctx1.has(root_), true)
-	const child_ = be_('child_', ctx=>root_(ctx) + 1)
+	const child_ = be_(ctx=>root_(ctx) + 1).id__set('child_')
 	equal(child_(ctx), 2)
 	equal(ctx0.has(child_), true)
 	equal(ctx1.has(child_), false)
@@ -47,14 +47,14 @@ test('be_|nested array', ()=>{
 	const ctx2 = ctx__new()
 	const ctx3 = ctx__new()
 	const ctx = [[[ctx0], ctx1], [ctx2, ctx3]]
-	const root_ = be_('root_', ()=>1)
+	const root_ = be_(()=>1).id__set('root_')
 	equal(root_(ctx3), 1)
 	equal(root_(ctx), 1)
 	equal(ctx0.has(root_), false)
 	equal(ctx1.has(root_), false)
 	equal(ctx2.has(root_), false)
 	equal(ctx3.has(root_), true)
-	const child_ = be_('child_', ctx=>root_(ctx) + 1)
+	const child_ = be_(ctx=>root_(ctx) + 1).id__set('child_')
 	equal(child_(ctx), 2)
 	equal(ctx0.has(child_), true)
 	equal(ctx1.has(child_), false)
@@ -67,14 +67,12 @@ test('be_|is_source_', ()=>{
 	ctx1.set('matching', true)
 	const ctx = [ctx0, ctx1]
 	const be__ctx_a:Ctx[] = []
-	const root_ = be_('root_', ctx=>{
+	const root_ = be_(ctx=>{
 		be__ctx_a.push(ctx)
 		return 1
-	}, {
-		is_source_(map_ctx) {
-			return !!map_ctx.get('matching')
-		}
 	})
+		.is_source__def(map_ctx=>!!map_ctx.get('matching'))
+		.id__set('root_')
 	equal(root_(ctx), 1)
 	equal(be__ctx_a, [[ctx0, ctx1]])
 	equal(ctx0.has(root_), false)
@@ -82,7 +80,7 @@ test('be_|is_source_', ()=>{
 })
 test('be_|Ctx generic type', ()=>{
 	const valid_ctx = ctx__new() as test_ctx_T
-	const val_ = be_<boolean, test_ctx_T>('val_', ()=>true)
+	const val_ = be_<boolean, test_ctx_T>(()=>true).id__set('val_')
 	val_(valid_ctx)
 	// val_(ctx_()) // type error
 })
@@ -91,14 +89,14 @@ test('be_|Ctx|NestedMapCtx', ()=>{
 	const ctx1 = ctx__new()
 	ctx1.set('matching', true)
 	const ctx = [ctx0, ctx1]
-	const nested__ctx_ = be_<Ctx>('nested__ctx_', ctx=>[ctx])
+	const nested__ctx_ = be_<Ctx>(ctx=>[ctx]).id__set('nested__ctx_')
 	equal(nested__ctx_(ctx), [[ctx0, ctx1]])
 })
 test('be__set', ()=>{
 	const ctx0 = ctx__new()
-	const val_ = be_<number|undefined>('val_', ()=>undefined, {
-		is_source_: map_ctx=>map_ctx === ctx0
-	})
+	const val_ = be_<number|undefined>(()=>undefined)
+		.is_source__def(map_ctx=>map_ctx === ctx0)
+		.id__set('val_')
 	be__set(val_, ctx0, 1)
 	equal(val_(ctx0), 1)
 	const ctx1 = ctx__new()
@@ -121,7 +119,7 @@ test('ctx__set', ()=>{
 })
 test('be__delete', ()=>{
 	const ctx0 = ctx__new()
-	const val_ = be_<boolean>('val_', ()=>true)
+	const val_ = be_<boolean>(()=>true).id__set('val_')
 	be__delete(val_, ctx0)
 	equal(ctx0.has(val_), false)
 	equal(ctx0.has('val_'), false)
@@ -193,8 +191,8 @@ test('ctx__delete|be', ()=>{
 	equal(ctx0.has(num_), false)
 	equal(ctx1.has(num_), false)
 	const is_source__num_ =
-		be_(()=>1,
-			{ is_source_: ctx=>!!ctx.get('ctx1') })
+		be_(()=>1)
+			.is_source__def(ctx=>!!ctx.get('ctx1'))
 	is_source__num_(nested__ctx)
 	equal(ctx0.has(is_source__num_), false)
 	equal(ctx1.has(is_source__num_), true)
@@ -236,7 +234,7 @@ test('be__has__ctx_', ()=>{
 })
 test('be__val_', ()=>{
 	const ctx = ctx__new()
-	const val_ = be_<boolean>('val_', ()=>true)
+	const val_ = be_<boolean>(()=>true).id__set('val_')
 	equal(val_(ctx), true)
 	equal(ctx.get(val_), true)
 	equal(be__val_(val_, ctx), true)

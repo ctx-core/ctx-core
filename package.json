@@ -140,7 +140,7 @@
 			"import": {
 				"./be": "{ be_ }"
 			},
-			"limit": "398 B"
+			"limit": "377 B"
 		},
 		{
 			"name": "rmemo_",
@@ -154,14 +154,14 @@
 			"import": {
 				"./rmemo": "{ rsig_, rmemo_ }"
 			},
-			"limit": "380 B"
+			"limit": "381 B"
 		},
 		{
 			"name": "rmemo_ signal_ be_ ctx_",
 			"import": {
 				"./rmemo": "{ rsig_, rmemo_, be_, ctx_ }"
 			},
-			"limit": "771 B"
+			"limit": "736 B"
 		}
 	]
 }

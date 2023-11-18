@@ -1,28 +1,25 @@
 import { be_ } from '../be_/index.js'
-import { be_arg_triple__new } from '../be_arg_triple/index.js'
-/** @typedef {import('../be_/index.d.ts').be__params_T} */
-/** @typedef {import('../be_/index.d.ts').Ctx} */
-/** @typedef {import('../rmemo/index.d.ts').read_rmemo_T} */
+import { rmemo_ } from '../rmemo/index.js'
+/** @typedef {import('../be_/index.d.ts').be__val__new_T} */
+/** @typedef {import('../rmemo/index.d.ts').rmemo_subscriber_T} */
 /** @typedef {import('./index.d.ts').be_rmemo_pair_T} */
 /**
+ * @param {be__val__new_T<unknown>}val__new
+ * @param {rmemo_subscriber_T[]}subscriber_a
  * @returns {be_rmemo_pair_T}
  * @private
  */
-export function be_rmemo_pair_(...arg_a) {
-	const [id, rmemo__new, be__params] =
-		/** @type {[string, (ctx:Ctx)=>ReadableAtom, be__params_T]} */
-		be_arg_triple__new(...arg_a)
-	if (!rmemo__new) throw new Error('be_rmemo_pair_|rmemo__new argument is required')
-	const _be_ =
-		(be__params && be__params.be_)
-		?? be_
-	const val$_ =
-		id
-			? _be_(id, rmemo__new, be__params)
-			: _be_(rmemo__new, be__params)
-	const val_ = ctx=>val$_(ctx)._
-	return [
-		val$_,
-		val_,
+export function be_rmemo_pair_(val__new, ...subscriber_a) {
+	let oninit
+	const be_rmemo_pair = [
+		be_(ctx=>{
+			let rmemo = rmemo_(()=>val__new(ctx), ...subscriber_a)
+			oninit?.(rmemo)
+			return rmemo
+		}),
+		ctx=>be_rmemo_pair[0](ctx)._,
 	]
+	be_rmemo_pair.config = config__fn=>(config__fn(be_rmemo_pair[0]), be_rmemo_pair)
+	be_rmemo_pair.oninit__def = _oninit=>(oninit = _oninit, be_rmemo_pair)
+	return be_rmemo_pair
 }

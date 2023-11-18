@@ -1,9 +1,9 @@
 import { be_ } from '../be_/index.js'
-/** @typedef {import('../rc_be_/index.d.ts').rc_be__val__T}rc_be__val__T */
+/** @typedef {import('../rc_be_/index.d.ts').rc_be__val__new_T}rc_be__val__new_T */
 export const be_m_set_key = Symbol('be_m_set')
 /**
- * @param {string|rc_be__val__T}key_or_val_
- * @param {rc_be__val__T}[val_]
+ * @param {string|rc_be__val__new_T}key_or_val_
+ * @param {rc_be__val__new_T}[val_]
  * @returns {import('./index.d.ts').rc_be__return_T}
  * @private
  */
@@ -15,7 +15,7 @@ export function rc_be_(key_or_val_, val_) {
 			on_destroy,
 			onDestroy: on_destroy
 		}
-		/** @type {rc_be__val__T} */
+		/** @type {rc_be__val__new_T} */
 		const val_ = val_ ? val_ : key_or_val_
 		const key = val_ ? key_or_val_ : null
 		const be1 =

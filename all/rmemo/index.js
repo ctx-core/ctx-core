@@ -11,24 +11,24 @@ let cur_ref
  * @private
  */
 export function rmemo_(_f, ...subscriber_a) {
-	let rmemo$ = (...arg_a)=>arg_a.length ? rmemo$._ = arg_a[0] : rmemo$._
+	let rmemo = (...arg_a)=>arg_a.length ? rmemo._ = arg_a[0] : rmemo._
 	let _a = []
-	let _r = new WeakRef(()=>rmemo$.refresh(_f(rmemo$)))
+	let _r = new WeakRef(()=>rmemo.refresh(_f(rmemo)))
 	_r.l = 0
-	rmemo$._a = _a
-	rmemo$._f = _f
-	rmemo$._r = _r
-	rmemo$._rS = new Set
-	rmemo$.go = ()=>(rmemo$(), rmemo$)
-	rmemo$.onset = ()=>0
+	rmemo._a = _a
+	rmemo._f = _f
+	rmemo._r = _r
+	rmemo._rS = new Set
+	rmemo.go = ()=>(rmemo(), rmemo)
+	rmemo.onset = ()=>0
 	let c = 0
-	Object.defineProperty(rmemo$, '_', {
+	Object.defineProperty(rmemo, '_', {
 		get() {
 			if (!_a.length) {
 				let prev_ref = cur_ref
 				cur_ref = _r
 				try {
-					rmemo$._ = _f(rmemo$)
+					rmemo._ = _f(rmemo)
 				} finally {
 					cur_ref = prev_ref
 				}
@@ -36,41 +36,41 @@ export function rmemo_(_f, ...subscriber_a) {
 			// allow self-referencing
 			if (cur_ref && cur_ref !== _r) {
 				cur_ref.l = cur_ref.l < _r.l + 1 ? _r.l + 1 : cur_ref.l
-				rmemo$._rS.add(cur_ref)
+				rmemo._rS.add(cur_ref)
 			}
 			return _a[0]
 		},
 		set(val) {
 			if (!_a.length || val !== _a[0]) {
-				rmemo$.refresh(val)
+				rmemo.refresh(val)
 			}
 			return val
 		}
 	})
-	rmemo$.refresh = val=>{
+	rmemo.refresh = val=>{
 		if (val !== _a[0]) {
 			_a[0] = val
-			rmemo$.onset(val)
+			rmemo.onset(val)
 			let run_queue = !queue[0]
-			for (let ref of rmemo$._rS) {
+			for (let ref of rmemo._rS) {
 				if (!~queue.indexOf(ref)) queue.push(ref)
 			}
-			if (!rmemo$._sa) {
-				rmemo$._sa = subscriber_a.map(subscriber=>
-					rmemo_(()=>subscriber(rmemo$)).go())
+			if (!rmemo._sa) {
+				rmemo._sa = subscriber_a.map(subscriber=>
+					rmemo_(()=>subscriber(rmemo)).go())
 			}
 			if (run_queue) {
 				for (let ref; ref = queue.shift();) {
 					if (queue.some(_ref=>ref.l > _ref.l)) {
 						queue.push(ref)
 					} else {
-						(ref.deref() || rmemo$._rS.delete)(ref)
+						(ref.deref() || rmemo._rS.delete)(ref)
 					}
 				}
 			}
 		}
 	}
-	return rmemo$
+	return rmemo
 }
 /**
  * @param {unknown}init_val
@@ -79,9 +79,9 @@ export function rmemo_(_f, ...subscriber_a) {
  * @private
  */
 export function rsig_(init_val, ...subscriber_a) {
-	let signal$ =
+	let rsig =
 		rmemo_(signal$=>signal$._v, ...subscriber_a)
-	signal$.onset = val=>signal$._v = val
-	signal$._v = init_val
-	return signal$
+	rsig.onset = val=>rsig._v = val
+	rsig._v = init_val
+	return rsig
 }

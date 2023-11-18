@@ -1,5 +1,3 @@
 export * from '../all/be/index.js'
 export * from '../all/be_/index.js'
-export * from '../all/be_arg_triple/index.js'
-export * from '../all/be_prop_pair/index.js'
 export * from '../all/ctx/index.js'

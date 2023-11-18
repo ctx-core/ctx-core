@@ -1,4 +1,4 @@
-import type { Be, be__val__T, be_params_T, Ctx } from '../be_/index.js'
+import type { Be, be__val__new_T, be_params_T, Ctx } from '../be_/index.js'
 export declare const be_m_set_key:unique symbol
 /**
  * Returns _be with referencing counting.
@@ -6,10 +6,10 @@ export declare const be_m_set_key:unique symbol
  */
 export declare function rc_be_<
 	Out extends NonNullable<unknown>
->(val_:rc_be__val__T<Out>):rc_be__return_T<Out>
+>(val_:rc_be__val__new_T<Out>):rc_be__return_T<Out>
 export declare function rc_be_<
 	Out extends NonNullable<unknown>
->(key:string, val_:rc_be__val__T<Out>):rc_be__return_T<Out>
+>(key:string, val_:rc_be__val__new_T<Out>):rc_be__return_T<Out>
 export declare type rc_be__return_T<
 	Out extends NonNullable<unknown>
 > = (ctx:Ctx, opts?:rc_be_params_T)=>RcBe_return_T<Out>
@@ -28,9 +28,9 @@ export interface val_this_T {
 export interface rc_be_params_T extends be_params_T {
 	owner?:object
 }
-export declare type rc_be__val__T<
+export declare type rc_be__val__new_T<
 	Out extends NonNullable<unknown>
-> = be__val__T<Out>&((this:val_this_T, ctx:Ctx, key:Be<Out>, opts?:rc_be_params_T)=>Out)
+> = be__val__new_T<Out>&((this:val_this_T, ctx:Ctx, key:Be<Out>, opts?:rc_be_params_T)=>Out)
 export declare type rc_be_destroy_T = ()=>void
 export interface RcBe_return_T<Out extends unknown = unknown> {
 	value:Out

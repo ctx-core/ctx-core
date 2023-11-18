@@ -1,82 +1,46 @@
 import { globalThis__prop__ensure } from '../globalThis__prop__ensure/index.js'
 export * from './debug.js'
 let be_M_is_source_ = globalThis.be_M_is_source_ ||= new WeakMap()
-/** @typedef {import('./index.d.ts').Be}Be */
-/** @typedef {import('./index.d.ts').Ctx}Ctx */
-/** @typedef {import('./index.d.ts').MapCtx}MapCtx */
-/** @typedef {import('./index.d.ts').be__params_T}be__params_T */
-/** @typedef {import('./index.d.ts').be__val__T}be__val__T */
-/** @typedef {import('./index.d.ts').is_source__T}is_source__T */
+/** @typedef {import('./index.d.ts').Be} */
+/** @typedef {import('./index.d.ts').be_} */
+/** @typedef {import('./index.d.ts').Ctx} */
+/** @typedef {import('./index.d.ts').MapCtx} */
+/** @typedef {import('./index.d.ts').be__val__new_T} */
+/** @typedef {import('./index.d.ts').is_source__T} */
 /**
  * Auto-memoization function for the Ctx.
  * Memoized on globalThis to allow packages being loaded multiple times, which can happen during bundling.
  *
  * Returns a function to ensure that a member id_OR_val_ is defined on a ctx object,
  * otherwise it creates the value using the val__OR_be__params factory function.
- * @param {string|be__val__T}id_OR_val_
- * @param {be__val__T|be__params_T}[val__OR_be__params]
- * @param {be__params_T}[be__params]
+ * @param {be__val__new_T}val__new
  * @returns {Be}
  * @private
  */
-export function globalThis__be_(
-	id_OR_val_,
-	val__OR_be__params,
-	be__params
-) {
-	return globalThis__prop__ensure(
-		Symbol.for(id_OR_val_),
-		()=>be_(
-			id_OR_val_,
-			val__OR_be__params,
-			be__params))
-}
+export function globalThis__be_(val__new) {
+	return globalThis__prop__ensure(Symbol.for(val__new), ()=>be_(val__new))}
 /**
  * Auto-memoization function for the Ctx.
  *
  * Returns a function to ensure that a member id is defined on a Ctx,
  * otherwise it creates the value using the val_ factory function.
- * @param {string|be__val__T}id_OR_val__new
- * @param {be__val__T|be__params_T}[val__new_OR_be__params]
- * @param {be__params_T}[be__params]
+ * @param {be__val__new_T}val__new
  * @returns {Be}
  * @private
  */
-export function be_(
-	id_OR_val__new,
-	val__new_OR_be__params,
-	be__params
-) {
-	/** @type {string} */
-	let id
-	/** @type {be__val__T} */
-	let val__new
-	/** @type {is_source__T} */
-	let is_source_
+export function be_(val__new) {
 	/** @type {expired__T} */
 	let expired_
-	if (typeof id_OR_val__new === 'string') {
-		val__new = val__new_OR_be__params
-		id = id_OR_val__new
-	} else {
-		val__new = id_OR_val__new
-		be__params = val__new_OR_be__params
-	}
-	if (be__params) {
-		is_source_ = be__params.is_source_
-		expired_ = be__params.expired_
-	}
 	let be = (argv__ctx, params)=>{
 		be_.argv__debug?.(argv__ctx)
-		let saved__val = be__val_(be, argv__ctx)
 		if (
 			!params?.force
 			&& be__has_(be, argv__ctx)
 			&& !expired_?.(argv__ctx)
 		) {
-			return saved__val
+			return be__val_(be, argv__ctx)
 		}
-		let ctx = source__map_ctx_(argv__ctx, is_source_)
+		let ctx = source__map_ctx_(argv__ctx, be_M_is_source_.get(be))
 		be_.source__debug?.(ctx)
 		let pending = ctx.get(Symbol.for('pending'))
 		if (!pending) {
@@ -84,17 +48,18 @@ export function be_(
 			ctx.set(Symbol.for('pending'), pending)
 		}
 		be_.pending__debug?.(pending)
-		pending.set(be, id || be)
+		pending.set(be, be.id || be)
 		let val = val__new ? val__new(argv__ctx, be, params) : null
 		ctx.set(be, val)
-		if (id) {
-			ctx.set(id, val)
+		if (be.id) {
+			ctx.set(be.id, val)
 		}
 		pending.delete(be)
 		return val
 	}
-	be_M_is_source_.set(be, is_source_)
-	be.id = id
+	be.id__set = id=>(be.id = id, be)
+	be.expired__def = _expired_=>(expired_ = _expired_, be)
+	be.is_source__def = is_source_=>(be_M_is_source_.set(be, is_source_), be)
 	return be
 }
 export {
