@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "3.3.3",
+	"version": "3.4.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -161,7 +161,7 @@
 			"import": {
 				"./rmemo": "{ rsig_, rmemo_, be_, ctx_ }"
 			},
-			"limit": "759 B"
+			"limit": "771 B"
 		}
 	]
 }
