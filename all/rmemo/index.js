@@ -28,7 +28,6 @@ export function rmemo_(_f, ...subscriber_a) {
 				let prev_ref = cur_ref
 				cur_ref = _r
 				try {
-					// _a[0] = _f(rmemo$)
 					rmemo$._ = _f(rmemo$)
 				} finally {
 					cur_ref = prev_ref
@@ -36,9 +35,7 @@ export function rmemo_(_f, ...subscriber_a) {
 			}
 			// allow self-referencing
 			if (cur_ref && cur_ref !== _r) {
-				// Math.max: bitwise is much faster on chrome
-				// https://measurethat.net/Benchmarks/Show/28483/0/mathmax-vs-bitwise
-				cur_ref.l = cur_ref.l ^ ((cur_ref.l ^ _r.l + 1) & -(cur_ref.l < _r.l + 1))
+				cur_ref.l = cur_ref.l < _r.l + 1 ? _r.l + 1 : cur_ref.l
 				rmemo$._rS.add(cur_ref)
 			}
 			return _a[0]

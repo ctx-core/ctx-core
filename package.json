@@ -147,21 +147,21 @@
 			"import": {
 				"./rmemo": "{ rmemo_ }"
 			},
-			"limit": "358 B"
+			"limit": "356 B"
 		},
 		{
 			"name": "rmemo_ signal_",
 			"import": {
 				"./rmemo": "{ rsig_, rmemo_ }"
 			},
-			"limit": "387 B"
+			"limit": "380 B"
 		},
 		{
 			"name": "rmemo_ signal_ be_ ctx_",
 			"import": {
 				"./rmemo": "{ rsig_, rmemo_, be_, ctx_ }"
 			},
-			"limit": "771 B"
+			"limit": "765 B"
 		}
 	]
 }
