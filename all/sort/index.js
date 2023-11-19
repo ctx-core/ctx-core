@@ -1,4 +1,4 @@
-/** @typedef {import('../array_types/index.d.ts').compare_T}compare_T */
+/** @typedef {import('../array_types/index.d.ts').compare_T} */
 /**
  * Sort items in `a` by the `compare` function
  * @param {unknown[]}a

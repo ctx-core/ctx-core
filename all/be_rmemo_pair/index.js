@@ -14,12 +14,12 @@ export function be_rmemo_pair_(val__new, ...subscriber_a) {
 	const be_rmemo_pair = [
 		be_(ctx=>{
 			let rmemo = rmemo_(()=>val__new(ctx), ...subscriber_a)
-			oninit?.(rmemo)
+			oninit?.(ctx, rmemo)
 			return rmemo
 		}),
 		ctx=>be_rmemo_pair[0](ctx)._,
 	]
-	be_rmemo_pair.config = config__fn=>(config__fn(be_rmemo_pair[0]), be_rmemo_pair)
-	be_rmemo_pair.oninit__def = _oninit=>(oninit = _oninit, be_rmemo_pair)
+  be_rmemo_pair.config = params=>(be_rmemo_pair[0].config(params), be_rmemo_pair)
+	be_rmemo_pair.oninit = _oninit=>(oninit = _oninit, be_rmemo_pair)
 	return be_rmemo_pair
 }

@@ -1,5 +1,5 @@
 import { slice_arg_spread_a_ } from '../slice_arg_spread_a/index.js'
-/** @typedef {import('../slice_arg_spread_a_/index.js').slice_arg_spread_a__arg__T}slice_arg_spread_a__arg__T */
+/** @typedef {import('../slice_arg_spread_a_/index.js').slice_arg_spread_a__arg__T} */
 /**
  * Returns a function that calls fn passing only the first argument.
  * @param {slice_arg_spread_a__arg__T}fn

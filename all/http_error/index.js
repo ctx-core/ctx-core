@@ -1,6 +1,6 @@
 import { assign } from '../assign/index.js'
 /** @typedef {import('../error_o/index.d.ts').argument__error_o_T} */
-/** @typedef {import('../http_error/index.d.ts').HttpError}HttpError */
+/** @typedef {import('../http_error/index.d.ts').HttpError} */
 /**
  * @param {string}[message]
  * @param {argument__error_o_T}[error_o]

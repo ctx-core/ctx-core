@@ -14,7 +14,7 @@ export function be_rsig_triple_(val__new, ...subscriber_a) {
 	const be_rsig_triple = [
 		be_(ctx=>{
 			let rsig = rsig_(val__new(ctx), ...subscriber_a)
-			oninit?.(rsig)
+			oninit?.(ctx, rsig)
 			return rsig
 		}),
 		ctx=>be_rsig_triple[0](ctx)._,
@@ -22,7 +22,7 @@ export function be_rsig_triple_(val__new, ...subscriber_a) {
 			be_rsig_triple[0](ctx)._ = val
 		},
 	]
-	be_rsig_triple.config = config__fn=>(config__fn(be_rsig_triple[0]), be_rsig_triple)
-	be_rsig_triple.oninit__def = _oninit=>(oninit = _oninit, be_rsig_triple)
+	be_rsig_triple.config = params=>(be_rsig_triple[0].config(params), be_rsig_triple)
+	be_rsig_triple.oninit = _oninit=>(oninit = _oninit, be_rsig_triple)
 	return be_rsig_triple
 }

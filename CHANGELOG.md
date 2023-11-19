@@ -14,15 +14,14 @@
 
 - be\_: single argument: val**new: delegate to id**set, expired**def, is_source**def config methods
 - - be**params_T,be**opts_T
+be: arguments: - key:string
 
 ### Minor Changes
 
 - - be\_\_config_T
 - be\_: + ∋ be\_\_config_T:
 
-      + .id__set
-      + .expired__def
-      + .is_source__def
+      + .config
 
 ## 3.4.0
 

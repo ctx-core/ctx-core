@@ -57,9 +57,12 @@ export function be_(val__new) {
 		pending.delete(be)
 		return val
 	}
-	be.id__set = id=>(be.id = id, be)
-	be.expired__def = _expired_=>(expired_ = _expired_, be)
-	be.is_source__def = is_source_=>(be_M_is_source_.set(be, is_source_), be)
+	be.config = params=>{
+		be.id = params.id
+		expired_ = params.expired_
+		be_M_is_source_.set(be, params.is_source_)
+		return be
+	}
 	return be
 }
 export {

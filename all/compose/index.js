@@ -1,4 +1,4 @@
-/** @typedef {import('../compose/index.d.ts').compose_fn_T}compose_fn_T */
+/** @typedef {import('../compose/index.d.ts').compose_fn_T} */
 /**
  * Composes fn_a into a single function
  *

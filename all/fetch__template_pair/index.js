@@ -1,5 +1,5 @@
 import { response_pair__new } from '../response_pair/index.js'
-/** @typedef {import('../fetch__template_pair/index.d.ts').fetch__template_pair_T}fetch__template_pair_T */
+/** @typedef {import('../fetch__template_pair/index.d.ts').fetch__template_pair_T} */
 /**
  * @param {(...arg_a:any[])=>Promise<Response>}fetch_fn
  * @param {(val:unknown)=>unknown}[hydrate]

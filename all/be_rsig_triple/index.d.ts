@@ -1,4 +1,4 @@
-import type { Be, be__val__new_T, Ctx } from '../be_/index.js'
+import type { Be, be__config_params_T, be__val__new_T, Ctx } from '../be_/index.js'
 import type { readwrite_rmemo_T, rmemo_subscriber_T } from '../rmemo/index.js'
 export declare function be_rsig_triple_<
 	val_T,
@@ -17,6 +17,6 @@ export type be_rsig_triple_T<
 	(ctx:ctx_T)=>val_T,
 	(ctx:ctx_T, val:val_T)=>void
 ]&{
-	config:(config__fn:(be:Be<rsig_T>)=>unknown)=>be_rsig_triple_T<val_T, rsig_T, ctx_T>
-	oninit__def:(oninit:(rsig:rsig_T)=>unknown)=>be_rsig_triple_T<val_T, rsig_T, ctx_T>
+	config:(config:be__config_params_T)=>be_rsig_triple_T<val_T, rsig_T, ctx_T>
+	oninit:(fn:(ctx:Ctx, rsig:rsig_T)=>unknown)=>be_rsig_triple_T<val_T, rsig_T, ctx_T>
 }

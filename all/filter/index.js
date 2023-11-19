@@ -1,4 +1,4 @@
-/** @typedef {import('../array_types/index.d.ts').is_match__T}is_match__T */
+/** @typedef {import('../array_types/index.d.ts').is_match__T} */
 /**
  * Returns Array where items in `a` are filtered by `fn`.
  * @param {unknown[]}a

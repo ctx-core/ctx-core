@@ -6,13 +6,10 @@ export declare const be_m_set_key:unique symbol
  */
 export declare function rc_be_<
 	Out extends NonNullable<unknown>
->(val_:rc_be__val__new_T<Out>):rc_be__return_T<Out>
-export declare function rc_be_<
-	Out extends NonNullable<unknown>
->(key:string, val_:rc_be__val__new_T<Out>):rc_be__return_T<Out>
+>(val__new:rc_be__val__new_T<Out>):rc_be__return_T<Out>
 export declare type rc_be__return_T<
 	Out extends NonNullable<unknown>
-> = (ctx:Ctx, opts?:rc_be_params_T)=>RcBe_return_T<Out>
+> = (ctx:Ctx, params?:rc_be_params_T)=>RcBe_return_T<Out>
 export {
 	rc_be_ as _rc_be,
 	rc_be_ as _rc_b,

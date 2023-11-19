@@ -1,4 +1,4 @@
-/** @typedef {import('../array_types/index.d.ts').sort_idx_o_T}sort_idx_o_T */
+/** @typedef {import('../array_types/index.d.ts').sort_idx_o_T} */
 /**
  * Returns an Array of sorted values from [sort_idx_o_T](#sort_idx_o_T).sort_val_a
  * @param {sort_idx_o_T}in_sort_idx_o

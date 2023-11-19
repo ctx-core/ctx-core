@@ -1,5 +1,5 @@
 import { andand } from '../andand/index.js'
-/** @typedef {import('../andand/index.js').andand_key_T}andand_key_T */
+/** @typedef {import('../andand/index.js').andand_key_T} */
 /**
  * Returns `andand(obj, name_a) || or_fn(obj, val)`
  * @param {unknown|null}obj

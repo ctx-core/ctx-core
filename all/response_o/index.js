@@ -1,4 +1,4 @@
-/** @typedef {import('../response_o/index.d.ts').response_o_T}response_o_T */
+/** @typedef {import('../response_o/index.d.ts').response_o_T} */
 /**
  * @param {Response}response
  * @returns {response_o_T}

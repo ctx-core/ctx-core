@@ -16,7 +16,7 @@ test('be_rsig_triple_', ()=>{
 	equal(foobar$_(ctx)._, 2)
 	equal(foobar_(ctx), 2)
 })
-test('be_rsig_triple_|+id__set|+is_source__def|+oninit__def', ()=>{
+test('be_rsig_triple_|+id|+is_source_|+oninit', ()=>{
 	const ctx = ctx__new()
 	let subscriber_count = 0
 	const [
@@ -26,11 +26,11 @@ test('be_rsig_triple_|+id__set|+is_source__def|+oninit__def', ()=>{
 	] = be_rsig_triple_<number, readwrite_rmemo_T<number>&{ custom:string }>(
 		()=>1,
 		()=>subscriber_count++)
-		.config(foobar$=>
-			foobar$
-				.id__set('foobar')
-				.is_source__def(map_ctx=>map_ctx === ctx))
-		.oninit__def(foobar$=>foobar$.custom = 'custom-val')
+		.config({id: 'foobar', is_source_: map_ctx=>map_ctx === ctx})
+		.oninit((_ctx, foobar$)=>{
+			equal(_ctx, ctx)
+			foobar$.custom = 'custom-val'
+		})
 	equal(subscriber_count, 0)
 	equal(foobar$_([ctx__new(), ctx])._, 1)
 	equal(foobar_([ctx__new(), ctx]), 1)

@@ -1,5 +1,5 @@
 import { assign } from '../assign/index.js'
-/** @typedef {import('../weak_r/index.d.ts').weak_r_T}weak_r_T */
+/** @typedef {import('../weak_r/index.d.ts').weak_r_T} */
 const { get } = Reflect
 const add_strong_sym = Symbol('add_strong')
 const delete_strong_sym = Symbol('delete_strong')

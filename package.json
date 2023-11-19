@@ -118,7 +118,7 @@
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.13.1",
 		"@size-limit/preset-small-lib": "^11.0.0",
-		"@types/node": "^20.9.1",
+		"@types/node": "^20.9.2",
 		"@types/sinon": "^17.0.1",
 		"c8": "^8.0.1",
 		"check-dts": "^0.7.2",
@@ -140,7 +140,7 @@
 			"import": {
 				"./be": "{ be_ }"
 			},
-			"limit": "377 B"
+			"limit": "367 B"
 		},
 		{
 			"name": "rmemo_",
@@ -161,7 +161,7 @@
 			"import": {
 				"./rmemo": "{ rsig_, rmemo_, be_, ctx_ }"
 			},
-			"limit": "736 B"
+			"limit": "731 B"
 		}
 	]
 }

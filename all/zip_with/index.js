@@ -1,4 +1,4 @@
-/** @typedef {import('../zip_with/index.d.ts').zip_with_fn_T}zip_with_fn_T */
+/** @typedef {import('../zip_with/index.d.ts').zip_with_fn_T} */
 /**
  * Returns 2d Array where each item being the return value of `fn` given the index value for each Array in `wrap_aa_T`.
  * @param {unknown[][]}aa

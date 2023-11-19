@@ -1,6 +1,6 @@
 import { assign } from '../assign/index.js'
 import { HttpError } from '../http_error/index.js'
-/** @typedef {import('./index.d.ts').argument__invalid_argument_error_o_T}argument__invalid_argument_error_o_T */
+/** @typedef {import('./index.d.ts').argument__invalid_argument_error_o_T} */
 /** @typedef {import('./index.d.ts').InvalidArgumentError} */
 export const invalid_argument__default__message = 'Invalid Argument'
 /**

@@ -1,7 +1,7 @@
 import { eq } from '../eq/index.js'
-/** @typedef {import('../eq/index.d.ts').eq_T}eq_T */
-/** @typedef {import('../array_types/index.d.ts').sort_val_a__transition_a_frame_fn_T}sort_val_a__transition_a_frame_fn_T */
-/** @typedef {import('../array_types/index.d.ts').sort_val_a__transition_a_frame_T}sort_val_a__transition_a_frame_T */
+/** @typedef {import('../eq/index.d.ts').eq_T} */
+/** @typedef {import('../array_types/index.d.ts').sort_val_a__transition_a_frame_fn_T} */
+/** @typedef {import('../array_types/index.d.ts').sort_val_a__transition_a_frame_T} */
 /**
  * Returns a [sort_val_a__transition_a_frame_T](#sort_val_a__transition_a_frame_T) of presumably sorted items in `val_a` at each index of the new item for each changed item.
  * @param {unknown[]|undefined}sort_val_a

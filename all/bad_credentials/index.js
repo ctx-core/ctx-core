@@ -1,6 +1,6 @@
 import { assign } from '../assign/index.js'
 import { HttpError } from '../http_error/index.js'
-/** @typedef {import('./index.d.ts').argument__bad_credentials_error_o_T}argument__bad_credentials_error_o_T */
+/** @typedef {import('./index.d.ts').argument__bad_credentials_error_o_T} */
 export const bad_credentials__default__message = 'Unauthorized'
 /**
  * @param {string}[message]

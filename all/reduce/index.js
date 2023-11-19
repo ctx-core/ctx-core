@@ -1,4 +1,4 @@
-/** @typedef {import('../reduce/index.d.ts').reduce_fn_T}reduce_fn_T */
+/** @typedef {import('../reduce/index.d.ts').reduce_fn_T} */
 /**
  * Returns reduced `memo` iterating over `a` with `fn(memo, a[], i, a)`.
  * @param {unknown[]}a

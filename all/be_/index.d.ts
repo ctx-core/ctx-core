@@ -79,9 +79,13 @@ export declare type Be<
 	ctx_T extends Ctx = Ctx
 > = ((ctx:ctx_T, params?:be_params_T)=>val_T)&{
 	id?:string
-	id__set:(id:string)=>Be<val_T, ctx_T>
-	expired__def:(expired:expired__T)=>Be<val_T, ctx_T>
-	is_source__def:(is_source_:is_source__T)=>Be<val_T, ctx_T>
+}&{
+	config:(params:be__config_params_T)=>Be<val_T, ctx_T>
+}
+export type be__config_params_T = {
+	id?:string
+	expired_?:expired__T
+	is_source_?:is_source__T
 }
 export declare type be__return_T<
 	val_T,

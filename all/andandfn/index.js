@@ -1,4 +1,4 @@
-/** @typedef {import('../andand/index.js').andand_key_T}andand_key_T */
+/** @typedef {import('../andand/index.js').andand_key_T} */
 /**
  * Applies `&&` to a chain of property name or function with return value from `obj`.
  * @param {unknown}obj
@@ -24,7 +24,7 @@ export function andandfn(obj, ...name_a) {
 	return out_value
 }
 export { andandfn as andand__fn, }
-/** @typedef {import('../andand/index.d.ts').andand_key_T}andand_key_T */
+/** @typedef {import('../andand/index.d.ts').andand_key_T} */
 /**
  * Returns a function that calls `andand_(obj, ...name_a)`
  * @param {andand_key_T}name_a

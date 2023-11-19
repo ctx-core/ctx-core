@@ -1,4 +1,4 @@
-/** @typedef {import('../a_item/index.d.ts').a_item_T}a_item_T */
+/** @typedef {import('../a_item/index.d.ts').a_item_T} */
 /**
  * Is i0_a `===` to i1_a based on `fn(a, b, i)`? Checks first level equality.
  * @param i0_a{unknown[]}

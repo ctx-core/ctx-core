@@ -13,8 +13,8 @@ export function or(a_unwrap) {
 	}
 	return
 }
-/** @typedef {import('../a_nowrap/index.d.ts').a_nowrap_T}a_nowrap_T */
-/** @typedef {import('./index.d.ts').or_T}or_T */
+/** @typedef {import('../a_nowrap/index.d.ts').a_nowrap_T} */
+/** @typedef {import('./index.d.ts').or_T} */
 /**
  * Returns first truthy or last item call or value in `a_unwrap`.
  * @param {a_nowrap_T}a_unwrap
