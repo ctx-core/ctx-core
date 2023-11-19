@@ -1,5 +1,29 @@
 # ctx-core
 
+## 4.0.0
+
+### Major Changes
+
+- be**val**T→be**val**new_T
+- remove be_prop_pair,be_arg_triple
+
+      - be_prop_pair_
+      - be_prop_pair_T
+      - be_arg_triple_
+      - be_arg_triple_T
+
+- be\_: single argument: val**new: delegate to id**set, expired**def, is_source**def config methods
+- - be**params_T,be**opts_T
+
+### Minor Changes
+
+- - be\_\_config_T
+- be\_: + ∋ be\_\_config_T:
+
+      + .id__set
+      + .expired__def
+      + .is_source__def
+
 ## 3.4.0
 
 ### Minor Changes
