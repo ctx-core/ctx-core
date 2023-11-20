@@ -1,11 +1,10 @@
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import {
+	type Be,
 	be_,
-	be__delete,
+	be__ctx_,
 	be__has_,
-	be__has__ctx_,
-	be__set,
 	be__val_,
 	type Ctx,
 	ctx__delete,
@@ -13,13 +12,14 @@ import {
 	type MapCtx
 } from '../be_/index.js'
 import { ctx__new } from '../ctx/index.js'
+
 test('be_|Map', ()=>{
 	const ctx = ctx__new()
 	let incrementer_num = 0
 	const incrementer = ()=>++incrementer_num
-	const root_ = be_(()=>incrementer()).config({ id: 'root_' })
-	const child_ = be_(ctx=>root_(ctx) + incrementer()).config({ id: 'child_' })
-	const child1_ = be_(ctx=>root_(ctx) + child_(ctx)).config({ id: 'child1_' })
+	const root_ = be_(()=>incrementer(), { id: 'root_' })
+	const child_ = be_(ctx=>root_(ctx) + incrementer(), { id: 'child_' })
+	const child1_ = be_(ctx=>root_(ctx) + child_(ctx), { id: 'child1_' })
 	equal(root_(ctx), 1)
 	equal(ctx.get('root_'), 1)
 	equal(child_(ctx), 3)
@@ -31,12 +31,12 @@ test('be_|simple array', ()=>{
 	const ctx0 = ctx__new()
 	const ctx1 = ctx__new()
 	const ctx = [ctx0, ctx1]
-	const root_ = be_(()=>1).config({ id: 'root_' })
+	const root_ = be_(()=>1, { id: 'root_' })
 	equal(root_(ctx1), 1)
 	equal(root_(ctx), 1)
 	equal(ctx0.has(root_), false)
 	equal(ctx1.has(root_), true)
-	const child_ = be_(ctx=>root_(ctx) + 1).config({ id: 'child_' })
+	const child_ = be_(ctx=>root_(ctx) + 1, { id: 'child_' })
 	equal(child_(ctx), 2)
 	equal(ctx0.has(child_), true)
 	equal(ctx1.has(child_), false)
@@ -47,14 +47,14 @@ test('be_|nested array', ()=>{
 	const ctx2 = ctx__new()
 	const ctx3 = ctx__new()
 	const ctx = [[[ctx0], ctx1], [ctx2, ctx3]]
-	const root_ = be_(()=>1).config({ id: 'root_' })
+	const root_ = be_(()=>1, { id: 'root_' })
 	equal(root_(ctx3), 1)
 	equal(root_(ctx), 1)
 	equal(ctx0.has(root_), false)
 	equal(ctx1.has(root_), false)
 	equal(ctx2.has(root_), false)
 	equal(ctx3.has(root_), true)
-	const child_ = be_(ctx=>root_(ctx) + 1).config({ id: 'child_' })
+	const child_ = be_(ctx=>root_(ctx) + 1, { id: 'child_' })
 	equal(child_(ctx), 2)
 	equal(ctx0.has(child_), true)
 	equal(ctx1.has(child_), false)
@@ -70,7 +70,7 @@ test('be_|is_source_', ()=>{
 	const root_ = be_(ctx=>{
 		be__ctx_a.push(ctx)
 		return 1
-	}).config({
+	}, {
 		is_source_: map_ctx=>!!map_ctx.get('matching'),
 		id: 'root_'
 	})
@@ -81,7 +81,7 @@ test('be_|is_source_', ()=>{
 })
 test('be_|Ctx generic type', ()=>{
 	const valid_ctx = ctx__new() as test_ctx_T
-	const val_ = be_<boolean, test_ctx_T>(()=>true).config({ id: 'val_' })
+	const val_ = be_<boolean, test_ctx_T>(()=>true, { id: 'val_' })
 	val_(valid_ctx)
 	// val_(ctx_()) // type error
 })
@@ -90,23 +90,15 @@ test('be_|Ctx|NestedMapCtx', ()=>{
 	const ctx1 = ctx__new()
 	ctx1.set('matching', true)
 	const ctx = [ctx0, ctx1]
-	const nested__ctx_ = be_<Ctx>(ctx=>[ctx]).config({ id: 'nested__ctx_' })
+	const nested__ctx_ = be_<Ctx>(ctx=>[ctx], { id: 'nested__ctx_' })
 	equal(nested__ctx_(ctx), [[ctx0, ctx1]])
 })
-test('be__set', ()=>{
-	const ctx0 = ctx__new()
-	const val_ = be_<number|undefined>(()=>undefined).config({
-		is_source_: map_ctx=>map_ctx === ctx0,
-		id: 'val_'
-	})
-	be__set(val_, ctx0, 1)
-	equal(val_(ctx0), 1)
-	const ctx1 = ctx__new()
-	const ctx_a = [ctx1, ctx0]
-	be__set(val_, ctx_a, 2)
-	equal(val_(ctx0), 2)
-	equal(val_(ctx_a), 2)
-	equal(ctx1.has(val_), false)
+test('be_|circular dependency', ()=>{
+	const be0:Be<symbol> = be_(ctx=>be1(ctx))
+	const be1:Be<symbol> = be_(ctx=>be0(ctx))
+	const ctx = ctx__new()
+	equal(String(be0(ctx)), 'Symbol(cir)')
+	equal(String(be1(ctx)), 'Symbol(cir)')
 })
 test('ctx__set', ()=>{
 	const ctx0 = ctx__new()
@@ -118,31 +110,6 @@ test('ctx__set', ()=>{
 		(map_ctx:MapCtx)=>map_ctx.get('key') != null)
 	equal(ctx0.get('key'), 2)
 	equal(ctx1.has('key'), false)
-})
-test('be__delete', ()=>{
-	const ctx0 = ctx__new()
-	const val_ = be_<boolean>(()=>true).config({ id: 'val_' })
-	be__delete(val_, ctx0)
-	equal(ctx0.has(val_), false)
-	equal(ctx0.has('val_'), false)
-	equal(val_(ctx0), true)
-	equal(ctx0.get(val_), true)
-	equal(ctx0.get('val_'), true)
-	be__delete(val_, ctx0)
-	equal(ctx0.has(val_), false)
-	equal(ctx0.has('val_'), false)
-	const ctx1 = ctx__new()
-	const nested__ctx = [ctx0, ctx1]
-	equal(val_(ctx0), true)
-	equal(val_(ctx1), true)
-	equal(val_(nested__ctx), true)
-	equal(ctx0.get('val_'), true)
-	equal(ctx1.get('val_'), true)
-	be__delete(val_, nested__ctx)
-	equal(ctx0.has(val_), false)
-	equal(ctx0.has('val_'), false)
-	equal(ctx1.has(val_), false)
-	equal(ctx1.has('val_'), false)
 })
 test('ctx__delete|id', ()=>{
 	const ctx0 = ctx__new()
@@ -193,7 +160,7 @@ test('ctx__delete|be', ()=>{
 	equal(ctx0.has(num_), false)
 	equal(ctx1.has(num_), false)
 	const is_source__num_ =
-		be_(()=>1).config({ is_source_: ctx=>!!ctx.get('ctx1') })
+		be_(()=>1, { is_source_: ctx=>!!ctx.get('ctx1') })
 	is_source__num_(nested__ctx)
 	equal(ctx0.has(is_source__num_), false)
 	equal(ctx1.has(is_source__num_), true)
@@ -220,26 +187,26 @@ test('be__has_', ()=>{
 	ctx1.set('key', true)
 	equal(be__has_('key', nested__ctx), true)
 })
-test('be__has__ctx_', ()=>{
+test('be__ctx_', ()=>{
 	const ctx0 = ctx__new()
 	ctx__delete(ctx0, 'key')
-	equal(be__has__ctx_('key', ctx0), null)
+	equal(be__ctx_('key', ctx0), undefined)
 	ctx0.set('key', true)
-	equal(be__has__ctx_('key', ctx0), ctx0)
+	equal(be__ctx_('key', ctx0), ctx0)
 	ctx__delete(ctx0, 'key')
-	equal(be__has__ctx_('key', ctx0), null)
+	equal(be__ctx_('key', ctx0), undefined)
 	const ctx1 = ctx__new()
 	const nested__ctx = [ctx0, ctx1]
 	ctx1.set('key', true)
-	equal(be__has__ctx_('key', nested__ctx), ctx1)
+	equal(be__ctx_('key', nested__ctx), ctx1)
 })
 test('be__val_', ()=>{
 	const ctx = ctx__new()
-	const val_ = be_<boolean>(()=>true).config({ id: 'val_' })
+	const val_ = be_<boolean>(()=>true, { id: 'val_' })
 	equal(val_(ctx), true)
 	equal(ctx.get(val_), true)
 	equal(be__val_(val_, ctx), true)
-	be__set(val_, ctx, false)
+	ctx__set(ctx, val_, false)
 	equal(val_(ctx), false)
 	equal(be__val_(val_, ctx), false)
 })

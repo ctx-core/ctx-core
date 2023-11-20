@@ -3,7 +3,9 @@
  * @private
  */
 export function ctx__new() {
-	return new Map([[Symbol.for('ctx'), true]])
+	let ctx = new Map
+	ctx.is_ctx = true
+	return ctx
 }
 export { ctx__new as ctx_ }
 /**
@@ -12,11 +14,8 @@ export { ctx__new as ctx_ }
  * @private
  */
 export function is_ctx_(val) {
-	if (!Array.isArray(val)) return !!(val instanceof Map && val.get(Symbol.for('ctx')))
-	if (!val.length) return false
-	let flat__val = val.flat(Infinity)
-	for (let i = 0; i < flat__val.length; i++) {
-		if (!is_ctx_(flat__val[i])) return false
-	}
-	return true
+	if (!Array.isArray(val)) return val instanceof Map && !!val.is_ctx
+	let flat__map_ctx_a = val.flat(Infinity)
+	if (!flat__map_ctx_a[0]) return false
+	return flat__map_ctx_a.every(map_ctx=>map_ctx.is_ctx)
 }

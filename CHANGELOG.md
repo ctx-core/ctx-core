@@ -1,5 +1,23 @@
 # ctx-core
 
+## 4.1.0
+
+### Minor Changes
+
+- MapCtx: + &{ is_ctx: true }
+- - be**ctx\_: aliased by be**has\__ctx_
+- be\_: - be_params_T: a memoized Be can be deleted from the ctx using ctx\_\_delete
+- - rc*be*,rc_be
+- be*: remove aliases: - \_be,b*,\_b
+- be\_: use config argument instead of .config:
+
+      - .config
+
+### Patch Changes
+
+- be\__ctx_: no matching ctx for given be: fix: return undefined instead of null
+- is*ctx*: fix: nested arrays that do not contain a MapCtx return false
+
 ## 4.0.0
 
 ### Major Changes
@@ -14,7 +32,7 @@
 
 - be\_: single argument: val**new: delegate to id**set, expired**def, is_source**def config methods
 - - be**params_T,be**opts_T
-be: arguments: - key:string
+    be: arguments: - key:string
 
 ### Minor Changes
 
@@ -80,7 +98,7 @@ be: arguments: - key:string
       + be__delete
       + ctx__delete
       + be__has_
-      + be__has__ctx_
+      + be__ctx_
       + be__val_
       + source__map_ctx_
       + be__debug

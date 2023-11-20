@@ -12,5 +12,6 @@ test('is_ctx_', ()=>{
 	equal(is_ctx_([ctx0, [ctx1], [[[]]]]), true)
 	equal(is_ctx_(not_ctx), false)
 	equal(is_ctx_([ctx0, [ctx1], [[ctx2]], [not_ctx]]), false)
+	equal(is_ctx_([[], [[]], []]), false)
 })
 test.run()

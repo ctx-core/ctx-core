@@ -1,9 +1,9 @@
 /** @typedef {import('./index.d.ts').rmemo_T} */
 /** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
-/** @type {(()=>unknown)[]} */
-let queue = []
 /** @type {WeakRef<rmemo_T>} */
 let cur_ref
+/** @type {(()=>unknown)[]} */
+let queue = []
 /**
  * @param {(rmemo:rmemo_T<unknown>)=>unknown}_f
  * @param {rmemo_subscriber_T<unknown>[]}subscriber_a
@@ -21,7 +21,6 @@ export function rmemo_(_f, ...subscriber_a) {
 	rmemo._rS = new Set
 	rmemo.go = ()=>(rmemo(), rmemo)
 	rmemo.onset = ()=>0
-	let c = 0
 	Object.defineProperty(rmemo, '_', {
 		get() {
 			if (!_a.length) {
@@ -44,7 +43,6 @@ export function rmemo_(_f, ...subscriber_a) {
 			if (!_a.length || val !== _a[0]) {
 				rmemo.refresh(val)
 			}
-			return val
 		}
 	})
 	rmemo.refresh = val=>{
@@ -60,6 +58,7 @@ export function rmemo_(_f, ...subscriber_a) {
 					rmemo_(()=>subscriber(rmemo)).go())
 			}
 			if (run_queue) {
+				// eslint-disable-next-line no-cond-assign
 				for (let ref; ref = queue.shift();) {
 					if (queue.some(_ref=>ref.l > _ref.l)) {
 						queue.push(ref)
@@ -79,8 +78,7 @@ export function rmemo_(_f, ...subscriber_a) {
  * @private
  */
 export function rsig_(init_val, ...subscriber_a) {
-	let rsig =
-		rmemo_(signal$=>signal$._v, ...subscriber_a)
+	let rsig = rmemo_(_rsig=>_rsig._v, ...subscriber_a)
 	rsig.onset = val=>rsig._v = val
 	rsig._v = init_val
 	return rsig

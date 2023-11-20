@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "4.0.0",
+	"version": "4.1.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -136,32 +136,53 @@
 	"sideEffects": false,
 	"size-limit": [
 		{
+			"name": "ctx_",
+			"import": {
+				"./be": "{ ctx_ }"
+			},
+			"limit": "34 B"
+		},
+		{
 			"name": "be_",
 			"import": {
 				"./be": "{ be_ }"
 			},
-			"limit": "367 B"
+			"limit": "162 B"
+		},
+		{
+			"name": "be_ ctx_",
+			"import": {
+				"./be": "{ be_, ctx_ }"
+			},
+			"limit": "187 B"
 		},
 		{
 			"name": "rmemo_",
 			"import": {
 				"./rmemo": "{ rmemo_ }"
 			},
-			"limit": "355 B"
+			"limit": "344 B"
 		},
 		{
 			"name": "rmemo_ signal_",
 			"import": {
 				"./rmemo": "{ rsig_, rmemo_ }"
 			},
-			"limit": "381 B"
+			"limit": "372 B"
 		},
 		{
 			"name": "rmemo_ signal_ be_ ctx_",
 			"import": {
 				"./rmemo": "{ rsig_, rmemo_, be_, ctx_ }"
 			},
-			"limit": "731 B"
+			"limit": "532 B"
+		},
+		{
+			"name": "rmemo_ signal_ be_ ctx_ be_rmemo_pair_ be_rsig_triple_",
+			"import": {
+				"./rmemo": "{ rsig_, rmemo_, be_, ctx_, be_rmemo_pair_, be_rsig_triple_ }"
+			},
+			"limit": "613 B"
 		}
 	]
 }
