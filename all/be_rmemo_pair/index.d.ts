@@ -11,7 +11,9 @@ export declare function be_rmemo_pair_<
 	ctx_T extends Ctx = Ctx
 >(
 	rmemo__new:be__val__new_T<val_T>,
-	...subscriber_a_THEN_config:[...rmemo_def_T<val_T>[], config?:be_config_T]
+	...subscriber_a_THEN_config:
+		|[...rmemo_def_T<val_T>[]]
+		|[...rmemo_def_T<val_T>[], config:be_config_T]
 ):be_rmemo_pair_T<val_T, rmemo_T, ctx_T>
 export type be_rmemo_pair_T<
 	val_T,

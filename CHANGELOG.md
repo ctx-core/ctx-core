@@ -1,5 +1,11 @@
 # ctx-core
 
+## 4.1.1
+
+### Patch Changes
+
+- be*rmemo_pair*,be*rsig_triple*: subscriber_a_THEN_config: fix: type
+
 ## 4.1.0
 
 ### Minor Changes

@@ -11,7 +11,9 @@ export declare function be_rsig_triple_<
 	ctx_T extends Ctx = Ctx
 >(
 	rmemo__new:be__val__new_T<val_T>,
-	...subscriber_a_THEN_config:[...rmemo_def_T<val_T>[], config?:be_config_T]
+	...subscriber_a_THEN_config:
+		|[...rmemo_def_T<val_T>[]]
+		|[...rmemo_def_T<val_T>[], config:be_config_T]
 ):be_rsig_triple_T<val_T, rsig_T, ctx_T>
 export type be_rsig_triple_T<
 	val_T,
