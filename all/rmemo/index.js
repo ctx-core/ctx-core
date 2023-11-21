@@ -40,9 +40,7 @@ export function rmemo_(_f, ...subscriber_a) {
 			return _a[0]
 		},
 		set(val) {
-			if (!_a.length || val !== _a[0]) {
-				rmemo.refresh(val)
-			}
+			rmemo.refresh(val)
 		}
 	})
 	rmemo.refresh = val=>{
