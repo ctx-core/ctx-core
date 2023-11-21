@@ -1,5 +1,18 @@
 # ctx-core
 
+## 4.3.1
+
+### Patch Changes
+
+- rmemo: fix: types:
+
+      r_rmemo_T<val_T>,rw_rmemo_T<val_T>: fix type:
+      	object type instead of function
+      	+ .get
+      	+ .set
+      - r_rmemo_o_T
+      - r_rmemo_o_T
+
 ## 4.3.0
 
 ### Minor Changes
