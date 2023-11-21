@@ -25,7 +25,10 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				}
 			}
 			if (cur_r) {
-				cur_r.l = cur_r.l < r_rmemo.rmr.l + 1 ? r_rmemo.rmr.l + 1 : cur_r.l
+				cur_r.l = cur_r.l < r_rmemo.rmr.l + 1
+					? r_rmemo.rmr.l + 1
+					: cur_r.l
+				r_rmemo.rmrs ||= new Set
 				r_rmemo.rmrs.add(cur_r)
 			}
 			return r_rmemo.val
@@ -36,7 +39,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				// hook for rw_rmemo_
 				r_rmemo._s?.(val)
 				let run_queue = !queue[0]
-				for (let rmr of r_rmemo.rmrs) {
+				for (let rmr of (r_rmemo.rmrs ||= new Set)) {
 					if (!~queue.indexOf(rmr)) queue.push(rmr)
 				}
 				if (!r_rmemo._sa) {
@@ -59,7 +62,6 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		go: ()=>(r_rmemo._, r_rmemo),
 		get: ()=>r_rmemo._,
 		set: val=>r_rmemo._ = val,
-		rmrs: new Set,
 	}
 	init = ()=>r_rmemo._ = rmemo_def(r_rmemo)
 	r_rmemo.rmr = new WeakRef(init)
