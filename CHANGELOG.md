@@ -1,5 +1,25 @@
 # ctx-core
 
+## 4.3.0
+
+### Minor Changes
+
+- r*rmemo*,rw*rmemo*: convert function to object: use .\_ getter/setter for value:
+
+      ._rS→._rs
+
+- r*rmemo*:
+
+      .onset→._s: private callback
+      move .go+._rs after ._ getter/setter
+      + .get
+      + .set
+
+### Patch Changes
+
+- rmemo\_: inline r_rmemo.\_r
+- r*rmemo*: - cur_ref !== \_r check: redundant
+
 ## 4.2.1
 
 ### Patch Changes

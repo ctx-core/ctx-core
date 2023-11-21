@@ -55,6 +55,8 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 			}
 		},
 		go: ()=>(r_rmemo._, r_rmemo),
+		get: ()=>r_rmemo._,
+		set: val=>r_rmemo._ = val,
 		_rs: new Set,
 	}
 	init = ()=>r_rmemo._ = rmemo_def(r_rmemo)
