@@ -12,10 +12,9 @@ let queue = []
  */
 export function rmemo_(_f, ...subscriber_a) {
 	let rmemo = (...arg_a)=>arg_a.length ? rmemo._ = arg_a[0] : rmemo._
-	let _a = []
+	// let _a = []
 	let _r = new WeakRef(()=>rmemo._ = _f(rmemo))
 	_r.l = 0
-	rmemo._a = _a
 	rmemo._f = _f
 	rmemo._r = _r
 	rmemo._rS = new Set
@@ -23,7 +22,7 @@ export function rmemo_(_f, ...subscriber_a) {
 	rmemo.onset = ()=>0
 	Object.defineProperty(rmemo, '_', {
 		get() {
-			if (!_a.length) {
+			if (!('val' in rmemo)) {
 				let prev_ref = cur_ref
 				cur_ref = _r
 				try {
@@ -37,11 +36,13 @@ export function rmemo_(_f, ...subscriber_a) {
 				cur_ref.l = cur_ref.l < _r.l + 1 ? _r.l + 1 : cur_ref.l
 				rmemo._rS.add(cur_ref)
 			}
-			return _a[0]
+			return rmemo.val
 		},
 		set(val) {
-			if (val !== _a[0]) {
-				_a[0] = val
+			// if (val !== _a[0]) {
+			if (val !== rmemo.val) {
+				// _a[0] = val
+				rmemo.val = val
 				rmemo.onset(val)
 				let run_queue = !queue[0]
 				for (let ref of rmemo._rS) {

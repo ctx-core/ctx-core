@@ -161,7 +161,7 @@
 			"import": {
 				"./rmemo": "{ rmemo_ }"
 			},
-			"limit": "323 B"
+			"limit": "322 B"
 		},
 		{
 			"name": "rmemo_ signal_",
@@ -175,7 +175,7 @@
 			"import": {
 				"./rmemo": "{ rsig_, rmemo_, be_, ctx_ }"
 			},
-			"limit": "514 B"
+			"limit": "508 B"
 		},
 		{
 			"name": "rmemo_ signal_ be_ ctx_ be_rmemo_pair_ be_rsig_triple_",

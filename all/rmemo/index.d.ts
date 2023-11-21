@@ -8,7 +8,7 @@ export declare function rsig_<val_T>(
 ):readwrite_rmemo_T<val_T>
 export type rmemo_T<val_T> = readwrite_rmemo_T<val_T>|read_rmemo_T<val_T>
 export type read_rmemo_T<val_T> = (()=>val_T)&read_rmemo_o_T<val_T>
-export type readwrite_rmemo_T<val_T> = ((val?:val_T)=>val_T)&rmemo_o_T<val_T>
+export type readwrite_rmemo_T<val_T> = ((val?:val_T)=>val_T)&readwrite_rmemo_o_T<val_T>
 export type rsig_T<val_T> = readwrite_rmemo_T<val_T>
 export type rmemo_val_T<readwrite_rmemo_T> = readwrite_rmemo_T extends {
 		(): infer val_T
@@ -17,15 +17,17 @@ export type rmemo_val_T<readwrite_rmemo_T> = readwrite_rmemo_T extends {
 	: unknown
 export type rmemo_def_T<val_T> = (rmemo:readwrite_rmemo_T<val_T>)=>val_T
 export type rmemo_subscriber_T<val_T> = (rmemo:readwrite_rmemo_T<val_T>)=>unknown
-export type rmemo_o_T<val_T> = {
-	_:val_T
-	go():unknown
-	onset(val:val_T):unknown
-	refresh():val_T
-}&read_rmemo_o_T<val_T>
 export type read_rmemo_o_T<val_T> = {
 	readonly _:val_T
+	val:val_T
 	go():unknown
 	onset(val:val_T):unknown
 	refresh():val_T
 }
+export type readwrite_rmemo_o_T<val_T> = {
+	_:val_T
+	val:val_T
+	go():unknown
+	onset(val:val_T):unknown
+	refresh():val_T
+}&read_rmemo_o_T<val_T>
