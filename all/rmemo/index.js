@@ -33,12 +33,14 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		set _(val) {
 			if (val !== r_rmemo.val) {
 				r_rmemo.val = val
+				// hook for rw_rmemo_
 				r_rmemo._s?.(val)
 				let run_queue = !queue[0]
 				for (let r of r_rmemo._rs) {
 					if (!~queue.indexOf(r)) queue.push(r)
 				}
 				if (!r_rmemo._sa) {
+					// add reference to subscribers to prevent GC
 					r_rmemo._sa = subscriber_a.map(subscriber=>
 						r_rmemo_(()=>subscriber(r_rmemo)).go())
 				}
