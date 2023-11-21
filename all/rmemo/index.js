@@ -14,17 +14,16 @@ let queue = []
 export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	let r_rmemo = (...arg_a)=>arg_a.length ? r_rmemo._ = arg_a[0] : r_rmemo._
 	let init = ()=>r_rmemo._ = rmemo_def(r_rmemo)
-	let _r = new WeakRef(init)
-	r_rmemo._r = _r
+	r_rmemo._r = new WeakRef(init)
+	r_rmemo._r.l = 0
 	r_rmemo._rS = new Set
-	_r.l = 0
 	r_rmemo.go = ()=>(r_rmemo(), r_rmemo)
 	r_rmemo.onset = ()=>0
 	Object.defineProperty(r_rmemo, '_', {
 		get() {
 			if (!('val' in r_rmemo)) {
 				let prev_r = cur_r
-				cur_r = _r
+				cur_r = r_rmemo._r
 				try {
 					init()
 				} finally {
@@ -32,7 +31,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				}
 			}
 			if (cur_r) {
-				cur_r.l = cur_r.l < _r.l + 1 ? _r.l + 1 : cur_r.l
+				cur_r.l = cur_r.l < r_rmemo._r.l + 1 ? r_rmemo._r.l + 1 : cur_r.l
 				r_rmemo._rS.add(cur_r)
 			}
 			return r_rmemo.val

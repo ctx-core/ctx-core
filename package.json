@@ -161,28 +161,28 @@
 			"import": {
 				"./rmemo": "{ r_rmemo_ }"
 			},
-			"limit": "315 B"
+			"limit": "313 B"
 		},
 		{
 			"name": "r_rmemo_ signal_",
 			"import": {
 				"./rmemo": "{ rw_rmemo_, r_rmemo_ }"
 			},
-			"limit": "343 B"
+			"limit": "339 B"
 		},
 		{
 			"name": "r_rmemo_ signal_ be_ ctx_",
 			"import": {
 				"./rmemo": "{ rw_rmemo_, r_rmemo_, be_, ctx_ }"
 			},
-			"limit": "507 B"
+			"limit": "504 B"
 		},
 		{
 			"name": "r_rmemo_ signal_ be_ ctx_ be_r_rmemo_pair_ be_rw_rmemo_triple_",
 			"import": {
 				"./rmemo": "{ rw_rmemo_, r_rmemo_, be_, ctx_, be_r_rmemo_pair_, be_rw_rmemo_triple_ }"
 			},
-			"limit": "587 B"
+			"limit": "580 B"
 		}
 	]
 }
