@@ -13,7 +13,7 @@ let queue = []
 export function rmemo_(_f, ...subscriber_a) {
 	let rmemo = (...arg_a)=>arg_a.length ? rmemo._ = arg_a[0] : rmemo._
 	let _a = []
-	let _r = new WeakRef(()=>rmemo.refresh(_f(rmemo)))
+	let _r = new WeakRef(()=>rmemo._ = _f(rmemo))
 	_r.l = 0
 	rmemo._a = _a
 	rmemo._f = _f
@@ -40,33 +40,30 @@ export function rmemo_(_f, ...subscriber_a) {
 			return _a[0]
 		},
 		set(val) {
-			rmemo.refresh(val)
-		}
-	})
-	rmemo.refresh = val=>{
-		if (val !== _a[0]) {
-			_a[0] = val
-			rmemo.onset(val)
-			let run_queue = !queue[0]
-			for (let ref of rmemo._rS) {
-				if (!~queue.indexOf(ref)) queue.push(ref)
-			}
-			if (!rmemo._sa) {
-				rmemo._sa = subscriber_a.map(subscriber=>
-					rmemo_(()=>subscriber(rmemo)).go())
-			}
-			if (run_queue) {
-				// eslint-disable-next-line no-cond-assign
-				for (let ref; ref = queue.shift();) {
-					if (queue.some(_ref=>ref.l > _ref.l)) {
-						queue.push(ref)
-					} else {
-						(ref.deref() || rmemo._rS.delete)(ref)
+			if (val !== _a[0]) {
+				_a[0] = val
+				rmemo.onset(val)
+				let run_queue = !queue[0]
+				for (let ref of rmemo._rS) {
+					if (!~queue.indexOf(ref)) queue.push(ref)
+				}
+				if (!rmemo._sa) {
+					rmemo._sa = subscriber_a.map(subscriber=>
+						rmemo_(()=>subscriber(rmemo)).go())
+				}
+				if (run_queue) {
+					// eslint-disable-next-line no-cond-assign
+					for (let ref; ref = queue.shift();) {
+						if (queue.some(_ref=>ref.l > _ref.l)) {
+							queue.push(ref)
+						} else {
+							(ref.deref() || rmemo._rS.delete)(ref)
+						}
 					}
 				}
 			}
 		}
-	}
+	})
 	return rmemo
 }
 /**
