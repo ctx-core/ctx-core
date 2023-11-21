@@ -2,7 +2,7 @@
 /** @typedef {import('./index.d.ts').r_rmemo_T} */
 /** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
 /** @type {WeakRef<r_rmemo_T>} */
-let cur_ref
+let cur_r
 /** @type {(()=>unknown)[]} */
 let queue = []
 /**
@@ -23,18 +23,17 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	Object.defineProperty(r_rmemo, '_', {
 		get() {
 			if (!('val' in r_rmemo)) {
-				let prev_ref = cur_ref
-				cur_ref = _r
+				let prev_r = cur_r
+				cur_r = _r
 				try {
 					init()
 				} finally {
-					cur_ref = prev_ref
+					cur_r = prev_r
 				}
 			}
-			// allow self-referencing
-			if (cur_ref && cur_ref !== _r) {
-				cur_ref.l = cur_ref.l < _r.l + 1 ? _r.l + 1 : cur_ref.l
-				r_rmemo._rS.add(cur_ref)
+			if (cur_r) {
+				cur_r.l = cur_r.l < _r.l + 1 ? _r.l + 1 : cur_r.l
+				r_rmemo._rS.add(cur_r)
 			}
 			return r_rmemo.val
 		},
