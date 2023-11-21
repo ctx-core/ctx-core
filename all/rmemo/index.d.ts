@@ -19,13 +19,9 @@ export type r_rmemo_o_T<val_T> = {
 	readonly _:val_T
 	val:val_T
 	go():unknown
-	onset(val:val_T):unknown
-	refresh():val_T
 }
 export type rw_r_rmemo_o_T<val_T> = {
 	_:val_T
 	val:val_T
 	go():unknown
-	onset(val:val_T):unknown
-	refresh():val_T
 }
