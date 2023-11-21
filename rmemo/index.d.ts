@@ -1,5 +1,5 @@
 export * from '../all/be_/index.js'
-export * from '../all/be_rmemo_pair/index.js'
-export * from '../all/be_rsig_triple/index.js'
+export * from '../all/be_r_rmemo_pair/index.js'
+export * from '../all/be_rw_rmemo_triple/index.js'
 export * from '../all/ctx/index.js'
 export * from '../all/rmemo/index.js'
