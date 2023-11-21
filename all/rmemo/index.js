@@ -17,7 +17,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		get _() {
 			if (!('val' in r_rmemo)) {
 				let prev_r = cur_r
-				cur_r = r_rmemo._r
+				cur_r = r_rmemo.rmr
 				try {
 					init()
 				} finally {
@@ -25,8 +25,8 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				}
 			}
 			if (cur_r) {
-				cur_r.l = cur_r.l < r_rmemo._r.l + 1 ? r_rmemo._r.l + 1 : cur_r.l
-				r_rmemo._rs.add(cur_r)
+				cur_r.l = cur_r.l < r_rmemo.rmr.l + 1 ? r_rmemo.rmr.l + 1 : cur_r.l
+				r_rmemo.rmrs.add(cur_r)
 			}
 			return r_rmemo.val
 		},
@@ -36,8 +36,8 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				// hook for rw_rmemo_
 				r_rmemo._s?.(val)
 				let run_queue = !queue[0]
-				for (let r of r_rmemo._rs) {
-					if (!~queue.indexOf(r)) queue.push(r)
+				for (let rmr of r_rmemo.rmrs) {
+					if (!~queue.indexOf(rmr)) queue.push(rmr)
 				}
 				if (!r_rmemo._sa) {
 					// add reference to subscribers to prevent GC
@@ -46,11 +46,11 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				}
 				if (run_queue) {
 					// eslint-disable-next-line no-cond-assign
-					for (let r; r = queue.shift();) {
-						if (queue.some(queue_r=>r.l > queue_r.l)) {
-							queue.push(r)
+					for (let rmr; rmr = queue.shift();) {
+						if (queue.some(queue_r=>rmr.l > queue_r.l)) {
+							queue.push(rmr)
 						} else {
-							(r.deref() || r_rmemo._rs.delete)(r)
+							(rmr.deref() || r_rmemo.rmrs.delete)(rmr)
 						}
 					}
 				}
@@ -59,11 +59,11 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		go: ()=>(r_rmemo._, r_rmemo),
 		get: ()=>r_rmemo._,
 		set: val=>r_rmemo._ = val,
-		_rs: new Set,
+		rmrs: new Set,
 	}
 	init = ()=>r_rmemo._ = rmemo_def(r_rmemo)
-	r_rmemo._r = new WeakRef(init)
-	r_rmemo._r.l = 0
+	r_rmemo.rmr = new WeakRef(init)
+	r_rmemo.rmr.l = 0
 	return r_rmemo
 }
 /**
