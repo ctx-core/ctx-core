@@ -118,8 +118,8 @@
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.13.1",
 		"@size-limit/preset-small-lib": "^11.0.0",
-		"@types/node": "^20.9.2",
-		"@types/sinon": "^17.0.1",
+		"@types/node": "^20.9.3",
+		"@types/sinon": "^17.0.2",
 		"c8": "^8.0.1",
 		"check-dts": "^0.7.2",
 		"sinon": "^17.0.1",
