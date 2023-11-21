@@ -5,13 +5,17 @@
 ### Minor Changes
 
 - renames:
-
+  
       rmemo_→r_rmemo_
-      rsig_→rw_rmemo_
       read_rmemo_T->r_rmemo_T
-      readwrite_rmemo_T→rw_rmemo_T
       read_rmemo_o_T->r_rmemo_o_T
+      rsig_→rw_rmemo_
+      readwrite_rmemo_T→rw_rmemo_T
       readwrite_rmemo_o_T→rw_rmemo_o_T
+      be_rmemo_pair_→be_r_rmemo_pair_
+      be_rmemo_pair_T→be_r_rmemo_pair_T
+      be_rsig_triple_→be_rw_rmemo_triple_
+      be_rsig_triple_T→be_rw_rmemo_triple_T
 
   r*rmemo*: store value in .val instead of .\_a
 
