@@ -1,11 +1,20 @@
 # ctx-core
 
+## 4.2.1
+
+### Patch Changes
+
+- r*rmemo*: .\_r: fix: reference to r_rmemo instance:
+
+      r_rmemo_ signal_: - 4 B
+      r_rmemo_ signal_ be_ ctx_: + 3 B
+
 ## 4.2.0
 
 ### Minor Changes
 
 - renames:
-  
+
       rmemo_→r_rmemo_
       read_rmemo_T->r_rmemo_T
       read_rmemo_o_T->r_rmemo_o_T

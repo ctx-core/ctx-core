@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "4.2.0",
+	"version": "4.2.1",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -161,21 +161,21 @@
 			"import": {
 				"./rmemo": "{ r_rmemo_ }"
 			},
-			"limit": "322 B"
+			"limit": "318 B"
 		},
 		{
 			"name": "r_rmemo_ signal_",
 			"import": {
 				"./rmemo": "{ rw_rmemo_, r_rmemo_ }"
 			},
-			"limit": "350 B"
+			"limit": "346 B"
 		},
 		{
 			"name": "r_rmemo_ signal_ be_ ctx_",
 			"import": {
 				"./rmemo": "{ rw_rmemo_, r_rmemo_, be_, ctx_ }"
 			},
-			"limit": "509 B"
+			"limit": "512 B"
 		},
 		{
 			"name": "r_rmemo_ signal_ be_ ctx_ be_r_rmemo_pair_ be_rw_rmemo_triple_",

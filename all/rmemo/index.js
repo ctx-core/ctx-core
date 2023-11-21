@@ -1,3 +1,4 @@
+/** @typedef {import('./index.d.ts').rmemo_def_T} */
 /** @typedef {import('./index.d.ts').r_rmemo_T} */
 /** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
 /** @type {WeakRef<r_rmemo_T>} */
@@ -5,18 +6,18 @@ let cur_ref
 /** @type {(()=>unknown)[]} */
 let queue = []
 /**
- * @param {(r_rmemo:r_rmemo_T<unknown>)=>unknown}_f
+ * @param {rmemo_def_T}rmemo_def
  * @param {rmemo_subscriber_T<unknown>[]}subscriber_a
  * @returns {r_rmemo_T}
  * @private
  */
-export function r_rmemo_(_f, ...subscriber_a) {
+export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	let r_rmemo = (...arg_a)=>arg_a.length ? r_rmemo._ = arg_a[0] : r_rmemo._
-	let _r = new WeakRef(()=>r_rmemo._ = _f(r_rmemo))
-	_r.l = 0
-	r_rmemo._f = _f
+	let init = ()=>r_rmemo._ = rmemo_def(r_rmemo)
+	let _r = new WeakRef(init)
 	r_rmemo._r = _r
 	r_rmemo._rS = new Set
+	_r.l = 0
 	r_rmemo.go = ()=>(r_rmemo(), r_rmemo)
 	r_rmemo.onset = ()=>0
 	Object.defineProperty(r_rmemo, '_', {
@@ -25,7 +26,7 @@ export function r_rmemo_(_f, ...subscriber_a) {
 				let prev_ref = cur_ref
 				cur_ref = _r
 				try {
-					r_rmemo._ = _f(r_rmemo)
+					init()
 				} finally {
 					cur_ref = prev_ref
 				}
