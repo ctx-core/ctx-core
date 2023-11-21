@@ -28,4 +28,4 @@ export type rw_r_rmemo_o_T<val_T> = {
 	go():unknown
 	onset(val:val_T):unknown
 	refresh():val_T
-}&r_rmemo_o_T<val_T>
+}

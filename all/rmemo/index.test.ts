@@ -10,27 +10,27 @@ test('r_rmemo_|static value', ()=>{
 		return 'rmemo-value'
 	})
 	equal(count, 0)
-	equal(r_rmemo(), 'rmemo-value')
+	equal(r_rmemo._, 'rmemo-value')
 	equal(count, 1)
-	equal(r_rmemo(), 'rmemo-value')
+	equal(r_rmemo._, 'rmemo-value')
 	equal(count, 1)
 })
 test('rw_rmemo_', ()=>{
 	const rw_rmemo = rw_rmemo_('val0')
-	equal(rw_rmemo(), 'val0')
-	rw_rmemo('val1')
-	equal(rw_rmemo(), 'val1')
+	equal(rw_rmemo._, 'val0')
+	rw_rmemo._ = 'val1'
+	equal(rw_rmemo._, 'val1')
 })
 test('r_rmemo_|def function|rmemo$ argument', ()=>{
 	const rw_rmemo = rw_rmemo_('val0')
 	const r_rmemo:r_rmemo_T<string>&{custom?:string} = r_rmemo_<string>((_rmemo$:r_rmemo_T<string>&{custom?:string})=>
-		`${_rmemo$.custom}-${rw_rmemo()}`)
+		`${_rmemo$.custom}-${rw_rmemo._}`)
 	r_rmemo.custom = 'custom_val0'
-	equal(r_rmemo(), 'custom_val0-val0')
+	equal(r_rmemo._, 'custom_val0-val0')
 	r_rmemo.custom = 'custom_val1'
-	equal(r_rmemo(), 'custom_val0-val0')
-	rw_rmemo('val1')
-	equal(r_rmemo(), 'custom_val1-val1')
+	equal(r_rmemo._, 'custom_val0-val0')
+	rw_rmemo._ = 'val1'
+	equal(r_rmemo._, 'custom_val1-val1')
 })
 test('rw_rmemo_|async subsubscriber|case 1', async ()=>{
 	let resolve:(user:{ id:string })=>void
@@ -42,21 +42,21 @@ test('rw_rmemo_|async subsubscriber|case 1', async ()=>{
 		null,
 		async (_user$)=>{
 			count++
-			id$()
+			id$._
 			const user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
-			_user$(user)
+			_user$._ = (user)
 		})
 	equal(count, 0)
-	equal(user$(), null)
+	equal(user$._, null)
 	equal(count, 1)
 	resolve!(user0)
 	await sleep(0)
 	equal(count, 1)
-	equal(user$(), user0)
+	equal(user$._, user0)
 	equal(count, 1)
-	id$('id-1')
+	id$._ = 'id-1'
 	equal(count, 2)
-	equal(user$(), user0)
+	equal(user$._, user0)
 	resolve!(user1)
 	await sleep(0)
 	equal(count, 2)
@@ -68,18 +68,18 @@ test('rw_rmemo_|async subsubscriber|case 2', async ()=>{
 	const taskArgumentsCalls:number[][] = []
 	const sum$ = rw_rmemo_<null|number>(null,
 		async sum$=>{
-			taskArgumentsCalls.push([a$(), b$()])
+			taskArgumentsCalls.push([a$._, b$._])
 			for (let i = 0; i < sleepCycles; i++) {
 				await Promise.resolve()
 			}
-			sum$(a$() + b$())
+			sum$._ = a$._ + b$._
 		})
-	equal(sum$(), null)
+	equal(sum$._, null)
 	deepStrictEqual(taskArgumentsCalls, [[1, 2]])
-	a$(10)
-	b$(20)
+	a$._ = 10
+	b$._ = 20
 	for (let i = 0; i < sleepCycles; i++) {
-		equal(sum$(), null)
+		equal(sum$._, null)
 		await Promise.resolve()
 		deepStrictEqual(taskArgumentsCalls, [
 			[1, 2],
@@ -87,7 +87,7 @@ test('rw_rmemo_|async subsubscriber|case 2', async ()=>{
 			[10, 20]
 		])
 	}
-	equal(sum$(), 30)
+	equal(sum$._, 30)
 	deepStrictEqual(taskArgumentsCalls, [
 		[1, 2],
 		[10, 2],
@@ -96,94 +96,94 @@ test('rw_rmemo_|async subsubscriber|case 2', async ()=>{
 })
 test('r_rmemo_+rw_rmemo_|simple graph', ()=>{
 	const base$ = rw_rmemo_('base0')
-	const dep0$ = r_rmemo_(()=>base$() + '-dep0')
-	const dep1$ = r_rmemo_(()=>dep0$() + '-dep1')
-	const dep2$ = r_rmemo_(()=>dep1$() + '-dep2')
-	const dep3$ = r_rmemo_(()=>dep2$() + '-dep3')
-	const dep4$ = r_rmemo_(()=>dep3$() + '-dep4')
-	equal(dep4$(), 'base0-dep0-dep1-dep2-dep3-dep4')
-	equal(dep3$(), 'base0-dep0-dep1-dep2-dep3')
-	equal(dep2$(), 'base0-dep0-dep1-dep2')
-	equal(dep1$(), 'base0-dep0-dep1')
-	equal(dep0$(), 'base0-dep0')
-	equal(base$(), 'base0')
-	base$('base1')
-	equal(base$(), 'base1')
-	equal(dep0$(), 'base1-dep0')
-	equal(dep1$(), 'base1-dep0-dep1')
-	equal(dep2$(), 'base1-dep0-dep1-dep2')
-	equal(dep3$(), 'base1-dep0-dep1-dep2-dep3')
-	equal(dep4$(), 'base1-dep0-dep1-dep2-dep3-dep4')
+	const dep0$ = r_rmemo_(()=>base$._ + '-dep0')
+	const dep1$ = r_rmemo_(()=>dep0$._ + '-dep1')
+	const dep2$ = r_rmemo_(()=>dep1$._ + '-dep2')
+	const dep3$ = r_rmemo_(()=>dep2$._ + '-dep3')
+	const dep4$ = r_rmemo_(()=>dep3$._ + '-dep4')
+	equal(dep4$._, 'base0-dep0-dep1-dep2-dep3-dep4')
+	equal(dep3$._, 'base0-dep0-dep1-dep2-dep3')
+	equal(dep2$._, 'base0-dep0-dep1-dep2')
+	equal(dep1$._, 'base0-dep0-dep1')
+	equal(dep0$._, 'base0-dep0')
+	equal(base$._, 'base0')
+	base$._ = 'base1'
+	equal(base$._, 'base1')
+	equal(dep0$._, 'base1-dep0')
+	equal(dep1$._, 'base1-dep0-dep1')
+	equal(dep2$._, 'base1-dep0-dep1-dep2')
+	equal(dep3$._, 'base1-dep0-dep1-dep2-dep3')
+	equal(dep4$._, 'base1-dep0-dep1-dep2-dep3-dep4')
 })
 test('prevents diamond dependency problem 1', ()=>{
 	const store$ = rw_rmemo_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store$()}`)
-	const b$ = r_rmemo_(()=>a$().replace('a', 'b'))
-	const c$ = r_rmemo_(()=>a$().replace('a', 'c'))
-	const d$ = r_rmemo_(()=>a$().replace('a', 'd'))
-	r_rmemo_(()=>`${b$()}${c$()}${d$()}`,
+	const a$ = r_rmemo_(()=>`a${store$._}`)
+	const b$ = r_rmemo_(()=>a$._.replace('a', 'b'))
+	const c$ = r_rmemo_(()=>a$._.replace('a', 'c'))
+	const d$ = r_rmemo_(()=>a$._.replace('a', 'd'))
+	r_rmemo_(()=>`${b$._}${c$._}${d$._}`,
 		combined$=>
-			values.push(combined$())
+			values.push(combined$._)
 	).go()
 	deepStrictEqual(values, ['b0c0d0'])
-	store$(1)
-	store$(2)
+	store$._ = 1
+	store$._ = 2
 	deepStrictEqual(values, ['b0c0d0', 'b1c1d1', 'b2c2d2'])
 })
 test('prevents diamond dependency problem 2', ()=>{
 	const store$ = rw_rmemo_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store$()}`)
-	const b$ = r_rmemo_(()=>a$().replace('a', 'b'))
-	const c$ = r_rmemo_(()=>b$().replace('b', 'c'))
-	const d$ = r_rmemo_(()=>c$().replace('c', 'd'))
-	const e$ = r_rmemo_(()=>d$().replace('d', 'e'))
+	const a$ = r_rmemo_(()=>`a${store$._}`)
+	const b$ = r_rmemo_(()=>a$._.replace('a', 'b'))
+	const c$ = r_rmemo_(()=>b$._.replace('b', 'c'))
+	const d$ = r_rmemo_(()=>c$._.replace('c', 'd'))
+	const e$ = r_rmemo_(()=>d$._.replace('d', 'e'))
 	r_rmemo_<string>(
-		()=>[a$(), e$()].join(''),
-		combined$=>values.push(combined$())
+		()=>[a$._, e$._].join(''),
+		$=>values.push($._)
 	).go()
 	deepStrictEqual(values, ['a0e0'])
-	store$(1)
+	store$._ = 1
 	deepStrictEqual(values, ['a0e0', 'a1e1'])
 })
 test('prevents diamond dependency problem 3', ()=>{
 	const store$ = rw_rmemo_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store$()}`)
-	const b$ = r_rmemo_(()=>a$().replace('a', 'b'))
-	const c$ = r_rmemo_(()=>b$().replace('b', 'c'))
-	const d$ = r_rmemo_(()=>c$().replace('c', 'd'))
+	const a$ = r_rmemo_(()=>`a${store$._}`)
+	const b$ = r_rmemo_(()=>a$._.replace('a', 'b'))
+	const c$ = r_rmemo_(()=>b$._.replace('b', 'c'))
+	const d$ = r_rmemo_(()=>c$._.replace('c', 'd'))
 	r_rmemo_<string>(
-		()=>`${a$()}${b$()}${c$()}${d$()}`,
-		combined$=>values.push(combined$())
+		()=>`${a$._}${b$._}${c$._}${d$._}`,
+		combined$=>values.push(combined$._)
 	).go()
 	deepStrictEqual(values, ['a0b0c0d0'])
-	store$(1)
+	store$._ = 1
 	deepStrictEqual(values, ['a0b0c0d0', 'a1b1c1d1'])
 })
 test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
 	const store1$ = rw_rmemo_(0)
 	const store2$ = rw_rmemo_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store1$()}`)
-	const b$ = r_rmemo_(()=>`b${store2$()}`)
-	const c$ = r_rmemo_(()=>`c${a$()}${b$()}`)
-	const d$ = r_rmemo_(()=>`d${a$()}`)
-	const e$ = r_rmemo_(()=>`e${c$()}${d$()}`)
-	const f$ = r_rmemo_(()=>`f${e$()}`)
-	const g$ = r_rmemo_(()=>`g${f$()}`)
+	const a$ = r_rmemo_(()=>`a${store1$._}`)
+	const b$ = r_rmemo_(()=>`b${store2$._}`)
+	const c$ = r_rmemo_(()=>`c${a$._}${b$._}`)
+	const d$ = r_rmemo_(()=>`d${a$._}`)
+	const e$ = r_rmemo_(()=>`e${c$._}${d$._}`)
+	const f$ = r_rmemo_(()=>`f${e$._}`)
+	const g$ = r_rmemo_(()=>`g${f$._}`)
 	r_rmemo_(
-		()=>e$(),
-		combined1$=>values.push(combined1$())
+		()=>e$._,
+		combined1$=>values.push(combined1$._)
 	).go()
 	r_rmemo_(
-		()=>[e$(), g$()].join(''),
-		combined2$=>values.push(combined2$())
+		()=>[e$._, g$._].join(''),
+		combined2$=>values.push(combined2$._)
 	).go()
 	deepStrictEqual(values, ['eca0b0da0', 'eca0b0da0gfeca0b0da0'])
-	store1$(1)
-	store2$(2)
+	store1$._ = 1
+	store2$._ = 2
 	deepStrictEqual(values, [
 		'eca0b0da0',
 		'eca0b0da0gfeca0b0da0',
@@ -199,62 +199,62 @@ test('prevents diamond dependency problem 5', ()=>{
 	const lastName$ = rw_rmemo_('Doe')
 	const fullName$ = r_rmemo_(()=>{
 		events += 'full '
-		return `${firstName$()} ${lastName$()}`
+		return `${firstName$._} ${lastName$._}`
 	})
 	const isFirstShort$ = r_rmemo_(()=>{
 		events += 'short '
-		return firstName$().length < 10
+		return firstName$._.length < 10
 	})
 	const displayName$ = r_rmemo_(
 		()=>{
 			events += 'display '
-			return isFirstShort$() ? fullName$() : firstName$()
+			return isFirstShort$._ ? fullName$._ : firstName$._
 		}
 	)
 	equal(events, '')
-	equal(displayName$(), 'John Doe')
+	equal(displayName$._, 'John Doe')
 	equal(events, 'display short full ')
-	firstName$('Benedict')
-	equal(displayName$(), 'Benedict Doe')
+	firstName$._ = 'Benedict'
+	equal(displayName$._, 'Benedict Doe')
 	equal(events, 'display short full short full display ')
-	firstName$('Montgomery')
-	equal(displayName$(), 'Montgomery')
+	firstName$._ = 'Montgomery'
+	equal(displayName$._, 'Montgomery')
 	equal(events, 'display short full short full display short full display ')
 })
 test('prevents diamond dependency problem 6', ()=>{
 	const store1$ = rw_rmemo_(0)
 	const store2$ = rw_rmemo_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store1$()}`)
-	const b$ = r_rmemo_(()=>`b${store2$()}`)
-	const c$ = r_rmemo_(()=>b$().replace('b', 'c'))
+	const a$ = r_rmemo_(()=>`a${store1$._}`)
+	const b$ = r_rmemo_(()=>`b${store2$._}`)
+	const c$ = r_rmemo_(()=>b$._.replace('b', 'c'))
 	r_rmemo_(
-		()=>`${a$()}${c$()}`,
-		combined$=>values.push(combined$())
+		()=>`${a$._}${c$._}`,
+		combined$=>values.push(combined$._)
 	).go()
 	deepStrictEqual(values, ['a0c0'])
-	store1$(1)
+	store1$._ = 1
 	deepStrictEqual(values, ['a0c0', 'a1c0'])
 })
 test('prevents dependency listeners from being out of order', ()=>{
 	const base$ = rw_rmemo_(0)
 	const a$ = r_rmemo_(()=>{
-		return `${base$()}a`
+		return `${base$._}a`
 	})
 	const values:string[] = []
 	const b$ = r_rmemo_(()=>{
-		return `${a$()}b`
-	}, b$=>values.push(b$()))
-	equal(b$(), '0ab')
+		return `${a$._}b`
+	}, b$=>values.push(b$._))
+	equal(b$._, '0ab')
 	deepStrictEqual(values, ['0ab'])
-	equal(a$(), '0a')
-	base$(1)
+	equal(a$._, '0a')
+	base$._ = 1
 	deepStrictEqual(values, ['0ab', '1ab'])
 })
 test('computes initial value when argument is undefined', ()=>{
 	const one$ = rw_rmemo_<string|undefined>(undefined)
-	const two$ = r_rmemo_(()=>!!one$())
-	equal(one$(), undefined)
-	equal(two$(), false)
+	const two$ = r_rmemo_(()=>!!one$._)
+	equal(one$._, undefined)
+	equal(two$._, false)
 })
 test.run()

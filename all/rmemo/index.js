@@ -12,15 +12,12 @@ let queue = []
  * @private
  */
 export function r_rmemo_(rmemo_def, ...subscriber_a) {
-	let r_rmemo = (...arg_a)=>arg_a.length ? r_rmemo._ = arg_a[0] : r_rmemo._
-	let init = ()=>r_rmemo._ = rmemo_def(r_rmemo)
-	r_rmemo._r = new WeakRef(init)
-	r_rmemo._r.l = 0
-	r_rmemo._rS = new Set
-	r_rmemo.go = ()=>(r_rmemo(), r_rmemo)
-	r_rmemo.onset = ()=>0
-	Object.defineProperty(r_rmemo, '_', {
-		get() {
+	let init
+	let r_rmemo = {
+		_rs: new Set,
+		go: ()=>(r_rmemo._, r_rmemo),
+		onset: ()=>0,
+		get _() {
 			if (!('val' in r_rmemo)) {
 				let prev_r = cur_r
 				cur_r = r_rmemo._r
@@ -32,17 +29,17 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 			}
 			if (cur_r) {
 				cur_r.l = cur_r.l < r_rmemo._r.l + 1 ? r_rmemo._r.l + 1 : cur_r.l
-				r_rmemo._rS.add(cur_r)
+				r_rmemo._rs.add(cur_r)
 			}
 			return r_rmemo.val
 		},
-		set(val) {
+		set _(val) {
 			if (val !== r_rmemo.val) {
 				r_rmemo.val = val
 				r_rmemo.onset(val)
 				let run_queue = !queue[0]
-				for (let ref of r_rmemo._rS) {
-					if (!~queue.indexOf(ref)) queue.push(ref)
+				for (let _r of r_rmemo._rs) {
+					if (!~queue.indexOf(_r)) queue.push(_r)
 				}
 				if (!r_rmemo._sa) {
 					r_rmemo._sa = subscriber_a.map(subscriber=>
@@ -50,17 +47,20 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				}
 				if (run_queue) {
 					// eslint-disable-next-line no-cond-assign
-					for (let ref; ref = queue.shift();) {
-						if (queue.some(_ref=>ref.l > _ref.l)) {
-							queue.push(ref)
+					for (let _r; _r = queue.shift();) {
+						if (queue.some(queue_r=>_r.l > queue_r.l)) {
+							queue.push(_r)
 						} else {
-							(ref.deref() || r_rmemo._rS.delete)(ref)
+							(_r.deref() || r_rmemo._rs.delete)(_r)
 						}
 					}
 				}
 			}
 		}
-	})
+	}
+	init = ()=>r_rmemo._ = rmemo_def(r_rmemo)
+	r_rmemo._r = new WeakRef(init)
+	r_rmemo._r.l = 0
 	return r_rmemo
 }
 /**
@@ -70,7 +70,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
  * @private
  */
 export function rw_rmemo_(init_val, ...subscriber_a) {
-	let rw_rmemo = r_rmemo_(_rsig=>_rsig._v, ...subscriber_a)
+	let rw_rmemo = r_rmemo_(_rw_rmemo=>_rw_rmemo._v, ...subscriber_a)
 	rw_rmemo.onset = val=>rw_rmemo._v = val
 	rw_rmemo._v = init_val
 	return rw_rmemo
