@@ -3,8 +3,8 @@
 /** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
 /** @type {WeakRef<r_rmemo_T>} */
 let cur_rmr
-/** @type {(()=>unknown)[]} */
-let queue = []
+/** @type {Set<()=>unknown>} */
+let queue = new Set
 /**
  * @param {rmemo_def_T}rmemo_def
  * @param {rmemo_subscriber_T<unknown>[]}subscriber_a
@@ -19,26 +19,32 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				refresh()
 			}
 			if (cur_rmr) {
-				cur_rmr.l =
-					cur_rmr.l < r_rmemo.rmr.l + 1
-						? r_rmemo.rmr.l + 1
-						: cur_rmr.l
+				let cur_rmr_refresh = cur_rmr.deref()
+				cur_rmr_refresh.l =
+					cur_rmr_refresh.l < refresh.l + 1
+						? refresh.l + 1
+						: cur_rmr_refresh.l
 				r_rmemo.rmrs ||= new Set
 				r_rmemo.rmrs.add(cur_rmr)
-				cur_rmr.f.push(r_rmemo) // conditional in rmr calls this r_memo
+				cur_rmr_refresh.s.add(r_rmemo) // conditional in rmr calls this r_memo
+				;(cur_rmr_refresh.S ||= new Set).add(r_rmemo) // prevent this rmemo from GC while cur_rmr is still active
 			}
 			return r_rmemo.val
 		},
 		set _(val) {
 			if (val !== r_rmemo.val) {
-				r_rmemo.val = val
-				let run_queue = !queue[0]
+				r_rmemo.val = val // val is available for other purposes
+				let run_queue = !queue.size
 				for (let rmr of (r_rmemo.rmrs ||= new Set)) {
-					if (
-						~rmr.f.indexOf(r_rmemo) // if conditional in rmr calls this r_memo, add to queue
-						&& !~queue.indexOf(rmr) // do not add multiple times to queue
-					) {
-						queue.push(rmr)
+					val = rmr.deref() // val is no longer used...saving bytes
+					if (val) {
+						if (
+							val.s.has(r_rmemo) // if conditional rmr refresh calls this r_memo, add to queue
+						) {
+							queue.add(val)
+						}
+					} else {
+						r_rmemo.rmrs.delete(rmr)
 					}
 				}
 				// add reference to subscribers to prevent GC
@@ -49,13 +55,15 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 							subscriber$
 						))._)
 				if (run_queue) {
-					// eslint-disable-next-line no-cond-assign
-					for (let rmr; rmr = queue.shift();) {
-						if (queue.some(queue_r=>rmr.l > queue_r.l)) {
-							queue.push(rmr)
-						} else {
-							(/* refresh */rmr.deref() || r_rmemo.rmrs.delete)(rmr)
+					cur_refresh_loop:for (let cur_refresh of queue) {
+						queue.delete(cur_refresh)
+						for (let queue_refresh of queue) {
+							if (cur_refresh.l > queue_refresh.l) {
+								queue.add(cur_refresh)
+								continue cur_refresh_loop
+							}
 						}
+						cur_refresh()
 					}
 				}
 			}
@@ -64,7 +72,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	refresh = ()=>{
 		let prev_rmr = cur_rmr
 		cur_rmr = r_rmemo.rmr
-		cur_rmr.f = []
+		refresh.s = new Set
 		try {
 			r_rmemo._ = rmemo_def(r_rmemo)
 		} catch (err) {
@@ -73,7 +81,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		cur_rmr = prev_rmr // finally is not necessary due since catch does not throw
 	}
 	r_rmemo.rmr = new WeakRef(refresh)
-	r_rmemo.rmr.l = 0
+	refresh.l = 0
 	return r_rmemo
 }
 export { r_rmemo_ as rwr_rmemo_ }
