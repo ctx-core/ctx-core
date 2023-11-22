@@ -23,7 +23,7 @@ test('rw_rmemo_', ()=>{
 })
 test('r_rmemo_|def function|rmemo$ argument', ()=>{
 	const rw_rmemo = rw_rmemo_('val0')
-	const r_rmemo:r_rmemo_T<string>&{custom?:string} = r_rmemo_<string>((_rmemo$:r_rmemo_T<string>&{custom?:string})=>
+	const r_rmemo:r_rmemo_T<string>&{ custom?:string } = r_rmemo_<string>((_rmemo$:r_rmemo_T<string>&{ custom?:string })=>
 		`${_rmemo$.custom}-${rw_rmemo._}`)
 	r_rmemo.custom = 'custom_val0'
 	equal(r_rmemo._, 'custom_val0-val0')
@@ -31,6 +31,16 @@ test('r_rmemo_|def function|rmemo$ argument', ()=>{
 	equal(r_rmemo._, 'custom_val0-val0')
 	rw_rmemo._ = 'val1'
 	equal(r_rmemo._, 'custom_val1-val1')
+})
+test('r_memo_|side effect', ()=>{
+	const history:string[] = []
+	const s = rw_rmemo_('This')
+	r_rmemo_(()=>history.push(s._)).go()
+	s._ = 'is'
+	s._ = 'a'
+	s._ = 'test'
+	s._ = 'test'
+	equal(history, ['This', 'is', 'a', 'test'])
 })
 test('rw_rmemo_|async subsubscriber|case 1', async ()=>{
 	let resolve:(user:{ id:string })=>void

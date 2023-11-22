@@ -12,14 +12,14 @@ let queue = []
  * @private
  */
 export function r_rmemo_(rmemo_def, ...subscriber_a) {
-	let init
+	let refresh
 	let r_rmemo = {
 		get _() {
 			if (!('val' in r_rmemo)) {
 				let prev_r = cur_r
 				cur_r = r_rmemo.rmr
 				try {
-					init()
+					refresh()
 				} finally {
 					cur_r = prev_r
 				}
@@ -36,8 +36,6 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		set _(val) {
 			if (val !== r_rmemo.val) {
 				r_rmemo.val = val
-				// hook for rw_rmemo_
-				r_rmemo._s?.(val)
 				let run_queue = !queue[0]
 				for (let rmr of (r_rmemo.rmrs ||= new Set)) {
 					if (!~queue.indexOf(rmr)) queue.push(rmr)
@@ -63,8 +61,8 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		get: ()=>r_rmemo._,
 		set: val=>r_rmemo._ = val,
 	}
-	init = ()=>r_rmemo._ = rmemo_def(r_rmemo)
-	r_rmemo.rmr = new WeakRef(init)
+	refresh = ()=>r_rmemo._ = rmemo_def(r_rmemo)
+	r_rmemo.rmr = new WeakRef(refresh)
 	r_rmemo.rmr.l = 0
 	return r_rmemo
 }
@@ -75,8 +73,9 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
  * @private
  */
 export function rw_rmemo_(init_val, ...subscriber_a) {
-	let rw_rmemo = r_rmemo_(_rw_rmemo=>_rw_rmemo._v, ...subscriber_a)
-	rw_rmemo._s = val=>rw_rmemo._v = val
-	rw_rmemo._v = init_val
-	return rw_rmemo
+	return r_rmemo_(rw_rmemo=>
+		'val' in rw_rmemo
+			? rw_rmemo.val
+			: init_val,
+	...subscriber_a)
 }
