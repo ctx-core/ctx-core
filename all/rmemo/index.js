@@ -16,10 +16,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	let r_rmemo = {
 		get _() {
 			if (!('val' in r_rmemo)) {
-				let prev_rmr = cur_rmr
-				cur_rmr = r_rmemo.rmr
-				refresh() // refresh has a try/catch
-				cur_rmr = prev_rmr
+				refresh()
 			}
 			if (cur_rmr) {
 				cur_rmr.l =
@@ -28,6 +25,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 						: cur_rmr.l
 				r_rmemo.rmrs ||= new Set
 				r_rmemo.rmrs.add(cur_rmr)
+				cur_rmr.f.push(r_rmemo) // conditional in rmr calls this r_memo
 			}
 			return r_rmemo.val
 		},
@@ -36,20 +34,27 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				r_rmemo.val = val
 				let run_queue = !queue[0]
 				for (let rmr of (r_rmemo.rmrs ||= new Set)) {
-					if (!~queue.indexOf(rmr)) queue.push(rmr)
+					if (
+						~rmr.f.indexOf(r_rmemo) // if conditional in rmr calls this r_memo, add to queue
+						&& !~queue.indexOf(rmr) // do not add multiple times to queue
+					) {
+						queue.push(rmr)
+					}
 				}
-				if (!r_rmemo._sa) {
-					// add reference to subscribers to prevent GC
-					r_rmemo._sa = subscriber_a.map(subscriber=>
-						r_rmemo_(()=>subscriber(r_rmemo))._)
-				}
+				// add reference to subscribers to prevent GC
+				r_rmemo._s ||=
+					subscriber_a.map(subscriber=>
+						r_rmemo_(subscriber$=>(
+							subscriber(r_rmemo),
+							subscriber$
+						))._)
 				if (run_queue) {
 					// eslint-disable-next-line no-cond-assign
 					for (let rmr; rmr = queue.shift();) {
 						if (queue.some(queue_r=>rmr.l > queue_r.l)) {
 							queue.push(rmr)
 						} else {
-							(rmr.deref() || r_rmemo.rmrs.delete)(rmr)
+							(/* refresh */rmr.deref() || r_rmemo.rmrs.delete)(rmr)
 						}
 					}
 				}
@@ -57,11 +62,15 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		},
 	}
 	refresh = ()=>{
+		let prev_rmr = cur_rmr
+		cur_rmr = r_rmemo.rmr
+		cur_rmr.f = []
 		try {
 			r_rmemo._ = rmemo_def(r_rmemo)
 		} catch (err) {
 			console.error(err)
 		}
+		cur_rmr = prev_rmr // finally is not necessary due since catch does not throw
 	}
 	r_rmemo.rmr = new WeakRef(refresh)
 	r_rmemo.rmr.l = 0

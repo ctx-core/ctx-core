@@ -1,3 +1,5 @@
+// Reference: https://github.com/nanostores/nanostores/blob/main/computed/index.test.ts
+// Reference: https://github.com/vanjs-org/van/blob/main/test/van.test.ts
 import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
@@ -35,6 +37,46 @@ test('r_memo_|side effect', ()=>{
 	s._ = 'test'
 	s._ = 'test'
 	equal(history, ['This', 'is', 'a', 'test'])
+})
+test('r_rmemo_|conditional', ()=>{
+	const cond$ = rw_rmemo_(true)
+	const a$ = rw_rmemo_(1)
+	const b$ = rw_rmemo_(2)
+	const c$ = rw_rmemo_(3)
+	const d$ = rw_rmemo_(4)
+	let trigger_count = 0
+	const sum$ = r_rmemo_(()=>(++trigger_count, cond$._ ? a$._ + b$._ : c$._ + d$._))
+	equal(sum$._, 3)
+	equal(trigger_count, 1)
+	a$._ = 11
+	equal(sum$._, 13)
+	equal(trigger_count, 2)
+	b$._ = 12
+	equal(sum$._, 23)
+	equal(trigger_count, 3)
+	// Changing c$ or d$ won't triggered the effect as they're not its current dependencies
+	c$._ = 13
+	equal(sum$._, 23)
+	equal(trigger_count, 3)
+	d$._ = 14
+	equal(sum$._, 23)
+	equal(trigger_count, 3)
+	cond$._ = false
+	equal(sum$._, 27)
+	equal(trigger_count, 4)
+	c$._ = 23
+	equal(sum$._, 37)
+	equal(trigger_count, 5)
+	d$._ = 24
+	equal(sum$._, 47)
+	equal(trigger_count, 6)
+	// Changing a$ or b$ won't triggered the effect as they're not its current dependencies
+	a$._ = 21
+	equal(sum$._, 47)
+	equal(trigger_count, 6)
+	b$._ = 22
+	equal(sum$._, 47)
+	equal(trigger_count, 6)
 })
 test('rwr_rmemo_', ()=>{
 	const num_items$ = rw_rmemo_(0)
