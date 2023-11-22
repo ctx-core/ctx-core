@@ -2,7 +2,7 @@
 /** @typedef {import('./index.d.ts').r_rmemo_T} */
 /** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
 /** @type {WeakRef<r_rmemo_T>} */
-let cur_r
+let cur_rmr
 /** @type {(()=>unknown)[]} */
 let queue = []
 /**
@@ -16,20 +16,21 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	let r_rmemo = {
 		get _() {
 			if (!('val' in r_rmemo)) {
-				let prev_r = cur_r
-				cur_r = r_rmemo.rmr
+				let prev_rmr = cur_rmr
+				cur_rmr = r_rmemo.rmr
 				try {
 					refresh()
 				} finally {
-					cur_r = prev_r
+					cur_rmr = prev_rmr
 				}
 			}
-			if (cur_r) {
-				cur_r.l = cur_r.l < r_rmemo.rmr.l + 1
-					? r_rmemo.rmr.l + 1
-					: cur_r.l
+			if (cur_rmr) {
+				cur_rmr.l =
+					cur_rmr.l < r_rmemo.rmr.l + 1
+						? r_rmemo.rmr.l + 1
+						: cur_rmr.l
 				r_rmemo.rmrs ||= new Set
-				r_rmemo.rmrs.add(cur_r)
+				r_rmemo.rmrs.add(cur_rmr)
 			}
 			return r_rmemo.val
 		},
@@ -43,7 +44,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				if (!r_rmemo._sa) {
 					// add reference to subscribers to prevent GC
 					r_rmemo._sa = subscriber_a.map(subscriber=>
-						r_rmemo_(()=>subscriber(r_rmemo)).go())
+						r_rmemo_(()=>subscriber(r_rmemo))._)
 				}
 				if (run_queue) {
 					// eslint-disable-next-line no-cond-assign
@@ -57,15 +58,11 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				}
 			}
 		},
-		go: ()=>(r_rmemo._, r_rmemo),
 	}
 	refresh = ()=>r_rmemo._ = rmemo_def(r_rmemo)
 	r_rmemo.rmr = new WeakRef(refresh)
 	r_rmemo.rmr.l = 0
 	return r_rmemo
-}
-export function rw_rmemo__set_(rmemo) {
-	return val=>rmemo._ = val
 }
 /**
  * @param {unknown}init_val
@@ -79,4 +76,12 @@ export function rw_rmemo_(init_val, ...subscriber_a) {
 			? rw_rmemo.val
 			: init_val,
 	...subscriber_a)
+}
+/**
+ * @param {rw_rmemo_T}rw_rmemo
+ * @returns {(val:unknown)=>unknown}
+ * @private
+ */
+export function rw_rmemo__set_(rw_rmemo) {
+	return val=>rw_rmemo._ = val
 }

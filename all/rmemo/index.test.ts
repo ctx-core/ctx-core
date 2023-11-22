@@ -15,13 +15,7 @@ test('r_rmemo_|static value', ()=>{
 	equal(r_rmemo._, 'rmemo-value')
 	equal(count, 1)
 })
-test('rw_rmemo_', ()=>{
-	const rw_rmemo = rw_rmemo_('val0')
-	equal(rw_rmemo._, 'val0')
-	rw_rmemo._ = 'val1'
-	equal(rw_rmemo._, 'val1')
-})
-test('r_rmemo_|def function|rmemo$ argument', ()=>{
+test('r_rmemo_|def function|rmemo argument', ()=>{
 	const rw_rmemo = rw_rmemo_('val0')
 	const r_rmemo:r_rmemo_T<string>&{ custom?:string } = r_rmemo_<string>((_rmemo$:r_rmemo_T<string>&{ custom?:string })=>
 		`${_rmemo$.custom}-${rw_rmemo._}`)
@@ -35,12 +29,24 @@ test('r_rmemo_|def function|rmemo$ argument', ()=>{
 test('r_memo_|side effect', ()=>{
 	const history:string[] = []
 	const s = rw_rmemo_('This')
-	r_rmemo_(()=>history.push(s._)).go()
+	r_rmemo_(()=>history.push(s._))._
 	s._ = 'is'
 	s._ = 'a'
 	s._ = 'test'
 	s._ = 'test'
 	equal(history, ['This', 'is', 'a', 'test'])
+})
+test('rw_rmemo_', ()=>{
+	const rw_rmemo = rw_rmemo_('val0')
+	equal(rw_rmemo._, 'val0')
+	rw_rmemo._ = 'val1'
+	equal(rw_rmemo._, 'val1')
+})
+test('rw_rmemo_|undefined', ()=>{
+	const rw_rmemo = rw_rmemo_(undefined)
+	const r_rmemo = r_rmemo_(()=>rw_rmemo._)
+	equal(rw_rmemo._, undefined)
+	equal(r_rmemo._, undefined)
 })
 test('rw_rmemo_|async subsubscriber|case 1', async ()=>{
 	let resolve:(user:{ id:string })=>void
@@ -135,7 +141,7 @@ test('prevents diamond dependency problem 1', ()=>{
 	r_rmemo_(()=>`${b$._}${c$._}${d$._}`,
 		combined$=>
 			values.push(combined$._)
-	).go()
+	)._
 	deepStrictEqual(values, ['b0c0d0'])
 	store$._ = 1
 	store$._ = 2
@@ -152,7 +158,7 @@ test('prevents diamond dependency problem 2', ()=>{
 	r_rmemo_<string>(
 		()=>[a$._, e$._].join(''),
 		$=>values.push($._)
-	).go()
+	)._
 	deepStrictEqual(values, ['a0e0'])
 	store$._ = 1
 	deepStrictEqual(values, ['a0e0', 'a1e1'])
@@ -167,7 +173,7 @@ test('prevents diamond dependency problem 3', ()=>{
 	r_rmemo_<string>(
 		()=>`${a$._}${b$._}${c$._}${d$._}`,
 		combined$=>values.push(combined$._)
-	).go()
+	)._
 	deepStrictEqual(values, ['a0b0c0d0'])
 	store$._ = 1
 	deepStrictEqual(values, ['a0b0c0d0', 'a1b1c1d1'])
@@ -186,11 +192,11 @@ test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
 	r_rmemo_(
 		()=>e$._,
 		combined1$=>values.push(combined1$._)
-	).go()
+	)._
 	r_rmemo_(
 		()=>[e$._, g$._].join(''),
 		combined2$=>values.push(combined2$._)
-	).go()
+	)._
 	deepStrictEqual(values, ['eca0b0da0', 'eca0b0da0gfeca0b0da0'])
 	store1$._ = 1
 	store2$._ = 2
@@ -241,7 +247,7 @@ test('prevents diamond dependency problem 6', ()=>{
 	r_rmemo_(
 		()=>`${a$._}${c$._}`,
 		combined$=>values.push(combined$._)
-	).go()
+	)._
 	deepStrictEqual(values, ['a0c0'])
 	store1$._ = 1
 	deepStrictEqual(values, ['a0c0', 'a1c0'])
