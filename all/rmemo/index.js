@@ -18,11 +18,8 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 			if (!('val' in r_rmemo)) {
 				let prev_rmr = cur_rmr
 				cur_rmr = r_rmemo.rmr
-				try {
-					refresh()
-				} finally {
-					cur_rmr = prev_rmr
-				}
+				refresh() // refresh has a try/catch
+				cur_rmr = prev_rmr
 			}
 			if (cur_rmr) {
 				cur_rmr.l =
@@ -59,7 +56,13 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 			}
 		},
 	}
-	refresh = ()=>r_rmemo._ = rmemo_def(r_rmemo)
+	refresh = ()=>{
+		try {
+			r_rmemo._ = rmemo_def(r_rmemo)
+		} catch (err) {
+			console.error(err)
+		}
+	}
 	r_rmemo.rmr = new WeakRef(refresh)
 	r_rmemo.rmr.l = 0
 	return r_rmemo

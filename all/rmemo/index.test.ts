@@ -36,6 +36,23 @@ test('r_memo_|side effect', ()=>{
 	s._ = 'test'
 	equal(history, ['This', 'is', 'a', 'test'])
 })
+test('r_rmemo_|error', ()=>{
+	const s0 = rw_rmemo_(1)
+	const s1 = r_rmemo_(()=>s0._ * 2)
+	const s2 = r_rmemo_(()=>{
+		if (s0._ > 1) throw new Error()
+		return s0._
+	})
+	const s3 = r_rmemo_(()=>s0._ * s0._)
+	equal(s1._, 2)
+	equal(s2._, 1)
+	equal(s3._, 1)
+	s0._ = 3
+	equal(s1._, 6)
+	// s2._ keeps it's old value of 1 due to error
+	equal(s2._, 1)
+	equal(s3._, 9)
+})
 test('rw_rmemo_', ()=>{
 	const rw_rmemo = rw_rmemo_('val0')
 	equal(rw_rmemo._, 'val0')
