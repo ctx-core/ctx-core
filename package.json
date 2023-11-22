@@ -161,7 +161,7 @@
 			"import": {
 				"./rmemo": "{ r_rmemo_ }"
 			},
-			"limit": "275 B"
+			"limit": "276 B"
 		},
 		{
 			"name": "r_rmemo_ signal_",

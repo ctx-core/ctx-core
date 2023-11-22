@@ -67,6 +67,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	r_rmemo.rmr.l = 0
 	return r_rmemo
 }
+export { r_rmemo_ as rwr_rmemo_ }
 /**
  * @param {unknown}init_val
  * @param {rmemo_subscriber_T[]}subscriber_a

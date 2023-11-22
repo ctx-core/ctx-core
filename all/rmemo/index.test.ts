@@ -2,7 +2,7 @@ import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { r_rmemo_, type r_rmemo_T, rw_rmemo_ } from './index.js'
+import { r_rmemo_, type r_rmemo_T, rw_rmemo_, rwr_rmemo_ } from './index.js'
 test('r_rmemo_|static value', ()=>{
 	let count = 0
 	const r_rmemo = r_rmemo_(()=>{
@@ -36,22 +36,44 @@ test('r_memo_|side effect', ()=>{
 	s._ = 'test'
 	equal(history, ['This', 'is', 'a', 'test'])
 })
+test('rwr_rmemo_', ()=>{
+	const num_items$ = rw_rmemo_(0)
+	const items$ = r_rmemo_(()=>[...Array(num_items$._).keys()].map(i=>`Item ${i + 1}`))
+	const selected_index$ = rwr_rmemo_(()=>(items$._, 0))
+	const selected_item$ = r_rmemo_(()=>items$._[selected_index$._])
+	num_items$._ = 3
+	equal(num_items$._, 3)
+	equal(items$._.join(','), 'Item 1,Item 2,Item 3')
+	equal(selected_index$._, 0)
+	equal(selected_item$._, 'Item 1')
+	selected_index$._ = 2
+	equal(selected_index$._, 2)
+	equal(selected_item$._, 'Item 3')
+	num_items$._ = 5
+	equal(num_items$._, 5)
+	equal(items$._.join(','), 'Item 1,Item 2,Item 3,Item 4,Item 5')
+	equal(selected_index$._, 0)
+	equal(selected_item$._, 'Item 1')
+	selected_index$._ = 3
+	equal(selected_index$._, 3)
+	equal(selected_item$._, 'Item 4')
+})
 test('r_rmemo_|error', ()=>{
-	const s0 = rw_rmemo_(1)
-	const s1 = r_rmemo_(()=>s0._ * 2)
-	const s2 = r_rmemo_(()=>{
-		if (s0._ > 1) throw new Error()
-		return s0._
+	const rw0 = rw_rmemo_(1)
+	const r1 = r_rmemo_(()=>rw0._ * 2)
+	const r2 = r_rmemo_(()=>{
+		if (rw0._ > 1) throw new Error()
+		return rw0._
 	})
-	const s3 = r_rmemo_(()=>s0._ * s0._)
-	equal(s1._, 2)
-	equal(s2._, 1)
-	equal(s3._, 1)
-	s0._ = 3
-	equal(s1._, 6)
-	// s2._ keeps it's old value of 1 due to error
-	equal(s2._, 1)
-	equal(s3._, 9)
+	const r3 = r_rmemo_(()=>rw0._ * rw0._)
+	equal(r1._, 2)
+	equal(r2._, 1)
+	equal(r3._, 1)
+	rw0._ = 3
+	equal(r1._, 6)
+	// r2._ keeps it's old value of 1 due to error
+	equal(r2._, 1)
+	equal(r3._, 9)
 })
 test('rw_rmemo_', ()=>{
 	const rw_rmemo = rw_rmemo_('val0')
