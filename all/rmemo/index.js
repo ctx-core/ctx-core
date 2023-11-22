@@ -58,13 +58,14 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 			}
 		},
 		go: ()=>(r_rmemo._, r_rmemo),
-		get: ()=>r_rmemo._,
-		set: val=>r_rmemo._ = val,
 	}
 	refresh = ()=>r_rmemo._ = rmemo_def(r_rmemo)
 	r_rmemo.rmr = new WeakRef(refresh)
 	r_rmemo.rmr.l = 0
 	return r_rmemo
+}
+export function rw_rmemo__set_(rmemo) {
+	return val=>rmemo._ = val
 }
 /**
  * @param {unknown}init_val
