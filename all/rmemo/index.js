@@ -13,6 +13,7 @@ let queue = new Set
  */
 export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	let refresh
+	let rmrs
 	let r_rmemo = {
 		get _() {
 			if (!('val' in r_rmemo)) {
@@ -24,10 +25,9 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 					cur_rmr_refresh.l < refresh.l + 1
 						? refresh.l + 1
 						: cur_rmr_refresh.l
-				r_rmemo.rmrs ||= new Set
-				r_rmemo.rmrs.add(cur_rmr)
+				rmrs.add(cur_rmr)
 				cur_rmr_refresh.s.add(r_rmemo) // conditional in rmr calls this r_memo
-				;(cur_rmr_refresh.S ||= new Set).add(r_rmemo) // prevent this rmemo from GC while cur_rmr is still active
+				cur_rmr_refresh.S.add(r_rmemo) // prevent this rmemo from GC while cur_rmr is still active
 			}
 			return r_rmemo.val
 		},
@@ -35,16 +35,12 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 			if (val !== r_rmemo.val) {
 				r_rmemo.val = val // val is available for other purposes
 				let run_queue = !queue.size
-				for (let rmr of (r_rmemo.rmrs ||= new Set)) {
+				for (let rmr of rmrs) {
 					val = rmr.deref() // val is no longer used...saving bytes
-					if (val) {
-						if (
-							val.s.has(r_rmemo) // if conditional rmr refresh calls this r_memo, add to queue
-						) {
-							queue.add(val)
-						}
-					} else {
-						r_rmemo.rmrs.delete(rmr)
+					if (!val) {
+						rmrs.delete(rmr)
+					} else if (val.s.has(r_rmemo)) { // if conditional rmr refresh calls this r_memo, add to queue
+						queue.add(val)
 					}
 				}
 				// add reference to subscribers to prevent GC
@@ -72,7 +68,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	refresh = ()=>{
 		let prev_rmr = cur_rmr
 		cur_rmr = r_rmemo.rmr
-		refresh.s = new Set
+		refresh.s.clear()
 		try {
 			r_rmemo._ = rmemo_def(r_rmemo)
 		} catch (err) {
@@ -80,8 +76,11 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		}
 		cur_rmr = prev_rmr // finally is not necessary due since catch does not throw
 	}
-	r_rmemo.rmr = new WeakRef(refresh)
 	refresh.l = 0
+	rmrs = new Set
+	r_rmemo.rmr = new WeakRef(refresh)
+	refresh.s = new Set
+	refresh.S = new Set
 	return r_rmemo
 }
 export { r_rmemo_ as rwr_rmemo_ }

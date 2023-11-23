@@ -100,7 +100,13 @@ test('rwr_rmemo_', ()=>{
 	equal(selected_index$._, 3)
 	equal(selected_item$._, 'Item 4')
 })
-test('r_rmemo_|error', ()=>{
+test('r_rmemo_|error|case 1', ()=>{
+	const r$ = r_rmemo_(()=>{
+		throw new Error('error case')
+	})
+	equal(r$._, undefined)
+})
+test('r_rmemo_|error|case 2', ()=>{
 	const rw0 = rw_rmemo_(1)
 	const r1 = r_rmemo_(()=>rw0._ * 2)
 	const r2 = r_rmemo_(()=>{
