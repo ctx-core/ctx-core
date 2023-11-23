@@ -1,5 +1,21 @@
 # ctx-core
 
+## 4.4.0
+
+### Minor Changes
+
+- r_rmemo\_: - .go
+- - rwr*rmemo*: rw*rmemo* with a rmemo*def argument: same arguments as r_rmemo* but writable
+
+### Patch Changes
+
+- rw*rmemo*: use .val instead of .\_s & .\_v to query stored val:
+
+      - ._s
+      - ._v
+
+- r*rmemo*: def: conditional logic: fix: keep reference to all parents to prevent parent GC
+
 ## 4.3.1
 
 ### Patch Changes
