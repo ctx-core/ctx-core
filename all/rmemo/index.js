@@ -77,7 +77,9 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 		cur_rmr = prev_rmr // finally is not necessary due since catch does not throw
 	}
 	refresh.l = 0
-	rmrs = new Set
+	// rmrs = new Set
+	// r_rmemo.rmrs is kept for GC testing/debugging purposes...small size increase
+	r_rmemo.rmrs = rmrs = new Set
 	r_rmemo.rmr = new WeakRef(refresh)
 	refresh.s = new Set
 	refresh.S = new Set

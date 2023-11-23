@@ -22,7 +22,7 @@ export type rw_rmemo_T<val_T> = {
 	_:val_T
 	val:val_T
 	rmr:WeakRef<()=>val_T>
-	rmrs?:Set<WeakRef<()=>val_T>>
+	rmrs:Set<WeakRef<()=>val_T>>
 }
 export type rmemo_val_T<rw_rmemo_T> = rw_rmemo_T extends {
 		_:infer val_T
