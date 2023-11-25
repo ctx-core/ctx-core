@@ -4,10 +4,10 @@ import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { r_rmemo_, type r_rmemo_T, rw_rmemo_, rwr_rmemo_ } from './index.js'
-test('r_rmemo_|static value', ()=>{
+import { comp_, type comp_T, sig_, compsig_ } from './index.js'
+test('comp_|static value', ()=>{
 	let count = 0
-	const r_rmemo = r_rmemo_(()=>{
+	const r_rmemo = comp_(()=>{
 		count++
 		return 'rmemo-value'
 	})
@@ -17,9 +17,9 @@ test('r_rmemo_|static value', ()=>{
 	equal(r_rmemo._, 'rmemo-value')
 	equal(count, 1)
 })
-test('r_rmemo_|def function|rmemo argument', ()=>{
-	const rw_rmemo = rw_rmemo_('val0')
-	const r_rmemo:r_rmemo_T<string>&{ custom?:string } = r_rmemo_<string>((_rmemo$:r_rmemo_T<string>&{ custom?:string })=>
+test('comp_|def function|rmemo argument', ()=>{
+	const rw_rmemo = sig_('val0')
+	const r_rmemo:comp_T<string>&{ custom?:string } = comp_<string>((_rmemo$:comp_T<string>&{ custom?:string })=>
 		`${_rmemo$.custom}-${rw_rmemo._}`)
 	r_rmemo.custom = 'custom_val0'
 	equal(r_rmemo._, 'custom_val0-val0')
@@ -30,22 +30,22 @@ test('r_rmemo_|def function|rmemo argument', ()=>{
 })
 test('r_memo_|side effect', ()=>{
 	const history:string[] = []
-	const s = rw_rmemo_('This')
-	r_rmemo_(()=>history.push(s._))._
+	const s = sig_('This')
+	comp_(()=>history.push(s._))._
 	s._ = 'is'
 	s._ = 'a'
 	s._ = 'test'
 	s._ = 'test'
 	equal(history, ['This', 'is', 'a', 'test'])
 })
-test('r_rmemo_|conditional', ()=>{
-	const cond$ = rw_rmemo_(true)
-	const a$ = rw_rmemo_(1)
-	const b$ = rw_rmemo_(2)
-	const c$ = rw_rmemo_(3)
-	const d$ = rw_rmemo_(4)
+test('comp_|conditional', ()=>{
+	const cond$ = sig_(true)
+	const a$ = sig_(1)
+	const b$ = sig_(2)
+	const c$ = sig_(3)
+	const d$ = sig_(4)
 	let trigger_count = 0
-	const sum$ = r_rmemo_(()=>(++trigger_count, cond$._ ? a$._ + b$._ : c$._ + d$._))
+	const sum$ = comp_(()=>(++trigger_count, cond$._ ? a$._ + b$._ : c$._ + d$._))
 	equal(sum$._, 3)
 	equal(trigger_count, 1)
 	a$._ = 11
@@ -78,11 +78,11 @@ test('r_rmemo_|conditional', ()=>{
 	equal(sum$._, 47)
 	equal(trigger_count, 6)
 })
-test('rwr_rmemo_', ()=>{
-	const num_items$ = rw_rmemo_(0)
-	const items$ = r_rmemo_(()=>[...Array(num_items$._).keys()].map(i=>`Item ${i + 1}`))
-	const selected_index$ = rwr_rmemo_(()=>(items$._, 0))
-	const selected_item$ = r_rmemo_(()=>items$._[selected_index$._])
+test('compsig_', ()=>{
+	const num_items$ = sig_(0)
+	const items$ = comp_(()=>[...Array(num_items$._).keys()].map(i=>`Item ${i + 1}`))
+	const selected_index$ = compsig_(()=>(items$._, 0))
+	const selected_item$ = comp_(()=>items$._[selected_index$._])
 	num_items$._ = 3
 	equal(num_items$._, 3)
 	equal(items$._.join(','), 'Item 1,Item 2,Item 3')
@@ -100,20 +100,20 @@ test('rwr_rmemo_', ()=>{
 	equal(selected_index$._, 3)
 	equal(selected_item$._, 'Item 4')
 })
-test('r_rmemo_|error|case 1', ()=>{
-	const r$ = r_rmemo_(()=>{
+test('comp_|error|case 1', ()=>{
+	const r$ = comp_(()=>{
 		throw new Error('error case')
 	})
 	equal(r$._, undefined)
 })
-test('r_rmemo_|error|case 2', ()=>{
-	const rw0 = rw_rmemo_(1)
-	const r1 = r_rmemo_(()=>rw0._ * 2)
-	const r2 = r_rmemo_(()=>{
+test('comp_|error|case 2', ()=>{
+	const rw0 = sig_(1)
+	const r1 = comp_(()=>rw0._ * 2)
+	const r2 = comp_(()=>{
 		if (rw0._ > 1) throw new Error()
 		return rw0._
 	})
-	const r3 = r_rmemo_(()=>rw0._ * rw0._)
+	const r3 = comp_(()=>rw0._ * rw0._)
 	equal(r1._, 2)
 	equal(r2._, 1)
 	equal(r3._, 1)
@@ -123,25 +123,25 @@ test('r_rmemo_|error|case 2', ()=>{
 	equal(r2._, 1)
 	equal(r3._, 9)
 })
-test('rw_rmemo_', ()=>{
-	const rw_rmemo = rw_rmemo_('val0')
+test('sig_', ()=>{
+	const rw_rmemo = sig_('val0')
 	equal(rw_rmemo._, 'val0')
 	rw_rmemo._ = 'val1'
 	equal(rw_rmemo._, 'val1')
 })
-test('rw_rmemo_|undefined', ()=>{
-	const rw_rmemo = rw_rmemo_(undefined)
-	const r_rmemo = r_rmemo_(()=>rw_rmemo._)
+test('sig_|undefined', ()=>{
+	const rw_rmemo = sig_(undefined)
+	const r_rmemo = comp_(()=>rw_rmemo._)
 	equal(rw_rmemo._, undefined)
 	equal(r_rmemo._, undefined)
 })
-test('rw_rmemo_|async subsubscriber|case 1', async ()=>{
+test('sig_|async subsubscriber|case 1', async ()=>{
 	let resolve:(user:{ id:string })=>void
 	const user0 = { id: 'id-0' }
 	const user1 = { id: 'id-1' }
-	const id$ = rw_rmemo_('id-0')
+	const id$ = sig_('id-0')
 	let count = 0
-	const user$ = rw_rmemo_<{ id:string }|null>(
+	const user$ = sig_<{ id:string }|null>(
 		null,
 		async (_user$)=>{
 			count++
@@ -164,12 +164,12 @@ test('rw_rmemo_|async subsubscriber|case 1', async ()=>{
 	await sleep(0)
 	equal(count, 2)
 })
-test('rw_rmemo_|async subsubscriber|case 2', async ()=>{
-	const a$ = rw_rmemo_(1)
-	const b$ = rw_rmemo_(2)
+test('sig_|async subsubscriber|case 2', async ()=>{
+	const a$ = sig_(1)
+	const b$ = sig_(2)
 	const sleepCycles = 5
 	const taskArgumentsCalls:number[][] = []
-	const sum$ = rw_rmemo_<null|number>(null,
+	const sum$ = sig_<null|number>(null,
 		async sum$=>{
 			taskArgumentsCalls.push([a$._, b$._])
 			for (let i = 0; i < sleepCycles; i++) {
@@ -197,13 +197,13 @@ test('rw_rmemo_|async subsubscriber|case 2', async ()=>{
 		[10, 20]
 	])
 })
-test('r_rmemo_+rw_rmemo_|simple graph', ()=>{
-	const base$ = rw_rmemo_('base0')
-	const dep0$ = r_rmemo_(()=>base$._ + '-dep0')
-	const dep1$ = r_rmemo_(()=>dep0$._ + '-dep1')
-	const dep2$ = r_rmemo_(()=>dep1$._ + '-dep2')
-	const dep3$ = r_rmemo_(()=>dep2$._ + '-dep3')
-	const dep4$ = r_rmemo_(()=>dep3$._ + '-dep4')
+test('comp_+sig_|simple graph', ()=>{
+	const base$ = sig_('base0')
+	const dep0$ = comp_(()=>base$._ + '-dep0')
+	const dep1$ = comp_(()=>dep0$._ + '-dep1')
+	const dep2$ = comp_(()=>dep1$._ + '-dep2')
+	const dep3$ = comp_(()=>dep2$._ + '-dep3')
+	const dep4$ = comp_(()=>dep3$._ + '-dep4')
 	equal(dep4$._, 'base0-dep0-dep1-dep2-dep3-dep4')
 	equal(dep3$._, 'base0-dep0-dep1-dep2-dep3')
 	equal(dep2$._, 'base0-dep0-dep1-dep2')
@@ -219,13 +219,13 @@ test('r_rmemo_+rw_rmemo_|simple graph', ()=>{
 	equal(dep4$._, 'base1-dep0-dep1-dep2-dep3-dep4')
 })
 test('prevents diamond dependency problem 1', ()=>{
-	const store$ = rw_rmemo_(0)
+	const store$ = sig_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store$._}`)
-	const b$ = r_rmemo_(()=>a$._.replace('a', 'b'))
-	const c$ = r_rmemo_(()=>a$._.replace('a', 'c'))
-	const d$ = r_rmemo_(()=>a$._.replace('a', 'd'))
-	r_rmemo_(()=>`${b$._}${c$._}${d$._}`,
+	const a$ = comp_(()=>`a${store$._}`)
+	const b$ = comp_(()=>a$._.replace('a', 'b'))
+	const c$ = comp_(()=>a$._.replace('a', 'c'))
+	const d$ = comp_(()=>a$._.replace('a', 'd'))
+	comp_(()=>`${b$._}${c$._}${d$._}`,
 		combined$=>
 			values.push(combined$._)
 	)._
@@ -235,14 +235,14 @@ test('prevents diamond dependency problem 1', ()=>{
 	deepStrictEqual(values, ['b0c0d0', 'b1c1d1', 'b2c2d2'])
 })
 test('prevents diamond dependency problem 2', ()=>{
-	const store$ = rw_rmemo_(0)
+	const store$ = sig_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store$._}`)
-	const b$ = r_rmemo_(()=>a$._.replace('a', 'b'))
-	const c$ = r_rmemo_(()=>b$._.replace('b', 'c'))
-	const d$ = r_rmemo_(()=>c$._.replace('c', 'd'))
-	const e$ = r_rmemo_(()=>d$._.replace('d', 'e'))
-	r_rmemo_<string>(
+	const a$ = comp_(()=>`a${store$._}`)
+	const b$ = comp_(()=>a$._.replace('a', 'b'))
+	const c$ = comp_(()=>b$._.replace('b', 'c'))
+	const d$ = comp_(()=>c$._.replace('c', 'd'))
+	const e$ = comp_(()=>d$._.replace('d', 'e'))
+	comp_<string>(
 		()=>[a$._, e$._].join(''),
 		$=>values.push($._)
 	)._
@@ -251,13 +251,13 @@ test('prevents diamond dependency problem 2', ()=>{
 	deepStrictEqual(values, ['a0e0', 'a1e1'])
 })
 test('prevents diamond dependency problem 3', ()=>{
-	const store$ = rw_rmemo_(0)
+	const store$ = sig_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store$._}`)
-	const b$ = r_rmemo_(()=>a$._.replace('a', 'b'))
-	const c$ = r_rmemo_(()=>b$._.replace('b', 'c'))
-	const d$ = r_rmemo_(()=>c$._.replace('c', 'd'))
-	r_rmemo_<string>(
+	const a$ = comp_(()=>`a${store$._}`)
+	const b$ = comp_(()=>a$._.replace('a', 'b'))
+	const c$ = comp_(()=>b$._.replace('b', 'c'))
+	const d$ = comp_(()=>c$._.replace('c', 'd'))
+	comp_<string>(
 		()=>`${a$._}${b$._}${c$._}${d$._}`,
 		combined$=>values.push(combined$._)
 	)._
@@ -266,21 +266,21 @@ test('prevents diamond dependency problem 3', ()=>{
 	deepStrictEqual(values, ['a0b0c0d0', 'a1b1c1d1'])
 })
 test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
-	const store1$ = rw_rmemo_(0)
-	const store2$ = rw_rmemo_(0)
+	const store1$ = sig_(0)
+	const store2$ = sig_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store1$._}`)
-	const b$ = r_rmemo_(()=>`b${store2$._}`)
-	const c$ = r_rmemo_(()=>`c${a$._}${b$._}`)
-	const d$ = r_rmemo_(()=>`d${a$._}`)
-	const e$ = r_rmemo_(()=>`e${c$._}${d$._}`)
-	const f$ = r_rmemo_(()=>`f${e$._}`)
-	const g$ = r_rmemo_(()=>`g${f$._}`)
-	r_rmemo_(
+	const a$ = comp_(()=>`a${store1$._}`)
+	const b$ = comp_(()=>`b${store2$._}`)
+	const c$ = comp_(()=>`c${a$._}${b$._}`)
+	const d$ = comp_(()=>`d${a$._}`)
+	const e$ = comp_(()=>`e${c$._}${d$._}`)
+	const f$ = comp_(()=>`f${e$._}`)
+	const g$ = comp_(()=>`g${f$._}`)
+	comp_(
 		()=>e$._,
 		combined1$=>values.push(combined1$._)
 	)._
-	r_rmemo_(
+	comp_(
 		()=>[e$._, g$._].join(''),
 		combined2$=>values.push(combined2$._)
 	)._
@@ -298,17 +298,17 @@ test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
 })
 test('prevents diamond dependency problem 5', ()=>{
 	let events = ''
-	const firstName$ = rw_rmemo_('John')
-	const lastName$ = rw_rmemo_('Doe')
-	const fullName$ = r_rmemo_(()=>{
+	const firstName$ = sig_('John')
+	const lastName$ = sig_('Doe')
+	const fullName$ = comp_(()=>{
 		events += 'full '
 		return `${firstName$._} ${lastName$._}`
 	})
-	const isFirstShort$ = r_rmemo_(()=>{
+	const isFirstShort$ = comp_(()=>{
 		events += 'short '
 		return firstName$._.length < 10
 	})
-	const displayName$ = r_rmemo_(
+	const displayName$ = comp_(
 		()=>{
 			events += 'display '
 			return isFirstShort$._ ? fullName$._ : firstName$._
@@ -325,13 +325,13 @@ test('prevents diamond dependency problem 5', ()=>{
 	equal(events, 'display short full short full display short full display ')
 })
 test('prevents diamond dependency problem 6', ()=>{
-	const store1$ = rw_rmemo_(0)
-	const store2$ = rw_rmemo_(0)
+	const store1$ = sig_(0)
+	const store2$ = sig_(0)
 	const values:string[] = []
-	const a$ = r_rmemo_(()=>`a${store1$._}`)
-	const b$ = r_rmemo_(()=>`b${store2$._}`)
-	const c$ = r_rmemo_(()=>b$._.replace('b', 'c'))
-	r_rmemo_(
+	const a$ = comp_(()=>`a${store1$._}`)
+	const b$ = comp_(()=>`b${store2$._}`)
+	const c$ = comp_(()=>b$._.replace('b', 'c'))
+	comp_(
 		()=>`${a$._}${c$._}`,
 		combined$=>values.push(combined$._)
 	)._
@@ -340,12 +340,12 @@ test('prevents diamond dependency problem 6', ()=>{
 	deepStrictEqual(values, ['a0c0', 'a1c0'])
 })
 test('prevents dependency listeners from being out of order', ()=>{
-	const base$ = rw_rmemo_(0)
-	const a$ = r_rmemo_(()=>{
+	const base$ = sig_(0)
+	const a$ = comp_(()=>{
 		return `${base$._}a`
 	})
 	const values:string[] = []
-	const b$ = r_rmemo_(()=>{
+	const b$ = comp_(()=>{
 		return `${a$._}b`
 	}, b$=>values.push(b$._))
 	equal(b$._, '0ab')
@@ -355,8 +355,8 @@ test('prevents dependency listeners from being out of order', ()=>{
 	deepStrictEqual(values, ['0ab', '1ab'])
 })
 test('computes initial value when argument is undefined', ()=>{
-	const one$ = rw_rmemo_<string|undefined>(undefined)
-	const two$ = r_rmemo_(()=>!!one$._)
+	const one$ = sig_<string|undefined>(undefined)
+	const two$ = comp_(()=>!!one$._)
 	equal(one$._, undefined)
 	equal(two$._, false)
 })

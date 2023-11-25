@@ -154,33 +154,33 @@
 			"import": {
 				"./be": "{ be_, ctx_ }"
 			},
-			"limit": "187 B"
+			"limit": "188 B"
 		},
 		{
-			"name": "r_rmemo_",
+			"name": "comp_",
 			"import": {
-				"./rmemo": "{ r_rmemo_ }"
+				"./rmemo": "{ comp_ }"
 			},
 			"limit": "298 B"
 		},
 		{
-			"name": "r_rmemo_ rw_rmemo_",
+			"name": "comp_ sig_",
 			"import": {
-				"./rmemo": "{ rw_rmemo_, r_rmemo_ }"
+				"./rmemo": "{ sig_, comp_ }"
 			},
-			"limit": "318 B"
+			"limit": "321 B"
 		},
 		{
-			"name": "r_rmemo_ rw_rmemo_ be_ ctx_",
+			"name": "comp_ sig_ be_ ctx_",
 			"import": {
-				"./rmemo": "{ rw_rmemo_, r_rmemo_, be_, ctx_ }"
+				"./rmemo": "{ sig_, comp_, be_, ctx_ }"
 			},
 			"limit": "478 B"
 		},
 		{
-			"name": "r_rmemo_ rw_rmemo_ be_ ctx_ be_r_rmemo_pair_ be_rw_rmemo_triple_",
+			"name": "comp_ sig_ be_ ctx_ be_comp_pair_ be_sig_triple_",
 			"import": {
-				"./rmemo": "{ rw_rmemo_, r_rmemo_, be_, ctx_, be_r_rmemo_pair_, be_rw_rmemo_triple_ }"
+				"./rmemo": "{ sig_, comp_, be_, ctx_, be_comp_pair_, be_sig_triple_ }"
 			},
 			"limit": "571 B"
 		}

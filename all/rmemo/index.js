@@ -1,17 +1,17 @@
 /** @typedef {import('./index.d.ts').rmemo_def_T} */
-/** @typedef {import('./index.d.ts').r_rmemo_T} */
+/** @typedef {import('./index.d.ts').comp_T} */
 /** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
-/** @type {WeakRef<r_rmemo_T>} */
+/** @type {WeakRef<comp_T>} */
 let cur_rmr
 /** @type {Set<()=>unknown>} */
 let queue = new Set
 /**
  * @param {rmemo_def_T}rmemo_def
  * @param {rmemo_subscriber_T<unknown>[]}subscriber_a
- * @returns {r_rmemo_T}
+ * @returns {comp_T}
  * @private
  */
-export function r_rmemo_(rmemo_def, ...subscriber_a) {
+export function comp_(rmemo_def, ...subscriber_a) {
 	let refresh
 	let rmrs
 	let r_rmemo = {
@@ -46,7 +46,7 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 				// add reference to subscribers to prevent GC
 				r_rmemo._s ||=
 					subscriber_a.map(subscriber=>
-						r_rmemo_(subscriber$=>(
+						comp_(subscriber$=>(
 							subscriber(r_rmemo),
 							subscriber$
 						))._)
@@ -85,25 +85,25 @@ export function r_rmemo_(rmemo_def, ...subscriber_a) {
 	refresh.S = new Set
 	return r_rmemo
 }
-export { r_rmemo_ as rwr_rmemo_ }
+export { comp_ as compsig_ }
 /**
  * @param {unknown}init_val
  * @param {rmemo_subscriber_T[]}subscriber_a
- * @returns {r_rmemo_T}
+ * @returns {comp_T}
  * @private
  */
-export function rw_rmemo_(init_val, ...subscriber_a) {
-	return r_rmemo_(rw_rmemo=>
+export function sig_(init_val, ...subscriber_a) {
+	return comp_(rw_rmemo=>
 		'val' in rw_rmemo
 			? rw_rmemo.val
 			: init_val,
 	...subscriber_a)
 }
 /**
- * @param {rw_rmemo_T}rw_rmemo
+ * @param {sig_T}rw_rmemo
  * @returns {(val:unknown)=>unknown}
  * @private
  */
-export function rw_rmemo__set_(rw_rmemo) {
+export function sig__set_(rw_rmemo) {
 	return val=>rw_rmemo._ = val
 }
