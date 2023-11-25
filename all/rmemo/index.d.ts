@@ -25,7 +25,7 @@ export type rmemo_T<val_T> = memo_T<val_T>|sig_T<val_T>|pmemo_T<val_T>|psig_T<va
 export type memo_T<val_T> = (()=>val_T)&{
 	val:val_T
 	rmr:WeakRef<()=>val_T>
-	rmrs?:WeakRef<()=>val_T>[]
+	rmrs:WeakRef<()=>val_T>[]
 }
 export type pmemo_T<val_T> = memo_T<val_T>&{ readonly _:val_T }
 export type sig_T<val_T> = ((val?:val_T)=>val_T)&{
