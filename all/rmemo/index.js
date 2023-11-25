@@ -56,14 +56,12 @@ export function memo_(rmemo_def, ...subscriber_a) {
 			}
 			if (cur_rmr) {
 				let cur_rmr_refresh = cur_rmr.deref()
+				~rmrs.indexOf(cur_rmr) || rmrs.push(cur_rmr)
 				cur_rmr_refresh.l < refresh.l + 1 && (cur_rmr_refresh.l = refresh.l + 1)
-				if (!~rmrs.indexOf(cur_rmr)) rmrs.push(cur_rmr)
 				// conditional in rmr calls this r_memo
-				if (~!cur_rmr_refresh.s.indexOf(memo)) cur_rmr_refresh.s.push(memo)
-				// cur_rmr_refresh.s.push(memo)
+				cur_rmr_refresh.s.push(memo)
 				// prevent this rmemo from GC while cur_rmr is still active
-				if (~!cur_rmr_refresh.S.indexOf(memo)) cur_rmr_refresh.S.push(memo)
-				// cur_rmr_refresh.S.push(memo)
+				~cur_rmr_refresh.S.indexOf(memo) || cur_rmr_refresh.S.push(memo)
 			}
 		}
 		return memo.val
