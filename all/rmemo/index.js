@@ -1,55 +1,40 @@
 /** @typedef {import('./index.d.ts').rmemo_def_T} */
-/** @typedef {import('./index.d.ts').comp_T} */
+/** @typedef {import('./index.d.ts').memo_T} */
 /** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
-/** @type {WeakRef<comp_T>} */
+/** @type {WeakRef<memo_T>} */
 let cur_rmr
 /** @type {Set<()=>unknown>} */
 let queue = new Set
 /**
  * @param {rmemo_def_T}rmemo_def
  * @param {rmemo_subscriber_T<unknown>[]}subscriber_a
- * @returns {comp_T}
+ * @returns {memo_T}
  * @private
  */
-export function comp_(rmemo_def, ...subscriber_a) {
+export function memo_(rmemo_def, ...subscriber_a) {
 	let refresh
 	let rmrs
-	let r_rmemo = {
-		get _() {
-			if (!('val' in r_rmemo)) {
-				refresh()
-			}
-			if (cur_rmr) {
-				let cur_rmr_refresh = cur_rmr.deref()
-				cur_rmr_refresh.l =
-					cur_rmr_refresh.l < refresh.l + 1
-						? refresh.l + 1
-						: cur_rmr_refresh.l
-				rmrs.add(cur_rmr)
-				cur_rmr_refresh.s.add(r_rmemo) // conditional in rmr calls this r_memo
-				cur_rmr_refresh.S.add(r_rmemo) // prevent this rmemo from GC while cur_rmr is still active
-			}
-			return r_rmemo.val
-		},
-		set _(val) {
-			if (val !== r_rmemo.val) {
-				r_rmemo.val = val // val is available for other purposes
+	let memo = (...arg_a)=>{
+		if (arg_a.length) {
+			let val = arg_a[0]
+			if (val !== memo.val) {
+				memo.val = val // val is available for other purposes
 				let run_queue = !queue.size
 				for (let rmr of rmrs) {
 					val = rmr.deref() // val is no longer used...saving bytes
 					if (!val) {
 						rmrs.delete(rmr)
-					} else if (val.s.has(r_rmemo)) { // if conditional rmr refresh calls this r_memo, add to queue
+					} else if (val.s.has(memo)) { // if conditional rmr refresh calls this r_memo, add to queue
 						queue.add(val)
 					}
 				}
 				// add reference to subscribers to prevent GC
-				r_rmemo._s ||=
+				memo._s ||=
 					subscriber_a.map(subscriber=>
-						comp_(subscriber$=>(
-							subscriber(r_rmemo),
+						memo_(subscriber$=>(
+							subscriber(memo),
 							subscriber$
-						))._)
+						))())
 				if (run_queue) {
 					cur_refresh_loop:for (let cur_refresh of queue) {
 						queue.delete(cur_refresh)
@@ -63,14 +48,29 @@ export function comp_(rmemo_def, ...subscriber_a) {
 					}
 				}
 			}
-		},
+		} else {
+			if (!('val' in memo)) {
+				refresh()
+			}
+			if (cur_rmr) {
+				let cur_rmr_refresh = cur_rmr.deref()
+				cur_rmr_refresh.l =
+					cur_rmr_refresh.l < refresh.l + 1
+						? refresh.l + 1
+						: cur_rmr_refresh.l
+				rmrs.add(cur_rmr)
+				cur_rmr_refresh.s.add(memo) // conditional in rmr calls this r_memo
+				cur_rmr_refresh.S.add(memo) // prevent this rmemo from GC while cur_rmr is still active
+			}
+		}
+		return memo.val
 	}
 	refresh = ()=>{
 		let prev_rmr = cur_rmr
-		cur_rmr = r_rmemo.rmr
+		cur_rmr = memo.rmr
 		refresh.s.clear()
 		try {
-			r_rmemo._ = rmemo_def(r_rmemo)
+			memo(rmemo_def(memo))
 		} catch (err) {
 			console.error(err)
 		}
@@ -78,32 +78,40 @@ export function comp_(rmemo_def, ...subscriber_a) {
 	}
 	refresh.l = 0
 	// rmrs = new Set
-	// r_rmemo.rmrs is kept for GC testing/debugging purposes...small size increase
-	r_rmemo.rmrs = rmrs = new Set
-	r_rmemo.rmr = new WeakRef(refresh)
+	// memo.rmrs is kept for GC testing/debugging purposes...small size increase
+	memo.rmrs = rmrs = new Set
+	memo.rmr = new WeakRef(refresh)
 	refresh.s = new Set
 	refresh.S = new Set
-	return r_rmemo
+	return memo
 }
-export { comp_ as compsig_ }
+export { memo_ as memosig_ }
+export function pmemo_(...arg_a) {
+	return prop__mixin(memo_(...arg_a))
+}
+export { pmemo_ as pmemosig_ }
 /**
  * @param {unknown}init_val
  * @param {rmemo_subscriber_T[]}subscriber_a
- * @returns {comp_T}
+ * @returns {memo_T}
  * @private
  */
 export function sig_(init_val, ...subscriber_a) {
-	return comp_(rw_rmemo=>
+	return memo_(rw_rmemo=>
 		'val' in rw_rmemo
 			? rw_rmemo.val
 			: init_val,
 	...subscriber_a)
 }
-/**
- * @param {sig_T}rw_rmemo
- * @returns {(val:unknown)=>unknown}
- * @private
- */
-export function sig__set_(rw_rmemo) {
-	return val=>rw_rmemo._ = val
+export function psig_(...arg_a) {
+	return prop__mixin(sig_(...arg_a))
+}
+function prop__mixin(memo) {
+	Object.defineProperty(memo, '_', {
+		get: ()=>memo(),
+		set: val=>{
+			memo(val)
+		},
+	})
+	return memo
 }
