@@ -1,6 +1,7 @@
 /** @typedef {import('./index.d.ts').rmemo_def_T} */
 /** @typedef {import('./index.d.ts').memo_T} */
 /** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
+/** @typedef {import('./index.d.ts').sig_T} */
 /** @type {WeakRef<memo_T>} */
 let cur_rmr
 /** @type {Set<()=>unknown>} */
@@ -14,10 +15,25 @@ let queue = new Set
 export function memo_(rmemo_def, ...subscriber_a) {
 	let refresh
 	let rmrs
-	let memo = (...arg_a)=>{
-		if (arg_a.length) {
-			let val = arg_a[0]
-			if (val !== memo.val) {
+	let memo = ()=>{
+		if (!('val' in memo)) {
+			refresh()
+		}
+		if (cur_rmr) {
+			let cur_rmr_refresh = cur_rmr.deref()
+			~rmrs.indexOf(cur_rmr) || rmrs.push(cur_rmr)
+			cur_rmr_refresh.l < refresh.l + 1 && (cur_rmr_refresh.l = refresh.l + 1)
+			// conditional in rmr calls this r_memo
+			cur_rmr_refresh.s.push(memo)
+			// prevent this rmemo from GC while cur_rmr is still active
+			~cur_rmr_refresh.S.indexOf(memo) || cur_rmr_refresh.S.push(memo)
+		}
+		return memo.val
+	}
+	Object.defineProperty(memo, '_', {
+		get: memo,
+		set: val=>{
+			if (memo.val !== val) {
 				memo.val = val // val is available for other purposes
 				let run_queue = !queue.size
 				let i = 0
@@ -50,32 +66,18 @@ export function memo_(rmemo_def, ...subscriber_a) {
 					}
 				}
 			}
-		} else {
-			if (!('val' in memo)) {
-				refresh()
-			}
-			if (cur_rmr) {
-				let cur_rmr_refresh = cur_rmr.deref()
-				~rmrs.indexOf(cur_rmr) || rmrs.push(cur_rmr)
-				cur_rmr_refresh.l < refresh.l + 1 && (cur_rmr_refresh.l = refresh.l + 1)
-				// conditional in rmr calls this r_memo
-				cur_rmr_refresh.s.push(memo)
-				// prevent this rmemo from GC while cur_rmr is still active
-				~cur_rmr_refresh.S.indexOf(memo) || cur_rmr_refresh.S.push(memo)
-			}
-		}
-		return memo.val
-	}
+		},
+	})
 	refresh = ()=>{
 		let prev_rmr = cur_rmr
 		cur_rmr = memo.rmr
 		refresh.s = []
 		try {
-			memo(rmemo_def(memo))
+			memo._ = rmemo_def(memo)
 		} catch (err) {
 			console.error(err)
 		}
-		cur_rmr = prev_rmr // finally is not necessary due since catch does not throw
+		cur_rmr = prev_rmr // finally is not necessary...catch does not throw
 	}
 	refresh.l = 0
 	// rmrs = new Set
@@ -87,14 +89,10 @@ export function memo_(rmemo_def, ...subscriber_a) {
 	return memo
 }
 export { memo_ as memosig_ }
-export function pmemo_(...arg_a) {
-	return prop__mixin(memo_(...arg_a))
-}
-export { pmemo_ as pmemosig_ }
 /**
  * @param {unknown}init_val
  * @param {rmemo_subscriber_T[]}subscriber_a
- * @returns {memo_T}
+ * @returns {sig_T}
  * @private
  */
 export function sig_(init_val, ...subscriber_a) {
@@ -103,16 +101,4 @@ export function sig_(init_val, ...subscriber_a) {
 			? rw_rmemo.val
 			: init_val,
 	...subscriber_a)
-}
-export function psig_(...arg_a) {
-	return prop__mixin(sig_(...arg_a))
-}
-function prop__mixin(memo) {
-	Object.defineProperty(memo, '_', {
-		get: ()=>memo(),
-		set: val=>{
-			memo(val)
-		},
-	})
-	return memo
 }

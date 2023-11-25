@@ -4,7 +4,7 @@ import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { memo_, type memo_T, sig_, memosig_ } from './index.js'
+import { memo_, type memo_T, memosig_, sig_ } from './index.js'
 test('memo_|static value', ()=>{
 	let count = 0
 	const r_rmemo = memo_(()=>{
@@ -25,17 +25,17 @@ test('memo_|def function|rmemo argument', ()=>{
 	equal(r_rmemo(), 'custom_val0-val0')
 	r_rmemo.custom = 'custom_val1'
 	equal(r_rmemo(), 'custom_val0-val0')
-	rw_rmemo('val1')
+	rw_rmemo._ = 'val1'
 	equal(r_rmemo(), 'custom_val1-val1')
 })
 test('r_memo_|side effect', ()=>{
 	const history:string[] = []
 	const s = sig_('This')
 	memo_(()=>history.push(s()))()
-	s('is')
-	s('a')
-	s('test')
-	s('test')
+	s._ = 'is'
+	s._ = 'a'
+	s._ = 'test'
+	s._ = 'test'
 	equal(history, ['This', 'is', 'a', 'test'])
 })
 test('memo_|conditional', ()=>{
@@ -48,55 +48,56 @@ test('memo_|conditional', ()=>{
 	const sum$ = memo_(()=>(++trigger_count, cond$() ? a$() + b$() : c$() + d$()))
 	equal(sum$(), 3)
 	equal(trigger_count, 1)
-	a$(11)
+	a$._ = 11
 	equal(sum$(), 13)
 	equal(trigger_count, 2)
-	b$(12)
+	b$._ = 12
 	equal(sum$(), 23)
 	equal(trigger_count, 3)
 	// Changing c$ or d$ won't triggered the effect as they're not its current dependencies
-	c$(13)
+	c$._ = 13
 	equal(sum$(), 23)
 	equal(trigger_count, 3)
-	d$(14)
+	d$._ = 14
 	equal(sum$(), 23)
 	equal(trigger_count, 3)
-	cond$(false)
+	cond$._ = false
 	equal(sum$(), 27)
 	equal(trigger_count, 4)
-	c$(23)
+	c$._ = 23
 	equal(sum$(), 37)
 	equal(trigger_count, 5)
-	d$(24)
+	d$._ = 24
 	equal(sum$(), 47)
 	equal(trigger_count, 6)
 	// Changing a$ or b$ won't triggered the effect as they're not its current dependencies
-	a$(21)
+	a$._ = 21
 	equal(sum$(), 47)
 	equal(trigger_count, 6)
-	b$(22)
+	b$._ = 22
 	equal(sum$(), 47)
 	equal(trigger_count, 6)
 })
 test('memosig_', ()=>{
 	const num_items$ = sig_(0)
 	const items$ = memo_(()=>[...Array(num_items$()).keys()].map(i=>`Item ${i + 1}`))
-	const selected_index$ = memosig_(()=>(items$(), 0))
+	// TODO: Jetbrains or Typescript type inference is wrong without generic
+	const selected_index$ = memosig_<number>(()=>(items$(), 0))
 	const selected_item$ = memo_(()=>items$()[selected_index$()])
-	num_items$(3)
+	num_items$._ = 3
 	equal(num_items$(), 3)
 	equal(items$().join(','), 'Item 1,Item 2,Item 3')
 	equal(selected_index$(), 0)
 	equal(selected_item$(), 'Item 1')
-	selected_index$(2)
+	selected_index$._ = 2
 	equal(selected_index$(), 2)
 	equal(selected_item$(), 'Item 3')
-	num_items$(5)
+	num_items$._ = 5
 	equal(num_items$(), 5)
 	equal(items$().join(','), 'Item 1,Item 2,Item 3,Item 4,Item 5')
 	equal(selected_index$(), 0)
 	equal(selected_item$(), 'Item 1')
-	selected_index$(3)
+	selected_index$._ = 3
 	equal(selected_index$(), 3)
 	equal(selected_item$(), 'Item 4')
 })
@@ -117,7 +118,7 @@ test('memo_|error|case 2', ()=>{
 	equal(r1(), 2)
 	equal(r2(), 1)
 	equal(r3(), 1)
-	rw0(3)
+	rw0._ = 3
 	equal(r1(), 6)
 	// r2() keeps it's old value of 1 due to error
 	equal(r2(), 1)
@@ -126,7 +127,7 @@ test('memo_|error|case 2', ()=>{
 test('sig_', ()=>{
 	const rw_rmemo = sig_('val0')
 	equal(rw_rmemo(), 'val0')
-	rw_rmemo('val1')
+	rw_rmemo._ = 'val1'
 	equal(rw_rmemo(), 'val1')
 })
 test('sig_|undefined', ()=>{
@@ -147,7 +148,7 @@ test('sig_|async subsubscriber|case 1', async ()=>{
 			count++
 			id$()
 			const user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
-			_user$((user))
+			_user$._ = user
 		})
 	equal(count, 0)
 	equal(user$(), null)
@@ -157,7 +158,7 @@ test('sig_|async subsubscriber|case 1', async ()=>{
 	equal(count, 1)
 	equal(user$(), user0)
 	equal(count, 1)
-	id$('id-1')
+	id$._ = 'id-1'
 	equal(count, 2)
 	equal(user$(), user0)
 	resolve!(user1)
@@ -175,12 +176,12 @@ test('sig_|async subsubscriber|case 2', async ()=>{
 			for (let i = 0; i < sleepCycles; i++) {
 				await Promise.resolve()
 			}
-			sum$(a$() + b$())
+			sum$._ = a$() + b$()
 		})
 	equal(sum$(), null)
 	deepStrictEqual(taskArgumentsCalls, [[1, 2]])
-	a$(10)
-	b$(20)
+	a$._ = 10
+	b$._ = 20
 	for (let i = 0; i < sleepCycles; i++) {
 		equal(sum$(), null)
 		await Promise.resolve()
@@ -210,7 +211,7 @@ test('memo_+sig_|simple graph', ()=>{
 	equal(dep1$(), 'base0-dep0-dep1')
 	equal(dep0$(), 'base0-dep0')
 	equal(base$(), 'base0')
-	base$('base1')
+	base$._ = 'base1'
 	equal(base$(), 'base1')
 	equal(dep0$(), 'base1-dep0')
 	equal(dep1$(), 'base1-dep0-dep1')
@@ -230,8 +231,8 @@ test('prevents diamond dependency problem 1', ()=>{
 			values.push(combined$())
 	)()
 	deepStrictEqual(values, ['b0c0d0'])
-	store$(1)
-	store$(2)
+	store$._ = 1
+	store$._ = 2
 	deepStrictEqual(values, ['b0c0d0', 'b1c1d1', 'b2c2d2'])
 })
 test('prevents diamond dependency problem 2', ()=>{
@@ -247,7 +248,7 @@ test('prevents diamond dependency problem 2', ()=>{
 		$=>values.push($())
 	)()
 	deepStrictEqual(values, ['a0e0'])
-	store$(1)
+	store$._ = 1
 	deepStrictEqual(values, ['a0e0', 'a1e1'])
 })
 test('prevents diamond dependency problem 3', ()=>{
@@ -262,7 +263,7 @@ test('prevents diamond dependency problem 3', ()=>{
 		combined$=>values.push(combined$())
 	)()
 	deepStrictEqual(values, ['a0b0c0d0'])
-	store$(1)
+	store$._ = 1
 	deepStrictEqual(values, ['a0b0c0d0', 'a1b1c1d1'])
 })
 test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
@@ -285,8 +286,8 @@ test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
 		combined2$=>values.push(combined2$())
 	)()
 	deepStrictEqual(values, ['eca0b0da0', 'eca0b0da0gfeca0b0da0'])
-	store1$(1)
-	store2$(2)
+	store1$._ = 1
+	store2$._ = 2
 	deepStrictEqual(values, [
 		'eca0b0da0',
 		'eca0b0da0gfeca0b0da0',
@@ -315,10 +316,10 @@ test('prevents diamond dependency problem 5', ()=>{
 	equal(events, '')
 	equal(displayName$(), 'John Doe')
 	equal(events, 'display short full ')
-	firstName$('Benedict')
+	firstName$._ = 'Benedict'
 	equal(displayName$(), 'Benedict Doe')
 	equal(events, 'display short full short full display ')
-	firstName$('Montgomery')
+	firstName$._ = 'Montgomery'
 	equal(displayName$(), 'Montgomery')
 	equal(events, 'display short full short full display short full display ')
 })
@@ -334,7 +335,7 @@ test('prevents diamond dependency problem 6', ()=>{
 		combined$=>values.push(combined$())
 	)()
 	deepStrictEqual(values, ['a0c0'])
-	store1$(1)
+	store1$._ = 1
 	deepStrictEqual(values, ['a0c0', 'a1c0'])
 })
 test('prevents dependency listeners from being out of order', ()=>{
@@ -349,7 +350,7 @@ test('prevents dependency listeners from being out of order', ()=>{
 	equal(b$(), '0ab')
 	deepStrictEqual(values, ['0ab'])
 	equal(a$(), '0a')
-	base$(1)
+	base$._ = 1
 	deepStrictEqual(values, ['0ab', '1ab'])
 })
 test('computes initial value when argument is undefined', ()=>{
