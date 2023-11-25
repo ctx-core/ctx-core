@@ -20,13 +20,15 @@ export function memo_(rmemo_def, ...subscriber_a) {
 			if (val !== memo.val) {
 				memo.val = val // val is available for other purposes
 				let run_queue = !queue.size
+				let i = 0
 				for (let rmr of rmrs) {
 					val = rmr.deref() // val is no longer used...saving bytes
 					if (!val) {
-						rmrs.delete(rmr)
-					} else if (val.s.has(memo)) { // if conditional rmr refresh calls this r_memo, add to queue
+						rmrs.splice(i, 1)
+					} else if (~val.s.indexOf(memo)) { // if conditional rmr refresh calls this r_memo, add to queue
 						queue.add(val)
 					}
+					i++
 				}
 				// add reference to subscribers to prevent GC
 				memo._s ||=
@@ -58,9 +60,13 @@ export function memo_(rmemo_def, ...subscriber_a) {
 					cur_rmr_refresh.l < refresh.l + 1
 						? refresh.l + 1
 						: cur_rmr_refresh.l
-				rmrs.add(cur_rmr)
-				cur_rmr_refresh.s.add(memo) // conditional in rmr calls this r_memo
-				cur_rmr_refresh.S.add(memo) // prevent this rmemo from GC while cur_rmr is still active
+				if (!~rmrs.indexOf(cur_rmr)) rmrs.push(cur_rmr)
+				// conditional in rmr calls this r_memo
+				if (~!cur_rmr_refresh.s.indexOf(memo)) cur_rmr_refresh.s.push(memo)
+				// cur_rmr_refresh.s.push(memo)
+				// prevent this rmemo from GC while cur_rmr is still active
+				if (~!cur_rmr_refresh.S.indexOf(memo)) cur_rmr_refresh.S.push(memo)
+				// cur_rmr_refresh.S.push(memo)
 			}
 		}
 		return memo.val
@@ -68,7 +74,7 @@ export function memo_(rmemo_def, ...subscriber_a) {
 	refresh = ()=>{
 		let prev_rmr = cur_rmr
 		cur_rmr = memo.rmr
-		refresh.s.clear()
+		refresh.s = []
 		try {
 			memo(rmemo_def(memo))
 		} catch (err) {
@@ -79,10 +85,10 @@ export function memo_(rmemo_def, ...subscriber_a) {
 	refresh.l = 0
 	// rmrs = new Set
 	// memo.rmrs is kept for GC testing/debugging purposes...small size increase
-	memo.rmrs = rmrs = new Set
+	memo.rmrs = rmrs = []
 	memo.rmr = new WeakRef(refresh)
-	refresh.s = new Set
-	refresh.S = new Set
+	refresh.s = []
+	refresh.S = []
 	return memo
 }
 export { memo_ as memosig_ }

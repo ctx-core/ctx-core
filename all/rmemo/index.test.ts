@@ -308,12 +308,10 @@ test('prevents diamond dependency problem 5', ()=>{
 		events += 'short '
 		return firstName$().length < 10
 	})
-	const displayName$ = memo_(
-		()=>{
-			events += 'display '
-			return isFirstShort$() ? fullName$() : firstName$()
-		}
-	)
+	const displayName$ = memo_(()=>{
+		events += 'display '
+		return isFirstShort$() ? fullName$() : firstName$()
+	})
 	equal(events, '')
 	equal(displayName$(), 'John Doe')
 	equal(events, 'display short full ')
