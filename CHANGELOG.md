@@ -1,5 +1,30 @@
 # ctx-core
 
+## 4.6.0
+
+### Minor Changes
+
+- minor:
+
+      memo_T,sig_T:
+       .rmr→.r
+       .rmrs→.memor
+
+  patch:
+
+      rmemo_:
+      	undefined value: set .key = undefined to cache value: prevent refresh from being called again
+      	performance: lazily instantiate WeakRef
+      	size optimization: move memo.memor = after memo.f.* =
+      	rmemo_: if statements instead of &&/||
+
+  size-limit:
+
+      memo_: + 1 B
+      memo_ sig_: - 7 B
+      memo_ sig_ be_ ctx_: - 3 B
+      memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: - 7 B
+
 ## 4.5.0
 
 ### Minor Changes
