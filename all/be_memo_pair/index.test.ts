@@ -28,6 +28,12 @@ test('be_memo_pair_|+id|+is_source_|+oninit|+subscriber_a', ()=>{
 	let subscriber_count = 0
 	const [
 		,
+		subscriber_dep_,
+		subscriber_dep__set
+	] = be_sig_triple_(()=>1,
+		{ is_source_: map_ctx=>map_ctx === ctx })
+	const [
+		,
 		base_,
 		base__set,
 	] = be_sig_triple_(()=>1,
@@ -36,11 +42,11 @@ test('be_memo_pair_|+id|+is_source_|+oninit|+subscriber_a', ()=>{
 		foobar$_,
 		foobar_,
 	] = be_memo_pair_(ctx=>base_(ctx) + 1,
-		()=>subscriber_count++,
-		{
-			id: 'foobar',
-			is_source_: map_ctx=>map_ctx === ctx,
-		})
+		(ctx, foobar$)=>{
+			subscriber_count++
+			subscriber_dep__set(ctx, subscriber_count + foobar$())
+		},
+		{ id: 'foobar', is_source_: map_ctx=>map_ctx === ctx })
 	equal(subscriber_count, 0)
 	equal(foobar$_([ctx__new(), ctx])._, 2)
 	equal(foobar_([ctx__new(), ctx]), 2)
@@ -48,13 +54,15 @@ test('be_memo_pair_|+id|+is_source_|+oninit|+subscriber_a', ()=>{
 	equal(foobar_(ctx), 2)
 	equal((ctx.get('foobar') as memo_T<number>)._, 2)
 	equal(subscriber_count, 1)
+	equal(subscriber_dep_(ctx), 3)
 	base__set(ctx, 2)
 	equal(foobar$_([ctx__new(), ctx])._, 3)
 	equal(foobar_([ctx__new(), ctx]), 3)
 	equal(foobar$_(ctx)._, 3)
 	equal(foobar_(ctx), 3)
 	equal((ctx.get('foobar') as memo_T<number>)._, 3)
-	equal(subscriber_count, 1)
+	equal(subscriber_count, 2)
+	equal(subscriber_dep_(ctx), 5)
 })
 test('be_memo_pair_|be', ()=>{
 	const ctx = ctx__new()

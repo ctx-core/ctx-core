@@ -24,7 +24,10 @@ export function be_memo_pair_(
 		be_OR_val__new.is_be
 			? be_OR_val__new
 			: be_(ctx=>
-				memo_(()=>be_OR_val__new(ctx), ...subscriber_a_THEN_config),
+				memo_(
+					()=>be_OR_val__new(ctx),
+					...subscriber_a_THEN_config.map(subscriber=>
+						memo=>subscriber(ctx, memo))),
 			config)
 	return [
 		be,

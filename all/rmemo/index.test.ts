@@ -142,6 +142,11 @@ test('sig_', ()=>{
 	sig._ = 'val1'
 	equal(sig(), 'val1')
 })
+test('sig_|set before read', ()=>{
+	const sig = sig_('val0')
+	sig._ = 'val1'
+	equal(sig(), 'val1')
+})
 test('sig_|undefined', ()=>{
 	const sig = sig_(undefined)
 	const memo = memo_(()=>sig())

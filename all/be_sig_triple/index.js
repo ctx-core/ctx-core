@@ -24,11 +24,15 @@ export function be_sig_triple_(
 	let be =
 		be_OR_val__new.is_be
 			? be_OR_val__new
-			: be_(ctx=>sig_(be_OR_val__new(ctx), ...subscriber_a_THEN_config),
-				config)
+			: be_(ctx=>
+				sig_(
+					be_OR_val__new(ctx),
+					...subscriber_a_THEN_config.map(subscriber=>
+						sig=>subscriber(ctx, sig))),
+			config)
 	return [
 		be,
-		ctx=>be(ctx)._,
+		ctx=>be(ctx)(),
 		(ctx, val)=>{
 			be(ctx)._ = val
 		},

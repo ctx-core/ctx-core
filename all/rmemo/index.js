@@ -93,9 +93,10 @@ export { memo_ as memosig_ }
  * @private
  */
 export function sig_(init_val, ...subscriber_a) {
-	return memo_(sig=>
-		'val' in sig
+	return memo_(sig=>{
+		return 'val' in sig
 			? sig.val
-			: init_val,
+			: init_val
+	},
 	...subscriber_a)
 }

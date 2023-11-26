@@ -1,5 +1,19 @@
 # ctx-core
 
+## 4.6.2
+
+### Patch Changes
+
+- minor: be*memo_pair*,be*sig_triple*: subscriber functions have get a ctx passed in:
+
+      be_memo_pair_: (ctx:Ctx, memo:memo_T)
+      be_sig_pair_: (ctx:Ctx, memo:sig_T)
+
+  size-limit:
+
+      memo_ sig_: + 1 B
+      memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: + 17 B
+
 ## 4.6.1
 
 ### Patch Changes
