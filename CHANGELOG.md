@@ -1,5 +1,16 @@
 # ctx-core
 
+## 4.6.1
+
+### Patch Changes
+
+- fix: type inference:
+
+      be_memo_triple_
+      be_memo_triple_T
+      be_sig_triple_
+      be_sig_triple_T
+
 ## 4.6.0
 
 ### Minor Changes

@@ -1,10 +1,10 @@
 import type { Be, be__val__new_T, be_config_T, Ctx } from '../be_/index.js'
-import type { memo_T, rmemo_def_T } from '../rmemo/index.js'
+import type { memo_T, rmemo_def_T, rmemo_val_T } from '../rmemo/index.js'
 export declare function be_memo_pair_<
 	val_T,
 	_memo_T extends memo_T<val_T> = memo_T<val_T>,
 	ctx_T extends Ctx = Ctx
->(be: Be<_memo_T, ctx_T>):be_memo_pair_T<val_T, _memo_T, ctx_T>
+>(be: Be<_memo_T, ctx_T>):be_memo_pair_T<_memo_T, ctx_T>
 export declare function be_memo_pair_<
 	val_T,
 	_memo_T extends memo_T<val_T> = memo_T<val_T>,
@@ -14,12 +14,11 @@ export declare function be_memo_pair_<
 	...subscriber_a_THEN_config:
 		|[...rmemo_def_T<val_T>[]]
 		|[...rmemo_def_T<val_T>[], config:be_config_T]
-):be_memo_pair_T<val_T, _memo_T, ctx_T>
+):be_memo_pair_T<_memo_T, ctx_T>
 export type be_memo_pair_T<
-	val_T,
-	_memo_T extends memo_T<val_T> = memo_T<val_T>,
+	_memo_T extends memo_T<unknown> = memo_T<unknown>,
 	ctx_T extends Ctx = Ctx
 > = [
 	Be<_memo_T, ctx_T>,
-	(ctx:ctx_T)=>val_T
+	(ctx:ctx_T)=>rmemo_val_T<_memo_T>
 ]
