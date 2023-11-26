@@ -64,6 +64,26 @@ test('be_memo_pair_|+id|+is_source_|+oninit|+subscriber_a', ()=>{
 	equal(subscriber_count, 2)
 	equal(subscriber_dep_(ctx), 5)
 })
+test('be_memo_pair_|subscriber|receives a memosig to set the value of the memo', ()=>{
+	const ctx = ctx__new()
+	const [
+		,
+		base_,
+		base__set,
+	] = be_sig_triple_(()=>1)
+	const [
+		foobar$_,
+		foobar_,
+	] = be_memo_pair_(ctx=>1,
+		(ctx, foobar$)=>{
+			foobar$._ = base_(ctx) + 1
+		})
+	equal(foobar$_(ctx)._, 2)
+	equal(foobar_(ctx), 2)
+	base__set(ctx, 2)
+	equal(foobar$_(ctx)._, 3)
+	equal(foobar_(ctx), 3)
+})
 test('be_memo_pair_|be', ()=>{
 	const ctx = ctx__new()
 	let subscriber_count = 0

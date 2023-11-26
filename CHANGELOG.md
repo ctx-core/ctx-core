@@ -1,5 +1,11 @@
 # ctx-core
 
+## 4.6.3
+
+### Patch Changes
+
+- be*memo_pair*: subscriber receives a memosig argument: allows memosig.\_ = val in subscriber
+
 ## 4.6.2
 
 ### Patch Changes
