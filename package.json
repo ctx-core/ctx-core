@@ -161,28 +161,28 @@
 			"import": {
 				"./rmemo": "{ memo_ }"
 			},
-			"limit": "343 B"
+			"limit": "345 B"
 		},
 		{
 			"name": "memo_ sig_",
 			"import": {
 				"./rmemo": "{ sig_, memo_ }"
 			},
-			"limit": "366 B"
+			"limit": "364 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_",
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_ }"
 			},
-			"limit": "522 B"
+			"limit": "520 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_",
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_, be_memo_pair_, be_sig_triple_ }"
 			},
-			"limit": "609 B"
+			"limit": "604 B"
 		}
 	]
 }

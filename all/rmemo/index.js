@@ -13,20 +13,18 @@ let queue = new Set
  * @private
  */
 export function memo_(rmemo_def, ...subscriber_a) {
-	let refresh
 	let rmrs
 	let memo = ()=>{
 		if (!('val' in memo)) {
-			refresh()
+			memo.f()
 		}
 		if (cur_rmr) {
-			let cur_rmr_refresh = cur_rmr.deref()
-			~rmrs.indexOf(cur_rmr) || rmrs.push(cur_rmr)
-			cur_rmr_refresh.l < refresh.l + 1 && (cur_rmr_refresh.l = refresh.l + 1)
+			~rmrs.indexOf(cur_rmr.rmr ||= new WeakRef(cur_rmr.f)) || rmrs.push(cur_rmr.rmr)
+			cur_rmr.f.l < memo.f.l + 1 && (cur_rmr.f.l = memo.f.l + 1)
 			// conditional in rmr calls this r_memo
-			cur_rmr_refresh.s.push(memo)
+			cur_rmr.f.s.push(memo)
 			// prevent this rmemo from GC while cur_rmr is still active
-			~cur_rmr_refresh.S.indexOf(memo) || cur_rmr_refresh.S.push(memo)
+			~cur_rmr.f.S.indexOf(memo) || cur_rmr.f.S.push(memo)
 		}
 		return memo.val
 	}
@@ -47,7 +45,7 @@ export function memo_(rmemo_def, ...subscriber_a) {
 					i++
 				}
 				// add reference to subscribers to prevent GC
-				memo._s ||=
+				memo.b ||=
 					subscriber_a.map(subscriber=>
 						memo_(subscriber$=>(
 							subscriber(memo),
@@ -68,10 +66,10 @@ export function memo_(rmemo_def, ...subscriber_a) {
 			}
 		},
 	})
-	refresh = ()=>{
+	memo.f = ()=>{
 		let prev_rmr = cur_rmr
-		cur_rmr = memo.rmr
-		refresh.s = []
+		cur_rmr = memo
+		memo.f.s = []
 		try {
 			memo._ = rmemo_def(memo)
 		} catch (err) {
@@ -79,13 +77,10 @@ export function memo_(rmemo_def, ...subscriber_a) {
 		}
 		cur_rmr = prev_rmr // finally is not necessary...catch does not throw
 	}
-	refresh.l = 0
-	// rmrs = new Set
-	// memo.rmrs is kept for GC testing/debugging purposes...small size increase
+	memo.f.l = 0
 	memo.rmrs = rmrs = []
-	memo.rmr = new WeakRef(refresh)
-	refresh.s = []
-	refresh.S = []
+	memo.f.s = []
+	memo.f.S = []
 	return memo
 }
 export { memo_ as memosig_ }
