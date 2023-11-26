@@ -7,26 +7,26 @@ import { sleep } from '../sleep/index.js'
 import { memo_, type memo_T, memosig_, sig_ } from './index.js'
 test('memo_|static value', ()=>{
 	let count = 0
-	const r_rmemo = memo_(()=>{
+	const memo = memo_(()=>{
 		count++
 		return 'rmemo-value'
 	})
 	equal(count, 0)
-	equal(r_rmemo(), 'rmemo-value')
+	equal(memo(), 'rmemo-value')
 	equal(count, 1)
-	equal(r_rmemo(), 'rmemo-value')
+	equal(memo(), 'rmemo-value')
 	equal(count, 1)
 })
 test('memo_|def function|rmemo argument', ()=>{
-	const rw_rmemo = sig_('val0')
-	const r_rmemo:memo_T<string>&{ custom?:string } = memo_<string>((_rmemo$:memo_T<string>&{ custom?:string })=>
-		`${_rmemo$.custom}-${rw_rmemo()}`)
-	r_rmemo.custom = 'custom_val0'
-	equal(r_rmemo(), 'custom_val0-val0')
-	r_rmemo.custom = 'custom_val1'
-	equal(r_rmemo(), 'custom_val0-val0')
-	rw_rmemo._ = 'val1'
-	equal(r_rmemo(), 'custom_val1-val1')
+	const sig = sig_('val0')
+	const memo:memo_T<string>&{ custom?:string } = memo_<string>((_rmemo$:memo_T<string>&{ custom?:string })=>
+		`${_rmemo$.custom}-${sig()}`)
+	memo.custom = 'custom_val0'
+	equal(memo(), 'custom_val0-val0')
+	memo.custom = 'custom_val1'
+	equal(memo(), 'custom_val0-val0')
+	sig._ = 'val1'
+	equal(memo(), 'custom_val1-val1')
 })
 test('r_memo_|side effect', ()=>{
 	const history:string[] = []
@@ -125,16 +125,16 @@ test('memo_|error|case 2', ()=>{
 	equal(r3(), 9)
 })
 test('sig_', ()=>{
-	const rw_rmemo = sig_('val0')
-	equal(rw_rmemo(), 'val0')
-	rw_rmemo._ = 'val1'
-	equal(rw_rmemo(), 'val1')
+	const sig = sig_('val0')
+	equal(sig(), 'val0')
+	sig._ = 'val1'
+	equal(sig(), 'val1')
 })
 test('sig_|undefined', ()=>{
-	const rw_rmemo = sig_(undefined)
-	const r_rmemo = memo_(()=>rw_rmemo())
-	equal(rw_rmemo(), undefined)
-	equal(r_rmemo(), undefined)
+	const sig = sig_(undefined)
+	const memo = memo_(()=>sig())
+	equal(sig(), undefined)
+	equal(memo(), undefined)
 })
 test('sig_|async subsubscriber|case 1', async ()=>{
 	let resolve:(user:{ id:string })=>void

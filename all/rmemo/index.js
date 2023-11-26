@@ -3,7 +3,7 @@
 /** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
 /** @typedef {import('./index.d.ts').sig_T} */
 /** @type {WeakRef<memo_T>} */
-let cur_rmr
+let cur_memo
 /** @type {Set<()=>unknown>} */
 let queue = new Set
 /**
@@ -13,18 +13,18 @@ let queue = new Set
  * @private
  */
 export function memo_(rmemo_def, ...subscriber_a) {
-	let rmrs
+	let memor
 	let memo = ()=>{
 		if (!('val' in memo)) {
 			memo.f()
 		}
-		if (cur_rmr) {
-			~rmrs.indexOf(cur_rmr.rmr ||= new WeakRef(cur_rmr.f)) || rmrs.push(cur_rmr.rmr)
-			cur_rmr.f.l < memo.f.l + 1 && (cur_rmr.f.l = memo.f.l + 1)
-			// conditional in rmr calls this r_memo
-			cur_rmr.f.s.push(memo)
-			// prevent this rmemo from GC while cur_rmr is still active
-			~cur_rmr.f.S.indexOf(memo) || cur_rmr.f.S.push(memo)
+		if (cur_memo) {
+			~memor.indexOf(cur_memo.r ||= new WeakRef(cur_memo.f)) || memor.push(cur_memo.r)
+			cur_memo.f.l < memo.f.l + 1 && (cur_memo.f.l = memo.f.l + 1)
+			// conditional in r calls this r_memo
+			cur_memo.f.s.push(memo)
+			// prevent this rmemo from GC while cur_memo is still active
+			~cur_memo.f.S.indexOf(memo) || cur_memo.f.S.push(memo)
 		}
 		return memo.val
 	}
@@ -35,11 +35,11 @@ export function memo_(rmemo_def, ...subscriber_a) {
 				memo.val = val // val is available for other purposes
 				let run_queue = !queue.size
 				let i = 0
-				for (let rmr of rmrs) {
-					val = rmr.deref() // val is no longer used...saving bytes
+				for (let r of memor) {
+					val = r.deref() // val is no longer used...saving bytes
 					if (!val) {
-						rmrs.splice(i, 1)
-					} else if (~val.s.indexOf(memo)) { // if conditional rmr refresh calls this r_memo, add to queue
+						memor.splice(i, 1)
+					} else if (~val.s.indexOf(memo)) { // if conditional r refresh calls this r_memo, add to queue
 						queue.add(val)
 					}
 					i++
@@ -67,18 +67,18 @@ export function memo_(rmemo_def, ...subscriber_a) {
 		},
 	})
 	memo.f = ()=>{
-		let prev_rmr = cur_rmr
-		cur_rmr = memo
+		let prev_memo = cur_memo
+		cur_memo = memo
 		memo.f.s = []
 		try {
 			memo._ = rmemo_def(memo)
 		} catch (err) {
 			console.error(err)
 		}
-		cur_rmr = prev_rmr // finally is not necessary...catch does not throw
+		cur_memo = prev_memo // finally is not necessary...catch does not throw
 	}
 	memo.f.l = 0
-	memo.rmrs = rmrs = []
+	memo.memor = memor = []
 	memo.f.s = []
 	memo.f.S = []
 	return memo
@@ -91,9 +91,9 @@ export { memo_ as memosig_ }
  * @private
  */
 export function sig_(init_val, ...subscriber_a) {
-	return memo_(rw_rmemo=>
-		'val' in rw_rmemo
-			? rw_rmemo.val
+	return memo_(sig=>
+		'val' in sig
+			? sig.val
 			: init_val,
 	...subscriber_a)
 }
