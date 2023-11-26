@@ -31,10 +31,12 @@ export function memo_(rmemo_def, ...subscriber_a) {
 	Object.defineProperty(memo, '_', {
 		get: memo,
 		set: val=>{
-			if (memo.val !== val) {
-				memo.val = val // val is available for other purposes
+			let i = memo.val
+			memo.val = val
+			if (i !== val) {
+				// val is available for other purposes
 				let run_queue = !queue.size
-				let i = 0
+				i = 0
 				for (let r of memor) {
 					val = r.deref() // val is no longer used...saving bytes
 					if (!val) {

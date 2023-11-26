@@ -28,7 +28,7 @@ test('memo_|def function|rmemo argument', ()=>{
 	sig._ = 'val1'
 	equal(memo(), 'custom_val1-val1')
 })
-test('r_memo_|side effect', ()=>{
+test('memo_|side effect', ()=>{
 	const history:string[] = []
 	const s = sig_('This')
 	memo_(()=>history.push(s()))()
@@ -37,6 +37,18 @@ test('r_memo_|side effect', ()=>{
 	s._ = 'test'
 	s._ = 'test'
 	equal(history, ['This', 'is', 'a', 'test'])
+})
+test('memo_|undefined', ()=>{
+	let count = 0
+	const memo = memo_(()=>{
+		count++
+		return undefined
+	})
+	equal(count, 0)
+	equal(memo(), undefined)
+	equal(count, 1)
+	equal(memo(), undefined)
+	equal(count, 1)
 })
 test('memo_|conditional', ()=>{
 	const cond$ = sig_(true)
