@@ -161,7 +161,7 @@
 			"import": {
 				"./rmemo": "{ memo_ }"
 			},
-			"limit": "342 B"
+			"limit": "341 B"
 		},
 		{
 			"name": "memo_ sig_",
