@@ -78,9 +78,9 @@ export function memo_(rmemo_def, ...subscriber_a) {
 		cur_memo = prev_memo // finally is not necessary...catch does not throw
 	}
 	memo.f.l = 0
-	memo.memor = memor = []
 	memo.f.s = []
 	memo.f.S = []
+	memo.memor = memor = []
 	return memo
 }
 export { memo_ as memosig_ }
