@@ -7,7 +7,7 @@
 export async function promise_timeout(
 	promise,
 	ms,
-	error = new Error(`Timed out after ${ms}ms.`),
+	error = new Error(`Timeout ${ms}ms`),
 ) {
 	let id
 	let timeout = new Promise((_resolve, reject)=>{

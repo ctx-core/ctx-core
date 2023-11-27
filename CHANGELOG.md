@@ -1,5 +1,11 @@
 # ctx-core
 
+## 4.7.0
+
+### Minor Changes
+
+- - rmemo\_\_wait
+
 ## 4.6.3
 
 ### Patch Changes
