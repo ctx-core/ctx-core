@@ -4,29 +4,7 @@
 
 ### Minor Changes
 
-- tags,tagsNS:
-
-  nullish attributes are removed
-  nullish props are set to ''
-
-  size-limit:
-
-      isomorphic browser: base: + 10 B
-      isomorphic browser: fragment: + 15 B
-      isomorphic server: base: + 3 B
-      isomorphic server: fragment: + 3 B
-      browser-only minimal: + 1 B
-      browser-only hydrate + helpers: + 12 B
-      browser-only hydrate + helpers + rmemo: + 8 B
-      browser-only hydrate + helpers + rmemo + ctx: + 3 B
-      isomorphic (base) browser helpers + hydrate + helpers + rmemo + ctx: + 11 B
-      isomorphic (fragment) browser helpers + hydrate + helpers + rmemo + ctx: + 10 B
-      server-only minimal: - 2 B
-      server-only render doc + helpers: + 3 B
-      server-only render doc + helpers + rmemo: - 1 B
-      server-only render doc + helpers + rmemo + ctx: + 2 B
-      isomorphic (base) browser helpers + doc_html_ + helpers + rmemo + ctx: + 2 B
-      isomorphic (fragment) browser helpers + doc_html_ + helpers + rmemo + ctx: + 6 B
+- no changes
 
 ## 4.7.0
 
