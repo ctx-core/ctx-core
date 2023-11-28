@@ -153,6 +153,22 @@ test('sig_|undefined', ()=>{
 	equal(sig(), undefined)
 	equal(memo(), undefined)
 })
+test('sig_|subscriber|sets sig', ()=>{
+	const base$ = sig_(0)
+	let count = 0
+	const num$ = sig_(
+		0,
+		async (num$)=>{
+			count++
+			num$._ = base$() + 1
+		})
+	equal(count, 0)
+	equal(num$(), 1)
+	equal(count, 1)
+	base$._ = 5
+	equal(num$(), 6)
+	equal(count, 2)
+})
 test('sig_|async subsubscriber|case 1', async ()=>{
 	let resolve:(user:{ id:string })=>void
 	const user0 = { id: 'id-0' }

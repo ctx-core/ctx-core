@@ -13,13 +13,12 @@ let queue = new Set
  * @private
  */
 export function memo_(rmemo_def, ...subscriber_a) {
-	let memor
 	let memo = ()=>{
 		if (!('val' in memo)) {
 			memo.f()
 		}
 		if (cur_memo) {
-			if (!~memor.indexOf(cur_memo.r ||= new WeakRef(cur_memo.f))) memor.push(cur_memo.r)
+			if (!~memo.memor.indexOf(cur_memo.r ||= new WeakRef(cur_memo.f))) memo.memor.push(cur_memo.r)
 			if (cur_memo.f.l < memo.f.l + 1) cur_memo.f.l = memo.f.l + 1
 			// conditional in r calls this r_memo
 			cur_memo.f.s.push(memo)
@@ -36,23 +35,14 @@ export function memo_(rmemo_def, ...subscriber_a) {
 			if (i !== val) {
 				// val is available for other purposes
 				let run_queue = !queue.size
-				i = 0
-				for (let r of memor) {
+				memo.memor = memo.memor.filter(r=>{
+					// val is no longer used...saving bytes
 					val = r.deref() // val is no longer used...saving bytes
-					if (!val) {
-						memor.splice(i, 1)
-					} else if (~val.s.indexOf(memo)) { // if conditional r refresh calls this r_memo, add to queue
+					if (val && ~val.s.indexOf(memo)) { // if conditional r refresh calls this r_memo, add to queue
 						queue.add(val)
 					}
-					i++
-				}
-				// add reference to subscribers to prevent GC
-				memo.b ||=
-					subscriber_a.map(subscriber=>
-						memo_(subscriber$=>(
-							subscriber(memo),
-							subscriber$
-						))())
+					return val
+				})
 				if (run_queue) {
 					cur_refresh_loop:for (let cur_refresh of queue) {
 						queue.delete(cur_refresh)
@@ -78,11 +68,18 @@ export function memo_(rmemo_def, ...subscriber_a) {
 			console.error(err)
 		}
 		cur_memo = prev_memo // finally is not necessary...catch does not throw
+		// add reference to subscribers to prevent GC
+		memo.b ||=
+			subscriber_a.map(subscriber=>
+				memo_(subscriber$=>(
+					subscriber(memo),
+					subscriber$
+				))())
 	}
 	memo.f.l = 0
 	memo.f.s = []
 	memo.f.S = []
-	memo.memor = memor = []
+	memo.memor = []
 	return memo
 }
 export { memo_ as memosig_ }
