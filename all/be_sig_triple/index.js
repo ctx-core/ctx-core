@@ -1,11 +1,8 @@
+/// <reference types="../be_/index.d.ts" />
+/// <reference types="../rmemo/index.d.ts" />
+/// <reference types="./index.d.ts" />
 import { be_ } from '../be_/index.js'
 import { sig_ } from '../rmemo/index.js'
-/** @typedef {import('../be_/index.d.ts').Be} */
-/** @typedef {import('../be_/index.d.ts').be__val__new_T} */
-/** @typedef {import('../be_/index.d.ts').be_config_T} */
-/** @typedef {import('../rmemo/index.d.ts').sig_T} */
-/** @typedef {import('../rmemo/index.d.ts').rmemo_subscriber_T} */
-/** @typedef {import('./index.d.ts').be_sig_triple_T} */
 /**
  * @param {Be<sig_T>|be__val__new_T<unknown>}be_OR_val__new
  * @param {rmemo_subscriber_T[]|[...rmemo_subscriber_T[], be_config_T]}subscriber_a_THEN_config
@@ -19,7 +16,7 @@ export function be_sig_triple_(
 	let config =
 		typeof subscriber_a_THEN_config[subscriber_a_THEN_config.length - 1] === 'object'
 			? subscriber_a_THEN_config.pop()
-			: undefined
+			: 0
 	/** @type {Be<sig_T>} */
 	let be =
 		be_OR_val__new.is_be

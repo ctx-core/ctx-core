@@ -1,6 +1,6 @@
-export { sig__set_ as set_ } from '../all/rmemo/index.js'
 export * from '../all/be_/index.js'
 export * from '../all/be_memo_pair/index.js'
+export * from '../all/be_memosig_triple/index.js'
 export * from '../all/be_sig_triple/index.js'
 export * from '../all/ctx/index.js'
 export * from '../all/rmemo/index.js'

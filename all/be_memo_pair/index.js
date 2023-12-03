@@ -1,10 +1,8 @@
+/// <reference types="../be_/index.d.ts" />
+/// <reference types="../rmemo/index.d.ts" />
+/// <reference types="./index.d.ts" />
 import { be_ } from '../be_/index.js'
 import { memo_ } from '../rmemo/index.js'
-/** @typedef {import('../be_/index.d.ts').Be} */
-/** @typedef {import('../be_/index.d.ts').be__val__new_T} */
-/** @typedef {import('../be_/index.d.ts').be_config_T} */
-/** @typedef {import('../rmemo/index.d.ts').rmemo_subscriber_T} */
-/** @typedef {import('./index.d.ts').be_memo_pair_T} */
 /**
  * @param {Be|be__val__new_T<unknown>}be_OR_val__new
  * @param {rmemo_subscriber_T[]|[...rmemo_subscriber_T[], be_config_T]}subscriber_a_THEN_config
@@ -18,14 +16,14 @@ export function be_memo_pair_(
 	let config =
 		typeof subscriber_a_THEN_config[subscriber_a_THEN_config.length - 1] === 'object'
 			? subscriber_a_THEN_config.pop()
-			: undefined
+			: 0
 	/** @type {Be} */
 	let be =
 		be_OR_val__new.is_be
 			? be_OR_val__new
 			: be_(ctx=>
 				memo_(
-					()=>be_OR_val__new(ctx),
+					memo=>be_OR_val__new(ctx, memo),
 					...subscriber_a_THEN_config.map(subscriber=>
 						memo=>subscriber(ctx, memo))),
 			config)

@@ -9,7 +9,10 @@ test('be_sig_triple_', ()=>{
 		foobar$_,
 		foobar_,
 		foobar__set,
-	] = be_sig_triple_(()=>1)
+	] = be_sig_triple_(_ctx=>{
+		equal(_ctx, ctx)
+		return 1
+	})
 	const ctx = ctx__new()
 	equal(foobar$_(ctx)._, 1)
 	equal(foobar_(ctx), 1)
