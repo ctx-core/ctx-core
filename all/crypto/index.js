@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 /**
  * @type {Crypto}
  * @see {@link https://stackoverflow.com/a/70981544/142571}

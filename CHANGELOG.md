@@ -1,5 +1,12 @@
 # ctx-core
 
+## 4.8.2
+
+### Patch Changes
+
+- crypto\_: fix: export type
+- crypto: fix: type definition
+
 ## 4.8.1
 
 ### Patch Changes
