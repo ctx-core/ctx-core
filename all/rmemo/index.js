@@ -1,7 +1,4 @@
-/** @typedef {import('./index.d.ts').rmemo_def_T} */
-/** @typedef {import('./index.d.ts').memo_T} */
-/** @typedef {import('./index.d.ts').rmemo_subscriber_T} */
-/** @typedef {import('./index.d.ts').sig_T} */
+/// <reference types="./index.d.ts" />
 /** @type {WeakRef<memo_T>} */
 let cur_memo
 /** @type {Set<()=>unknown>} */
@@ -97,3 +94,4 @@ export function sig_(init_val, ...subscriber_a) {
 	},
 	...subscriber_a)
 }
+// TODO: lock_memosig_

@@ -3,6 +3,7 @@ import { assign } from '../assign/index.js'
 const { get } = Reflect
 const add_strong_sym = Symbol('add_strong')
 const delete_strong_sym = Symbol('delete_strong')
+let _undefined
 /**
  * @param {object}[back_o]
  * @returns {object}
@@ -24,12 +25,16 @@ export function weak_r_(back_o = {}) {
 			if ((value === null || value === void 0 ? void 0 : value.deref) && !strong_set.has(prop)) {
 				value = value.deref()
 			}
-			return value === undefined ? undefined : {
-				configurable: true,
-				enumerable: true,
-				value,
-				writable: true
-			}
+			return (
+				value === _undefined
+					? _undefined
+					: {
+						configurable: true,
+						enumerable: true,
+						value,
+						writable: true
+					}
+			)
 		},
 		get(back_ctx, prop) {
 			const uw_val = get(back_ctx, prop)
@@ -61,7 +66,7 @@ export { strong__call as ref_strong }
  */
 export function strong__assign(obj, prop, val) {
 	strong__call(obj, prop)
-	if (val !== undefined) {
+	if (val !== _undefined) {
 		assign(obj, {
 			[prop]: val
 		})
