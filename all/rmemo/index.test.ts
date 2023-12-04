@@ -153,12 +153,30 @@ test('sig_|undefined', ()=>{
 	equal(sig(), undefined)
 	equal(memo(), undefined)
 })
+test('sig_|subscriber|notified if sig is set before read', ()=>{
+	let count = 0
+	let subscriber__num:number|undefined = undefined
+	const num$ = sig_<number|undefined>(
+		undefined,
+		num$=>{
+			count++
+			subscriber__num = num$()
+		})
+	equal(count, 0)
+	equal(subscriber__num, undefined)
+	num$._ = 1
+	equal(count, 1)
+	equal(subscriber__num, 1)
+	num$()
+	equal(count, 1)
+	equal(subscriber__num, 1)
+})
 test('sig_|subscriber|sets sig', ()=>{
 	const base$ = sig_(0)
 	let count = 0
 	const num$ = sig_(
 		0,
-		async (num$)=>{
+		async num$=>{
 			count++
 			num$._ = base$() + 1
 		})

@@ -1,5 +1,18 @@
 # ctx-core
 
+## 4.9.1
+
+### Patch Changes
+
+- fix: sig*,memosig*: subscribers are notified if sig is set before read
+
+  size-limit:
+
+      memo_: - 4 B
+      memo_ sig_: - 3 B
+      memo_ sig_ be_ ctx_: - 5 B
+      memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: + 3 B
+
 ## 4.9.0
 
 ### Minor Changes

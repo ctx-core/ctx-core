@@ -27,30 +27,36 @@ export function memo_(rmemo_def, ...subscriber_a) {
 	Object.defineProperty(memo, '_', {
 		get: memo,
 		set: val=>{
-			let i = memo.val
-			memo.val = val
-			if (i !== val) {
-				// val is available for other purposes
-				let run_queue = !queue.size
+			let run_queue
+			if (memo.val !== val) {
+				run_queue = !queue.size
 				memo.memor = memo.memor.filter(r=>{
-					// val is no longer used...saving bytes
-					val = r.deref() // val is no longer used...saving bytes
-					if (val && ~val.s.indexOf(memo)) { // if conditional r refresh calls this r_memo, add to queue
-						queue.add(val)
+					r = r.deref()
+					if (r && ~r.s.indexOf(memo)) { // if conditional r refresh calls this r_memo, add to queue
+						queue.add(r)
 					}
-					return val
+					return r
 				})
-				if (run_queue) {
-					cur_refresh_loop:for (let cur_refresh of queue) {
-						queue.delete(cur_refresh)
-						for (let queue_refresh of queue) {
-							if (cur_refresh.l > queue_refresh.l) {
-								queue.add(cur_refresh)
-								continue cur_refresh_loop
-							}
+			}
+			memo.val = val
+			if (!memo.b) {
+				// add reference to subscribers to prevent GC
+				memo.b = subscriber_a.map(subscriber=>
+					memo_(()=>subscriber(memo)))
+				for (let s of memo.b) {
+					s()
+				}
+			}
+			if (run_queue) {
+				cur_refresh_loop:for (let cur_refresh of queue) {
+					queue.delete(cur_refresh)
+					for (let queue_refresh of queue) {
+						if (cur_refresh.l > queue_refresh.l) {
+							queue.add(cur_refresh)
+							continue cur_refresh_loop
 						}
-						cur_refresh()
 					}
+					cur_refresh()
 				}
 			}
 		},
@@ -65,13 +71,6 @@ export function memo_(rmemo_def, ...subscriber_a) {
 			console.error(err)
 		}
 		cur_memo = prev_memo // finally is not necessary...catch does not throw
-		// add reference to subscribers to prevent GC
-		memo.b ||=
-			subscriber_a.map(subscriber=>
-				memo_(subscriber$=>(
-					subscriber(memo),
-					subscriber$
-				))())
 	}
 	memo.f.l = 0
 	memo.f.s = []
