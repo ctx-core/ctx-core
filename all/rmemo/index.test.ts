@@ -4,7 +4,7 @@ import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { memo_, type memo_T, memosig_, sig_ } from './index.js'
+import { memo_, type memo_T, memosig_, off, on, sig_ } from './index.js'
 test('memo_|static value', ()=>{
 	let count = 0
 	const memo = memo_(()=>{
@@ -409,5 +409,31 @@ test('computes initial value when argument is undefined', ()=>{
 	const two$ = memo_(()=>!!one$())
 	equal(one$(), undefined)
 	equal(two$(), false)
+})
+test('.on + .off', ()=>{
+	const base$ = sig_(1)
+	let count = 0
+	const memo$ = memo_(()=>{
+		count++
+		return base$() + 10
+	})
+	equal(memo$(), 11)
+	equal(count, 1)
+	base$._ = 2
+	equal(memo$(), 12)
+	equal(count, 2)
+	off(memo$)
+	base$._ = 3
+	equal(memo$(), 12)
+	equal(count, 2)
+	on(memo$)
+	equal(memo$(), 13)
+	equal(count, 3)
+	off(memo$)
+	on(memo$)
+	equal(count, 4)
+	base$._ = 4
+	equal(memo$(), 14)
+	equal(count, 5)
 })
 test.run()

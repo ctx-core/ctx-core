@@ -94,3 +94,23 @@ export function sig_(init_val, ...subscriber_a) {
 	...subscriber_a)
 }
 // TODO: lock_memosig_
+/**
+ * Call the rmemo & enable updates from it's parents.
+ * @param {rmemo_T}rmemo
+ */
+export function on(rmemo) {
+	if (rmemo.r?.d) {
+		rmemo.r.deref = rmemo.r.d
+	}
+	rmemo.f()
+}
+/**
+ * Disable updates from the rmemo's parents.
+ * @param {rmemo_T}rmemo
+ */
+export function off(rmemo) {
+	if (rmemo.r) {
+		rmemo.r.d ||= rmemo.r.deref
+		rmemo.r.deref = ()=>{}
+	}
+}

@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "4.9.1",
+	"version": "4.10.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -161,14 +161,14 @@
 			"import": {
 				"./rmemo": "{ memo_ }"
 			},
-			"limit": "338 B"
+			"limit": "340 B"
 		},
 		{
 			"name": "memo_ sig_",
 			"import": {
 				"./rmemo": "{ sig_, memo_ }"
 			},
-			"limit": "354 B"
+			"limit": "355 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_",
@@ -182,7 +182,7 @@
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_, be_memo_pair_, be_sig_triple_ }"
 			},
-			"limit": "602 B"
+			"limit": "600 B"
 		}
 	]
 }
