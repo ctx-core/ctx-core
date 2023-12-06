@@ -2,7 +2,7 @@
 /// <reference types="../be_sig_triple/index.d.ts" />
 /// <reference types="../rmemo/index.d.ts" />
 /// <reference types="./index.d.ts" />
-import { be_memo_pair_ } from '../be_memo_pair'
+import { be_memo_pair_ } from '../be_memo_pair/index.js'
 /**
  * @param {Be<sig_T>|be__val__new_T<unknown>}be_OR_val__new
  * @param {rmemo_subscriber_T[]|[...rmemo_subscriber_T[], be_config_T]}subscriber_a_THEN_config
