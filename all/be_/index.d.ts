@@ -2,7 +2,7 @@ export declare const pending_symbol:unique symbol
 export declare function globalThis__be_<
 	val_T,
 	ctx_T extends Ctx = Ctx
->(id:string|symbol, val_:be__val__new_T<val_T, ctx_T>, config?:be_config_T):Be<val_T, ctx_T>
+>(val__new:be__val__new_T<val_T, ctx_T>, config:be_config_T&{ id: string }):Be<val_T, ctx_T>
 /**
  * Auto-memoization function for the Ctx.
  *

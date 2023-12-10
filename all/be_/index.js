@@ -14,13 +14,13 @@ import { globalThis__prop__ensure } from '../globalThis__prop__ensure/index.js'
  * otherwise it caches & uses the return value of val__new.
  * @param {string|symbol}id
  * @param {be__val__new_T}val__new
- * @param {be_config_T}[config]
+ * @param {be_config_T}config
  * @returns {Be}
  * @private
  */
-export function globalThis__be_(id, val__new, config) {
-	return globalThis__prop__ensure(id, ()=>
-		be_(val__new, { id, ...(config||{}) }))
+export function globalThis__be_(val__new, config) {
+	return globalThis__prop__ensure(config.id, ()=>
+		be_(val__new, config))
 }
 /**
  * Auto-memoization function for the Ctx.

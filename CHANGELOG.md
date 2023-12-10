@@ -1,5 +1,15 @@
 # ctx-core
 
+## 4.12.0
+
+### Minor Changes
+
+- globalThis\__be_: arguments match be\_
+
+  size-limit:
+
+      be_ ctx_: - 2 B
+
 ## 4.11.4
 
 ### Patch Changes

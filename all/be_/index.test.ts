@@ -19,11 +19,11 @@ test.after(()=>{
 test('globalThis__be_', ()=>{
 	const ctx = ctx__new()
 	equal(root_be_(), undefined)
-	const be = globalThis__be_('root_be', ()=>1)
+	const be = globalThis__be_(()=>1, { id: 'root_be' })
 	equal(root_be_(), be)
 	equal(root_be_()!(ctx), 1)
 	equal(be(ctx), 1)
-	const be2 = globalThis__be_('root_be', ()=>1)
+	const be2 = globalThis__be_(()=>1, { id: 'root_be' })
 	equal(be2, be)
 	equal(root_be_(), be2)
 	equal(root_be_()!(ctx), 1)
