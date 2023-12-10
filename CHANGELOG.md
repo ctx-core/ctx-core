@@ -1,5 +1,11 @@
 # ctx-core
 
+## 4.11.4
+
+### Patch Changes
+
+- globalThis\__be_: fix: arguments type: + config?:be_config_T
+
 ## 4.11.3
 
 ### Patch Changes
