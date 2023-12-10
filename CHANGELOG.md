@@ -1,5 +1,11 @@
 # ctx-core
 
+## 4.11.1
+
+### Patch Changes
+
+- TupleExclude: fix: type error
+
 ## 4.11.0
 
 ### Minor Changes

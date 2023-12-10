@@ -12,9 +12,22 @@ export {
 	tup as tup_fn,
 }
 export type TupleRest<T extends unknown[]> =
-	T['length'] extends 0 ? undefined :
-		(((...b: T) => void) extends (a, ...b: infer I) => void ? I : [])
+	T['length'] extends 0
+		? undefined
+		: (((...b:T)=>void) extends (a:unknown, ...b:infer I)=>void ? I : [])
 export type TupleFirst<T extends unknown[]> =
 	T['length'] extends 0 ? undefined : T[0]
-export type TupleExclude<T extends unknown[], E> =
-	[Exclude<TupleFirst<T>, E>, ...TupleExclude<TupleRest<T>, E>]
+type _TupleExclude<T extends unknown[], E, Rest> =
+	[Exclude<TupleFirst<T>, E>, Rest]
+export interface TupleExclude<
+	T extends unknown[], E
+> extends _TupleExclude<
+	T,
+	E,
+	TupleExclude<
+		// @ts-expect-error TS2344
+		TupleRest<T>,
+		E
+	>
+> {
+}
