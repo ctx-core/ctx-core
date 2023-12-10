@@ -9,10 +9,29 @@ import {
 	type Ctx,
 	ctx__delete,
 	ctx__set,
+	globalThis__be_,
 	type MapCtx
 } from '../be_/index.js'
 import { ctx__new } from '../ctx/index.js'
-
+test.after(()=>{
+	delete (globalThis as { root_be?:Be<unknown> }).root_be
+})
+test('globalThis__be_', ()=>{
+	const ctx = ctx__new()
+	equal(root_be_(), undefined)
+	const be = globalThis__be_('root_be', ()=>1)
+	equal(root_be_(), be)
+	equal(root_be_()!(ctx), 1)
+	equal(be(ctx), 1)
+	const be2 = globalThis__be_('root_be', ()=>1)
+	equal(be2, be)
+	equal(root_be_(), be2)
+	equal(root_be_()!(ctx), 1)
+	equal(be2(ctx), 1)
+	function root_be_() {
+	  return (globalThis as { root_be?:Be<unknown> }).root_be
+	}
+})
 test('be_|Map', ()=>{
 	const ctx = ctx__new()
 	let incrementer_num = 0

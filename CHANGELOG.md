@@ -1,5 +1,15 @@
 # ctx-core
 
+## 4.11.3
+
+### Patch Changes
+
+- globalThis\__be_: fix: id argument + config argument
+
+  size-limit:
+
+      be_ ctx_: + 2 B
+
 ## 4.11.2
 
 ### Patch Changes

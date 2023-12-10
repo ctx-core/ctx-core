@@ -12,12 +12,16 @@ import { globalThis__prop__ensure } from '../globalThis__prop__ensure/index.js'
  *
  * Returns a function to ensure that a member id_OR_val_ is defined on a ctx object,
  * otherwise it caches & uses the return value of val__new.
+ * @param {string|symbol}id
  * @param {be__val__new_T}val__new
+ * @param {be_config_T}[config]
  * @returns {Be}
  * @private
  */
-export function globalThis__be_(val__new) {
-	return globalThis__prop__ensure(Symbol.for(val__new), ()=>be_(val__new)) }
+export function globalThis__be_(id, val__new, config) {
+	return globalThis__prop__ensure(id, ()=>
+		be_(val__new, { id, ...(config||{}) }))
+}
 /**
  * Auto-memoization function for the Ctx.
  *
