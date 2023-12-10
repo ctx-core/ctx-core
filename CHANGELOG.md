@@ -1,5 +1,11 @@
 # ctx-core
 
+## 4.11.2
+
+### Patch Changes
+
+- TupleExclude: fix: type inference
+
 ## 4.11.1
 
 ### Patch Changes
