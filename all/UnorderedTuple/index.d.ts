@@ -1,4 +1,4 @@
 import type { NoRepetition } from '../NoRepetition/index.js'
 export type UnorderedTuple<
-	MemberA extends any[] = any[]
+	MemberA extends unknown[] = unknown[]
 > = NoRepetition<string, MemberA>

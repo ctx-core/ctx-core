@@ -77,4 +77,3 @@ export declare type be__val__new_T<
 	ctx_T extends Ctx = Ctx
 > = (ctx:ctx_T, be:Be<val_T, ctx_T>)=>val_T
 export type is_source__T = (map_ctx:MapCtx, ctx:Ctx)=>boolean
-export type expired__T = (ctx:Ctx)=>boolean

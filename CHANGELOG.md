@@ -1,5 +1,19 @@
 # ctx-core
 
+## 4.11.0
+
+### Minor Changes
+
+- minor:
+
+      + TupleRest
+      + TupleFirst
+      + TupleExclude
+
+### Patch Changes
+
+- nullish\__none_: callback: exclude nullish from each argument
+
 ## 4.10.1
 
 ### Patch Changes

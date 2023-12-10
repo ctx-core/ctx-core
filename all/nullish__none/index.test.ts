@@ -2,8 +2,8 @@ import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { nullish__none_ } from '../nullish__none/index.js'
 test('nullish__none_|-onnullish', ()=>{
-	const arg_aa:any[][] = []
-	const _ = (...arg_a:any[])=>{
+	const arg_aa:unknown[][] = []
+	const _ = (...arg_a:unknown[])=>{
 		arg_aa.push(arg_a)
 		return arg_a
 	}
@@ -24,13 +24,13 @@ test('nullish__none_|-onnullish', ()=>{
 	equal(arg_aa, [[zero], [str], [o]])
 })
 test('nullish__none_|+onnullish', ()=>{
-	const arg_aa:any[][] = []
-	const _ = (...arg_a:any[])=>{
+	const arg_aa:unknown[][] = []
+	const _ = (...arg_a:unknown[])=>{
 		arg_aa.push(arg_a)
 		return arg_a
 	}
-	const onnullish__arg_aa:any[][] = []
-	const onnullish = (...arg_a:any[])=>{
+	const onnullish__arg_aa:unknown[][] = []
+	const onnullish = (...arg_a:unknown[])=>{
 		onnullish__arg_aa.push(arg_a)
 		return 'foobar'
 	}
