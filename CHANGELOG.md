@@ -1,5 +1,11 @@
 # ctx-core
 
+## 4.14.1
+
+### Patch Changes
+
+- - globalThis\__be_memo_pair_ type declaration
+
 ## 4.14.0
 
 ### Minor Changes
