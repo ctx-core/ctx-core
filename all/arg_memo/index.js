@@ -1,18 +1,14 @@
 import { isPrimitive } from '../isPrimitive/index.js'
 import { prototype_ } from '../prototype/index.js'
-let empty_sym, WeakRef_proto
+let empty_sym = Symbol('E')
 /**
  * @param {(...arg_a:any[])=>any}fn
  * @returns A memo caching arguments & return values. Arguments that are Objects are cached with a WeakRef.
  * @private
  */
-export function memo_(fn) {
+export function arg_memo_(fn) {
 	let m = new Map
 	let wm = new WeakMap
-	if (!empty_sym) {
-		empty_sym = Symbol('E')
-		WeakRef_proto = WeakRef.prototype
-	}
 	let memo = (...arg_a)=>{
 		if (!arg_a.length) {
 			if (!m.has(empty_sym)) {
@@ -35,7 +31,7 @@ export function memo_(fn) {
 			if (cache__arg_a.length !== length) continue
 			for (let arg_a__i = length; arg_a__i--;) {
 				let cache__arg_val = cache__arg_a[arg_a__i]
-				if (prototype_(cache__arg_val) === WeakRef_proto) {
+				if (prototype_(cache__arg_val) === WeakRef.prototype) {
 					cache__arg_val = cache__arg_val.deref()
 					if (!cache__arg_val) { // cleanup cache__arg_a when arg is GC
 						cache__arg_a_T_ret__a.splice(cache__arg_a_T_ret__a__i, 1)
