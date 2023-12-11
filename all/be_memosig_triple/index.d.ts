@@ -15,6 +15,15 @@ export declare function be_memosig_triple_<
 		|[...((ctx:Ctx, sig:_sig_T)=>unknown)[]]
 		|[...((ctx:Ctx, sig:_sig_T)=>unknown)[], config:be_config_T]
 ):be_memosig_triple_T<val_T, _sig_T, ctx_T>
+export declare function globalThis__be_memosig_triple_<
+	val_T,
+	_sig_T extends sig_T<val_T> = sig_T<val_T>,
+	ctx_T extends Ctx = Ctx
+>(
+	rmemo__new:(ctx:Ctx, memosig:_sig_T)=>val_T,
+	...subscriber_a_THEN_config:
+		|[...((ctx:Ctx, sig:_sig_T)=>unknown)[], config:be_config_T&{ id:string }]
+):be_memosig_triple_T<val_T, _sig_T, ctx_T>
 export type be_memosig_triple_T<
 	val_T,
 	_sig_T extends sig_T<val_T> = sig_T<val_T>,

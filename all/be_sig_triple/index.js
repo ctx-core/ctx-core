@@ -1,7 +1,8 @@
 /// <reference types="../be_/index.d.ts" />
 /// <reference types="../rmemo/index.d.ts" />
 /// <reference types="./index.d.ts" />
-import { be_ } from '../be_/index.js'
+import { be_, globalThis__be_ } from '../be_/index.js'
+import { ctx_, ctx__new } from '../ctx'
 import { sig_ } from '../rmemo/index.js'
 /**
  * @param {Be<sig_T>|be__val__new_T<unknown>}be_OR_val__new

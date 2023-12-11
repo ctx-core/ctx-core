@@ -58,7 +58,7 @@ export declare type Be<
 	ctx_T extends Ctx = Ctx
 > = ((ctx:ctx_T)=>val_T)&{
 	is_be: true
-	id?:string
+	id:string|Be<val_T, ctx_T>
 }
 export type be_config_T = {
 	id?:string
