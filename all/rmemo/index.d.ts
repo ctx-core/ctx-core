@@ -29,6 +29,9 @@ export type sig_T<val_T> = (()=>val_T)&{
 	r?:WeakRef<()=>val_T>
 	memor:WeakRef<()=>val_T>[]
 }
+export type lock_memosig_T<val_T> = sig_T<val_T>&{
+	lock?:0|1
+}
 export type rmemo_val_T<sig_T> = sig_T extends { ():infer val_T }
 	? val_T
 	: unknown

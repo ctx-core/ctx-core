@@ -1,5 +1,12 @@
 # ctx-core
 
+## 4.17.0
+
+### Minor Changes
+
+- lock*memosig*: \_=: sets .lock = 1 to prevent the memo_def from running
+- - lock_memosig_T
+
 ## 4.16.0
 
 ### Minor Changes

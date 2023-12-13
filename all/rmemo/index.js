@@ -88,12 +88,12 @@ export { memo_ as memosig_ }
 export function lock_memosig_(memo_def, ...subscriber_a) {
 	return new Proxy(
 		/** @type {sig_T} */memo_(memo=>
-			memo.c ? memo._ : memo_def(memo),
+			memo.lock ? memo._ : memo_def(memo),
 		...subscriber_a),
 		{
 			set(memo, prop, val) {
 				if (prop === '_') {
-					memo.c = 1
+					memo.lock = 1
 					memo._ = val
 				}
 				return 1
@@ -114,7 +114,6 @@ export function sig_(init_val, ...subscriber_a) {
 	},
 	...subscriber_a)
 }
-// TODO: lock_memosig_
 /**
  * Call the rmemo & enable updates from it's parents.
  * @param {rmemo_T}rmemo
