@@ -1,5 +1,15 @@
 # ctx-core
 
+## 4.18.0
+
+### Minor Changes
+
+- - tempfile*path*,tempfile\_
+
+### Patch Changes
+
+- rmemo_T: fix: + |lock_memosig_T<val_T>
+
 ## 4.17.0
 
 ### Minor Changes

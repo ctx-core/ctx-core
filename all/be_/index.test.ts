@@ -27,15 +27,15 @@ test('be_|Map', ()=>{
 	const ctx = ctx__new()
 	let incrementer_num = 0
 	const incrementer = ()=>++incrementer_num
-	const root_ = be_(()=>{
-		console.debug('root_|debug|1')
-		return incrementer()
-	}, { id: 'root_' })
-	const child_ = be_(ctx=>{
-		console.debug('child_|debug|1')
-		return root_(ctx) + incrementer()
-	}, { id: 'child_' })
-	const child1_ = be_(ctx=>root_(ctx) + child_(ctx), { id: 'child1_' })
+	const root_ = be_(()=>
+		incrementer(),
+	{ id: 'root_' })
+	const child_ = be_(ctx=>
+		root_(ctx) + incrementer(),
+	{ id: 'child_' })
+	const child1_ = be_(ctx=>
+		root_(ctx) + child_(ctx),
+	{ id: 'child1_' })
 	equal(root_(ctx), 1)
 	equal(ctx.get('root_'), 1)
 	equal(child_(ctx), 3)
