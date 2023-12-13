@@ -1,8 +1,11 @@
+/// <reference lib="dom" />
 /**
- * @returns {string}
+ * @returns {string|undefined}
+ * @private true
  */
-export function pathname_() {
-	const pathname = typeof window === 'object' && window.location.pathname || ''
-	return pathname
+export function pathname_(
+	url = typeof window === 'object' ? window.location.href : undefined
+) {
+	return url != null ? new URL(url).pathname : undefined
 }
 export { pathname_ as _pathname, }
