@@ -1,4 +1,5 @@
 export * from '../all/be_/index.js'
+export * from '../all/be_lock_memosig_triple/index.js'
 export * from '../all/be_memo_pair/index.js'
 export * from '../all/be_memosig_triple/index.js'
 export * from '../all/be_sig_triple/index.js'

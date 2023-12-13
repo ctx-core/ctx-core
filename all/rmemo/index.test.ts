@@ -4,7 +4,7 @@ import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { memo_, type memo_T, memosig_, off, on, sig_ } from './index.js'
+import { lock_memosig_, memo_, type memo_T, memosig_, off, on, sig_ } from './index.js'
 test('memo_|static value', ()=>{
 	let count = 0
 	const memo = memo_(()=>{
@@ -112,6 +112,24 @@ test('memosig_', ()=>{
 	selected_index$._ = 3
 	equal(selected_index$(), 3)
 	equal(selected_item$(), 'Item 4')
+})
+test('lock_memosig_', ()=>{
+	const num_items$ = sig_(0)
+	const items$ = memo_(()=>[...Array(num_items$()).keys()].map(i=>`Item ${i + 1}`))
+	// TODO: Jetbrains or Typescript type inference is wrong without generic
+	const selected_index$ = lock_memosig_<number>(()=>(items$(), 0))
+	const selected_item$ = memo_(()=>items$()[selected_index$()])
+	num_items$._ = 3
+	equal(num_items$(), 3)
+	equal(items$().join(','), 'Item 1,Item 2,Item 3')
+	equal(selected_index$(), 0)
+	equal(selected_item$(), 'Item 1')
+	selected_index$._ = 2
+	equal(selected_index$(), 2)
+	equal(selected_item$(), 'Item 3')
+	num_items$._ = 5
+	equal(num_items$(), 5)
+	equal(selected_index$(), 2)
 })
 test('memo_|error|case 1', ()=>{
 	const r$ = memo_(()=>{

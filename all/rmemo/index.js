@@ -4,12 +4,12 @@ let cur_memo
 /** @type {Set<()=>unknown>} */
 let queue = new Set
 /**
- * @param {rmemo_def_T}rmemo_def
+ * @param {rmemo_def_T}memo_def
  * @param {rmemo_subscriber_T<unknown>[]}subscriber_a
  * @returns {memo_T}
  * @private
  */
-export function memo_(rmemo_def, ...subscriber_a) {
+export function memo_(memo_def, ...subscriber_a) {
 	let memo = ()=>{
 		if (!('val' in memo)) {
 			memo.f()
@@ -66,7 +66,7 @@ export function memo_(rmemo_def, ...subscriber_a) {
 		cur_memo = memo
 		memo.f.s = []
 		try {
-			memo._ = rmemo_def(memo)
+			memo._ = memo_def(memo)
 		} catch (err) {
 			console.error(err)
 		}
@@ -79,6 +79,27 @@ export function memo_(rmemo_def, ...subscriber_a) {
 	return memo
 }
 export { memo_ as memosig_ }
+/**
+ * @param {rmemo_def_T}memo_def
+ * @param {rmemo_subscriber_T<unknown>[]}subscriber_a
+ * @returns {sig_T}
+ * @private
+ */
+export function lock_memosig_(memo_def, ...subscriber_a) {
+	return new Proxy(
+		/** @type {sig_T} */memo_(memo=>
+			memo.c ? memo._ : memo_def(memo),
+		...subscriber_a),
+		{
+			set(memo, prop, val) {
+				if (prop === '_') {
+					memo.c = 1
+					memo._ = val
+				}
+				return 1
+			}
+		})
+}
 /**
  * @param {unknown}init_val
  * @param {rmemo_subscriber_T[]}subscriber_a
@@ -111,6 +132,7 @@ export function on(rmemo) {
 export function off(rmemo) {
 	if (rmemo.r) {
 		rmemo.r.d ||= rmemo.r.deref
-		rmemo.r.deref = ()=>{}
+		rmemo.r.deref = ()=>{
+		}
 	}
 }
