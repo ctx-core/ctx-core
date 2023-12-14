@@ -1,5 +1,21 @@
 # ctx-core
 
+## 4.19.0
+
+### Minor Changes
+
+- minor:
+
+      + ./http
+      + ContentType__is_binary_
+      + CacheControl_1hour_headers_
+      + CacheControl_5min_headers_
+      + ContentType_json_headers_
+      + ContentType_svg_headers_
+      + ext_R_mime
+      + http__headers__assign
+      + internal_server_error__throw
+
 ## 4.18.0
 
 ### Minor Changes

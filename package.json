@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "4.18.0",
+	"version": "4.19.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -46,6 +46,7 @@
 		"fibonacci",
 		"function",
 		"functional",
+		"http",
 		"math",
 		"matrix",
 		"number",
@@ -88,6 +89,7 @@
 		"./fibonacci": "./fibonacci/index.js",
 		"./function": "./function/index.js",
 		"./functional": "./functional/index.js",
+		"./http": "./http/index.js",
 		"./math": "./math/index.js",
 		"./matrix": "./matrix/index.js",
 		"./number": "./number/index.js",
