@@ -1,12 +1,12 @@
 /**
  * Calls slice on a
  */
-export declare function slice<I, O extends unknown[] = readonly I[]>(
+export declare function slice<I, O extends unknown[] = I[]>(
 	a:readonly I[],
 	begin_idx?:number,
 	end_idx?:number
 ):O
-export declare function maybe_slice<I, O extends unknown[] = readonly I[], Or = null>(
+export declare function maybe_slice<I, O extends unknown[] = I[], Or = null>(
 	maybe_a:readonly I[]|undefined,
 	begin_idx?:number,
 	end_idx?:number,

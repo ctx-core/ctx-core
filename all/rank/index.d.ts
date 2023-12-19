@@ -4,6 +4,6 @@ import type { compare_1_T } from '../array_types/index.js'
  */
 export declare function rank<I>(
 	a:readonly I[],
-	compare_1:compare_1_T
+	compare_1:compare_1_T<I>
 ):number
 export { rank as rank__a1, }

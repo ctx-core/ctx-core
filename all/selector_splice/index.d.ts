@@ -1,7 +1,7 @@
 /**
  * splice out any `array` elements matching `selector`
  */
-export declare function selector_splice<I, O extends unknown[] = readonly I[]>(
+export declare function selector_splice<I, O extends unknown[] = I[]>(
 	a:readonly I[],
 	selector:(v:I, i:number, a:readonly I[])=>I
 ):O

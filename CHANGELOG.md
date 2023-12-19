@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.0.2
+
+### Patch Changes
+
+- fix: type errors
+
 ## 5.0.1
 
 ### Patch Changes
