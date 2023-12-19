@@ -159,7 +159,7 @@ test('be_|Ctx generic type', ()=>{
 	// @ts-expect-error TS2322
 	throws(()=>val_(ctx_()))
 })
-test('be_|Ctx|NestedMapCtx', ()=>{
+test('be_|Ctx|ns', ()=>{
 	const ctx0 = ctx__new()
 	const ctx1 = ctx__new()
 	ctx1.s[''].set('matching', true)

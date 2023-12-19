@@ -1,5 +1,40 @@
 # ctx-core
 
+## 5.1.0
+
+### Minor Changes
+
+- minor:
+
+      exports:
+      	./array: + flatten
+      	+ ./deep_equal
+      	+ ./html
+      + deep_equal
+      + html_
+      + html_attr_
+      + attr_
+      + raw__html_attr_
+      + raw__attr_
+      + html_attrs_
+      + attrs_
+      + html_class_
+      + class_
+      + html_dataset__data_attrs_
+      + dataset__data_attrs_
+      + html_attr_def_T
+      + attr_def_T
+      + html_style_
+      + style_
+      + html_style__assign
+      + style__assign
+      + html_styles_o_
+      + styles_o
+      + js_html_
+      + js_html__params_T
+      + links_html_
+      + links_html__params_T
+
 ## 5.0.2
 
 ### Patch Changes
