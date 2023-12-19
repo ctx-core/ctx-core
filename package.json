@@ -59,6 +59,7 @@
 		"sleep",
 		"string",
 		"tempfile",
+		"test",
 		"time",
 		"types",
 		"uri",
@@ -102,6 +103,7 @@
 		"./sleep": "./sleep/index.js",
 		"./string": "./string/index.js",
 		"./tempfile": "./tempfile/index.js",
+		"./test": "./test/index.js",
 		"./time": "./time/index.js",
 		"./types": "./types/index.js",
 		"./uri": "./uri/index.js",
@@ -143,49 +145,70 @@
 			"import": {
 				"./be": "{ ctx_ }"
 			},
-			"limit": "34 B"
+			"limit": "33 B"
+		},
+		{
+			"name": "ns_ctx_",
+			"import": {
+				"./be": "{ ns_ctx_ }"
+			},
+			"limit": "85 B"
 		},
 		{
 			"name": "be_",
 			"import": {
 				"./be": "{ be_ }"
 			},
-			"limit": "147 B"
+			"limit": "104 B"
 		},
 		{
 			"name": "be_ ctx_",
 			"import": {
 				"./be": "{ be_, ctx_ }"
 			},
-			"limit": "173 B"
+			"limit": "133 B"
+		},
+		{
+			"name": "be_ ns_ctx_",
+			"import": {
+				"./be": "{ be_, ctx_, ns_ctx_ }"
+			},
+			"limit": "191 B"
+		},
+		{
+			"name": "be_ ctx_ ns_ctx_",
+			"import": {
+				"./be": "{ be_, ctx_, ns_ctx_ }"
+			},
+			"limit": "191 B"
 		},
 		{
 			"name": "memo_",
 			"import": {
 				"./rmemo": "{ memo_ }"
 			},
-			"limit": "340 B"
+			"limit": "336 B"
 		},
 		{
 			"name": "memo_ sig_",
 			"import": {
 				"./rmemo": "{ sig_, memo_ }"
 			},
-			"limit": "356 B"
+			"limit": "351 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_",
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_ }"
 			},
-			"limit": "494 B"
+			"limit": "460 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_",
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_, be_memo_pair_, be_sig_triple_ }"
 			},
-			"limit": "588 B"
+			"limit": "553 B"
 		}
 	]
 }

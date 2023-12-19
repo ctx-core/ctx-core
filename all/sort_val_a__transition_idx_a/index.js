@@ -31,7 +31,8 @@ export function sort_val_a__enter_a_frame_fn_(eq_ = eq) {
 				const sort_val = sort_val_a[i]
 				const prev_sort_val = sort_val_a[i - 1]
 				if (!i || (
-					eq_ ? !eq_([sort_val, prev_sort_val])
+					eq_
+						? !eq_([sort_val, prev_sort_val])
 						: sort_val !== prev_sort_val)
 				) {
 					idx_a.push(i)
@@ -88,7 +89,8 @@ export function sort_val_a__exit_a_frame_fn_(eq_ = eq) {
 				const next_idx = idx + 1
 				const next_sort_val = sort_val_a[next_idx]
 				if (next_idx === sort_val_a_length || (
-					eq_ ? !eq_([sort_val, next_sort_val])
+					eq_
+						? !eq_([sort_val, next_sort_val])
 						: sort_val !== next_sort_val)
 				) {
 					idx_a.push(idx)

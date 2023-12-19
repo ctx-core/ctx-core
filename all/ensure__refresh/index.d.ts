@@ -1,9 +1,7 @@
 /**
  * `ensure` `obj[key]` is present or call `ensure(obj)`. Then call `refresh(obj, obj[key])`.
  */
-export declare function ensure__refresh<
-	I extends unknown = unknown
->(
+export declare function ensure__refresh<I>(
 	obj:ensure_refresh__o_T<I>,
 	...refresh_ctx_a:ensure__refresh_opts_T<I>[]
 ):I|undefined

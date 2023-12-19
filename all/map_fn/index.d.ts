@@ -1,4 +1,1 @@
-export declare type map_fn_T<
-	I extends unknown = unknown,
-	Ret extends unknown = unknown
-> = (...arg_a:I[])=>Ret
+export declare type map_fn_T<I, Ret> = (...arg_a:I[])=>Ret

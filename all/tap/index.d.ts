@@ -4,9 +4,7 @@
  * to perform operations on intermediate results within the chain.
  * @see {@link https://underscorejs.org/#tap}
  */
-export declare function tap<
-	Obj extends unknown = unknown
->(
+export declare function tap<Obj>(
 	obj:Obj, interceptor:tap__interceptor_T<Obj>
 ):Obj
 export declare type tap__interceptor_T<T = unknown> = (obj:T)=>void

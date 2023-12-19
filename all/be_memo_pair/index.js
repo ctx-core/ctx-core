@@ -15,8 +15,7 @@ export function be_memo_pair_(
 ) {
 	let config =
 		typeof subscriber_a_THEN_config[subscriber_a_THEN_config.length - 1] === 'object'
-			? subscriber_a_THEN_config.pop()
-			: 0
+			&& subscriber_a_THEN_config.pop()
 	/** @type {Be} */
 	let be =
 		be_OR_val__new.is_be

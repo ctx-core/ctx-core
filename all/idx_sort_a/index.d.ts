@@ -1,9 +1,7 @@
 /**
  * Sort `val_a` by an array of indices in `in_sort_idx_a`.
  */
-export declare function idx_sort_a_<
-	I extends unknown = unknown
->(
+export declare function idx_sort_a_<I>(
 	val_a:readonly I[],
 	in_sort_idx_a:readonly number[]|undefined
 ):I[]

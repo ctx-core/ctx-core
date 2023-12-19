@@ -2,14 +2,10 @@ import type { sort_idx_o_T } from '../array_types/index.js'
 /**
  * Returns an Array of sorted values from [sort_idx_o_T](#sort_idx_o_T).sort_val_a
  */
-export declare function sort_val_a_<
-	I extends unknown = unknown
->(
+export declare function sort_val_a_<I>(
 	in_sort_idx_o:sort_idx_o_T<I>
 ):I[]
-export declare function maybe_sort_val_a_<
-	I extends unknown = unknown, Or = null
->(
+export declare function maybe_sort_val_a_<I, Or = null>(
 	maybe_sort_idx_ctx:sort_idx_o_T<I>|undefined,
 	or?:Or
 ):I[]|Or

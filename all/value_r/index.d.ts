@@ -1,9 +1,7 @@
 /**
  * Returns a Hash with a key for each item in `value_a` & value set to the return of `value_`.
  */
-export declare function value_r_<
-	Out extends unknown = unknown
->(
+export declare function value_r_<Out>(
 	in_key_a:readonly string[]|undefined,
 	value_:(key:string, i:number)=>Out
 ):Record<string, Out>
@@ -16,9 +14,7 @@ export {
 /**
  * Returns a Function that returns from [_value_hash](#_value_hash).
  */
-export declare function value_r_2<
-	Out extends unknown = unknown
->(
+export declare function value_r_2<Out>(
 	value_:(key:string, idx:number)=>Out
 ):(value_a:readonly string[])=>Record<string, Out>
 export {

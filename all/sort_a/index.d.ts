@@ -2,15 +2,11 @@ import type { compare_T } from '../array_types/index.js'
 /**
  * Sorts a copy of `a` by the `compare` function.
  */
-export declare function sort_a_<
-	I extends unknown = unknown
->(
+export declare function sort_a_<I>(
 	a:readonly I[],
 	compare?:compare_T<I>
 ):I[]
-export declare function maybe_sort_a_<
-	I extends unknown = unknown, Or = null
->(
+export declare function maybe_sort_a_<I, Or = null>(
 	maybe_a:readonly I[]|undefined,
 	compare?:compare_T<I>,
 	or?:Or

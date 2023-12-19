@@ -1,7 +1,7 @@
 /**
- * @param {Function&{ prototype:object }}target
- * @param {Function&{ prototype:object }}source
- * @returns {Function&{ prototype:object }}
+ * @param {{ prototype:object }}target
+ * @param {{ prototype:object }}source
+ * @returns {{ prototype:object }}
  */
 export function prototype_mixin(target, source) {
 	const target_prototype = target.prototype

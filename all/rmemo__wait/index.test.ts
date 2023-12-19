@@ -17,7 +17,7 @@ test('rmemo__wait', async ()=>{
 		subject$._ = 1
 		equal(subject, -1)
 		equal(subject$(), 1)
-	}).catch($=>console.trace($))
+	})
 	equal(subject, 1)
 })
 test.run()

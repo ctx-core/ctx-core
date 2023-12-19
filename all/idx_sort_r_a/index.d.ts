@@ -1,6 +1,4 @@
-export declare function idx_sort_r_a_<
-	Val extends unknown = unknown
->(
+export declare function idx_sort_r_a_<Val>(
 	a_r:Record<string, readonly Val[]>,
 	idx_a:readonly number[]
 ):Record<string, Val[]>

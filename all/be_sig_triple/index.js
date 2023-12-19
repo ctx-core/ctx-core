@@ -15,9 +15,8 @@ export function be_sig_triple_(
 ) {
 	let config =
 		typeof subscriber_a_THEN_config[subscriber_a_THEN_config.length - 1] === 'object'
-			? subscriber_a_THEN_config.pop()
-			: 0
-	/** @type {Be<sig_T>} */
+			&& subscriber_a_THEN_config.pop()
+	/** @ype {Be<sig_T>} */
 	let be =
 		be_OR_val__new.is_be
 			? be_OR_val__new

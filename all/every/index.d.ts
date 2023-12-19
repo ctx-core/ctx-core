@@ -1,15 +1,11 @@
 /**
  * Returns true if every `predicate(value)` is truthy
  */
-export declare function every<
-	I extends unknown = unknown
->(
+export declare function every<I>(
 	a:readonly I[],
 	predicate:(item:I, idx:number, a:readonly I[])=>boolean
 ):boolean
-export declare function maybe_every<
-	I extends unknown = unknown, Or = null
->(
+export declare function maybe_every<I, Or = null>(
 	maybe_a:readonly I[]|undefined,
 	predicate:(item:I, idx:number, a:readonly I[])=>boolean,
 	or?:Or
@@ -21,9 +17,7 @@ export {
 /**
  * Returns a function that returns from [every](#every) with the given `predicate` function.
  */
-export declare function every_<
-	I extends unknown = unknown
->(
+export declare function every_<I>(
 	predicate:(item:I, idx:number, a:readonly I[])=>boolean
 ):(a:readonly I[])=>boolean
 export {

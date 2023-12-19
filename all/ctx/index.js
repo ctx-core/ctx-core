@@ -1,21 +1,33 @@
+/// <reference types="../be_/index.d.ts" />
 /**
- * @returns {import('../be_/index.js').MapCtx}
+ * @returns {Ctx}
  * @private
  */
 export function ctx__new() {
-	let ctx = new Map
-	ctx.is_ctx = true
-	return ctx
+	return { is_ctx: true, s: { '': new Map } }
 }
 export { ctx__new as ctx_ }
+/**
+ * @param {string|Ctx}[ns_a]
+ * @returns {Ctx}
+ * @private
+ */
+export function ns_ctx__new(...ns_a) {
+	let ctx = { is_ctx: true, s: {} }
+	for (let ns of ns_a) {
+		for (let _ns in ns.s) {
+			ctx.s[_ns] ??= ns.s[_ns]
+		}
+		if (!ns.s) ctx.s[ns] ??= new Map
+	}
+	return ctx
+}
+export { ns_ctx__new as ns_ctx_ }
 /**
  * @param {unknown}val
  * @returns {boolean}
  * @private
  */
 export function is_ctx_(val) {
-	if (!Array.isArray(val)) return val instanceof Map && !!val.is_ctx
-	let flat__map_ctx_a = val.flat(Infinity)
-	if (!flat__map_ctx_a[0]) return false
-	return flat__map_ctx_a.every(map_ctx=>map_ctx.is_ctx)
+	return !!val?.is_ctx
 }

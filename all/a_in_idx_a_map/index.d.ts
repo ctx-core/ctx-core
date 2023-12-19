@@ -1,9 +1,7 @@
 /**
  * Returns Array of values from `a` with index in `idx_a`.
  */
-export declare function a_in_idx_a_map<
-	Val extends unknown = unknown
->(
+export declare function a_in_idx_a_map<Val>(
 	idx_a:readonly number[], a:readonly Val[]
 ):Val[]
 export {

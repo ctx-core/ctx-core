@@ -1,13 +1,8 @@
 /**
  * Returns the _last item in the in_a
  */
-export declare function last_<
-	I extends unknown = unknown
->(a:readonly I[]):I|undefined
-export declare function maybe_last_<
-	I extends unknown = unknown,
-	Or = null
->(
+export declare function last_<I>(a:readonly I[]):I|undefined
+export declare function maybe_last_<I, Or = null>(
 	maybe_a:readonly I[]|undefined,
 	or?:Or
 ):I|Or

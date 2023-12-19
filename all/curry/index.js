@@ -1,13 +1,16 @@
+/// <reference types="../resolver_curry/index.d.ts" />
+/// <reference types="./index.d.ts" />
 /**
  * @param append{import('../resolver_curry/index.js').append_current_T}
  * @returns {import('../resolver_curry/index.js').resolver_curry_T}
  */
 export function curry(append) {
-	return curry_((local, arg_a)=>Array.prototype.push.apply(local, arg_a))(append)
+	return curry_((local, arg_a)=>
+		Array.prototype.push.apply(local, arg_a))(append)
 }
 /**
- * @param append{import('../resolver_curry/index.js').append_current_T}
- * @returns {(fn:Function)=>import('../resolver_curry/index.js').resolver_curry_T}
+ * @param append{append_current_T}
+ * @returns {(fn:(...arg_a:unknown[])=>unknown)=>resolver_curry_T}
  * @see {@link https://medium.com/@kevincennis/currying-in-javascript-c66080543528}
  */
 export function curry_(append) {

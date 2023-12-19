@@ -1,9 +1,7 @@
 /**
  * Returns 2d Array where `source_a` is destructured into subarray of length `offset`.
  */
-export declare function offset_destructure_aa_<
-	I extends unknown = unknown
->(
+export declare function offset_destructure_aa_<I>(
 	source_a:readonly I[], offset?:number
 ):I[][]
 export {

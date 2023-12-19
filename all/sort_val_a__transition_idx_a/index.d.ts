@@ -3,9 +3,7 @@ import type { eq_T } from '../eq/index.js'
 /**
  * Returns a [sort_val_a__transition_a_frame_T](#sort_val_a__transition_a_frame_T) of presumably sorted items in `val_a` at each index of the new item for each changed item.
  */
-export declare function sort_val_a__enter_a_frame_<
-	I extends unknown = unknown
->(
+export declare function sort_val_a__enter_a_frame_<I>(
 	sort_val_a:readonly I[]|undefined
 ):sort_val_a__transition_a_frame_T<I>
 export {
@@ -18,9 +16,7 @@ export {
 /**
  * Returns a function that returns a [sort_val_a__transition_a_frame_T](#sort_val_a__transition_a_frame_T)
  */
-export declare function sort_val_a__enter_a_frame_fn_<
-	I extends unknown = unknown
->(
+export declare function sort_val_a__enter_a_frame_fn_<I>(
 	eq_?:eq_T<readonly I[]>
 ):sort_val_a__transition_a_frame_fn_T<I>
 export {
@@ -33,9 +29,7 @@ export {
 /**
  * Returns a [sort_val_a__transition_a_frame_T](#sort_val_a__transition_a_frame_T) of presumably sorted items in `val_a` at each index of the old item for each changed item.
  */
-export declare function sort_val_a__exit_a_frame_<
-	I extends unknown = unknown
->(
+export declare function sort_val_a__exit_a_frame_<I>(
 	sort_val_a?:readonly I[]
 ):sort_val_a__transition_a_frame_T<I>
 export {
@@ -48,9 +42,7 @@ export {
 /**
  * Returns a function that returns a [sort_val_a__transition_a_frame_T](#sort_val_a__transition_a_frame_T)
  */
-export declare function sort_val_a__exit_a_frame_fn_<
-	I extends unknown = unknown
->(
+export declare function sort_val_a__exit_a_frame_fn_<I>(
 	eq_?:eq_T<readonly I[]>
 ):sort_val_a__transition_a_frame_fn_T<I>
 export {

@@ -2,9 +2,7 @@ import type { assign_fn_T } from '../call_assign/index.js'
 /**
  * Assigns to obj array of keys the return value of function in key_a_fn_aa.
  */
-export declare function assign_fn_key_a<
-	I extends unknown = unknown
->(
+export declare function assign_fn_key_a<I>(
 	obj:Record<string, I>,
 	...key_a_fn_aa:fn_key_a_tuple_T<I>[]
 ):Record<string, I>

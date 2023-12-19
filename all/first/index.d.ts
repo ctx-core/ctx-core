@@ -1,13 +1,8 @@
 /**
  * Returns the first item in `a`.
  */
-export declare function first_<
-	I extends unknown = unknown
->(a:readonly I[]):I|undefined
-export declare function maybe_first_<
-	I extends unknown = unknown,
-	Or = null
->(
+export declare function first_<I>(a:readonly I[]):I|undefined
+export declare function maybe_first_<I, Or = null>(
 	maybe_a:readonly I[]|undefined,
 	or?:Or
 ):I|Or

@@ -1,16 +1,12 @@
 /**
  * Returns an Array from slicing an array from an array's offset from position i
  */
-export declare function offset_i_slice<
-	I extends unknown = unknown
->(
+export declare function offset_i_slice<I>(
 	a:readonly I[],
 	i:number,
 	offset?:number
 ):I[]
-export declare function maybe_offset_i_slice<
-	I extends unknown = unknown, Or = null
->(
+export declare function maybe_offset_i_slice<I, Or = null>(
 	maybe_a:readonly I[]|undefined,
 	i:number,
 	offset?:number,

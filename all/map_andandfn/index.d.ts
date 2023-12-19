@@ -2,9 +2,7 @@ import type { andand_key_T } from '../andand/index.js'
 /**
  * Returns Array of mapped `a` with `andandfn_(...attr_a)`
  */
-export declare function map_andandfn<
-	In extends unknown = unknown, Out extends unknown = unknown
->(
+export declare function map_andandfn<In, Out>(
 	a:readonly In[],
 	...attr_a:readonly andand_key_T<In>[]
 ):Out[]
@@ -15,9 +13,7 @@ export {
 /**
  * Returns function that returns value from [map_andand_](#map_andand_) with `...attr_a`.
  */
-export declare function map_andandfn_<
-	Val extends unknown, Out extends unknown
->(
+export declare function map_andandfn_<Val, Out>(
 	...attr_a:readonly andand_key_T<Val>[]
 ):(a:readonly Val[])=>Out[]
 export {

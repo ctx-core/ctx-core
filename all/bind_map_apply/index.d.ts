@@ -4,8 +4,8 @@ import type { call_fn_T } from '../call/index.js'
  */
 export declare function bind_map_apply_<
 	A1 extends unknown[] = unknown[],
-	O1 extends unknown = unknown,
-	S1 extends unknown = unknown,
+	O1 = unknown,
+	S1 = unknown,
 	A2 extends unknown[] = unknown[]
 >(
 	fn_a:call_fn_T<A1, O1>[], self:S1, in_arg_a:A2

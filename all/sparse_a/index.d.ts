@@ -1,9 +1,7 @@
 /**
  * Returns a sparsely populated Array with `idx_a` indices & `val_a` values
  */
-export declare function sparse_a_<
-	I extends unknown = unknown
->(
+export declare function sparse_a_<I>(
 	idx_a:readonly number[],
 	val_a:readonly I[]
 ):I[]

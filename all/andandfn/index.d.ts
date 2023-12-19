@@ -2,22 +2,13 @@ import type { andand_key_T } from '../andand/index.js'
 /**
  * Applies `&&` to a chain of property name or function with return value from `obj`.
  */
-export declare function andandfn<
-	Val extends unknown = unknown,
-	Out extends unknown = unknown
->(obj:Val, ...name_a:andand_key_T<Val>[]):Out
-export declare type andandfn_T<
-	Val extends unknown = unknown,
-	Out extends unknown = unknown
-> = (obj:Val)=>Out
+export declare function andandfn<Val, Out>(obj:Val, ...name_a:andand_key_T<Val>[]):Out
+export declare type andandfn_T<Val, Out> = (obj:Val)=>Out
 export { andandfn as andand__fn, }
 /**
  * Returns a function that calls `andand_(obj, ...name_a)`
  */
-export declare function andandfn_<
-	In extends unknown = unknown,
-	Out extends unknown = unknown
->(
+export declare function andandfn_<In, Out>(
 	...name_a:andand_key_T<In>[]
 ):andandfn_T<In, Out>
 export {

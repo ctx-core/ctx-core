@@ -2,9 +2,7 @@ import type { sort_idx_o_T } from '../array_types/index.js'
 /**
  * Returns [sort_idx_o_T](#sort_idx_o_T) derived from `val_a` sorted by `sort_idx_a`.
  */
-export declare function idx_sort_a__sort_idx_o_<
-	I extends unknown = unknown
->(
+export declare function idx_sort_a__sort_idx_o_<I>(
 	val_a:readonly I[], sort_idx_a:readonly number[]
 ):sort_idx_o_T<I>
 export {

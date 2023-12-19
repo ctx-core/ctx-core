@@ -1,11 +1,9 @@
 /**
  * Splits array into chunks
  */
-export declare function chunk_aa_<
-	I extends unknown = unknown,
-	Length extends number = number
->(
-	a:readonly I[], chunk_length:Length
+export declare function chunk_aa_<I, Length extends number = number>(
+	a:readonly I[],
+	chunk_length:Length
 ):chunk_aa_T<I, Length>
 export {
 	chunk_aa_ as chunk_a2_,

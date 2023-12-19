@@ -3,10 +3,7 @@ import type { nullish } from '../nullish/index.js'
 /**
  * Map `values` `andand` `key_a` in `obj` to `fn`, returning object with values return by `fn`.
  */
-export declare function map_obj_andand<
-	In extends unknown = unknown,
-	Out extends unknown = unknown
->(
+export declare function map_obj_andand<In, Out>(
 	obj:Record<string, In>,
 	...key_a:andand_key_T<In>[]
 ):Record<string, Out|nullish>
@@ -15,10 +12,7 @@ export { map_obj_andand as map__obj__andand }
  * Returns function to
  * map `values` `andand` `key_a` in `obj` to `fn`, returning object with values return by `fn`.
  */
-export declare function map_obj_andand_<
-	In extends unknown = unknown,
-	Out = In
->(
+export declare function map_obj_andand_<In, Out = In>(
 	...key_a:andand_key_T<In>[]
 ):(obj:Record<string, In>)=>Record<string, Out|nullish>
 export {

@@ -2,13 +2,10 @@ import { a_length_ } from '../a_length/index.js'
 /**
  * Returns true if `a` has a length
  */
-export declare function a_present_<
-	Val extends unknown = unknown
->(a:readonly Val[]):boolean
-export declare function maybe_a_present_fn<
-	Val extends unknown = unknown, Or = null
->(
-	maybe_a:readonly Val[]|undefined, or?:Or
+export declare function a_present_<Val>(a:readonly Val[]):boolean
+export declare function maybe_a_present_fn<Val, Or = null>(
+	maybe_a:readonly Val[]|undefined,
+	or?:Or
 ):boolean|Or
 export {
 	a_present_ as a1_present_fn,

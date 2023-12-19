@@ -1,6 +1,4 @@
-export declare type a_nowrap_T<
-	I extends unknown = unknown
-> =
+export declare type a_nowrap_T<I> =
 	I
 	|readonly I[]
 	|readonly I[][]

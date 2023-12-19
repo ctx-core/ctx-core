@@ -2,9 +2,7 @@ import type { compare_T, sort_idx_ctx__T, sort_idx_o_T } from '../array_types/in
 /**
  * Returns a [sort_idx_o_T](#sort_idx_o_T).
  */
-export declare function sort_idx_o_<
-	I extends unknown = unknown
->(
+export declare function sort_idx_o_<I>(
 	maybe_a:readonly I[]|undefined,
 	compare?:compare_T<I>
 ):sort_idx_o_T<I>
@@ -17,9 +15,7 @@ export {
 /**
  * Returns function that returns [_sort_idx_ctx](#_sort_idx_ctx).
  */
-export declare function sort_idx_o__<
-	I extends unknown = unknown
->(
+export declare function sort_idx_o__<I>(
 	compare?:compare_T<I>
 ):sort_idx_ctx__T<I>
 export {

@@ -1,7 +1,4 @@
-export declare function run<
-	O extends unknown = unknown,
-	A extends any[] = any[]
->(
+export declare function run<O, A extends unknown[] = unknown[]>(
 	fn:(...arg_a:A)=>O,
 	...arg_a:A
 ):O

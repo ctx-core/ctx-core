@@ -15,12 +15,12 @@ export function memo_(memo_def, ...subscriber_a) {
 			memo.f()
 		}
 		if (cur_memo) {
-			if (!~memo.memor.indexOf(cur_memo.r ||= new WeakRef(cur_memo.f))) memo.memor.push(cur_memo.r)
+			if (!memo.memor.includes(cur_memo.r ||= new WeakRef(cur_memo.f))) memo.memor.push(cur_memo.r)
 			if (cur_memo.f.l < memo.f.l + 1) cur_memo.f.l = memo.f.l + 1
 			// conditional in r calls this r_memo
 			cur_memo.f.s.push(memo)
 			// prevent this rmemo from GC while cur_memo is still active
-			if (!~cur_memo.f.S.indexOf(memo)) cur_memo.f.S.push(memo)
+			if (!cur_memo.f.S.includes(memo)) cur_memo.f.S.push(memo)
 		}
 		return memo.val
 	}
@@ -32,7 +32,7 @@ export function memo_(memo_def, ...subscriber_a) {
 				run_queue = !queue.size
 				memo.memor = memo.memor.filter(r=>{
 					r = r.deref()
-					if (r && ~r.s.indexOf(memo)) { // if conditional r refresh calls this r_memo, add to queue
+					if (r && r.s.includes(memo)) { // if conditional r refresh calls this r_memo, add to queue
 						queue.add(r)
 					}
 					return r

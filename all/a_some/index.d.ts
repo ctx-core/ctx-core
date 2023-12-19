@@ -1,9 +1,7 @@
 /**
  * Returns true if some `predicate(value)` is truthy
  */
-export declare function a_some<
-	Val extends unknown = unknown, POut extends unknown = unknown
->(
+export declare function a_some<Val, POut>(
 	a:readonly Val[],
 	predicate:(val:Val, index:number, a:readonly Val[])=>POut
 ):boolean

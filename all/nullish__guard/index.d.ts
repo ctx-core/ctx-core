@@ -1,8 +1,7 @@
 import type { nullish } from '../nullish/index.js'
-export declare function nullish__guard<
-	Val extends unknown = unknown
->(
-	label:string, ...fn_a:(()=>(nullish|Val))[]
+export declare function nullish__guard<Val>(
+	label:string,
+	...fn_a:(()=>(nullish|Val))[]
 ):Val|nullish
 export {
 	nullish__guard as nullish_guard,

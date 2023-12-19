@@ -1,23 +1,18 @@
 /**
  * Returns reduced `memo` iterating over `a` with `fn(memo, a[], i, a)`.
  */
-export declare function reduce<
-	I extends unknown = unknown, O extends unknown = unknown
->(
+export declare function reduce<I, O>(
 	a:readonly I[],
 	fn:reduce_fn_T<I, O>,
 	memo:O
 ):O
-export declare type reduce_fn_T<
-	I extends unknown = unknown, O extends unknown = unknown
-> = (
-	memo:O, item:I, idx:number, a:readonly I[]
+export declare type reduce_fn_T<I, O> = (
+	memo:O,
+	item:I,
+	idx:number,
+	a:readonly I[]
 )=>O
-export declare function maybe_reduce<
-	I extends unknown = unknown,
-	O extends unknown = unknown,
-	Or = null
->(
+export declare function maybe_reduce<I, O, Or = null>(
 	maybe_a:readonly I[]|undefined,
 	fn:reduce_fn_T<I, O>,
 	memo:O,
@@ -26,20 +21,12 @@ export declare function maybe_reduce<
 /**
  * Return Function that returns from `reduce` with `fn` and factory `memo_(a)`.
  */
-export declare function reduce_<
-	I extends unknown = unknown, O extends unknown = unknown
->(
+export declare function reduce_<I, O>(
 	fn:reduce_fn_T<I, O>, memo_:memo_fn_T<I, O>
 ):(a:readonly I[], memo:O)=>O
-export declare type memo_fn_T<
-	I extends unknown = unknown, O extends unknown = unknown
-> =
+export declare type memo_fn_T<I, O> =
 	(a:readonly I[])=>O
-export declare function maybe_reduce_<
-	I extends unknown = unknown,
-	O extends unknown = unknown,
-	Or = null
->(
+export declare function maybe_reduce_<I, O, Or = null>(
 	fn:reduce_fn_T<I, O|undefined>,
 	memo_fn:memo_fn_T<I, O>|undefined,
 	or?:Or

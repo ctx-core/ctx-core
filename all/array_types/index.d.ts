@@ -88,47 +88,40 @@ export interface sort_val_a__transition_a_frame_T<I> {
 export declare type sort_val_a$transition_a_frame_T<I> = sort_val_a__transition_a_frame_T<I>
 export declare type compact_a_ctx_I<I> = sort_val_a__transition_a_frame_T<I>
 export declare type compact_a1_ctx_I<I> = sort_val_a__transition_a_frame_T<I>
-export declare type compare_1_T<
-	Val extends unknown = unknown
-> = (val:Val, idx?:number)=>number
-export declare type compare_T<
-	I extends unknown = unknown
-> = (a:I, b:I)=>number
-export declare type is_match__T<
-	Val extends unknown = unknown
-> = (in_value:Val, idx:number)=>boolean
-export declare type is_match_fn_T<Val extends unknown = unknown> = is_match__T<Val>
-export declare type _is_match_T<Val extends unknown = unknown> = is_match__T<Val>
-export declare type _is_match_type<Val extends unknown = unknown> = is_match__T<Val>
+export declare type compare_1_T<Val> = (val:Val, idx?:number)=>number
+export declare type compare_T<I> = (a:I, b:I)=>number
+export declare type is_match__T<Val> = (in_value:Val, idx:number)=>boolean
+export declare type is_match_fn_T<Val> = is_match__T<Val>
+export declare type _is_match_T<Val> = is_match__T<Val>
+export declare type _is_match_type<Val> = is_match__T<Val>
 export declare type item_key_idx_val_fn_T<
-	Val extends unknown = unknown,
+	Val,
 	Obj extends Record<string, Val> = Record<string, Val>
 > = (val:Val, item:Obj, key:string|number, idx:number)=>string
 export declare type _item_key_idx_val_T<
-	Val extends unknown = unknown,
+	Val,
 	Obj extends Record<string, Val> = Record<string, Val>
 > = item_key_idx_val_fn_T<Val, Obj>
 export declare type _item_key_idx_val_type<
-	Val extends unknown = unknown,
+	Val,
 	Obj extends Record<string, Val> = Record<string, Val>
 > = item_key_idx_val_fn_T<Val, Obj>
-export declare type sort_idx_ctx__T<I extends unknown = unknown> = (
+export declare type sort_idx_ctx__T<I> = (
 	a:readonly I[])=>sort_idx_o_T<I>
-export declare type sort_idx_ctx_2_T<I extends unknown = unknown> = sort_idx_ctx__T<I>
-export declare type sort_idx_ctx_a1_fn_type<I extends unknown = unknown> = sort_idx_ctx__T<I>
-export declare type fn__a1__ctx__idx__sort<I extends unknown = unknown> = sort_idx_ctx__T<I>
-export interface sort_idx_o_T<I extends unknown = unknown> {
+export declare type sort_idx_ctx_2_T<I> = sort_idx_ctx__T<I>
+export declare type sort_idx_ctx_a1_fn_type<I> = sort_idx_ctx__T<I>
+export declare type fn__a1__ctx__idx__sort<I> = sort_idx_ctx__T<I>
+export interface sort_idx_o_T<I> {
 	sort_idx_a:readonly number[]
 	sort_val_a:I[]
 }
-export declare type sort_idx_ctx_T<I extends unknown = unknown> = sort_idx_o_T<I>
-export declare type ctx__idx__sort<I extends unknown = unknown> = sort_idx_o_T<I>
-export declare type sort_val_a__transition_a_frame_fn_T<
-	I extends unknown = unknown
-> = (in_val_a:readonly I[]|undefined)=>sort_val_a__transition_a_frame_T<I>
-export declare type sort_val_a$transition_a_frame_fn_T<I extends unknown = unknown> =
+export declare type sort_idx_ctx_T<I> = sort_idx_o_T<I>
+export declare type ctx__idx__sort<I> = sort_idx_o_T<I>
+export declare type sort_val_a__transition_a_frame_fn_T<I> =
+	(in_val_a:readonly I[]|undefined)=>sort_val_a__transition_a_frame_T<I>
+export declare type sort_val_a$transition_a_frame_fn_T<I> =
 	sort_val_a__transition_a_frame_T<I>
-export declare type thold_a_compact_ctx__T<I extends unknown = unknown> =
+export declare type thold_a_compact_ctx__T<I> =
 	sort_val_a__transition_a_frame_fn_T<I>
-export declare type thold_a1_compact_ctx_fn_type<I extends unknown = unknown> =
+export declare type thold_a1_compact_ctx_fn_type<I> =
 	sort_val_a__transition_a_frame_fn_T<I>

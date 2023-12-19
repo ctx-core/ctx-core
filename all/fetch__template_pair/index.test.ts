@@ -7,7 +7,7 @@ test.after.each(()=>{
 })
 test('fetch__template_pair__new', async ()=>{
 	const _stub = stub(globalThis, 'fetch')
-	.withArgs('https://test.site/api?id=123')
+		.withArgs('https://test.site/api?id=123')
 	const [
 		test__fetch,
 		test__fetch2,
@@ -16,10 +16,10 @@ test('fetch__template_pair__new', async ()=>{
 		{ foo:string },
 		{ foo:string[] }
 	>(id=>
-			fetch(`https://test.site/api?id=${id}`),
-		dehydrated=>({
-			foo: [dehydrated.foo]
-		}))
+		fetch(`https://test.site/api?id=${id}`),
+	dehydrated=>({
+		foo: [dehydrated.foo]
+	}))
 	_stub.resolves(new Response(JSON.stringify({
 		foo: 'bar'
 	}), {
