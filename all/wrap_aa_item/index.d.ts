@@ -3,4 +3,4 @@ export declare type wrap_aa_item_T<I> =
 	wrap_aa_T<I> extends readonly (infer O)[][]
 		? O
 		: never
-export declare type wrapA2ItemT = wrap_aa_item_T
+export declare type wrapA2ItemT<I> = wrap_aa_item_T<I>

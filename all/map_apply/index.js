@@ -6,7 +6,7 @@ import { concat } from '../concat/index.js'
  * @returns {(...fn_arg_a:unknown[])=>unknown[]}
  */
 export function map_apply_(fn_a, in_arg_a = []) {
-	return (...fn_arg_a)=>fn_a.map((fn)=>fn(...concat(in_arg_a, fn_arg_a)))
+	return (...fn_arg_a)=>fn_a.map(fn=>fn(...concat(in_arg_a, fn_arg_a)))
 }
 export {
 	map_apply_ as map_fn_apply_fn,

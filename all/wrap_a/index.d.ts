@@ -15,8 +15,8 @@ export declare type wrap_a_T<I> =
 	I extends readonly unknown[]
 		? I
 		: readonly I[]
-export declare type wrap_a1_T = wrap_a_T
-export declare type wrap_a1_type = wrap_a_T
+export declare type wrap_a1_T<I> = wrap_a_T<I>
+export declare type wrap_a1_type<I> = wrap_a_T<I>
 export declare type wrap_a_T2<I> =
 	|readonly I[]
 	|readonly I[][]
