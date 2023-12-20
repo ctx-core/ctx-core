@@ -1,4 +1,4 @@
-import type { be_memo_pair_T } from 'rmemo'
+import type { be_memo_pair_T } from '../be_memo_pair/index.js'
 export declare const [
 	is_production$_,
 	is_production_,

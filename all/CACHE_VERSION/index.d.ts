@@ -1,4 +1,4 @@
-import type { be_sig_triple_T } from 'rmemo'
+import type { be_sig_triple_T } from '../be_sig_triple/index.js'
 export declare const [
 	CACHE_VERSION$_,
 	CACHE_VERSION_,

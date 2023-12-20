@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.2.3
+
+### Patch Changes
+
+- rmemo: fix: imports
+
 ## 5.2.2
 
 ### Patch Changes
