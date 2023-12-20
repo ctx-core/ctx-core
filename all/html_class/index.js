@@ -23,7 +23,6 @@ export function html_class_(...class_def_a) {
 	}
 	return a.join(' ')
 }
-export { html_class_ as class_, html_class_ as _class, }
 /**
  * @param {attr_def_T}memo_class_def_a
  * @returns {(...class_def_a:attr_def_T[])=>string}
@@ -31,4 +30,3 @@ export { html_class_ as class_, html_class_ as _class, }
 export function html_class__(...memo_class_def_a) {
 	return (...class_def_a)=>html_class_(...memo_class_def_a, ...class_def_a)
 }
-export { html_class__ as class__, html_class__ as class_2, }

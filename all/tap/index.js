@@ -1,4 +1,4 @@
-/** @typedef {import('../tap/index.d.ts').tap__interceptor_T} */
+/// <reference types="../index.d.ts" />
 /**
  * Invokes interceptor with the obj, and then returns the object.
  * The primary purpose of this method is to "tap into" a method chain,

@@ -1,6 +1,5 @@
-/** @typedef {import('../readable_stream_OR_reader/index.d.ts').readable_stream_OR_reader_T} */
-/** @typedef {import('../line__parse/index.d.ts').line_iterator__on_line_T} */
-/** @typedef {import('../line__parse/index.d.ts').line__parse__params_T} */
+/// <reference types="../line__parse/index.d.ts" />
+/// <reference types="../readable_stream_OR_reader/index.d.ts" />
 /**
  * @param {line_iterator__on_line_T|readable_stream_OR_reader_T}on_line_or_readable_stream_or_reader
  * @param {readable_stream_OR_reader_T|line__parse__params_T}[readable_stream_or_reader_or_params]

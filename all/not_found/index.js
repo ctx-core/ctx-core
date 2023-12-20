@@ -1,6 +1,6 @@
+/// <reference types="../index.d.ts" />
 import { assign } from '../assign/index.js'
 import { HttpError } from '../http_error/index.js'
-/** @typedef {import('../error_o/index.d.ts').argument__error_o_T} */
 export const not_found__default__message = 'Not Found'
 /**
  * @param {string}[message]

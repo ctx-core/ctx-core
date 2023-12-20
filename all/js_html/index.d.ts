@@ -8,7 +8,3 @@ export interface js_html__params_T {
 	indentation:string
 }
 export type js_html__opts_T = js_html__params_T
-export {
-	js_html_ as _js_html,
-	js_html_ as _html__js,
-}

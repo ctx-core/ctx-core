@@ -1,6 +1,6 @@
+/// <reference types="../index.d.ts" />
 import { map_obj } from '../map_obj/index.js'
 import { one_andand_ } from '../one_andand/index.js'
-/** @typedef {import('../andand/index.d.ts').andand_key_T} */
 /**
  * Map `values` `andand` `key_a` in `obj` to `fn`, returning object with values return by `fn`.
  * @param {object}obj

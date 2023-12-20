@@ -1,4 +1,5 @@
-/** @typedef {import('../falsy/index.d.ts').falsy} */
+/// <reference types="../falsy/index.d.ts" />
+/** @typedef {falsy} */
 /**
  * @param {unknown[]}a
  * @param {(...$:unknown[])=>unknown}_

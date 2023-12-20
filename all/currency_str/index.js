@@ -1,3 +1,4 @@
+/// <reference types="../currency_str/index.d.ts" />
 import { currency_symbol_ } from '../currency_symbol/index.js'
 import { money_str_ } from '../money_str/index.js'
 /**
@@ -25,7 +26,7 @@ export {
 	currency_str_ as format__currency,
 }
 /**
- * @param {import('../currency_str').currency_str__default_params_T|string}params
+ * @param {currency_str__default_params_T|string}params
  * @returns {(amount:number)=>string}
  */
 export function currency_str__(params) {

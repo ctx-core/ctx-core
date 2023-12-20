@@ -8,7 +8,6 @@ import { html_ } from '../html/index.js'
 export function html_attr_(key, val) {
 	return key + '="' + html_(val) + '"'
 }
-export { html_attr_ as attr_ }
 /**
  * @param {string}key
  * @param {string}val
@@ -18,4 +17,3 @@ export { html_attr_ as attr_ }
 export function raw__html_attr_(key, val) {
 	return key + '="' + val + '"'
 }
-export { raw__html_attr_ as raw__attr_ }

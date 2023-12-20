@@ -1,4 +1,4 @@
-/** @typedef {import('../index.d.ts').map_fn_T} */
+/// <reference types="../index.d.ts" />
 /**
  * Map return value of `fn(a[], i)` into an Array.
  * @param {unknown[]}a

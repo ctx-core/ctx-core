@@ -1,10 +1,11 @@
+/// <reference types="../index.d.ts" />
 import { compare_ } from '../compare/index.js'
 import { sort } from '../sort/index.js'
 /**
  * Returns a [sort_idx_o_T](#sort_idx_o_T).
  * @param {unknown[]|undefined}maybe_a
- * @param {import('../array_types/index.js').compare_T}[compare]
- * @returns {import('../array_types/index.js').sort_idx_o_T}
+ * @param {compare_T}[compare]
+ * @returns {sort_idx_o_T}
  */
 export function sort_idx_o_(
 	maybe_a,
@@ -39,8 +40,8 @@ export {
 }
 /**
  * Returns function that returns [_sort_idx_ctx](#_sort_idx_ctx).
- * @param {import('../array_types/index.js').compare_T}compare
- * @returns {import('../array_types/index.js').sort_idx_ctx__T}
+ * @param {compare_T}compare
+ * @returns {sort_idx_ctx__T}
  */
 export function sort_idx_o__(compare) {
 	return a=>sort_idx_o_(a, compare)

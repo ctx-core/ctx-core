@@ -1,9 +1,10 @@
+/// <reference types="../filter_o/index.d.ts" />
 import { I__ } from '../combinators/index.js'
 /**
  * Returns a filter_h1 with the values filtered by `fn`.
  * @param {object}o
  * @param {(val:any, key:string, h1:object)=>any}fn
- * @returns {import('../filter_o').filter_o_T|undefined}
+ * @returns {filter_o_T|undefined}
  */
 export function filter_o_(
 	o,
@@ -27,7 +28,7 @@ export {
  * Returns a filter_h where the value is a
  * boolean of whether the array has items present
  * @param {(val:any, key:string, l0_r:object)=>any}fn
- * @returns {(l1_r:object|undefined)=>(import('../filter_o').filter_o_T|undefined)}
+ * @returns {(l1_r:object|undefined)=>(filter_o_T|undefined)}
  */
 export function filter_o__(fn = I__) {
 	return (l1_r)=>filter_o_(l1_r, fn)

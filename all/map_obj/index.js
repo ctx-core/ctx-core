@@ -1,7 +1,8 @@
+/// <reference types="../index.d.ts" />
 /**
  * Maps values in `in_obj` to `fn`, returning object with values returned by `fn`.
  * @param {object}in_obj
- * @param {import('../map_obj/index.js').map_obj_fn_T}fn
+ * @param {map_obj_fn_T}fn
  * @returns {object}
  */
 export function map_obj(in_obj, fn) {
@@ -14,7 +15,7 @@ export function map_obj(in_obj, fn) {
 export { map_obj as map__obj }
 /**
  * Returns function to map `obj` to `fn` returning object with values.
- * @param {import('../map_obj/index.js').map_obj_fn_T}fn
+ * @param {map_obj_fn_T}fn
  * @returns {(obj:object)=>object}
  * @private
  */

@@ -1,2 +1,3 @@
-/** @type {import('../Request/index.d.ts').Request} */
+/// <reference types="../index.d.ts" />
+/** @type {Request} */
 export const { Request, RequestInit } = globalThis

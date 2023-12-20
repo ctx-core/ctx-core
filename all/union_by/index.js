@@ -1,5 +1,5 @@
+/// <reference types="../index.d.ts" />
 import { wrap_aa_ } from '../wrap_aa/index.js'
-/** @typedef {import('../wrap_aa_item/index.d.ts').wrap_aa_item_T} */
 /**
  * @param {unknown}aa_nowrap
  * @param {(v:wrap_aa_item_T)=>union_by_}[by_]

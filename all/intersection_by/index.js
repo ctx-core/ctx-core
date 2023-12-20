@@ -1,7 +1,8 @@
+/// <reference types="../wrap_aa_item/index.d.ts" />
 import { wrap_aa_ } from '../wrap_aa/index.js'
 /**
  * @param {unknown}aa_nowrap
- * @param {(v:import('../wrap_aa_item').wrap_aa_item_T<unknown>)=>unknown}by_
+ * @param {(v:wrap_aa_item_T<unknown>)=>unknown}by_
  * @returns {unknown[]}
  */
 export function intersection_by_(aa_nowrap, by_ = (v)=>v) {

@@ -1,7 +1,7 @@
+/// <reference types="../invalid_state/index.d.ts" />
+/// <reference types="./index.d.ts" />
 import { assign } from '../assign/index.js'
 import { HttpError } from '../http_error/index.js'
-/** @typedef {import('../invalid_state/index.d.ts').argument__invalid_state_error_o_T} */
-/** @typedef {import('./index.d.ts').InvalidStateError} */
 export const invalid_state__default__message = 'Error'
 /**
  * @param {string}[message]

@@ -1,4 +1,4 @@
-/** @typedef {import('../array_types/index.d.ts').is_match__T} */
+/// <reference types="../array_types/index.d.ts" />
 /**
  * Returns Array of indices `idx` not rejected by `is_match_`.
  * @param {unknown[]}a

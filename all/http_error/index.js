@@ -1,6 +1,8 @@
+/// <reference types="../error_o/index.d.ts" />
+/// <reference types="../http_error/index.d.ts" />
 import { assign } from '../assign/index.js'
-/** @typedef {import('../error_o/index.d.ts').argument__error_o_T} */
-/** @typedef {import('../http_error/index.d.ts').HttpError} */
+/** @typedef {argument__error_o_T} */
+/** @typedef {HttpError} */
 /**
  * @param {string}[message]
  * @param {argument__error_o_T}[error_o]

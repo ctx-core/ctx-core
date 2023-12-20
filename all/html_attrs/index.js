@@ -26,4 +26,3 @@ export function html_attrs_(...attr_def_a) {
 	}
 	return a.join(' ')
 }
-export { html_attrs_ as attrs_, html_attrs_ as _attrs, }

@@ -1,5 +1,5 @@
+/// <reference types="../call/index.d.ts" />
 import { bind_apply_ } from '../bind_apply/index.js'
-/** @typedef {import('../call/index.d.ts').call_fn_T} */
 /**
  * Returns function returning map of calls to fn_a bound to self that applies arg_a with ...arg_a_
  * @param {call_fn_T[]}fn_a

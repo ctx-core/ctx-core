@@ -9,4 +9,3 @@ export function html_dataset__data_attrs_(dataset) {
 		return o
 	}, {})
 }
-export { html_dataset__data_attrs_ as dataset__data_attrs_ }

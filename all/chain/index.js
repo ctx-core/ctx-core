@@ -1,7 +1,8 @@
+/// <reference types="../chain/index.d.ts" />
 import { isArray } from '../isArray/index.js'
 /**
- * @param {import('../chain/index.js').chain__o_T}chain__o
- * @param {import('../chain/index.js').chain_key__T[]}key_a
+ * @param {chain__o_T}chain__o
+ * @param {chain_key__T[]}key_a
  * @returns {*}
  */
 export function chain_(chain__o, ...key_a) {

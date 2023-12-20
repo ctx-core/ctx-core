@@ -1,8 +1,9 @@
+/// <reference types="../a_nowrap/index.d.ts" />
 import { wrap_a_ } from '../wrap_a/index.js'
 import { wrap_concat } from '../wrap_concat/index.js'
 /**
  * Returns the first falsy or last item in `a_nowrap`.
- * @param {import('../a_nowrap/index.js').a_nowrap_T}a_nowrap
+ * @param {a_nowrap_T}a_nowrap
  * @returns {unknown}
  */
 export function and(a_nowrap) {

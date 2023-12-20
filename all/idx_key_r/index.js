@@ -1,6 +1,7 @@
+/// <reference types="../array_types/index.d.ts" />
+/// <reference types="../idx_key_r/index.d.ts" />
+/// <reference types="./index.d.ts" />
 import { I__ } from '../combinators/index.js'
-/** @typedef {import('../array_types/index.d.ts').item_key_idx_val_fn_T} */
-/** @typedef {import('../idx_key_r/index.d.ts').idx_key_r_T} */
 /**
  * Returns a Hash where each key is `a[idx][key]` & value is `idx`.
  * @param {unknown[]}a
@@ -45,8 +46,8 @@ export {
 	maybe_idx_key_r_ as maybe_idx_key_h_,
 	maybe_idx_key_r_ as _maybe_idx_key_hash,
 }
-/** @typedef {import('./index.d.ts').idx_key_r_T} */
-/** @typedef {import('../array_types/index.d.ts').item_key_idx_val_fn_T} */
+/** @typedef {idx_key_r_T} */
+/** @typedef {item_key_idx_val_fn_T} */
 /**
  * Returns function that returns from [_idx_key_hash](#_idx_key_hash) with `item_key_idx_val_` function argument.
  * @param {item_key_idx_val_fn_T<string, Record<string, string>>}item_key_idx_val_

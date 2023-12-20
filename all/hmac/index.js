@@ -1,8 +1,9 @@
+/// <reference types="../hmac/index.d.ts" />
 import { buffer__hex_ } from '../buffer__hex/index.js'
 import { crypto__sign } from '../crypto__sign/index.js'
 import { hmac_key_ } from '../hmac_key/index.js'
 /**
- * @param {import('../hmac/index.js').digest__algorithm_T}algorithm
+ * @param {digest__algorithm_T}algorithm
  * @param {string|BufferSource|CryptoKey}key
  * @param {string|BufferSource}data
  * @returns {Promise<string>}

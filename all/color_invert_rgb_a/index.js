@@ -1,7 +1,8 @@
+/// <reference types="../color_invert_rgb_a/index.d.ts" />
 /**
  * Inverted color for rgb_color_a as rgb_color_a
- * @param {import('../color_invert_rgb_a/index.js').color_hsv_a_T}rgb_color_a
- * @return {import('../color_invert_rgb_a/index.js').color_hsv_a_T}
+ * @param {color_hsv_a_T}rgb_color_a
+ * @return {color_hsv_a_T}
  */
 export function color_invert_rgb_a_(
 	rgb_color_a

@@ -1,8 +1,9 @@
+/// <reference types="../index.d.ts" />
 import { wrap_a_ } from '../wrap_a/index.js'
 import { wrap_concat } from '../wrap_concat/index.js'
 /**
  * Returns `!=` operator to all values in `in_value_a`.
- * @param {import('../_function_types/index.js').wrap_a_T}in_value_a
+ * @param {wrap_a_T}in_value_a
  * @returns {boolean}
  */
 export function neq(in_value_a) {

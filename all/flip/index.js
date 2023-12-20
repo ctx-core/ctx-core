@@ -1,7 +1,8 @@
+/// <reference types="../resolver_curry/index.d.ts" />
 import { curry_ } from '../curry/index.js'
 /**
- * @param append{import('../resolver_curry').append_current_T}
- * @returns {import('../resolver_curry').resolver_curry_T<unknown>}
+ * @param append{append_current_T}
+ * @returns {resolver_curry_T<unknown>}
  */
 export function flip(append) {
 	return curry_((local, arg_a)=>

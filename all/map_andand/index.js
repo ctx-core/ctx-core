@@ -1,6 +1,6 @@
+/// <reference types="../index.d.ts" />
 import { andand } from '../andand/index.js'
 import { andand_ } from '../one_andand/index.js'
-/** @typedef {import('../andand/index.d.ts').andand_key_T} */
 /**
  * Returns Array of mapped `a` with `andand_(...name_a)`.
  * @param {unknown[]}a

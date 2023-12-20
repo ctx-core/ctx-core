@@ -1,5 +1,5 @@
+/// <reference types="../index.d.ts" />
 import { wrap_a_ } from '../wrap_a/index.js'
-/** @typedef {import('../wrap_a/index.d.ts').wrap_a_T} */
 /**
  * Apply the spread operator on `a_unwrap` into `fn`; `fn(...a_unwrap)`
  * @param {(...a:wrap_a_T)=>unknown}fn

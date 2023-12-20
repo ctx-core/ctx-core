@@ -1,6 +1,6 @@
+/// <reference types="../index.d.ts" />
 import { a_present_ } from '../a_present/index.js'
 import { filter_o__ } from '../filter_o/index.js'
-/** @typedef {import('../filter_o/index.d.ts').filter_o_T} */
 /**
  * Returns a filter_h where the values are a boolean of whether the array has items present
  * @param {object}o

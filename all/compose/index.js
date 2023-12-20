@@ -1,4 +1,4 @@
-/** @typedef {import('../compose/index.d.ts').compose_fn_T} */
+/// <reference types="../compose/index.d.ts" />
 /**
  * Composes fn_a into a single function
  *
@@ -9,9 +9,9 @@
 export function compose(...fn_a) {
 	return (
 		fn_a.reduceRight((prev_fn, next_fn)=>
-				(...arg_a)=>
-					next_fn(
-						prev_fn(...arg_a)),
-			$=>$)
+			(...arg_a)=>
+				next_fn(
+					prev_fn(...arg_a)),
+		$=>$)
 	)
 }

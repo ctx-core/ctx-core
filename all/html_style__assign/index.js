@@ -13,8 +13,3 @@ export function html_style__assign(el, ...style_def_a) {
 	el.setAttribute('style', html_style_(styles_o, ...style_def_a))
 	return el
 }
-export {
-	html_style__assign as assign_style,
-	html_style__assign as assign__style,
-	html_style__assign as style__assign,
-}

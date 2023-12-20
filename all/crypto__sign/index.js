@@ -1,6 +1,7 @@
+/// <reference types="../crypto__sign/index.d.ts" />
 import { crypto_ } from '../crypto/index.js'
 /**
- * @param {import('../crypto__sign/index.js').crypto__sign__algorithm_T}algorithm
+ * @param {crypto__sign__algorithm_T}algorithm
  * @param {CryptoKey}key
  * @param {BufferSource}data
  * @returns {Promise<ArrayBuffer>}

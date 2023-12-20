@@ -1,3 +1,4 @@
+/// <reference types="../btoa/index.d.ts" />
 /**
  * @param {string}str
  * @returns {string}
@@ -10,7 +11,7 @@ export function btoa(str) {
 	)
 }
 /**
- * @return {typeof import('../btoa').btoa}
+ * @return {typeof btoa}
  */
 export function btoa_() {
 	return btoa

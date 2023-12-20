@@ -1,2 +1,2 @@
-/** @type {import('../Response/index.d.ts').Response} */
+/** @type {import('../Response/index.d.ts').Response}Response */
 export const { Response } = globalThis

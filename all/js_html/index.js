@@ -15,7 +15,3 @@ export function js_html_(params) {
 	}
 	return js_html_a.join('\n')
 }
-export {
-	js_html_ as _js_html,
-	js_html_ as _html__js,
-}

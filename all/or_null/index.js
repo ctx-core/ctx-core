@@ -1,6 +1,7 @@
+/// <reference types="../index.d.ts" />
 /**
  * return the `value` if not null or `or_value`
- * @param {import('../or_null/index.js').or_null__opts_T}opts
+ * @param {or_null__opts_T}opts
  * @returns {unknown}
  */
 export function or_null(opts = {}) {

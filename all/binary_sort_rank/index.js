@@ -1,7 +1,8 @@
+/// <reference types="../array_types/index.d.ts" />
 /**
  * Returns the rank of the item where the compare function === 0, using binarySort
  * @param {unknown[]}a
- * @param {import('../array_types/index.js').compare_1_T}compare_1
+ * @param {compare_1_T}compare_1
  * @returns {number}
  */
 export function binary_sort_rank(a, compare_1) {

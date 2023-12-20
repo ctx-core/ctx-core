@@ -1,5 +1,6 @@
+/// <reference types="../index.d.ts" />
 import { andandfn_ } from '../andandfn/index.js'
-/** @typedef {import('../andand/index.d.ts').andand_key_T} */
+/** @typedef {andand_key_T} */
 /**
  * Returns Array of mapped `a` with `andandfn_(...attr_a)`
  * @param {unknown[]}a

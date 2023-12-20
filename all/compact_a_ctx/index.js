@@ -1,7 +1,8 @@
+/// <reference types="../array_types/index.d.ts" />
 /**
  * Returns a [sort_val_a__transition_a_frame_T](#sort_val_a__transition_a_frame_T)
  * @param {unknown[]}sparse_a
- * @returns {import('../array_types/index.js').sort_val_a__transition_a_frame_T}
+ * @returns {sort_val_a__transition_a_frame_T}
  */
 export function compact_a_ctx_(sparse_a) {
 	const idx_a = []

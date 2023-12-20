@@ -1,11 +1,12 @@
+/// <reference types="../color_rgb_a__color_hsv_a/index.d.ts" />
 import { color_rgb_a__color_hsv_a_ } from '../color_hsv/index.js'
 import { PHI } from '../PHI/index.js'
 const { floor } = Math
 /**
  * Returns an array of colors with a given sv (`[saturation, value]`)
  * with h (hue) seperated by `1/PHI`
- * @param {import('../color_rgb_a__color_hsv_a/index.js').hsv_phi_rgb_color_a__params_T}params
- * @returns {import('../color_rgb_a__color_hsv_a/index.js').color_rgb_a_T[]}
+ * @param {hsv_phi_rgb_color_a__params_T}params
+ * @returns {color_rgb_a_T[]}
  * @see {@link https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/}
  */
 export function color_hsv_phi_rgb_a_(

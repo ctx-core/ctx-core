@@ -1,6 +1,6 @@
+/// <reference types="../a_item/index.d.ts" />
+/// <reference types="../array_types/index.d.ts" />
 import { I__ } from '../combinators/index.js'
-/** @typedef {import('../a_item/index.d.ts').a_item_T} */
-/** @typedef {import('../array_types/index.d.ts').is_match__T} */
 /**
  * Returns Array of `idx` indices filtered by `fn`.
  * @param {unknown[]}in_a

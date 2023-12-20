@@ -34,6 +34,7 @@
 		"buffer",
 		"chain",
 		"class",
+		"cli-args",
 		"color",
 		"combinators",
 		"crypto",
@@ -42,6 +43,7 @@
 		"date",
 		"debounce",
 		"deep_equal",
+		"env",
 		"error",
 		"fetch",
 		"fibonacci",
@@ -80,6 +82,7 @@
 		"./buffer": "./buffer/index.js",
 		"./chain": "./chain/index.js",
 		"./class": "./class/index.js",
+		"./cli-args": "./cli-args/index.js",
 		"./color": "./color/index.js",
 		"./combinators": "./combinators/index.js",
 		"./crypto": "./crypto/index.js",
@@ -88,6 +91,7 @@
 		"./date": "./date/index.js",
 		"./debounce": "./debounce/index.js",
 		"./deep_equal": "./deep_equal/index.js",
+		"./env": "./env/index.js",
 		"./error": "./error/index.js",
 		"./fetch": "./fetch/index.js",
 		"./fibonacci": "./fibonacci/index.js",
@@ -127,11 +131,13 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.13.4",
+		"@ctx-core/preprocess": "^0.1.0",
 		"@size-limit/preset-small-lib": "^11.0.1",
 		"@types/node": "^20.10.5",
 		"@types/sinon": "^17.0.2",
 		"c8": "^8.0.1",
 		"check-dts": "^0.7.2",
+		"esbuild": "^0.19.10",
 		"sinon": "^17.0.1",
 		"size-limit": "^11.0.1",
 		"tsx": "^4.7.0",
@@ -163,28 +169,28 @@
 			"import": {
 				"./be": "{ be_ }"
 			},
-			"limit": "104 B"
+			"limit": "99 B"
 		},
 		{
 			"name": "be_ ctx_",
 			"import": {
 				"./be": "{ be_, ctx_ }"
 			},
-			"limit": "133 B"
+			"limit": "131 B"
 		},
 		{
 			"name": "be_ ns_ctx_",
 			"import": {
 				"./be": "{ be_, ctx_, ns_ctx_ }"
 			},
-			"limit": "191 B"
+			"limit": "190 B"
 		},
 		{
 			"name": "be_ ctx_ ns_ctx_",
 			"import": {
 				"./be": "{ be_, ctx_, ns_ctx_ }"
 			},
-			"limit": "191 B"
+			"limit": "190 B"
 		},
 		{
 			"name": "memo_",
@@ -205,14 +211,14 @@
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_ }"
 			},
-			"limit": "460 B"
+			"limit": "456 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_",
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_, be_memo_pair_, be_sig_triple_ }"
 			},
-			"limit": "553 B"
+			"limit": "549 B"
 		}
 	]
 }

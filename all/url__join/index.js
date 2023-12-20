@@ -1,5 +1,6 @@
+/// <reference types="../index.d.ts" />
 /**
- * @param {import('../url_segment/index.js').url_segment_T[]}url_segment_a
+ * @param {url_segment_T[]}url_segment_a
  * @returns {string}
  */
 export function url__join(url_segment_a) {

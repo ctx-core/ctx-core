@@ -1,4 +1,4 @@
-/** @typedef {import('../assign_fn_key_a/index.js').fn_key_a_tuple_T} */
+/// <reference types="../assign_fn_key_a/index.d.ts" />
 /**
  * Assigns to an obj array of keys the return value of function in key_a_fn_aa.
  * @param {object}obj

@@ -1,6 +1,6 @@
+/// <reference types="../index.d.ts" />
 import { maybe_slice, slice } from '../slice/index.js'
 import { maybe_sort, sort } from '../sort/index.js'
-/** @typedef {import('../array_types/index.d.ts').compare_T} */
 /**
  * Sorts a copy of `a` by the `compare` function.
  * @param {unknown[]}a

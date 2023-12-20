@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'fs/promises'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
-import { tempfile_path_ } from './index'
+import { tempfile_path_ } from './index.js'
 test('tempfile_', async ()=>{
 	const tempfile = await tempfile_path_()
 	await writeFile(tempfile, 'the content')

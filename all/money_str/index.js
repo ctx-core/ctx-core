@@ -1,12 +1,12 @@
+/// <reference types="../index.d.ts" />
 import { comma_number_str_ } from '../comma_number_str/index.js'
 import { isNumber_ } from '../isNumber/index.js'
 import { nullish__none_ } from '../nullish__none/index.js'
-/** @typedef {import('../money_str/index.d.ts').money_str__params_T} */
 /**
  * Formats money value with commas (no currency type)
  * @param {number}amount
  * @param {money_str__params_T}params
- * @returns {string|import('../nullish/index.js').nullish}
+ * @returns {string|nullish}
  */
 export function money_str_(
 	amount,

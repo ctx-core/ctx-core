@@ -1,6 +1,7 @@
+/// <reference types="../error_o/index.d.ts" />
 import { assign } from '../assign/index.js'
 import { HttpError } from '../http_error/index.js'
-/** @typedef {import('../error_o/index.d.ts').argument__error_o_T} */
+/** @typedef {argument__error_o_T} */
 export const bad_gateway__default__message = 'Bad Gateway'
 /**
  * @param {string}[message]

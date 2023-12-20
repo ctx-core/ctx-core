@@ -1,4 +1,4 @@
-/** @typedef {import('../nullish/index.d.ts').nullish} */
+/// <reference types="../index.d.ts" />
 /**
  * @param {(number|nullish)[]}number_a
  * @returns {number}

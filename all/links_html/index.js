@@ -14,7 +14,3 @@ export function links_html_(params) {
 	}
 	return links_html_a.join('\n')
 }
-export {
-	links_html_ as _links_html,
-	links_html_ as _html__links,
-}

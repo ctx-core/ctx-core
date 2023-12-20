@@ -1,8 +1,9 @@
+/// <reference types="../index.d.ts" />
 import { wrap_a_ } from '../wrap_a/index.js'
 import { wrap_concat } from '../wrap_concat/index.js'
 /**
  * Returns first truthy or last item in `a_unwrap`.
- * @param {unknown|import('../_function_types/index.js').wrap_a_T}a_unwrap
+ * @param {unknown|wrap_a_T}a_unwrap
  * @returns {unknown}
  */
 export function or(a_unwrap) {
@@ -13,8 +14,6 @@ export function or(a_unwrap) {
 	}
 	return
 }
-/** @typedef {import('../a_nowrap/index.d.ts').a_nowrap_T} */
-/** @typedef {import('./index.d.ts').or_T} */
 /**
  * Returns first truthy or last item call or value in `a_unwrap`.
  * @param {a_nowrap_T}a_unwrap

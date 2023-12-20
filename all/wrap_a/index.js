@@ -1,14 +1,17 @@
+/// <reference types="../index.d.ts" />
 const { isArray } = Array
 /**
  * Returns `value` if array & `[value]` otherwise
- * @param {import('../a_nowrap/index.js').a_nowrap_T}value
- * @returns {import('../_function_types/index.js').wrap_a_T}
+ * @param {a_nowrap_T}value
+ * @returns {wrap_a_T}
  * @private
  */
 export function wrap_a_(value) {
-	return isArray(value) ? value : [
-		value
-	]
+	return isArray(value)
+		? value
+		: [
+			value
+		]
 }
 export {
 	wrap_a_ as wrap_a1_,

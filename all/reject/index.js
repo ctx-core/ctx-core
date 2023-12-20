@@ -1,4 +1,4 @@
-/** @typedef {import('../array_types/index.d.ts').is_match__T} */
+/// <reference types="../index.d.ts" />
 /**
  * Returns Array of items not rejected by `fn`.
  * @param {unknown[]}a

@@ -1,6 +1,5 @@
-/** @typedef {import('../response_o/index.d.ts').response_o_T} */
 /**
- * @param {Response}response
+ * @param {import('../Response/index.d.ts').Response}response
  * @returns {response_o_T}
  * @private
  */

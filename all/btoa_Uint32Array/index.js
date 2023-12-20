@@ -1,8 +1,9 @@
+/// <reference types="../btoa_Uint32Array/index.d.ts" />
 import { btoa_ } from '../btoa/index.js'
 /**
  * btoa helper functions
  */
-/** @type {typeof import('../btoa_Uint32Array/index.d.ts').btoa_Uint32Array_} */
+/** @type {typeof btoa_Uint32Array_} */
 export const btoa_Uint32Array_ = b64=>{
 	const btoa = btoa_()
 	const $ = btoa(b64)

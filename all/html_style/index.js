@@ -25,7 +25,6 @@ export function html_style_(...style_def_a) {
 	}
 	return a.join(' ')
 }
-export { html_style_ as style_, html_style_ as _style, }
 /**
  * @param {string}style
  * @returns {string}
@@ -46,4 +45,3 @@ function semicolon__style_(style) {
 export function html_style__(memo_style_def_a) {
 	return (...style_a)=>html_style_(memo_style_def_a, ...style_a)
 }
-export { html_style__ as style__, html_style__ as style_2, }

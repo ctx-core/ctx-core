@@ -1,2 +1,3 @@
-/** @type {import('../fetch/index.d.ts').fetch} */
+/// <reference types="../fetch/index.d.ts" />
+/** @type {fetch} */
 export const { fetch } = globalThis

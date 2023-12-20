@@ -1,4 +1,4 @@
-/** @typedef {import('../call_fn/index.js')} */
+/// <reference types="../call_fn/index.d.ts" />
 /**
  * Returns function bound to self that calls ...in_arg_a concat with ...fn_arg_a passed to function
  * @param {call_fn_T}fn

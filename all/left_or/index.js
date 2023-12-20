@@ -1,8 +1,9 @@
+/// <reference types="../a_nowrap/index.d.ts" />
 import { or } from '../or/index.js'
 import { wrap_concat } from '../wrap_concat/index.js'
 /**
  * Returns function that returns first truthy item in `a_unwrap` or value.
- * @param {import('../a_nowrap/index.js').a_nowrap_T}a_unwrap
+ * @param {a_nowrap_T}a_unwrap
  * @returns {(val:unknown)=>unknown}
  */
 export function left_or_(a_unwrap) {

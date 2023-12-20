@@ -1,7 +1,8 @@
+/// <reference types="../array_types/index.d.ts" />
 /**
  * Returns a basic ascending or descending `compare` function to be used for sorting.
  * @param {boolean}[asc]
- * @returns {import('../array_types/index.js').compare_T}
+ * @returns {compare_T}
  */
 export function compare_(asc = true) {
 	return (a, b)=>{

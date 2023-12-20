@@ -1,6 +1,7 @@
+/// <reference types="../hex__digest/index.d.ts" />
 import { crypto_ } from '../crypto/index.js'
 /**
- * @param {import('../hex__digest/index.js').digest__algorithm_T}algorithm
+ * @param {digest__algorithm_T}algorithm
  * @param {string|BufferSource}message
  * @returns {Promise<string>}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest}

@@ -1,8 +1,10 @@
-/** @typedef {import('../error_o/index.d.ts').argument__error_o_T} */
+/// <reference types="../error_o/index.d.ts" />
+/// <reference types="../error__print/index.d.ts" />
+/** @typedef {argument__error_o_T} */
 /**
  * Prints the given `error_o_error` to stderr
  * @param {error_o_error_T}error_o_error
- * @type {typeof import('../error__print/index.js').error__print}
+ * @type {typeof error__print}
  */
 export function error__print(error_o_error) {
 	const {

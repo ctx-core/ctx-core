@@ -1,7 +1,6 @@
+/// <reference types="../index.d.ts" />
 import { currency_symbol_ } from '../currency_symbol/index.js'
 import { no_comma_str_ } from '../no_comma_str/index.js'
-/** @typedef {import('../nullish/index.d.ts').nullish} */
-/** @typedef {import('../currency_str/index.d.ts').currency_str__default_params_T} */
 /**
  * Remove currency delimiter & commas from the string representation of amount.
  */

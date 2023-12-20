@@ -1,4 +1,5 @@
-/** @typedef {import('../each/index.d.ts').each_fn_T} */
+/// <reference types="../each/index.d.ts" />
+/** @typedef {each_fn_T} */
 /**
  * Iterate over each item in `a` with `fn(a[i], i)`.
  * @param {unknown[]}a

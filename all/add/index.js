@@ -1,4 +1,4 @@
-/** @typedef {import('../nullish/index.d.ts').nullish} */
+/// <reference types="../nullish/index.d.ts" />
 /**
  * Adds the arguments
  * @param {readonly (number|nullish)[]|nullish}numerator_a

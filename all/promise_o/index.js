@@ -1,5 +1,6 @@
+/// <reference types="../index.d.ts" />
 /**
- * @returns {import('../promise_o/index.js').promise_o_T}
+ * @returns {promise_o_T}
  */
 export function promise_o_() {
 	let resolve = null, reject = null

@@ -1,5 +1,6 @@
+/// <reference types="../fetch_method/index.d.ts" />
 /**
- * @param {import('../fetch_method/index.js').fetch_method___params_T}fetch_method___params
+ * @param {fetch_method___params_T}fetch_method___params
  * @returns {string}
  * @private
  */

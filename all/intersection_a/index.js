@@ -1,9 +1,11 @@
+/// <reference types="../a_nowrap/index.d.ts" />
+/// <reference types="./index.d.ts" />
 import { intersection_set_ } from '../intersection_set/index.js'
 import { wrap_aa_ } from '../wrap_aa/index.js'
 /**
  * Returns the intersection of n arrays
- * @param {import('../a_nowrap/index.js').a_nowrap_T<unknown>}aa_nowrap
- * @returns {import('./index.d.ts').intersection_a_T<unknown>}
+ * @param {a_nowrap_T<unknown>}aa_nowrap
+ * @returns {intersection_a_T<unknown>}
  * @see {@link http://www.2ality.com/2015/01/es6-set-operations.html}
  */
 export function intersection_a_(aa_nowrap) {

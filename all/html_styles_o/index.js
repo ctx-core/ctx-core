@@ -16,8 +16,3 @@ export function html_styles_o_(style_str) {
 	}
 	return styles_o
 }
-export {
-	html_styles_o_ as _styles_o,
-	html_styles_o_ as _OBJ__styles,
-	html_styles_o_ as styles_o_,
-}

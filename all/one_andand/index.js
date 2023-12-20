@@ -1,7 +1,8 @@
+/// <reference types="../index.d.ts" />
 import { andand } from '../andand/index.js'
 /**
  * Returns a function that calls `andand(obj, ...name_a)`
- * @param {import('../andand/index.js').andand_key_T}name_a
+ * @param {andand_key_T}name_a
  * @returns {(obj:unknown)=>unknown}
  */
 export function one_andand_(...name_a) {

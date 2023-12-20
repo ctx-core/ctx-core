@@ -1,7 +1,8 @@
+/// <reference types="../index.d.ts" />
 import { concat } from '../concat/index.js'
 /**
  * Returns function that returns map of calls to fn_a applying in_arg_a with ...arg_a_
- * @param {import('../_function_types/index.js').map_fn_T[]}fn_a
+ * @param {map_fn_T[]}fn_a
  * @param {unknown}[in_arg_a]
  * @returns {(...fn_arg_a:unknown[])=>unknown[]}
  */

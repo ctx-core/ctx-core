@@ -1,7 +1,8 @@
+/// <reference types="../currency_code/index.d.ts" />
 import { currencies } from '../currencies/index.js'
 /**
  * Returns the symbol for the given `currency_code_.currency`. Defaults to `$`
- * @param {import('../currency_code').currency_code_o_T|string}currency_code_
+ * @param {currency_code_o_T|string}currency_code_
  * @returns {string} * @see {@link https://github.com/bengourley/currency-symbol-map}
  * @see {@link https://raw.githubusercontent.com/bengourley/currency-symbol-map/master/map.js}
  */

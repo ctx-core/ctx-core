@@ -1,4 +1,5 @@
-/** @typedef {import('../call_assign/index.d.ts').assign_fn_T} */
+/// <reference types="../call_assign/index.d.ts" />
+/** @typedef {assign_fn_T} */
 /**
  * Assigns function calls into obj
  * @param {object}obj

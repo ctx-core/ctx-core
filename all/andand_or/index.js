@@ -1,5 +1,6 @@
+/// <reference types="../andand/index.d.ts" />
 import { andand } from '../andand/index.js'
-/** @typedef {import('../andand/index.js').andand_key_T} */
+/** @typedef {andand_key_T} */
 /**
  * Returns `andand(obj, name_a) || or_fn(obj, val)`
  * @param {unknown|null}obj

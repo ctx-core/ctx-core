@@ -1,4 +1,4 @@
-/** @typedef {import('../wrap_a/index.d.ts').wrap_a_T2} */
+/// <reference types="../index.d.ts" />
 /**
  * Returns first return value of `fn(a[idx], idx)` where `fn(a[idx], idx)` is truthy.
  * @param {wrap_a_T2}a

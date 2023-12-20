@@ -1,7 +1,8 @@
+/// <reference types="../item_r_idx/index.d.ts" />
 import { I__ } from '../combinators/index.js'
 /**
  * Returns an Object where each key is `_item(a[idx], idx)` and value is `idx`.
- * @type {import('../item_r_idx/index.js').idx_item_r_fn_T}
+ * @type {idx_item_r_fn_T}
  */
 export const item_r_idx_ = item_r_idx__(I__)
 export {

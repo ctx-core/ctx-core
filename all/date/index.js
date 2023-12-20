@@ -1,4 +1,4 @@
-/** @type {typeof import('../date/index.d.ts').date_} */
+/// <reference types="../date/index.d.ts" />
 export const date_ =
 	(...arg_a)=>
 		new Date(/** @type {any} */...arg_a)

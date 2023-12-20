@@ -13,7 +13,3 @@ export function html_(unsafe) {
 			.replace(/'/g, '&#039;')
 	)
 }
-export {
-	html_ as html__escape,
-	html_ as _html,
-}

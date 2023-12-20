@@ -1,8 +1,9 @@
+/// <reference types="../ensure__refresh/index.d.ts" />
 import { clone } from '../clone/index.js'
 /**
  * `ensure` `obj[key]` is present or call `ensure(obj)`. Then call `refresh(obj, obj[key])`.
- * @param {import('../ensure__refresh/index.js').ensure_refresh__o_T}obj
- * @param {import('../ensure__refresh/index.js').ensure__refresh_opts_T}ensure__refresh_opts_a
+ * @param {ensure_refresh__o_T}obj
+ * @param {ensure__refresh_opts_T}ensure__refresh_opts_a
  * @returns {unknown}
  */
 export function ensure__refresh(

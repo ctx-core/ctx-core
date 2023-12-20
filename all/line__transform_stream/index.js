@@ -1,4 +1,4 @@
-/** @typedef {import('../line__transform_stream/index.d.ts').line__transform_stream___params_T} */
+/// <reference types="../line__transform_stream/index.d.ts" />
 /**
  * @param {line__transform_stream___params_T}[params]
  * @param {QueuingStrategy<string>}[writable_strategy]

@@ -1,4 +1,4 @@
-/** @typedef {import('../headers/index.d.ts').Headers} */
+/// <reference types="../headers/index.d.ts" />
 export const { Headers } = globalThis
 /**
  * @param {HeadersInit}[init]

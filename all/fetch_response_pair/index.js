@@ -1,8 +1,10 @@
+/// <reference types="../fetch/index.d.ts" />
+/// <reference types="../fetch__template_pair/index.d.ts" />
 import { response_pair__new } from '../response_pair/index.js'
-/** @typedef {import('../fetch/index.d.ts').fetch_T} */
+/** @typedef {fetch_T} */
 /**
  * @param {fetch_T}fetch
- * @returns {typeof import('../fetch__template_pair/index.js').fetch_response_pair__new}
+ * @returns {typeof fetch_response_pair__new}
  */
 export function fetch_response_pair__new2(fetch) {
 	return async (input, init)=>{

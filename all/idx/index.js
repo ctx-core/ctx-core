@@ -1,7 +1,8 @@
+/// <reference types="../array_types/index.d.ts" />
 /**
  * Returns idx of first match in `a` with `compare`.
  * @param {unknown[]|undefined}in_a
- * @param {import('../array_types/index.js').is_match__T}compare
+ * @param {is_match__T}compare
  * @returns {number}
  */
 export function idx_(in_a, compare) {

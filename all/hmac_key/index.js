@@ -1,6 +1,7 @@
+/// <reference types="../hmac_key/index.d.ts" />
 import { crypto_ } from '../crypto/index.js'
 /**
- * @param {import('../hmac_key/index.js').digest__algorithm_T}algorithm
+ * @param {digest__algorithm_T}algorithm
  * @param {string|BufferSource}key
  * @returns {Promise<CryptoKey>}
  * @see https://lukasmurdock.com/web-hmac/

@@ -1,4 +1,5 @@
-/** @typedef {import('../call/index.d.ts').call_fn_T} */
+/// <reference types="../call/index.d.ts" />
+/** @typedef {call_fn_T} */
 /**
  * Calls the fn with ...arg_a.
  * @param {call_fn_T}fn

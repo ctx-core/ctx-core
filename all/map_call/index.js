@@ -1,7 +1,8 @@
+/// <reference types="../index.d.ts" />
 import { concat } from '../concat/index.js'
 /**
  * Returns the map of calls to fn_a with ...arg_a.
- * @param {import('../map_fn/index.js').map_fn_T[]}fn_a
+ * @param {map_fn_T[]}fn_a
  * @param {unknown}arg_a
  * @returns {unknown[]}
  */
@@ -11,7 +12,7 @@ export function map_call(fn_a, ...arg_a) {
 export { map_call as call__map }
 /**
  * Returns function that maps calls to fn_al ...fac_arg_a concat with ...fn_arg_a passed to function
- * @param {import('../map_fn/index.js').map_fn_T[]}fn_a
+ * @param {map_fn_T[]}fn_a
  * @param {unknown}fac_arg_a
  * @returns {(...fn_arg_a:unknown[])=>unknown[]}
  */

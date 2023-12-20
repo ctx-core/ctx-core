@@ -1,4 +1,5 @@
-/** @typedef {import('../error_o/index.d.ts').error_o_error_T} */
+/// <reference types="../error_o/index.d.ts" />
+/** @typedef {error_o_error_T} */
 /**
  * Logs the given error_o_error to stderr
  * @param {error_o_error_T}error_o_error

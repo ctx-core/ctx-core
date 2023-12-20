@@ -1,10 +1,11 @@
+/// <reference types="../index.d.ts" />
 import { union_set_ } from '../union_set/index.js'
 import { wrap_aa_ } from '../wrap_aa/index.js'
 /**
  * Returns the union of n arrays
  * @see {@link http://www.2ality.com/2015/01/es6-set-operations.html}
- * @param {import('../a_nowrap/index.js').a_nowrap_T}aa_nowrap
- * @returns {import('../wrap_aa_item/index.js').wrap_aa_item_T[]}
+ * @param {a_nowrap_T}aa_nowrap
+ * @returns {wrap_aa_item_T[]}
  * @private
  */
 export function union_a_(aa_nowrap) {

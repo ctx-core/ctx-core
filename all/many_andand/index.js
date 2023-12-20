@@ -1,7 +1,9 @@
+/// <reference types="../andand/index.d.ts" />
+/// <reference types="../many_andand/index.d.ts" />
 import { andand } from '../andand/index.js'
 /**
- * @param {string|import('../andand/index.js').andand_key_T}name_a
- * @returns {import('#alll/many_andand/index.js').many_andand_T}
+ * @param {string|andand_key_T}name_a
+ * @returns {many_andand_T}
  */
 export function many_andand_(...name_a) {
 	return (obj, ...arg_a)=>andand(obj, ...arg_a, ...name_a)

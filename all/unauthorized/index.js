@@ -1,6 +1,6 @@
+/// <reference types="../index.d.ts" />
 import { assign } from '../assign/index.js'
 import { HttpError } from '../http_error/index.js'
-/** @typedef {import('../error_o/index.d.ts').argument__error_o_T} */
 export const unauthorized__default__message = 'Unauthorized'
 /**
  * @param {string}[message]
