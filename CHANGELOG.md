@@ -1,5 +1,26 @@
 # ctx-core
 
+## 5.3.0
+
+### Minor Changes
+
+- minor:
+
+      exports: + ./fs
+      + file_exists_
+
+- minor:
+
+      exports:
+        + ./fs
+      + is_browser_
+      + is_server_
+      + process_release_name
+
+### Patch Changes
+
+- waitfor: timeout error: fix: stop loop
+
 ## 5.2.3
 
 ### Patch Changes

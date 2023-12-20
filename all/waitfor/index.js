@@ -7,10 +7,16 @@ import { sleep } from '../sleep/index.js'
  * @returns {Promise<void>}
  */
 export async function waitfor(fn, timeout, period = 0) {
-	await promise_timeout(async ()=>{
-		for (; ;) {
-			if (await fn()) return
-			await sleep(period)
-		}
-	}, timeout)
+	let cancel
+	try {
+		await promise_timeout(async ()=>{
+			for (; !cancel;) {
+				if (await fn()) return
+				await sleep(period)
+			}
+		}, timeout)
+	} catch (err) {
+		cancel = 1
+		throw err
+	}
 }
