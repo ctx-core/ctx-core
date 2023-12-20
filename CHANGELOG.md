@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.2.1
+
+### Patch Changes
+
+- rmemo: fix: type errors
+
 ## 5.2.0
 
 ### Minor Changes
