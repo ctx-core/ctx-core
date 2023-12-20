@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.3.1
+
+### Patch Changes
+
+- is*browser*,is*server*: fix: types & implementation
+
 ## 5.3.0
 
 ### Minor Changes

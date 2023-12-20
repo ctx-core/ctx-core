@@ -1,3 +1,3 @@
-export function is_browser_() {
-	return !globalThis.process?.release?.name
+export function is_server_() {
+	return !!globalThis.process?.release?.name
 }

@@ -1,1 +1,1 @@
-export declare function is_server_():boolean
+export declare function is_browser_():boolean
