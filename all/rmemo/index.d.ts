@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+/// <reference lib="es2021" />
 export declare function memo_<val_T>(
 	def:memo_def_T<val_T>,
 	...subscriber_a:memo_subscriber_T<val_T>[]
