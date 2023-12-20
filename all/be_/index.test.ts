@@ -406,12 +406,14 @@ test('be__val_', ()=>{
 	equal(be__val_('val_', ns_ctx, 'test_ns'), true)
 })
 test('ondelete_be_', ()=>{
-	const ondelete0_arg_aa:[val:number, ctx:Ctx, be:Be<number>][] = []
-	const ondelete1_arg_aa:[val:number, ctx:Ctx, be:Be<number>][] = []
-	const _ondelete0 = (...arg_a:[val:number, ctx:Ctx, be:Be<number>])=>ondelete0_arg_aa.push(arg_a)
-	const _ondelete1 = (...arg_a:[val:number, ctx:Ctx, be:Be<number>])=>ondelete1_arg_aa.push(arg_a)
+	const ondelete0_arg_aa:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>][] = []
+	const ondelete1_arg_aa:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>][] = []
+	const _ondelete0 = (...arg_a:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>])=>
+		ondelete0_arg_aa.push(arg_a)
+	const _ondelete1 = (...arg_a:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>])=>
+		ondelete1_arg_aa.push(arg_a)
 	const be =
-		ondelete_be_((ctx, { ondelete })=>{
+		ondelete_be_<number>((ctx, { ondelete })=>{
 			ondelete(_ondelete0)
 			ondelete(_ondelete1)
 			return 1
@@ -425,18 +427,20 @@ test('ondelete_be_', ()=>{
 	equal(ondelete1_arg_aa, [[1, ctx, be]])
 })
 test('ctx__clear', ()=>{
-	const ondelete0_arg_aa:[val:number, ctx:Ctx, be:Be<number>][] = []
-	const ondelete1_arg_aa:[val:number, ctx:Ctx, be:Be<number>][] = []
-	const _ondelete0 = (...arg_a:[val:number, ctx:Ctx, be:Be<number>])=>ondelete0_arg_aa.push(arg_a)
-	const _ondelete1 = (...arg_a:[val:number, ctx:Ctx, be:Be<number>])=>ondelete1_arg_aa.push(arg_a)
+	const ondelete0_arg_aa:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>][] = []
+	const ondelete1_arg_aa:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>][] = []
+	const _ondelete0 = (...arg_a:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>])=>
+		ondelete0_arg_aa.push(arg_a)
+	const _ondelete1 = (...arg_a:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>])=>
+		ondelete1_arg_aa.push(arg_a)
 	const be0 =
-		ondelete_be_((ctx, { ondelete })=>{
+		ondelete_be_<number>((ctx, { ondelete })=>{
 			ondelete(_ondelete0)
 			ondelete(_ondelete1)
 			return 1
 		})
 	const be1 =
-		ondelete_be_((ctx, { ondelete })=>{
+		ondelete_be_<number, 'test_ns'>((ctx, { ondelete })=>{
 			ondelete(_ondelete0)
 			ondelete(_ondelete1)
 			return 1

@@ -56,15 +56,27 @@ export declare function be__val_<
 	ns_T extends string = '',
 	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
 >(be_OR_id:Be<val_T, ns_T, ctx_T>|string, ctx:ctx_T, ns?:ns_T):val_T|unknown|null
-export declare function ondelete_be_<be_T extends Be>(
+export declare function ondelete_be_<
+	val_T,
+	ns_T extends string = '',
+	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+>(
 	val__new:ondelete_be__val__new_T<val_T, ns_T, ctx_T>,
 	config?:be_config_T<ns_T>
-):be_T
-export declare type Be<
+):ondelete_Be<val_T, ns_T, ctx_T>
+export type Be<
 	val_T,
 	ns_T extends string = '',
 	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
 > = ((ctx:ctx_T)=>val_T)&be_o_T<val_T, ns_T, ctx_T>
+export type ondelete_Be<
+	val_T,
+	ns_T extends string = '',
+	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+> = ((ctx:ctx_T)=>val_T)&be_o_T<val_T, ns_T, ctx_T>&{
+	ondelete(cb:(val:val_T, ctx:ctx_T, be:Be<val_T, ns_T, ctx_T>)=>void):void
+	d():void
+}
 export type be_o_T<
 	val_T,
 	ns_T extends string = '',
@@ -99,9 +111,7 @@ export type ondelete_be__val__new_T<
 > =
 	(
 		ctx:ctx_T,
-		be:
-			&Be<val_T, ns_T, ctx_T>
-			&{ ondelete(cb:(val:val_T, ctx:ctx_T, be:Be<val_T, ns_T, ctx_T>)=>void), d():void }
+		be:ondelete_Be<val_T, ns_T, ctx_T>
 	)=>val_T
 export type Ctx<ns_T extends string = string> = Readonly<{
 	s:Ctx_s_T<ns_T>
