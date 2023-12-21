@@ -132,7 +132,7 @@
 		"disable:test:coverage": "c8 pnpm test-unit"
 	},
 	"devDependencies": {
-		"@arethetypeswrong/cli": "^0.13.4",
+		"@arethetypeswrong/cli": "^0.13.5",
 		"@ctx-core/preprocess": "^0.1.0",
 		"@size-limit/preset-small-lib": "^11.0.1",
 		"@types/node": "^20.10.5",
