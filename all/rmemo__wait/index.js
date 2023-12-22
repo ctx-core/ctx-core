@@ -10,12 +10,20 @@ import { memo_ } from '../rmemo/index.js'
  * @returns {Promise<*>|Promise<unknown>}
  */
 export function rmemo__wait(rmemo, condition_fn, timeout) {
+	let memo
 	const _subscribe_wait = new Promise(resolve=>{
-		memo_(()=>{
+		memo = memo_(()=>{
 			if (condition_fn(rmemo())) {
 				resolve(rmemo())
 			}
-		})()
+		})
+		memo()
 	})
-	return isNumber_(timeout) ? promise_timeout(_subscribe_wait, timeout) : _subscribe_wait
+	let promise =
+	isNumber_(timeout)
+		? promise_timeout(_subscribe_wait, timeout)
+		: _subscribe_wait
+	// prevent GC
+	promise.m = memo
+	return promise
 }
