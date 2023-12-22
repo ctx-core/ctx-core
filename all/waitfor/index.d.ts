@@ -1,5 +1,5 @@
-export declare function waitfor(
-	fn:()=>Promise<boolean>|boolean,
+export declare function waitfor<V>(
+	fn:()=>Promise<V>|V,
 	timeout:number,
 	period?:number
-):Promise<void>
+):Promise<V>&{ cancel: ()=>Promise<V> }

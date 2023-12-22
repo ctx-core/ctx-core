@@ -8,10 +8,11 @@ import { waitfor } from '../waitfor/index.js'
 export async function file_exists_(path) {
 	return (
 		(process_release_name ?? false)
-		&& import('node:fs/promises').then(({ access, constants })=>
-			access(path, constants.F_OK)
+		&& import('node:fs/promises').then(({ access, constants })=>{
+			return access(path, constants.F_OK)
 				.then(()=>true)
-				.catch(()=>false)))
+				.catch(()=>false)
+		}))
 }
 export {
 	file_exists_ as path__exists_

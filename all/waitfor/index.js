@@ -1,22 +1,31 @@
 import { promise_timeout } from '../promise_timeout/index.js'
 import { sleep } from '../sleep/index.js'
 /**
- * @param {()=>Promise<boolean>}fn
+ * @param {()=>Promise<unknown>}fn
  * @param {unknown}timeout
  * @param {unknown}[period]
  * @returns {Promise<void>}
  */
-export async function waitfor(fn, timeout, period = 0) {
+export function waitfor(fn, timeout, period = 0) {
 	let cancel
-	try {
-		await promise_timeout(async ()=>{
+	let promise = new Promise((resolve, reject)=>
+		promise_timeout(async ()=>{
+			let rv
 			for (; !cancel;) {
-				if (await fn()) return
+				rv = await fn()
+				if (rv) return rv
 				await sleep(period)
 			}
+			return rv
 		}, timeout)
-	} catch (err) {
+			.then(resolve)
+			.catch(err=>{
+				cancel = 1
+				reject(err)
+			}))
+	promise.cancel = ()=>{
 		cancel = 1
-		throw err
+		return promise
 	}
+	return promise
 }

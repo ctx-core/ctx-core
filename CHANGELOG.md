@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.4.0
+
+### Minor Changes
+
+- waitfor: + .cancel()
+
 ## 5.3.1
 
 ### Patch Changes
