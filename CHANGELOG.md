@@ -1,5 +1,18 @@
 # ctx-core
 
+## 5.5.0
+
+### Minor Changes
+
+- exports: ./rmemo: + subscribe
+- - - rmemo\_\_subscribe
+
+  size-limit:
+
+      memo_ sig_: + 1 B
+      memo_ sig_ be_ ctx_: + 2 B
+      memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: + 3 B
+
 ## 5.4.1
 
 ### Patch Changes

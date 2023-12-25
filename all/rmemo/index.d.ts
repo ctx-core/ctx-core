@@ -17,6 +17,7 @@ export declare function lock_memosig_<val_T>(
 ):sig_T<val_T>
 export declare function on(rmemo:rmemo_T<unknown>):void
 export declare function off(rmemo:rmemo_T<unknown>):void
+export declare function rmemo__subscribe(rmemo:rmemo_T<unknown>, listener:()=>unknown):()=>void
 export type rmemo_T<val_T> = memo_T<val_T>|sig_T<val_T>|lock_memosig_T<val_T>
 export type memo_T<val_T> = (()=>val_T)&{
 	readonly _:val_T

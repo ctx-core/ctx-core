@@ -4,7 +4,7 @@ import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { lock_memosig_, memo_, type memo_T, memosig_, off, on, sig_ } from './index.js'
+import { lock_memosig_, memo_, type memo_T, memosig_, off, on, rmemo__subscribe, sig_ } from './index.js'
 test('memo_|static value', ()=>{
 	let count = 0
 	const memo = memo_(()=>{
@@ -453,5 +453,23 @@ test('.on + .off', ()=>{
 	base$._ = 4
 	equal(memo$(), 14)
 	equal(count, 5)
+})
+test('rmemo__subscribe', ()=>{
+	const base$ = sig_(1)
+	let count = 0
+	const subscriber_base_a:number[] = []
+	const off = rmemo__subscribe(base$, ()=>{
+		count++
+		subscriber_base_a.push(base$())
+	})
+	equal(subscriber_base_a, [1])
+	equal(count, 1)
+	base$._ = 2
+	equal(subscriber_base_a, [1, 2])
+	equal(count, 2)
+	off()
+	base$._ = 3
+	equal(subscriber_base_a, [1, 2])
+	equal(count, 2)
 })
 test.run()

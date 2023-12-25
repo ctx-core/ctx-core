@@ -135,3 +135,21 @@ export function off(rmemo) {
 		}
 	}
 }
+/**
+ * Bind reactive listener onto the given memo to prevent GC.
+ * The listener can autosubscribe to any rmemo.
+ * Returns an "off" function which deactivates the reactive listener & removes the GC binding from the given memo.
+ * @param {rmemo_T}memo
+ * @param {()=>unknown}listener
+ * @returns {()=>void}
+ */
+export function rmemo__subscribe(memo, listener) {
+	let listener_memo = memo_(()=>listener())
+	listener_memo()
+	memo.b ??= []
+	memo.b.push(listener_memo)
+	return ()=>{
+		off(listener_memo)
+		memo.b.splice(memo.b.indexOf(listener_memo), 1)
+	}
+}
