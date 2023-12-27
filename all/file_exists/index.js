@@ -1,5 +1,9 @@
 import { process_release_name } from '../process_release_name/index.js'
 import { waitfor } from '../waitfor/index.js'
+console.log('file_exists_/index.js', {
+	access: (await import('node:fs/promises')).access,
+	readFile: (await import('node:fs/promises')).readFile,
+})
 /**
  * @param {string}path
  * @returns {Promise<boolean>}
