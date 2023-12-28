@@ -222,6 +222,13 @@
 				"./rmemo": "{ sig_, memo_, be_, ctx_, be_memo_pair_, be_sig_triple_ }"
 			},
 			"limit": "552 B"
+		},
+		{
+			"name": "uuid",
+			"import": {
+				"./uuid": "{ uuid_ }"
+			},
+			"limit": "77 B"
 		}
 	]
 }
