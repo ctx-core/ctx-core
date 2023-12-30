@@ -7,7 +7,7 @@ import { tick } from '../tick/index.js'
 test('queue_(1).add|queue length of 1 at a time', async ()=>{
 	const queue = queue_(1)
 	const promise_o_a = [promise_o_(), promise_o_(), promise_o_()]
-	const ret_a:any[] = [null, null, null]
+	const ret_a:unknown[] = [null, null, null]
 	queue.add(()=>promise_o_a[0].promise).then(ret=>ret_a[0] = ret)
 	queue.add(()=>promise_o_a[1].promise).then(ret=>ret_a[1] = ret)
 	queue.add(()=>promise_o_a[2].promise).then(ret=>ret_a[2] = ret)
@@ -23,17 +23,17 @@ test('queue_(1).add|queue length of 1 at a time', async ()=>{
 	promise_o_a[2].resolve('val2')
 	await tick()
 	equal(ret_a, ['val0', 'val1', 'val2'])
-	const close__promise__arg_aa:any[][] = []
+	const close__promise__arg_aa:unknown[][] = []
 	queue.close()
-	.then((...arg_a)=>
-		close__promise__arg_aa.push(arg_a))
+		.then((...arg_a)=>
+			close__promise__arg_aa.push(arg_a))
 	await tick()
 	equal(close__promise__arg_aa, [[3]])
 })
 test('queue_(2).add|queue length of 2 at a time', async ()=>{
 	const queue = queue_(2)
 	const promise_o_a = [promise_o_(), promise_o_(), promise_o_(), promise_o_()]
-	const ret_a:any[] = [null, null, null, null]
+	const ret_a:unknown[] = [null, null, null, null]
 	queue.add(()=>promise_o_a[0].promise).then(ret=>ret_a[0] = ret)
 	queue.add(()=>promise_o_a[1].promise).then(ret=>ret_a[1] = ret)
 	queue.add(()=>promise_o_a[2].promise).then(ret=>ret_a[2] = ret)
@@ -55,17 +55,17 @@ test('queue_(2).add|queue length of 2 at a time', async ()=>{
 	promise_o_a[1].resolve('val1')
 	await tick()
 	equal(ret_a, ['val0', 'val1', 'val2', 'val3'])
-	const close__promise__arg_aa:any[][] = []
+	const close__promise__arg_aa:unknown[][] = []
 	queue.close()
-	.then((...arg_a)=>
-		close__promise__arg_aa.push(arg_a))
+		.then((...arg_a)=>
+			close__promise__arg_aa.push(arg_a))
 	await tick()
 	equal(close__promise__arg_aa, [[4]])
 })
 test('queue_(1).add_sync|queue length of 1 at a time', async ()=>{
 	const queue = queue_(1)
 	const promise_o_a = [promise_o_(), promise_o_(), promise_o_()]
-	const ret_a:any[] = [null, null, null]
+	const ret_a:unknown[] = [null, null, null]
 	ret_a[0] = queue.add_sync(()=>promise_o_a[0].promise)
 	equal(ret_a, [1, null, null])
 	ret_a[1] = queue.add_sync(()=>promise_o_a[1].promise)
@@ -76,7 +76,7 @@ test('queue_(1).add_sync|queue length of 1 at a time', async ()=>{
 test('queue_(2).add_sync|queue length of 2 at a time', async ()=>{
 	const queue = queue_(2)
 	const promise_o_a = [promise_o_(), promise_o_(), promise_o_(), promise_o_()]
-	const ret_a:any[] = [null, null, null, null]
+	const ret_a:unknown[] = [null, null, null, null]
 	ret_a[0] = queue.add_sync(()=>promise_o_a[0].promise)
 	equal(ret_a, [1, null, null, null])
 	ret_a[1] = queue.add_sync(()=>promise_o_a[1].promise)
@@ -102,15 +102,15 @@ test('queue_(2).cancel|immediately stops queue discarding pending jobs|returns p
 		promise_o_(),
 		promise_o_()
 	]
-	const ret_a:any[] = [null, null, null, null]
+	const ret_a:unknown[] = [null, null, null, null]
 	queue.add(()=>promise_o_a[0].promise).then(ret=>ret_a[0] = ret)
 	queue.add(()=>promise_o_a[1].promise).then(ret=>ret_a[1] = ret)
 	queue.add(()=>promise_o_a[2].promise).then(ret=>ret_a[2] = ret)
 	queue.add(()=>promise_o_a[3].promise).then(ret=>ret_a[3] = ret)
-	const close__promise__arg_aa:any[][] = []
+	const close__promise__arg_aa:unknown[][] = []
 	queue.close()
-	.then((...arg_a)=>
-		close__promise__arg_aa.push(arg_a))
+		.then((...arg_a)=>
+			close__promise__arg_aa.push(arg_a))
 	equal(ret_a, [null, null, null, null])
 	equal(pending, undefined)
 	equal(close__promise__arg_aa, [])
@@ -134,16 +134,16 @@ test('throttle|number', async ()=>{
 	const queue = queue_(2)
 	const promise_o_a = [promise_o_(), promise_o_(), promise_o_(), promise_o_(), promise_o_()]
 	promise_o_a.map(pending_o=>queue.add(()=>pending_o.promise))
-	const pending__wait__arg_aa:any[][] = []
-	const throttle__then = (...arg_a:any[])=>{
+	const pending__wait__arg_aa:unknown[][] = []
+	const throttle__then = (...arg_a:unknown[])=>{
 		pending__wait__arg_aa.push(arg_a)
 	}
 	queue.throttle(5)
-	.then(throttle__then)
+		.then(throttle__then)
 	await tick()
 	equal(pending__wait__arg_aa, [[5]])
 	queue.throttle(3)
-	.then(throttle__then)
+		.then(throttle__then)
 	await tick()
 	equal(pending__wait__arg_aa, [[5]])
 	promise_o_a[0].resolve(true)
@@ -159,8 +159,8 @@ test('throttle|fn', async ()=>{
 	const queue = queue_(2)
 	const promise_o_a = [promise_o_(), promise_o_(), promise_o_(), promise_o_(), promise_o_()]
 	promise_o_a.map(pending_o=>queue.add(()=>pending_o.promise))
-	const pending__wait__arg_aa:any[][] = []
-	const throttle__then = (...arg_a:any[])=>{
+	const pending__wait__arg_aa:unknown[][] = []
+	const throttle__then = (...arg_a:unknown[])=>{
 		pending__wait__arg_aa.push(arg_a)
 	}
 	queue.throttle(item_count=>

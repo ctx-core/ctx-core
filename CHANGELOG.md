@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.6.1
+
+### Patch Changes
+
+- esbuild: ^0.19.10 -> ^0.19.11
+
 ## 5.6.0
 
 ### Minor Changes

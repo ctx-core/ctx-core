@@ -1,4 +1,3 @@
-import { run } from '../run/index.js'
 /**
  * Calls setTimeout
  * @param {()=>unknown}[fn]
@@ -6,16 +5,16 @@ import { run } from '../run/index.js'
  * @returns {Promise<unknown>}
  */
 export function tick(fn, timeout = 0) {
-	return new Promise((res, rej)=>{
+	return new Promise((resolve, reject)=>{
 		if (!timeout) {
 			queueMicrotask(()=>
-				res(run(fn)))
+				resolve(fn?.()))
 		} else {
 			setTimeout(()=>{
 				try {
-					res(run(fn))
+					resolve(fn?.())
 				} catch (e) {
-					rej(e)
+					reject(e)
 				}
 			}, timeout)
 		}
