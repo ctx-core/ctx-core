@@ -1,5 +1,16 @@
 # ctx-core
 
+## 5.8.0
+
+### Minor Changes
+
+- rmemo\_\_wait:
+
+      always calls promise_timeout
+      + .cancel(val:rmemo_val_T<_rmemo_T>)
+
+- promise_timeout: + .cancel(val:0)
+
 ## 5.7.0
 
 ### Minor Changes

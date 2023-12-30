@@ -15,4 +15,13 @@ test('rmemo__wait', async ()=>{
 	await promise
 	equal(subject$(), 1)
 })
+test('rmemo__wait|cancel', async ()=>{
+	const subject$ = sig_(-1)
+	const promise = rmemo__wait(
+		subject$,
+		subject=>subject >= 0,
+		10_000)
+	promise.cancel(500)
+	equal(await promise, 500)
+})
 test.run()

@@ -1,6 +1,5 @@
 /// <reference types="../rmemo/index.d.ts" />
 /// <reference types="./index.d.ts" />
-import { isNumber_ } from '../isNumber/index.js'
 import { promise_timeout } from '../promise_timeout/index.js'
 import { memo_ } from '../rmemo/index.js'
 /**
@@ -26,9 +25,10 @@ export function rmemo__wait(
 		memo()
 	})
 	let promise =
-		isNumber_(timeout)
-			? promise_timeout(_subscribe_wait, timeout, error)
-			: _subscribe_wait
+		promise_timeout(
+			_subscribe_wait,
+			timeout ?? Infinity,
+			error)
 	// prevent GC
 	promise.m = memo
 	return promise

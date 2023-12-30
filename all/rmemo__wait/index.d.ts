@@ -9,4 +9,5 @@ export declare function rmemo__wait<
 ):Promise<rmemo_val_T<_rmemo_T>>&{
 	// prevent early usGC
 	m:memo_T<unknown>
+	cancel:(val:rmemo_val_T<_rmemo_T>)=>void
 }

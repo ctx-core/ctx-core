@@ -4,7 +4,7 @@
  * @param {Error}[error]
  * @returns {Promise<unknown>}
  */
-export async function promise_timeout(
+export function promise_timeout(
 	promise,
 	ms,
 	error
@@ -14,11 +14,16 @@ export async function promise_timeout(
 	let timeout = new Promise((_resolve, reject)=>{
 		id = setTimeout(()=>reject(error), ms)
 	})
-	return Promise.race([
+	let cancel_promise__resolve
+	let cancel_promise = new Promise(resolve=>cancel_promise__resolve = resolve)
+	let ret_promise = Promise.race([
 		typeof promise === 'function' ? promise() : promise,
-		timeout
+		timeout,
+		cancel_promise,
 	]).then(result=>{
 		clearTimeout(id)
 		return result
 	})
+	ret_promise.cancel = cancel_promise__resolve
+	return ret_promise
 }

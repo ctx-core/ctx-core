@@ -29,4 +29,11 @@ test('promise_timeout|timeout', async ()=>{
 	equal(count, 1)
 	equal(err?.message, 'Timeout 1ms')
 })
+test('promise_timeout|cancel|arg', async ()=>{
+	const promise = promise_timeout(
+		new Promise<number>(()=>{}),
+		1000)
+	promise.cancel(5)
+	equal(await promise, 5)
+})
 test.run()
