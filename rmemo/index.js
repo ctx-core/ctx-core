@@ -1,5 +1,6 @@
 import { rmemo__subscribe } from '../rmemo/index.js'
 export { rmemo__subscribe as subscribe }
+export * from '../all/be/index.js'
 export * from '../all/be_/index.js'
 export * from '../all/be_lock_memosig_triple/index.js'
 export * from '../all/be_memo_pair/index.js'

@@ -1,5 +1,18 @@
 # ctx-core
 
+## 5.6.0
+
+### Minor Changes
+
+- run: polymorphic arguments: + (arg_a:A, fn:(...arg_a:A)=>O)=>O
+- minor: rmemo: + be
+
+  patch: be: arguments: fix: + config?:be_config_T<ns_T>
+
+- - - hex\_\_base64\*
+  - - short*uuid*
+  - - polyfill*uuid*
+
 ## 5.5.0
 
 ### Minor Changes

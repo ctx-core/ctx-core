@@ -1,10 +1,13 @@
-import { nullish__none_ } from '../nullish__none/index.js'
 /**
- * @param fn{(...arg_a:unknown)=>unknown}
+ * @param {(...arg_a:unknown)=>unknown}fn
  * @param {unknown}arg_a
  * @returns {unknown}
  */
-export function run(fn, ...arg_a) {
-	return nullish__none_([fn], ()=>fn(...arg_a))
+export function run(...arg_a) {
+	return (
+		typeof arg_a[0] === 'function'
+			? arg_a[0](...arg_a.slice(1))
+			: arg_a[1](...arg_a[0])
+	)
 }
 export { run as _ }

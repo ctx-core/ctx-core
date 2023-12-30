@@ -3,8 +3,8 @@
  * @returns {number}
  * @private
  */
-export function ms_(date = new Date()) {
-	return date.getTime()
+export function ms_(date) {
+	return (date ?? new Date).getTime()
 }
 export {
 	ms_ as milliseconds_,

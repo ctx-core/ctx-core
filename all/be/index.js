@@ -3,9 +3,10 @@ import { be_ } from '../be_/index.js'
 /**
  * @param {Ctx}ctx
  * @param {be__val__new_T}val_
+ * @param {be_config_T}[config]
  * @returns {NonNullable<unknown>}
  */
-export function be(ctx, val_) {
-	return be_(val_)(ctx)
+export function be(ctx, val_, config) {
+	return be_(val_, config)(ctx)
 }
 export { be as b, }

@@ -1,5 +1,28 @@
-//https://gist.github.com/LeverOne/1308368
 export function uuid_() {
+	return crypto.randomUUID()
+}
+export {
+	uuid_ as _uuid,
+	uuid_ as uuid,
+}
+/**
+ * @param {string}[uuid]
+ * @returns {string}
+ * @private
+ */
+export function short_uuid_(uuid) {
+	uuid = (uuid ?? crypto.randomUUID()).replaceAll('-', '')
+	let str = ''
+	for (let i = 0; i < uuid.length; i += 2)
+		str += String.fromCharCode(parseInt(uuid.slice(i, i + 2), 16))
+	return btoa(str).replace('==', '')
+}
+/**
+ * @returns {string}
+ * @see {@link https://gist.github.com/LeverOne/1308368}
+ * @private
+ */
+export function polyfill_uuid_() {
 	let a = 0, b = ''
 	for (
 		;
@@ -12,8 +35,4 @@ export function uuid_() {
 			: '-' /*in other cases (if "a" is 9,14,19,24) insert "-"*/
 	) { /* empty */ }
 	return b
-}
-export {
-	uuid_ as _uuid,
-	uuid_ as uuid,
 }

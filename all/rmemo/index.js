@@ -4,8 +4,8 @@ let cur_memo
 /** @type {Set<()=>unknown>} */
 let queue = new Set
 /**
- * @param {rmemo_def_T}memo_def
- * @param {rmemo_subscriber_T<unknown>[]}subscriber_a
+ * @param {memo_def_T}memo_def
+ * @param {memo_subscriber_T<unknown>[]}subscriber_a
  * @returns {memo_T}
  * @private
  */
@@ -80,8 +80,8 @@ export function memo_(memo_def, ...subscriber_a) {
 }
 export { memo_ as memosig_ }
 /**
- * @param {rmemo_def_T}memo_def
- * @param {rmemo_subscriber_T<unknown>[]}subscriber_a
+ * @param {memo_def_T}memo_def
+ * @param {memo_subscriber_T<unknown>[]}subscriber_a
  * @returns {sig_T}
  * @private
  */
@@ -102,7 +102,7 @@ export function lock_memosig_(memo_def, ...subscriber_a) {
 }
 /**
  * @param {unknown}init_val
- * @param {rmemo_subscriber_T[]}subscriber_a
+ * @param {memo_subscriber_T[]}subscriber_a
  * @returns {sig_T}
  * @private
  */

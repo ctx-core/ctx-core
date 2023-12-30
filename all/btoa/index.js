@@ -1,13 +1,14 @@
 /// <reference types="../btoa/index.d.ts" />
+import { process_release_name } from '../process_release_name'
 /**
  * @param {string}str
  * @returns {string}
  */
 export function btoa(str) {
 	return (
-		globalThis['window']
-			? window.btoa(str)
-			: new Buffer(str).toString('base64')
+		process_release_name
+			? new Buffer(str).toString('base64')
+			: window.btoa(str)
 	)
 }
 /**

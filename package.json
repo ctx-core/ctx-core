@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.5.0",
+	"version": "5.6.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -228,7 +228,14 @@
 			"import": {
 				"./uuid": "{ uuid_ }"
 			},
-			"limit": "77 B"
+			"limit": "39 B"
+		},
+		{
+			"name": "short uuid",
+			"import": {
+				"./uuid": "{ short_uuid_ }"
+			},
+			"limit": "116 B"
 		}
 	]
 }
