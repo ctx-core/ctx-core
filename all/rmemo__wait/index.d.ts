@@ -4,7 +4,8 @@ export declare function rmemo__wait<
 >(
 	memo:_rmemo_T,
 	condition_fn:(val:rmemo_val_T<_rmemo_T>)=>unknown,
-	timeout?:number
+	timeout?:number,
+	error?:Error
 ):Promise<rmemo_val_T<_rmemo_T>>&{
 	// prevent early usGC
 	m:memo_T<unknown>

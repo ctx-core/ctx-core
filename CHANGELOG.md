@@ -1,5 +1,15 @@
 # ctx-core
 
+## 5.7.0
+
+### Minor Changes
+
+- rmemo\_\_wait: arguments: + error?:Error
+
+### Patch Changes
+
+- promise_timeout: error argument: fix: nullish value defaults to Error(`Timeout ${ms}ms`)
+
 ## 5.6.1
 
 ### Patch Changes
