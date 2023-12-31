@@ -19,9 +19,16 @@ export {
 /**
  * @param {string}path
  * @param {number}[timeout]
- * @param {number}[period]
- * @returns {Promise<void>}
+ * @param {number|((promise:waitfor_Promise<boolean>)=>Promise<number>)}[period]
+ * @returns {Promise<boolean>}
  */
-export function file_exists__waitfor(path, timeout = 5000, period = 0) {
-	return waitfor(()=>file_exists_(path), timeout, period)
+export function file_exists__waitfor(
+	path,
+	timeout,
+	period
+) {
+	return waitfor(()=>
+		file_exists_(path),
+	timeout ?? 5000,
+	period ?? 0)
 }

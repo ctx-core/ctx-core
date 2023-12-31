@@ -5,7 +5,7 @@ import { be_ } from '../be_/index.js'
 import { memo_ } from '../rmemo/index.js'
 /**
  * @param {Be|be__val__new_T<unknown>}be_OR_val__new
- * @param {rmemo_subscriber_T[]|[...rmemo_subscriber_T[], be_config_T]}subscriber_a_THEN_config
+ * @param {memo_subscriber_T[]|[...memo_subscriber_T[], be_config_T]}subscriber_a_THEN_config
  * @returns {be_memo_pair_T}
  * @private
  */

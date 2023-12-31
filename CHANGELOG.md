@@ -1,5 +1,21 @@
 # ctx-core
 
+## 5.9.0
+
+### Minor Changes
+
+- - cancel\__period_
+- waitfor: period argument: number or async function sleep function
+- - Cancel: extends Error: used with .cancel() to interrupt async functions
+
+### Patch Changes
+
+- sleep: fix: returns Promise<number>
+- be*memo_pair*:
+  be*sig_triple*:
+
+      fix: jsdoc type
+
 ## 5.8.0
 
 ### Minor Changes
@@ -837,7 +853,7 @@
       signal_→rsig_
       rememo_T->r_rmemo_T
       rememo_def_T→rmemo_def_T
-      rememo_subscriber_T→rmemo_subscriber_T
+      rememo_subscriber_T→memo_subscriber_T
       rememo_o_T→r_rmemo_o_T
 
 ### Patch Changes

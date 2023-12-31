@@ -6,7 +6,7 @@ import { be_ } from '../be_/index.js'
 import { lock_memosig_ } from '../rmemo/index.js'
 /**
  * @param {Be<sig_T>|be__val__new_T<unknown>}be_OR_val__new
- * @param {rmemo_subscriber_T[]|[...rmemo_subscriber_T[], be_config_T]}subscriber_a_THEN_config
+ * @param {memo_subscriber_T[]|[...memo_subscriber_T[], be_config_T]}subscriber_a_THEN_config
  * @returns {be_lock_memosig_triple_T}
  * @private
  */

@@ -2,7 +2,7 @@
  * @param {(()=>Promise<unknown>)|Promise<unknown>}promise
  * @param {number}ms
  * @param {Error}[error]
- * @returns {Promise<unknown>}
+ * @returns {cancel_Promise}
  */
 export function promise_timeout(
 	promise,
@@ -16,6 +16,7 @@ export function promise_timeout(
 	})
 	let cancel_promise__resolve
 	let cancel_promise = new Promise(resolve=>cancel_promise__resolve = resolve)
+	/** @type {cancel_Promise} */
 	let ret_promise = Promise.race([
 		typeof promise === 'function' ? promise() : promise,
 		timeout,

@@ -7,7 +7,7 @@ import { memo_ } from '../rmemo/index.js'
  * @param {(val:unknown)=>unknown}condition_fn
  * @param {number}[timeout]
  * @param {Error}[error]
- * @returns {Promise<*>|Promise<unknown>}
+ * @returns {cancel_Promise&{ m:memo_T<unknown> }}
  */
 export function rmemo__wait(
 	rmemo,
@@ -24,6 +24,7 @@ export function rmemo__wait(
 		})
 		memo()
 	})
+	/** @type {cancel_Promise&{ m:memo_T<unknown> }} */
 	let promise =
 		promise_timeout(
 			_subscribe_wait,

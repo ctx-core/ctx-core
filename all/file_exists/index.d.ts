@@ -1,3 +1,4 @@
+import type { waitfor_Promise } from '../waitfor/index.js'
 export declare function file_exists_(path:string):Promise<boolean|undefined>
 export {
 	file_exists_ as path__exists_
@@ -5,5 +6,5 @@ export {
 export declare function file_exists__waitfor(
 	path:string,
 	timeout?:number,
-	period?:number
-):Promise<void>
+	period?:number|((promise:waitfor_Promise<boolean>)=>Promise<number>)
+):waitfor_Promise<boolean>

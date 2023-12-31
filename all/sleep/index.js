@@ -1,7 +1,8 @@
 /**
  * @param {number}ms
- * @returns {Promise<number|NodeJS.Timeout>}
+ * @returns {Promise<number>}
  */
 export function sleep(ms) {
-	return new Promise((resolve)=>setTimeout(resolve, ms))
+	return new Promise(resolve=>
+		setTimeout(resolve, ms))
 }
