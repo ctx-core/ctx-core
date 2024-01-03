@@ -1,5 +1,5 @@
 import type { nullish } from '../nullish/index.js'
-import type { TupleExclude } from '../tup/index.js'
+import type { TupleExclude } from '../tuple/index.js'
 export function nullish__none_<T extends unknown[], U>(
 	$:T,
 	_:(...$:TupleExclude<T, nullish>)=>U,

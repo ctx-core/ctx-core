@@ -1,5 +1,6 @@
-export * from '../all/Timeout/index.js'
+export * from '../all/timeout/index.js'
 export * from '../all/batch_queue/index.js'
+export * from '../all/cancel/index.js'
 export * from '../all/promise/index.js'
 export * from '../all/promise_o/index.js'
 export * from '../all/queue/index.js'

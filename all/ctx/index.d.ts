@@ -1,5 +1,5 @@
 import type { Ctx } from '../be_/index.js'
-import { TupleToUnion } from '../tup/index.js'
+import type { TupleToUnion } from '../tuple/index.js'
 export declare function ctx__new():Ctx<''>
 export { ctx__new as ctx_ }
 export declare function ns_ctx__new<ns0_T extends string|Ctx, ns_a_T extends (string|Ctx)[]>(

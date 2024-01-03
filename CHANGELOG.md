@@ -1,5 +1,23 @@
 # ctx-core
 
+## 5.13.0
+
+### Minor Changes
+
+- minor: rmemo:
+
+      Cancel
+      nullish
+      nullish__none_
+      run
+      sleep
+      Timeout
+      tup
+
+  size-limit:
+
+      memo_ sig_ be_ ctx_: - 1 B
+
 ## 5.12.0
 
 ### Minor Changes
@@ -24,6 +42,7 @@
       	batch_queue_
       	promise_resolve_T
       	promise_reject_T
+      	Cancel
       	cancel_Promise
       	promise_o_
       	queue_

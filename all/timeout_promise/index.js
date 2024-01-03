@@ -1,4 +1,4 @@
-import { Timeout } from '../Timeout/index.js'
+import { Timeout } from '../timeout/index.js'
 /**
  * @param {(()=>Promise<unknown>)|Promise<unknown>}promise
  * @param {number}ms

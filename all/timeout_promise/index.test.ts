@@ -2,7 +2,7 @@ import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { run } from '../run/index.js'
 import { sleep } from '../sleep/index.js'
-import { Timeout } from '../Timeout/index.js'
+import { Timeout } from '../timeout/index.js'
 import { timeout_promise } from './index.js'
 test('timeout_promise|success', async ()=>{
 	let count = 0
