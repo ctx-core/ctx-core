@@ -118,7 +118,7 @@ export function sig_(init_val, ...subscriber_a) {
  * Call the rmemo & enable updates from it's parents.
  * @param {rmemo_T}rmemo
  */
-export function on(rmemo) {
+export function rmemo__on(rmemo) {
 	if (rmemo.r?.d) {
 		rmemo.r.deref = rmemo.r.d
 	}
@@ -128,7 +128,7 @@ export function on(rmemo) {
  * Disable updates from the rmemo's parents.
  * @param {rmemo_T}rmemo
  */
-export function off(rmemo) {
+export function rmemo__off(rmemo) {
 	if (rmemo.r) {
 		rmemo.r.d ||= rmemo.r.deref
 		rmemo.r.deref = ()=>{
@@ -149,7 +149,7 @@ export function rmemo__subscribe(memo, listener) {
 	memo.b ??= []
 	memo.b.push(listener_memo)
 	return ()=>{
-		off(listener_memo)
+		rmemo__off(listener_memo)
 		memo.b.splice(memo.b.indexOf(listener_memo), 1)
 	}
 }
