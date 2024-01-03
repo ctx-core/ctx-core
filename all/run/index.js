@@ -10,4 +10,3 @@ export function run(...arg_a) {
 			: arg_a[1](...arg_a[0])
 	)
 }
-export { run as _ }

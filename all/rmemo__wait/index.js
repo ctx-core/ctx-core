@@ -1,6 +1,6 @@
 /// <reference types="../rmemo/index.d.ts" />
 /// <reference types="./index.d.ts" />
-import { promise_timeout } from '../promise_timeout/index.js'
+import { timeout_promise } from '../timeout_promise/index.js'
 import { memo_ } from '../rmemo/index.js'
 /**
  * @param {rmemo_T}rmemo
@@ -26,7 +26,7 @@ export function rmemo__wait(
 	})
 	/** @type {cancel_Promise&{ m:memo_T<unknown> }} */
 	let promise =
-		promise_timeout(
+		timeout_promise(
 			_subscribe_wait,
 			timeout ?? Infinity,
 			error)

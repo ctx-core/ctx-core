@@ -1,5 +1,8 @@
 import { fibonacci_number_ } from '../fibonacci_number/index.js'
 import { sleep } from '../sleep/index.js'
+// TODO: Handle generic conditions.
+// TODO: Then add to ./promise.
+// TODO: Handle Response specific logic either with a function overload or with a separate function.
 /**
  * @param {()=>Promise<Response>}fn
  * @param {number}[delay]
@@ -8,7 +11,7 @@ import { sleep } from '../sleep/index.js'
 export async function waitfor_fibonacci_backoff(fn, delay = 500) {
 	let response
 	let delay_n = 1
-	while (true) {
+	for (;;) {
 		response = await fn()
 		if (response.status === 429) {
 			const fibonacci_number = fibonacci_number_(delay_n)

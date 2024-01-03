@@ -7,7 +7,7 @@
  * @returns {(fn:call_fn_T, self:unknown, ...in_arg_a:unknown[])=>ReturnType<call_fn_T>}
  */
 export function bind_call_(fn, self, ...in_arg_a) {
-	return (...fn_arg_a)=>fn.call(self, ...[
+	return (...fn_arg_a)=>fn.apply(self, [
 		...in_arg_a,
 		...fn_arg_a
 	])

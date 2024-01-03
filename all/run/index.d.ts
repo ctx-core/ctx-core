@@ -6,4 +6,3 @@ export declare function run<O, A extends unknown[] = unknown[]>(
 	arg_a:A,
 	fn:(...arg_a:A)=>O
 ):O
-export { run as _ }

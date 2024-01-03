@@ -10,7 +10,7 @@ export async function nullish__guard__async(
 		const rv = await fn()
 		if (rv != null) return rv
 	}
-	throw new Error(`${label} cannot be nullish`)
+	throw Error(`${label} cannot be nullish`)
 }
 export {
 	nullish__guard__async as nullish_async_guard,

@@ -18,5 +18,5 @@ export { call_ as _call, }
 export declare type call_fn_T<
 	A extends readonly unknown[] = readonly unknown[],
 	O = unknown
-> = (...args:A)=>O
+> = (...arg_a:A)=>O
 export declare type call_fn_type = call_fn_T

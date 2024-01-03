@@ -2,10 +2,11 @@ import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { run } from '../run/index.js'
 import { sleep } from '../sleep/index.js'
-import { promise_timeout } from './index.js'
-test('promise_timeout|success', async ()=>{
+import { Timeout } from '../Timeout/index.js'
+import { timeout_promise } from './index.js'
+test('timeout_promise|success', async ()=>{
 	let count = 0
-	const promise = promise_timeout(run(async ()=>{
+	const promise = timeout_promise(run(async ()=>{
 		count++
 		await sleep(10)
 		return true
@@ -14,11 +15,11 @@ test('promise_timeout|success', async ()=>{
 	equal(await promise, true)
 	equal(count, 1)
 })
-test('promise_timeout|timeout', async ()=>{
+test('timeout_promise|timeout', async ()=>{
 	let count = 0
 	let err:Error|undefined = undefined
 	try {
-		await promise_timeout(run(async ()=>{
+		await timeout_promise(run(async ()=>{
 			count++
 			await sleep(10)
 			return false
@@ -27,10 +28,11 @@ test('promise_timeout|timeout', async ()=>{
 		err = _err as Error
 	}
 	equal(count, 1)
+	equal(err instanceof Timeout, true)
 	equal(err?.message, 'Timeout 1ms')
 })
-test('promise_timeout|cancel|arg', async ()=>{
-	const promise = promise_timeout(
+test('timeout_promise|cancel|arg', async ()=>{
+	const promise = timeout_promise(
 		new Promise<number>(()=>{}),
 		1000)
 	promise.cancel(5)

@@ -1,12 +1,32 @@
-import { promise_timeout } from '../promise_timeout/index.js'
+import { Timeout } from '../Timeout/index.js'
 /**
+ * @param {(()=>Promise<unknown>)|Promise<unknown>}promise
  * @param {number}ms
- * @param {Promise<unknown>}promise
- * @returns {Promise<unknown>}
- * @see {@link https://italonascimento.github.io/applying-a-timeout-to-your-promises/}
- * @see {@link http://disq.us/p/1k8w63m}
+ * @param {Error}[error]
+ * @returns {cancel_Promise}
  */
-export async function timeout_promise(ms, promise) {
-	return await promise_timeout(promise, ms)
+export function timeout_promise(
+	promise,
+	ms,
+	error
+) {
+	error ??= new Timeout(ms)
+	let id
+	let timeout = new Promise((_resolve, reject)=>{
+		id = setTimeout(()=>reject(error), ms)
+	})
+	let cancel_promise__resolve
+	let cancel_promise = new Promise(resolve=>cancel_promise__resolve = resolve)
+	/** @type {cancel_Promise} */
+	let ret_promise = Promise.race([
+		typeof promise === 'function' ? promise() : promise,
+		timeout,
+		cancel_promise,
+	]).then(result=>{
+		clearTimeout(id)
+		return result
+	})
+	ret_promise.cancel = cancel_promise__resolve
+	return ret_promise
 }
-export { timeout_promise as _timeout_promise }
+export { timeout_promise as promise_timeout }

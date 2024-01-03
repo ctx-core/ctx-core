@@ -1,5 +1,5 @@
 import { Cancel } from '../cancel/index.js'
-import { promise_timeout } from '../promise_timeout/index.js'
+import { timeout_promise } from '../timeout_promise/index.js'
 import { sleep } from '../sleep/index.js'
 /**
  * @param {()=>Promise<unknown>}fn
@@ -15,7 +15,7 @@ export function waitfor(
 	let rv
 	let cancel_arg_a
 	let promise = new Promise((resolve, reject)=>
-		promise_timeout(async ()=>{
+		timeout_promise(async ()=>{
 			for (; !cancel_arg_a;) {
 				let _rv = await fn()
 				rv = cancel_arg_a?.length ? cancel_arg_a[0] : _rv
@@ -39,6 +39,7 @@ export function waitfor(
 	}
 	return promise
 }
+export { waitfor as waitfor_val, waitfor as waitfor_val_ }
 /**
  * @param {number}ms
  * @param {()=>boolean}should_cancel_

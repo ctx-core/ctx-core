@@ -1,0 +1,12 @@
+import { run } from '../all/run/index.js'
+export { run as _ }
+export * from '../all/apply/index.js'
+export * from '../all/bind_apply/index.js'
+export * from '../all/bind_call/index.js'
+export * from '../all/bind_map_apply/index.js'
+export * from '../all/bind_map_call/index.js'
+export * from '../all/call/index.js'
+export * from '../all/call_fn_a/index.js'
+export * from '../all/call_or_fn/index.js'
+export * from '../all/tap/index.js'
+export * from '../all/run/index.js'

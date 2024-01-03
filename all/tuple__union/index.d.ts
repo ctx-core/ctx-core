@@ -1,1 +1,1 @@
-export type tuple__union_T<T extends any[]> = T[number]
+export type tuple__union_T<T extends unknown[]> = T[number]

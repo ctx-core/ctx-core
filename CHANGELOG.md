@@ -1,5 +1,61 @@
 # ctx-core
 
+## 5.12.0
+
+### Minor Changes
+
+- minor:
+
+      Timeout: converted to a class that extends Error
+      timeout_promise: aliased by promise_timeout
+      + ./falsy:
+      	falsy
+      	falsy__none_
+      	falsy_async_guard
+      	falsy_guard
+      + ./nullish:
+      	null_
+      	nullish
+      	nullish__guard
+      	nullish__guard__async
+      	nullish__none_
+      	nullish__not_all_
+      + ./promise:
+      	batch_queue_
+      	promise_resolve_T
+      	promise_reject_T
+      	cancel_Promise
+      	promise_o_
+      	queue_
+      	sleep
+      	throttle
+      	tick
+      	Timeout
+      	timeout_promise
+      + ./run:
+      	apply_
+      	bind_apply_
+      	bind_call_
+      	bind_map_apply_
+      	bind_map_call_
+      	call
+      	call_
+      	call_fn_a
+      	call_or_fn_
+      	tap
+      	tap_
+      	run
+      + ./tuple
+      	tup
+      	tuple__o_T
+      	tuple_a_o_T
+      	tuple__union_T
+      	zip__tuple_a_T
+
+### Patch Changes
+
+- bind*apply*: fix: implementation
+
 ## 5.11.0
 
 ### Minor Changes
