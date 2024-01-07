@@ -22,9 +22,9 @@ import {
 	globalThis__be_,
 	ondelete_be_
 } from '../be_/index.js'
-import { ctx_, ctx__new, ns_ctx__new } from '../ctx/index.js'
+import { ctx__new, ns_ctx__new } from '../ctx/index.js'
 import { tempfile_path_ } from '../tempfile_path/index.js'
-import { Equal, Expect } from '../test/index.js'
+import type { Equal, Expect } from '../test/index.js'
 test.after(()=>{
 	delete (globalThis as { root_be?:Be<unknown> }).root_be
 })
@@ -165,7 +165,7 @@ test('be_|Ctx generic type', ()=>{
 	{ id: 'val_', ns: 'test_ns' })
 	val_(valid_ctx)
 	// @ts-expect-error TS2322
-	throws(()=>val_(ctx_()))
+	throws(()=>val_(ctx__new()))
 })
 test('be_|Ctx|ns', ()=>{
 	const ctx0 = ctx__new()
@@ -425,6 +425,12 @@ test('ondelete_be_', ()=>{
 	ctx__delete(ctx, be)
 	equal(ondelete0_arg_aa, [[1, ctx, be]])
 	equal(ondelete1_arg_aa, [[1, ctx, be]])
+	equal(be(ctx), 1)
+	equal(ondelete0_arg_aa, [[1, ctx, be]])
+	equal(ondelete1_arg_aa, [[1, ctx, be]])
+	ctx__delete(ctx, be)
+	equal(ondelete0_arg_aa, [[1, ctx, be], [1, ctx, be]])
+	equal(ondelete1_arg_aa, [[1, ctx, be], [1, ctx, be]])
 })
 test('ctx__clear', ()=>{
 	const ondelete0_arg_aa:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>][] = []

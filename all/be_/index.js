@@ -132,6 +132,12 @@ export function be_map__find(be_or_id, ctx, ns = be_or_id.ns ?? '') {
 export function be__val_(be_or_id, ctx, ns) {
 	return be_map__find(be_or_id, ctx, ns)?.get?.(be_or_id.id ?? be_or_id)?.[0]
 }
+/**
+ * @param {be__val__new_T}val__new
+ * @param {be_config_T}config
+ * @returns {Be}
+ * @private
+ */
 export function ondelete_be_(val__new, config) {
 	let be = be_(val__new, config)
 	let ondelete_cb_a = []
@@ -140,6 +146,7 @@ export function ondelete_be_(val__new, config) {
 		for (let ondelete_cb of ondelete_cb_a) {
 			ondelete_cb(...state)
 		}
+		ondelete_cb_a = []
 	}
 	return be
 }
