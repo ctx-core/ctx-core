@@ -171,6 +171,14 @@ test('sig_|undefined', ()=>{
 	equal(sig(), undefined)
 	equal(memo(), undefined)
 })
+test('rmemo|subscriber|has strong refernce to the return value', ()=>{
+	const num$ = sig_<number|undefined>(
+		undefined,
+		()=>99)
+	equal(num$.b, undefined)
+	equal(num$(), undefined)
+	equal(num$.b![0][0], 99)
+})
 test('sig_|subscriber|notified if sig is set before read', ()=>{
 	let count = 0
 	let subscriber__num:number|undefined = undefined

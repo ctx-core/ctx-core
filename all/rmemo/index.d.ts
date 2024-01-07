@@ -25,6 +25,7 @@ export type memo_T<val_T> = (()=>val_T)&{
 	readonly val:val_T
 	r?:WeakRef<()=>val_T>
 	memor:WeakRef<()=>val_T>[]
+	b?:[unknown, memo_T<unknown>][]
 }
 export interface circular_memo_T extends memo_T<circular_memo_T> {}
 export type sig_T<val_T> = (()=>val_T)&{
@@ -32,6 +33,7 @@ export type sig_T<val_T> = (()=>val_T)&{
 	readonly val:val_T
 	r?:WeakRef<()=>val_T>
 	memor:WeakRef<()=>val_T>[]
+	b?:[unknown, memo_T<unknown>][]
 }
 export interface circular_sig_T extends sig_T<circular_sig_T> {}
 export type lock_memosig_T<val_T> = sig_T<val_T>&{

@@ -40,12 +40,8 @@ export function memo_(memo_def, ...subscriber_a) {
 			}
 			memo.val = val
 			if (!memo.b) {
-				// add reference to subscribers to prevent GC
-				memo.b = subscriber_a.map(subscriber=>
-					memo_(()=>subscriber(memo)))
-				for (let s of memo.b) {
-					s()
-				}
+				memo.b = subscriber_a.map(subscriber=>memo_(()=>subscriber(memo)))
+				memo.b = memo.b.map(subscriber_memo=>[subscriber_memo(), subscriber_memo])
 			}
 			if (run_queue) {
 				cur_refresh_loop:for (let cur_refresh of queue) {

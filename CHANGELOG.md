@@ -1,5 +1,23 @@
 # ctx-core
 
+## 5.15.0
+
+### Minor Changes
+
+- minor:
+
+      subscribers: + strong reference to return value: prevent GC
+      memo_T:
+      sig_T:
+      	+ b?:[unknown, memo_T<unknown>][]
+
+  size-limit:
+
+      memo_: - 1 B
+      memo_ sig_: + 1 B
+      memo_ sig_ be_ ctx_: + 2 B
+      memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: + 4 B
+
 ## 5.14.0
 
 ### Minor Changes
