@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.15.0",
+	"version": "5.16.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -210,28 +210,28 @@
 			"import": {
 				"./rmemo": "{ memo_ }"
 			},
-			"limit": "335 B"
+			"limit": "355 B"
 		},
 		{
 			"name": "memo_ sig_",
 			"import": {
 				"./rmemo": "{ sig_, memo_ }"
 			},
-			"limit": "353 B"
+			"limit": "377 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_",
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_ }"
 			},
-			"limit": "460 B"
+			"limit": "477 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_",
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_, be_memo_pair_, be_sig_triple_ }"
 			},
-			"limit": "553 B"
+			"limit": "580 B"
 		},
 		{
 			"name": "uuid",

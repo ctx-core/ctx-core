@@ -6,33 +6,34 @@ import { be_ } from '../be_/index.js'
 import { lock_memosig_ } from '../rmemo/index.js'
 /**
  * @param {Be<sig_T>|be__val__new_T<unknown>}be_OR_val__new
- * @param {memo_subscriber_T[]|[...memo_subscriber_T[], be_config_T]}subscriber_a_THEN_config
+ * @param {be_config_T}[config]
  * @returns {be_lock_memosig_triple_T}
  * @private
  */
 export function be_lock_memosig_triple_(
 	be_OR_val__new,
-	...subscriber_a_THEN_config
+	config
 ) {
-	let config =
-		typeof subscriber_a_THEN_config[subscriber_a_THEN_config.length - 1] === 'object'
-			? subscriber_a_THEN_config.pop()
-			: 0
+	let add_def_a = []
 	/** @type {Be<sig_T>} */
 	let be =
 		be_OR_val__new.is_be
 			? be_OR_val__new
 			: be_(ctx=>
-				lock_memosig_(
-					memo=>be_OR_val__new(ctx, memo),
-					...subscriber_a_THEN_config.map(subscriber=>
-						sig=>subscriber(ctx, sig))),
+				add_def_a.reduce(
+					(memosig, add_def)=>memosig.add((...arg_a)=>add_def(ctx, ...arg_a)),
+					lock_memosig_(memo=>be_OR_val__new(ctx, memo))),
 			config)
-	return [
+	let be_lock_memosig_triple = [
 		be,
 		ctx=>be(ctx)(),
 		(ctx, val)=>{
 			be(ctx)._ = val
 		},
 	]
+	be_lock_memosig_triple.add = add_def=>{
+		add_def_a.push(add_def)
+		return be_lock_memosig_triple
+	}
+	return be_lock_memosig_triple
 }

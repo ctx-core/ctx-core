@@ -4,7 +4,7 @@ import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { lock_memosig_, memo_, type memo_T, memosig_, rmemo__off, rmemo__on, rmemo__subscribe, sig_ } from './index.js'
+import { lock_memosig_, memo_, type memo_T, memosig_, rmemo__off, rmemo__on, rmemo__add, sig_ } from './index.js'
 test('memo_|static value', ()=>{
 	let count = 0
 	const memo = memo_(()=>{
@@ -171,23 +171,29 @@ test('sig_|undefined', ()=>{
 	equal(sig(), undefined)
 	equal(memo(), undefined)
 })
-test('rmemo|subscriber|has strong refernce to the return value', ()=>{
+test('rmemo|subscriber|has strong reference to the return value', ()=>{
+	const add_arg_aa:[memo_T<number|undefined>, number|undefined][] = []
 	const num$ = sig_<number|undefined>(
-		undefined,
-		()=>99)
-	equal(num$.b, undefined)
+		undefined
+	).add<number>((sig, old_val)=>{
+		add_arg_aa.push([sig, old_val])
+		return 99
+	})
+	equal(num$.a, undefined)
+	equal(add_arg_aa, [])
 	equal(num$(), undefined)
-	equal(num$.b![0][0], 99)
+	equal(num$.a![0][1], 99)
+	equal(add_arg_aa, [[num$, undefined]])
 })
 test('sig_|subscriber|notified if sig is set before read', ()=>{
 	let count = 0
 	let subscriber__num:number|undefined = undefined
 	const num$ = sig_<number|undefined>(
-		undefined,
-		num$=>{
-			count++
-			subscriber__num = num$()
-		})
+		undefined
+	).add(num$=>{
+		count++
+		subscriber__num = num$()
+	})
 	equal(count, 0)
 	equal(subscriber__num, undefined)
 	num$._ = 1
@@ -201,11 +207,11 @@ test('sig_|subscriber|sets sig', ()=>{
 	const base$ = sig_(0)
 	let count = 0
 	const num$ = sig_(
-		0,
-		async num$=>{
-			count++
-			num$._ = base$() + 1
-		})
+		0
+	).add(async num$=>{
+		count++
+		num$._ = base$() + 1
+	})
 	equal(count, 0)
 	equal(num$(), 1)
 	equal(count, 1)
@@ -220,13 +226,13 @@ test('sig_|async subsubscriber|case 1', async ()=>{
 	const id$ = sig_('id-0')
 	let count = 0
 	const user$ = sig_<{ id:string }|null>(
-		null,
-		async (_user$)=>{
-			count++
-			id$()
-			const user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
-			_user$._ = user
-		})
+		null
+	).add(async (_user$)=>{
+		count++
+		id$()
+		const user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
+		_user$._ = user
+	})
 	equal(count, 0)
 	equal(user$(), null)
 	equal(count, 1)
@@ -247,14 +253,15 @@ test('sig_|async subsubscriber|case 2', async ()=>{
 	const b$ = sig_(2)
 	const sleepCycles = 5
 	const taskArgumentsCalls:number[][] = []
-	const sum$ = sig_<null|number>(null,
-		async sum$=>{
-			taskArgumentsCalls.push([a$(), b$()])
-			for (let i = 0; i < sleepCycles; i++) {
-				await Promise.resolve()
-			}
-			sum$._ = a$() + b$()
-		})
+	const sum$ = sig_<null|number>(
+		null
+	).add(async sum$=>{
+		taskArgumentsCalls.push([a$(), b$()])
+		for (let i = 0; i < sleepCycles; i++) {
+			await Promise.resolve()
+		}
+		sum$._ = a$() + b$()
+	})
 	equal(sum$(), null)
 	deepStrictEqual(taskArgumentsCalls, [[1, 2]])
 	a$._ = 10
@@ -303,10 +310,10 @@ test('prevents diamond dependency problem 1', ()=>{
 	const b$ = memo_(()=>a$().replace('a', 'b'))
 	const c$ = memo_(()=>a$().replace('a', 'c'))
 	const d$ = memo_(()=>a$().replace('a', 'd'))
-	memo_(()=>`${b$()}${c$()}${d$()}`,
-		combined$=>
-			values.push(combined$())
-	)()
+	memo_(
+		()=>`${b$()}${c$()}${d$()}`)
+		.add(combined$=>values.push(combined$()))
+		()
 	deepStrictEqual(values, ['b0c0d0'])
 	store$._ = 1
 	store$._ = 2
@@ -321,9 +328,9 @@ test('prevents diamond dependency problem 2', ()=>{
 	const d$ = memo_(()=>c$().replace('c', 'd'))
 	const e$ = memo_(()=>d$().replace('d', 'e'))
 	memo_<string>(
-		()=>[a$(), e$()].join(''),
-		$=>values.push($())
-	)()
+		()=>[a$(), e$()].join(''))
+		.add($=>values.push($()))
+		()
 	deepStrictEqual(values, ['a0e0'])
 	store$._ = 1
 	deepStrictEqual(values, ['a0e0', 'a1e1'])
@@ -336,9 +343,9 @@ test('prevents diamond dependency problem 3', ()=>{
 	const c$ = memo_(()=>b$().replace('b', 'c'))
 	const d$ = memo_(()=>c$().replace('c', 'd'))
 	memo_<string>(
-		()=>`${a$()}${b$()}${c$()}${d$()}`,
-		combined$=>values.push(combined$())
-	)()
+		()=>`${a$()}${b$()}${c$()}${d$()}`)
+		.add(combined$=>values.push(combined$()))
+		()
 	deepStrictEqual(values, ['a0b0c0d0'])
 	store$._ = 1
 	deepStrictEqual(values, ['a0b0c0d0', 'a1b1c1d1'])
@@ -355,13 +362,13 @@ test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
 	const f$ = memo_(()=>`f${e$()}`)
 	const g$ = memo_(()=>`g${f$()}`)
 	memo_(
-		()=>e$(),
-		combined1$=>values.push(combined1$())
-	)()
+		()=>e$())
+		.add(combined1$=>values.push(combined1$()))
+		()
 	memo_(
-		()=>[e$(), g$()].join(''),
-		combined2$=>values.push(combined2$())
-	)()
+		()=>[e$(), g$()].join(''))
+		.add(combined2$=>values.push(combined2$()))
+		()
 	deepStrictEqual(values, ['eca0b0da0', 'eca0b0da0gfeca0b0da0'])
 	store1$._ = 1
 	store2$._ = 2
@@ -408,9 +415,9 @@ test('prevents diamond dependency problem 6', ()=>{
 	const b$ = memo_(()=>`b${store2$()}`)
 	const c$ = memo_(()=>b$().replace('b', 'c'))
 	memo_(
-		()=>`${a$()}${c$()}`,
-		combined$=>values.push(combined$())
-	)()
+		()=>`${a$()}${c$()}`)
+		.add(combined$=>values.push(combined$()))
+		()
 	deepStrictEqual(values, ['a0c0'])
 	store1$._ = 1
 	deepStrictEqual(values, ['a0c0', 'a1c0'])
@@ -421,9 +428,9 @@ test('prevents dependency listeners from being out of order', ()=>{
 		return `${base$()}a`
 	})
 	const values:string[] = []
-	const b$ = memo_(()=>{
-		return `${a$()}b`
-	}, b$=>values.push(b$()))
+	const b$ = memo_(
+		()=>`${a$()}b`)
+		.add(b$=>values.push(b$()))
 	equal(b$(), '0ab')
 	deepStrictEqual(values, ['0ab'])
 	equal(a$(), '0a')
@@ -462,14 +469,17 @@ test('.rmemo__on + .rmemo__off', ()=>{
 	equal(memo$(), 14)
 	equal(count, 5)
 })
-test('rmemo__subscribe', ()=>{
+test('rmemo__add', ()=>{
 	const base$ = sig_(1)
 	let count = 0
 	const subscriber_base_a:number[] = []
-	const off = rmemo__subscribe(base$, ()=>{
+	const off = rmemo__add(base$, ()=>{
 		count++
 		subscriber_base_a.push(base$())
 	})
+	equal(subscriber_base_a, [])
+	equal(count, 0)
+	base$()
 	equal(subscriber_base_a, [1])
 	equal(count, 1)
 	base$._ = 2

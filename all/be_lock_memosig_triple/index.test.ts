@@ -67,11 +67,11 @@ test('be_lock_memosig_triple_|+id|+ns', ()=>{
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			return base_(ctx) + 1
 		},
-		(ctx, foobar$)=>{
-			subscriber_count++
-			subscriber_dep__set(ctx, subscriber_count + foobar$())
-		},
-		{ id: 'foobar', ns: 'test_ns' })
+		{ id: 'foobar', ns: 'test_ns' }
+	).add((ctx, foobar$)=>{
+		subscriber_count++
+		subscriber_dep__set(ctx, subscriber_count + foobar$())
+	})
 	equal(subscriber_count, 0)
 	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 2)
 	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 2)
@@ -89,13 +89,13 @@ test('be_lock_memosig_triple_|+id|+ns', ()=>{
 	equal(subscriber_count, 2)
 	equal(subscriber_dep_(ctx), 7)
 	base__set(ctx, 2)
-	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 5)
-	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 5)
-	equal(foobar$_(ctx)._, 5)
-	equal(foobar_(ctx), 5)
-	equal(subscriber_count, 2)
-	equal((ctx.s['test_ns'].get('foobar')![0] as sig_T<number>)._, 5)
-	equal(subscriber_dep_(ctx), 7)
+	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 3)
+	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 3)
+	equal(foobar$_(ctx)._, 3)
+	equal(foobar_(ctx), 3)
+	equal(subscriber_count, 3)
+	equal((ctx.s['test_ns'].get('foobar')![0] as sig_T<number>)._, 3)
+	equal(subscriber_dep_(ctx), 6)
 })
 test('be_lock_memosig_triple_|+be', ()=>{
 	const ctx = ns_ctx__new('test_ns')
@@ -116,11 +116,12 @@ test('be_lock_memosig_triple_|+be', ()=>{
 			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const foobar$ =
-				memosig_(()=>base_(ctx) + 1,
-					foobar$=>{
-						foobar$()
-						subscriber_count++
-					}) as custom_sig_T
+				memosig_(
+					()=>base_(ctx) + 1
+				).add(foobar$=>{
+					foobar$()
+					subscriber_count++
+				}) as custom_sig_T
 			foobar$.custom = 'custom-val'
 			return foobar$
 		}, { id: 'foobar', ns: 'test_ns' }))

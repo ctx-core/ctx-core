@@ -43,11 +43,11 @@ test('be_sig_triple_|+id|+ns', ()=>{
 			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			return 1
-		},
-		(ctx, foobar$)=>{
-			subscriber_count++
-			subscriber_dep__set(ctx, subscriber_count + foobar$())
-		}, { id: 'foobar', ns: 'test_ns' })
+		}, { id: 'foobar', ns: 'test_ns' }
+	).add((ctx, foobar$)=>{
+		subscriber_count++
+		subscriber_dep__set(ctx, subscriber_count + foobar$())
+	})
 	equal(subscriber_count, 0)
 	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 1)
 	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 1)
@@ -78,7 +78,9 @@ test('be_sig_triple_|+be', ()=>{
 			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const foobar$ =
-				sig_(1, ()=>subscriber_count++) as custom_sig_T
+				sig_(
+					1
+				).add(()=>subscriber_count++) as custom_sig_T
 			foobar$.custom = 'custom-val'
 			return foobar$ as custom_sig_T
 		}, { id: 'foobar', ns: 'test_ns' }))

@@ -13,9 +13,7 @@ export declare function be_memo_pair_<
 	ctx_T extends Ctx = Ctx_wide_T<ns_T>
 >(
 	rmemo__new:(ctx:ctx_T, memo:_memo_T&{ _:val_T })=>val_T,
-	...subscriber_a_THEN_config:
-		|[...((ctx:ctx_T, memosig:sig_T<val_T>)=>unknown)[]]
-		|[...((ctx:ctx_T, memosig:sig_T<val_T>)=>unknown)[], config:be_config_T]
+	config?:be_config_T
 ):be_memo_pair_T<val_T, ns_T, _memo_T, ctx_T>
 export type be_memo_pair_T<
 	val_T,
@@ -25,4 +23,8 @@ export type be_memo_pair_T<
 > = [
 	ctx__be_T<ctx_T, _memo_T, ns_T>,
 	ctx__get_T<ctx_T, val_T>,
-]
+]&{
+	add<add_val_T>(
+		add_def:(ctx:ctx_T, sig:sig_T<val_T>, prev_val:add_val_T|undefined)=>add_val_T
+	):be_memo_pair_T<val_T, ns_T, _memo_T, ctx_T>
+}

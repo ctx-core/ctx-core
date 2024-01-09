@@ -5,11 +5,11 @@ let cur_memo
 let queue = new Set
 /**
  * @param {memo_def_T}memo_def
- * @param {memo_subscriber_T<unknown>[]}subscriber_a
+ * @param {rmemo_add_T<unknown>[]}add_def_a
  * @returns {memo_T}
  * @private
  */
-export function memo_(memo_def, ...subscriber_a) {
+export function memo_(memo_def, ...add_def_a) {
 	let memo = ()=>{
 		if (!('val' in memo)) {
 			memo.f()
@@ -17,9 +17,9 @@ export function memo_(memo_def, ...subscriber_a) {
 		if (cur_memo) {
 			if (!memo.memor.includes(cur_memo.r ||= new WeakRef(cur_memo.f))) memo.memor.push(cur_memo.r)
 			if (cur_memo.f.l < memo.f.l + 1) cur_memo.f.l = memo.f.l + 1
-			// conditional in r calls this r_memo
+			// memo is called by cur_memo's conditional execution...next change to memo will notify cur_memo
 			cur_memo.f.s.push(memo)
-			// prevent this rmemo from GC while cur_memo is still active
+			// prevent memo from GC while cur_memo still has a strong reference
 			if (!cur_memo.f.S.includes(memo)) cur_memo.f.S.push(memo)
 		}
 		return memo.val
@@ -27,46 +27,52 @@ export function memo_(memo_def, ...subscriber_a) {
 	Object.defineProperty(memo, '_', {
 		get: memo,
 		set: val=>{
-			let run_queue
 			if (memo.val !== val) {
-				run_queue = !queue.size
 				memo.memor = memo.memor.filter(r=>{
 					r = r.deref()
-					if (r && r.s.includes(memo)) { // if conditional r refresh calls this r_memo, add to queue
+					if (r && r.s.includes(memo)) { // if added by cur_memo.f.s.push(memo), add to queue
 						queue.add(r)
 					}
 					return r
 				})
 			}
 			memo.val = val
-			if (!memo.b) {
-				memo.b = subscriber_a.map(subscriber=>memo_(()=>subscriber(memo)))
-				memo.b = memo.b.map(subscriber_memo=>[subscriber_memo(), subscriber_memo])
+			if (!memo.a) {
+				memo.a = []
+				add_def_a.map(memo.add)
 			}
-			if (run_queue) {
-				cur_refresh_loop:for (let cur_refresh of queue) {
-					queue.delete(cur_refresh)
-					for (let queue_refresh of queue) {
-						if (cur_refresh.l > queue_refresh.l) {
-							queue.add(cur_refresh)
-							continue cur_refresh_loop
-						}
+			cur_refresh_loop:for (let cur_refresh of queue) {
+				queue.delete(cur_refresh)
+				for (let queue_refresh of queue) {
+					if (cur_refresh.l > queue_refresh.l) {
+						queue.add(cur_refresh)
+						continue cur_refresh_loop
 					}
-					cur_refresh()
 				}
+				cur_refresh()
 			}
 		},
 	})
+	memo.add = add_def=>{
+		if (memo.a) {
+			let pair = [memo_(()=>pair[1] = add_def(memo, pair[1]))]
+			memo.a.push(pair)
+			pair[0]()
+		} else {
+			add_def_a.push(add_def)
+		}
+		return memo
+	}
 	memo.f = ()=>{
 		let prev_memo = cur_memo
 		cur_memo = memo
-		memo.f.s = []
+		memo.f.s = [] // reset references in memo_def conditional execution path...see cur_memo.f.s.push(memo)
 		try {
 			memo._ = memo_def(memo)
 		} catch (err) {
 			console.error(err)
 		}
-		cur_memo = prev_memo // finally is not necessary...catch does not throw
+		cur_memo = prev_memo // catch does not throw
 	}
 	memo.f.l = 0
 	memo.f.s = []
@@ -77,7 +83,7 @@ export function memo_(memo_def, ...subscriber_a) {
 export { memo_ as memosig_ }
 /**
  * @param {memo_def_T}memo_def
- * @param {memo_subscriber_T<unknown>[]}subscriber_a
+ * @param {rmemo_add_T<unknown>[]}subscriber_a
  * @returns {sig_T}
  * @private
  */
@@ -98,17 +104,16 @@ export function lock_memosig_(memo_def, ...subscriber_a) {
 }
 /**
  * @param {unknown}init_val
- * @param {memo_subscriber_T[]}subscriber_a
+ * @param {rmemo_add_T[]}add_a
  * @returns {sig_T}
  * @private
  */
-export function sig_(init_val, ...subscriber_a) {
-	return memo_(sig=>{
-		return 'val' in sig
+export function sig_(init_val, ...add_a) {
+	return memo_(sig=>
+		'val' in sig
 			? sig.val
-			: init_val
-	},
-	...subscriber_a)
+			: init_val,
+	...add_a)
 }
 /**
  * Call the rmemo & enable updates from it's parents.
@@ -132,20 +137,21 @@ export function rmemo__off(rmemo) {
 	}
 }
 /**
- * Bind reactive listener onto the given memo to prevent GC.
- * The listener can autosubscribe to any rmemo.
- * Returns an "off" function which deactivates the reactive listener & removes the GC binding from the given memo.
+ * Bind reactive add_def onto the given memo to prevent GC.
+ * The add_def can autosubscribe to any rmemo.
+ * Returns an "off" function which deactivates the reactive add_def & removes the GC binding from the given memo.
  * @param {rmemo_T}memo
- * @param {()=>unknown}listener
+ * @param {()=>unknown}add_def
  * @returns {()=>void}
  */
-export function rmemo__subscribe(memo, listener) {
-	let listener_memo = memo_(()=>listener())
-	listener_memo()
-	memo.b ??= []
-	memo.b.push(listener_memo)
+export function rmemo__add(memo, add_def) {
+	let pair
+	memo.add(()=>{
+		pair = memo.a[memo.a.length - 1]
+		return add_def(memo)
+	})
 	return ()=>{
-		rmemo__off(listener_memo)
-		memo.b.splice(memo.b.indexOf(listener_memo), 1)
+		rmemo__off(pair[0])
+		memo.a.splice(memo.a.indexOf(pair), 1)
 	}
 }

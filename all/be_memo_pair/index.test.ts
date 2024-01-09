@@ -55,15 +55,16 @@ test('be_memo_pair_|+id|+ns|+oninit|+subscriber_a', ()=>{
 	const [
 		foobar$_,
 		foobar_,
-	] = be_memo_pair_<number, 'test_ns'>(ctx=>base_(ctx) + 1,
-		(ctx, foobar$)=>{
-			/* eslint-disable @typescript-eslint/no-unused-vars */
-			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
-			/* eslint-enable @typescript-eslint/no-unused-vars */
-			subscriber_count++
-			subscriber_dep__set(ctx, subscriber_count + foobar$())
-		},
-		{ id: 'foobar', ns: 'test_ns' })
+	] = be_memo_pair_<number, 'test_ns'>(
+		ctx=>base_(ctx) + 1,
+		{ id: 'foobar', ns: 'test_ns' }
+	).add((ctx, foobar$)=>{
+		/* eslint-disable @typescript-eslint/no-unused-vars */
+		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+		/* eslint-enable @typescript-eslint/no-unused-vars */
+		subscriber_count++
+		subscriber_dep__set(ctx, subscriber_count + foobar$())
+	})
 	equal(subscriber_count, 0)
 	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 2)
 	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 2)
@@ -96,7 +97,7 @@ test('be_memo_pair_|subscriber|receives a memosig to set the value of the memo',
 		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<''>>>
 		/* eslint-enable @typescript-eslint/no-unused-vars */
 		return 1
-	}, (ctx, foobar$)=>{
+	}).add((ctx, foobar$)=>{
 		foobar$._ = base_(ctx) + 1
 	})
 	equal(foobar$_(ctx)._, 2)
@@ -123,9 +124,8 @@ test('be_memo_pair_|be', ()=>{
 			type test__ctx = Expect<Equal<typeof _ctx, Ctx_wide_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const foobar$ = memo_(
-				()=>base_(ctx) + 1,
-				()=>subscriber_count++
-			) as custom_memo_T
+				()=>base_(ctx) + 1
+			).add(()=>subscriber_count++) as custom_memo_T
 			equal(_ctx.s.test_ns, ctx.s.test_ns)
 			foobar$.custom = 'custom-val'
 			return foobar$

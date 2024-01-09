@@ -1,5 +1,5 @@
-import { rmemo__off, rmemo__on, rmemo__subscribe } from '../rmemo/index.js'
-export { rmemo__off as off, rmemo__on as on, rmemo__subscribe as subscribe }
+import { rmemo__off, rmemo__on, rmemo__add } from '../rmemo/index.js'
+export { rmemo__off as off, rmemo__on as on, rmemo__add as subscribe }
 export * from '../all/be/index.js'
 export * from '../all/be_/index.js'
 export * from '../all/be_lock_memosig_triple/index.js'
