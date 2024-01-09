@@ -88,11 +88,20 @@ export { memo_ as memosig_ }
  * @private
  */
 export function lock_memosig_(memo_def, ...subscriber_a) {
-	return new Proxy(
+	let lock_memosig = new Proxy(
 		/** @type {sig_T} */memo_(memo=>
 			memo.lock ? memo._ : memo_def(memo),
 		...subscriber_a),
 		{
+			get(memo, prop) {
+				if (prop === 'add') {
+					return (...arg_a)=>{
+						memo[prop](...arg_a)
+						return lock_memosig
+					}
+				}
+				return memo[prop]
+			},
 			set(memo, prop, val) {
 				if (prop === '_') {
 					memo.lock = 1
@@ -101,6 +110,7 @@ export function lock_memosig_(memo_def, ...subscriber_a) {
 				return 1
 			}
 		})
+	return lock_memosig
 }
 /**
  * @param {unknown}init_val

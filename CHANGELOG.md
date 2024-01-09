@@ -1,5 +1,15 @@
 # ctx-core
 
+## 5.16.1
+
+### Patch Changes
+
+- lock*memosig*: .get: fix: return value
+
+  size-limit:
+
+      memo_ sig_ be_ ctx_: + 1 B
+
 ## 5.16.0
 
 ### Minor Changes

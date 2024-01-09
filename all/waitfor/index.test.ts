@@ -9,7 +9,7 @@ test('waitfor|success', async ()=>{
 	const promise = waitfor(()=>{
 		count++
 		return ret
-	}, 10)
+	}, 50)
 		.then(returned_value=>{
 			returned_value_a.push(returned_value)
 			return returned_value
@@ -40,7 +40,7 @@ test('waitfor|cancel', async ()=>{
 	const promise = waitfor(()=>{
 		count++
 		return false
-	}, 10)
+	}, 50)
 	equal(count, 1)
 	equal(await promise.cancel(), false)
 	equal(count, 1)
@@ -50,7 +50,7 @@ test('waitfor|cancel', async ()=>{
 	const undefinable_promise = waitfor<boolean|undefined>(()=>{
 		count++
 		return false
-	}, 10)
+	}, 50)
 	equal(count, 1)
 	equal(await undefinable_promise.cancel(undefined), undefined)
 	equal(count, 1)
@@ -63,7 +63,7 @@ test('waitfor|period|number', async ()=>{
 	const promise = waitfor(()=>{
 		count++
 		return ret
-	}, 10, 2)
+	}, 50, 2)
 	try {
 		equal(count, 1)
 		await sleep(2)
@@ -85,7 +85,7 @@ test('waitfor|period|async function', async ()=>{
 	const promise = waitfor(()=>{
 		count++
 		return ret
-	}, 10, (...arg_a)=>{
+	}, 50, (...arg_a)=>{
 		period_arg_aa.push(arg_a)
 		return sleep(2)
 	})
