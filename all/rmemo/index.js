@@ -78,6 +78,7 @@ export function memo_(memo_def, ...add_def_a) {
 	memo.f.s = []
 	memo.f.S = []
 	memo.memor = []
+	// memo.memo_ = memo_
 	return memo
 }
 export { memo_ as memosig_ }

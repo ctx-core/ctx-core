@@ -15,6 +15,7 @@ export type memo_T<val_T> = (()=>val_T)&{
 	memor:WeakRef<()=>val_T>[]
 	a?:rmemo_a_T[]
 	add<add_val_T>(add_def:(sig:sig_T<val_T>, prev_val:add_val_T|undefined)=>add_val_T):memo_T<val_T>
+	// memo_<_val_T>(def:memo_def_T<_val_T>):memo_T<_val_T>
 }
 export interface circular_memo_T extends memo_T<circular_memo_T> {
 }
@@ -25,6 +26,7 @@ export type sig_T<val_T> = (()=>val_T)&{
 	memor:WeakRef<()=>val_T>[]
 	a?:rmemo_a_T[]
 	add<add_val_T>(fn:(sig:sig_T<val_T>, prev_val:add_val_T|undefined)=>add_val_T):sig_T<val_T>
+	// memo_<_val_T>(def:memo_def_T<_val_T>):memo_T<_val_T>
 }
 export interface circular_sig_T extends sig_T<circular_sig_T> {
 }
