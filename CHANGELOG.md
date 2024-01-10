@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.16.2
+
+### Patch Changes
+
+- rmemo\_\_add: fix: arguments match the .add method
+
 ## 5.16.1
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { lock_memosig_, memo_, type memo_T, memosig_, rmemo__off, rmemo__on, rmemo__add, sig_ } from './index.js'
+import { lock_memosig_, memo_, type memo_T, memosig_, rmemo__off, rmemo__on, rmemo__add, sig_, sig_T } from './index.js'
 test('memo_|static value', ()=>{
 	let count = 0
 	const memo = memo_(()=>{
@@ -471,23 +471,18 @@ test('.rmemo__on + .rmemo__off', ()=>{
 })
 test('rmemo__add', ()=>{
 	const base$ = sig_(1)
-	let count = 0
-	const subscriber_base_a:number[] = []
-	const off = rmemo__add(base$, ()=>{
-		count++
-		subscriber_base_a.push(base$())
+	const add_arg_aa_val_aaa:[[sig_T<number>, string|undefined], number][] = []
+	const off = rmemo__add<number, string>(base$, (...arg_a)=>{
+		add_arg_aa_val_aaa.push([arg_a, arg_a[0]()])
+		return 'val-'+arg_a[0]()
 	})
-	equal(subscriber_base_a, [])
-	equal(count, 0)
+	equal(add_arg_aa_val_aaa, [])
 	base$()
-	equal(subscriber_base_a, [1])
-	equal(count, 1)
+	equal(add_arg_aa_val_aaa, [[[base$, undefined], 1]])
 	base$._ = 2
-	equal(subscriber_base_a, [1, 2])
-	equal(count, 2)
+	equal(add_arg_aa_val_aaa, [[[base$, undefined], 1], [[base$, 'val-1'], 2]])
 	off()
 	base$._ = 3
-	equal(subscriber_base_a, [1, 2])
-	equal(count, 2)
+	equal(add_arg_aa_val_aaa, [[[base$, undefined], 1], [[base$, 'val-1'], 2]])
 })
 test.run()

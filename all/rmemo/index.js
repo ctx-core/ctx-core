@@ -1,21 +1,26 @@
 /// <reference types="./index.d.ts" />
-/** @type {WeakRef<memo_T>} */
+/** @type {memo_T} */
 let cur_memo
-/** @type {Set<()=>unknown>} */
+/** @type {Set<(()=>unknown)&{ l:number }>} */
 let queue = new Set
 /**
  * @param {memo_def_T}memo_def
- * @param {rmemo_add_T<unknown>[]}add_def_a
+ * @param {rmemo_add_def_T}add_def_a
  * @returns {memo_T}
  * @private
  */
 export function memo_(memo_def, ...add_def_a) {
+	/** @type {memo_T} */
 	let memo = ()=>{
 		if (!('val' in memo)) {
 			memo.f()
 		}
 		if (cur_memo) {
-			if (!memo.memor.includes(cur_memo.r ||= new WeakRef(cur_memo.f))) memo.memor.push(cur_memo.r)
+			if (!memo.memor.includes(
+				cur_memo.r ||= new WeakRef(cur_memo.f)
+			)) {
+				memo.memor.push(cur_memo.r)
+			}
 			if (cur_memo.f.l < memo.f.l + 1) cur_memo.f.l = memo.f.l + 1
 			// memo is called by cur_memo's conditional execution...next change to memo will notify cur_memo
 			cur_memo.f.s.push(memo)
@@ -53,6 +58,10 @@ export function memo_(memo_def, ...add_def_a) {
 			}
 		},
 	})
+	/**
+	 * @param {rmemo_add_def_T}add_def
+	 * @returns {memo_T}
+	 */
 	memo.add = add_def=>{
 		if (memo.a) {
 			let pair = [memo_(()=>pair[1] = add_def(memo, pair[1]))]
@@ -84,7 +93,7 @@ export function memo_(memo_def, ...add_def_a) {
 export { memo_ as memosig_ }
 /**
  * @param {memo_def_T}memo_def
- * @param {rmemo_add_T<unknown>[]}add_def_a
+ * @param {rmemo_add_def_T}add_def_a
  * @returns {sig_T}
  * @private
  */
@@ -115,16 +124,16 @@ export function lock_memosig_(memo_def, ...add_def_a) {
 }
 /**
  * @param {unknown}init_val
- * @param {rmemo_add_T[]}add_a
+ * @param {rmemo_add_def_T}add_def_a
  * @returns {sig_T}
  * @private
  */
-export function sig_(init_val, ...add_a) {
+export function sig_(init_val, ...add_def_a) {
 	return memo_(sig=>
 		'val' in sig
 			? sig.val
 			: init_val,
-	...add_a)
+	...add_def_a)
 }
 /**
  * Call the rmemo & enable updates from it's parents.
@@ -152,14 +161,14 @@ export function rmemo__off(rmemo) {
  * The add_def can autosubscribe to any rmemo.
  * Returns an "off" function which deactivates the reactive add_def & removes the GC binding from the given memo.
  * @param {rmemo_T}memo
- * @param {()=>unknown}add_def
+ * @param {rmemo_add_def_T}add_def
  * @returns {()=>void}
  */
 export function rmemo__add(memo, add_def) {
 	let pair
-	memo.add(()=>{
+	memo.add((...arg_a)=>{
 		pair = memo.a[memo.a.length - 1]
-		return add_def(memo)
+		return add_def(...arg_a)
 	})
 	return ()=>{
 		rmemo__off(pair[0])

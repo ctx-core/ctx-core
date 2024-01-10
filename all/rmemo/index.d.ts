@@ -5,28 +5,37 @@ export declare function memosig_<val_T>(def:memo_def_T<val_T>):sig_T<val_T>
 export declare function lock_memosig_<val_T>(def:memo_def_T<val_T>):sig_T<val_T>
 export declare function rmemo__on(rmemo:rmemo_T<unknown>):void
 export declare function rmemo__off(rmemo:rmemo_T<unknown>):void
-export declare function rmemo__add(rmemo:rmemo_T<unknown>, listener:()=>unknown):()=>void
+export declare function rmemo__add<val_T, listener_val_T>(
+	rmemo:rmemo_T<val_T>,
+	listener:(sig:sig_T<val_T>, prev_val:listener_val_T|undefined)=>listener_val_T
+):()=>void
 export type rmemo_T<val_T> = memo_T<val_T>|sig_T<val_T>|lock_memosig_T<val_T>
 export type circular_rmemo_T = circular_memo_T|circular_sig_T|circular_lock_memosig_T
 export type memo_T<val_T> = (()=>val_T)&{
 	readonly _:val_T
+	readonly a?:rmemo_a_T[]
+	readonly f?:rmemo_f_T
+	readonly memor:rmemo_r_T[]
+	readonly r?:rmemo_r_T
 	readonly val:val_T
-	r?:WeakRef<()=>val_T>
-	memor:WeakRef<()=>val_T>[]
-	a?:rmemo_a_T[]
-	add<add_val_T>(add_def:(sig:sig_T<val_T>, prev_val:add_val_T|undefined)=>add_val_T):memo_T<val_T>
-	// memo_<_val_T>(def:memo_def_T<_val_T>):memo_T<_val_T>
+	add<add_val_T>(add_def:rmemo_add_def_T<val_T, add_val_T>):memo_T<val_T>
+	memo_<_val_T>(def:memo_def_T<_val_T>):memo_T<_val_T>
 }
 export interface circular_memo_T extends memo_T<circular_memo_T> {
 }
 export type sig_T<val_T> = (()=>val_T)&{
 	_:val_T
+	readonly a?:rmemo_a_T[]
+	readonly f?:(()=>void)&{
+		readonly l:number
+		readonly s:rmemo_T<unknown>[]
+		readonly S:rmemo_T<unknown>[]
+	}
+	readonly memor:rmemo_r_T[]
+	readonly r?:rmemo_r_T
 	readonly val:val_T
-	r?:WeakRef<()=>val_T>
-	memor:WeakRef<()=>val_T>[]
-	a?:rmemo_a_T[]
-	add<add_val_T>(fn:(sig:sig_T<val_T>, prev_val:add_val_T|undefined)=>add_val_T):sig_T<val_T>
-	// memo_<_val_T>(def:memo_def_T<_val_T>):memo_T<_val_T>
+	add<add_val_T>(fn:rmemo_add_def_T<val_T, add_val_T>):sig_T<val_T>
+	memo_<_val_T>(def:memo_def_T<_val_T>):memo_T<_val_T>
 }
 export interface circular_sig_T extends sig_T<circular_sig_T> {
 }
@@ -41,3 +50,10 @@ export type rmemo_val_T<sig_T> = sig_T extends { ():infer val_T }
 export type memo_def_T<val_T> = (sig:sig_T<val_T>)=>val_T
 export type rmemo_a_T = [memo_T<unknown>, unknown]
 export type rmemo_add_T<val_T, SV> = (sig:sig_T<val_T>, old_val:SV|undefined)=>SV
+export type rmemo_add_def_T<val_T, add_val_T> = (sig:sig_T<val_T>, prev_val:add_val_T|undefined)=>add_val_T
+export type rmemo_f_T = (()=>void)&{
+	readonly l:number
+	readonly s:rmemo_T<unknown>[]
+	readonly S:rmemo_T<unknown>[]
+}
+export type rmemo_r_T = WeakRef<rmemo_f_T>&{ readonly d?: ()=>rmemo_f_T }
