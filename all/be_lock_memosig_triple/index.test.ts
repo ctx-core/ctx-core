@@ -3,7 +3,7 @@ import { equal } from 'uvu/assert'
 import { be_, type Ctx_wide_T } from '../be_/index.js'
 import { be_sig_triple_ } from '../be_sig_triple/index.js'
 import { ctx__new, ns_ctx__new } from '../ctx/index.js'
-import { memosig_, type sig_T } from '../rmemo/index.js'
+import { memo_, memosig_, type sig_T } from '../rmemo/index.js'
 import type { Equal, Expect } from '../test/index.js'
 import { be_lock_memosig_triple_ } from './index.js'
 test('be_lock_memosig_triple_', ()=>{
@@ -42,7 +42,7 @@ test('be_lock_memosig_triple_', ()=>{
 })
 test('be_lock_memosig_triple_|+id|+ns', ()=>{
 	const ctx = ns_ctx__new('test_ns')
-	let subscriber_count = 0
+	let add_count = 0
 	const [
 		,
 		base_,
@@ -52,8 +52,8 @@ test('be_lock_memosig_triple_|+id|+ns', ()=>{
 		{ ns: 'test_ns' })
 	const [
 		,
-		subscriber_dep_,
-		subscriber_dep__set
+		add_dep_,
+		add_dep__set
 	] = be_sig_triple_(()=>1,
 		{ ns: 'test_ns' })
 	const [
@@ -68,38 +68,38 @@ test('be_lock_memosig_triple_|+id|+ns', ()=>{
 			return base_(ctx) + 1
 		},
 		{ id: 'foobar', ns: 'test_ns' }
-	).add((ctx, foobar$)=>{
-		subscriber_count++
-		subscriber_dep__set(ctx, subscriber_count + foobar$())
-	})
-	equal(subscriber_count, 0)
+	).add((ctx, foobar$)=>memo_(()=>{
+		add_count++
+		add_dep__set(ctx, add_count + foobar$())
+	}))
+	equal(add_count, 0)
 	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 2)
 	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 2)
 	equal(foobar$_(ctx)._, 2)
 	equal(foobar_(ctx), 2)
-	equal(subscriber_count, 1)
+	equal(add_count, 1)
 	equal((ctx.s['test_ns'].get('foobar')![0] as sig_T<number>)._, 2)
-	equal(subscriber_dep_(ctx), 3)
+	equal(add_dep_(ctx), 3)
 	foobar__set(ns_ctx__new(ctx__new(), ctx), 5)
 	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 5)
 	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 5)
 	equal(foobar$_(ctx)._, 5)
 	equal(foobar_(ctx), 5)
 	equal((ctx.s['test_ns'].get('foobar')![0] as sig_T<number>)._, 5)
-	equal(subscriber_count, 2)
-	equal(subscriber_dep_(ctx), 7)
+	equal(add_count, 2)
+	equal(add_dep_(ctx), 7)
 	base__set(ctx, 2)
 	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 5)
 	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 5)
 	equal(foobar$_(ctx)._, 5)
 	equal(foobar_(ctx), 5)
-	equal(subscriber_count, 2)
+	equal(add_count, 2)
 	equal((ctx.s['test_ns'].get('foobar')![0] as sig_T<number>)._, 5)
-	equal(subscriber_dep_(ctx), 7)
+	equal(add_dep_(ctx), 7)
 })
 test('be_lock_memosig_triple_|+be', ()=>{
 	const ctx = ns_ctx__new('test_ns')
-	let subscriber_count = 0
+	let add_count = 0
 	const [
 		,
 		base_,
@@ -118,19 +118,20 @@ test('be_lock_memosig_triple_|+be', ()=>{
 			const foobar$ =
 				memosig_(
 					()=>base_(ctx) + 1
-				).add(foobar$=>{
-					foobar$()
-					subscriber_count++
-				}) as custom_sig_T
+				).add(foobar$=>
+					memo_(()=>{
+						foobar$()
+						add_count++
+					})) as custom_sig_T
 			foobar$.custom = 'custom-val'
 			return foobar$
 		}, { id: 'foobar', ns: 'test_ns' }))
-	equal(subscriber_count, 0)
+	equal(add_count, 0)
 	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 2)
 	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 2)
 	equal(foobar$_(ctx)._, 2)
 	equal(foobar_(ctx), 2)
-	equal(subscriber_count, 1)
+	equal(add_count, 1)
 	equal((ctx.s.test_ns.get('foobar')![0] as sig_T<number>)._, 2)
 	equal(foobar$_(ctx).custom, 'custom-val')
 	foobar__set(ctx, 5)
@@ -138,7 +139,7 @@ test('be_lock_memosig_triple_|+be', ()=>{
 	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 5)
 	equal(foobar$_(ctx)._, 5)
 	equal(foobar_(ctx), 5)
-	equal(subscriber_count, 2)
+	equal(add_count, 2)
 	equal((ctx.s.test_ns.get('foobar')![0] as sig_T<number>)._, 5)
 	equal(foobar$_(ctx).custom, 'custom-val')
 	base__set(ns_ctx__new(ctx__new(), ctx), 2)
@@ -148,7 +149,7 @@ test('be_lock_memosig_triple_|+be', ()=>{
 	equal(foobar_(ctx), 3)
 	equal((ctx.s.test_ns.get('foobar')![0] as sig_T<number>)._, 3)
 	equal(foobar$_(ctx).custom, 'custom-val')
-	equal(subscriber_count, 3)
+	equal(add_count, 3)
 })
 test.run()
 type custom_sig_T = sig_T<number>&{

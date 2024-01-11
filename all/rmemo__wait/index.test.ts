@@ -8,7 +8,7 @@ test('rmemo__wait', async ()=>{
 		subject$,
 		subject=>subject >= 0,
 		10_000)
-	equal(promise.m.memor, [])
+	equal(promise.m.t, [])
 	equal(subject$(), -1)
 	subject$._ = 1
 	equal(subject$(), 1)

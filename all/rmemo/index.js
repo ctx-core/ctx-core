@@ -16,16 +16,16 @@ export function memo_(memo_def, ...add_def_a) {
 			memo.f()
 		}
 		if (cur_memo) {
-			if (!memo.memor.includes(
-				cur_memo.r ||= new WeakRef(cur_memo.f)
+			if (!memo.t.includes(
+				cur_memo.s ||= new WeakRef(cur_memo.f)
 			)) {
-				memo.memor.push(cur_memo.r)
+				memo.t.push(cur_memo.s)
 			}
 			if (cur_memo.f.l < memo.f.l + 1) cur_memo.f.l = memo.f.l + 1
 			// memo is called by cur_memo's conditional execution...next change to memo will notify cur_memo
 			cur_memo.f.s.push(memo)
 			// prevent memo from GC while cur_memo still has a strong reference
-			if (!cur_memo.f.S.includes(memo)) cur_memo.f.S.push(memo)
+			if (!cur_memo.f.t.includes(memo)) cur_memo.f.t.push(memo)
 		}
 		return memo.val
 	}
@@ -33,7 +33,7 @@ export function memo_(memo_def, ...add_def_a) {
 		get: memo,
 		set: val=>{
 			if (memo.val !== val) {
-				memo.memor = memo.memor.filter(r=>{
+				memo.t = memo.t.filter(r=>{
 					r = r.deref()
 					if (r && r.s.includes(memo)) { // if added by cur_memo.f.s.push(memo), add to queue
 						queue.add(r)
@@ -64,14 +64,15 @@ export function memo_(memo_def, ...add_def_a) {
 	 */
 	memo.add = add_def=>{
 		if (memo.a) {
-			let pair = [memo_(()=>pair[1] = add_def(memo, pair[1]))]
-			memo.a.push(pair)
-			pair[0]()
+			let v = add_def(memo)
+			if (v instanceof Object) memo.a.push(v)
+			if (v.memo_) v()
 		} else {
 			add_def_a.push(add_def)
 		}
 		return memo
 	}
+	memo.memo_ = memo_
 	memo.f = ()=>{
 		let prev_memo = cur_memo
 		cur_memo = memo
@@ -85,9 +86,8 @@ export function memo_(memo_def, ...add_def_a) {
 	}
 	memo.f.l = 0
 	memo.f.s = []
-	memo.f.S = []
-	memo.memor = []
-	// memo.memo_ = memo_
+	memo.f.t = []
+	memo.t = []
 	return memo
 }
 export { memo_ as memosig_ }
@@ -99,8 +99,9 @@ export { memo_ as memosig_ }
  */
 export function lock_memosig_(memo_def, ...add_def_a) {
 	let lock_memosig = new Proxy(
-		/** @type {sig_T} */memo_(memo=>
-			memo.lock ? memo._ : memo_def(memo),
+		/** @type {sig_T} */
+		memo_(memo=>
+			memo.lock ? memo() : memo_def(memo),
 		...add_def_a),
 		{
 			get(memo, prop) {
@@ -138,23 +139,45 @@ export function sig_(init_val, ...add_def_a) {
 /**
  * Call the rmemo & enable updates from it's parents.
  * @param {rmemo_T}rmemo
+ * @param {(rmemo:rmemo_T)=>unknown}[off_fn]
+ * @returns {rmemo_T}
  */
-export function rmemo__on(rmemo) {
-	if (rmemo.r?.d) {
-		rmemo.r.deref = rmemo.r.d
+export function rmemo__on(rmemo, off_fn) {
+	if (off_fn) rmemo__off__add(rmemo, off_fn)
+	if (rmemo.s?.d) {
+		rmemo.s.deref = rmemo.s.d
 	}
 	rmemo.f()
+	return rmemo
 }
 /**
  * Disable updates from the rmemo's parents.
  * @param {rmemo_T}rmemo
+ * @returns {rmemo_T}
  */
 export function rmemo__off(rmemo) {
-	if (rmemo.r) {
-		rmemo.r.d ||= rmemo.r.deref
-		rmemo.r.deref = ()=>{
+	if (rmemo.s) {
+		rmemo.s.d ??= rmemo.s.deref
+		rmemo.s.deref = ()=>{
 		}
 	}
+	for (let a_o of rmemo.a ?? []) {
+		if (a_o.memo_) rmemo__off(a_o)
+	}
+	for (let fn of rmemo.o ?? []) {
+		fn(rmemo)
+	}
+	return rmemo
+}
+/**
+ * @param {rmemo_T}rmemo
+ * @param {(rmemo:rmemo_T)=>unknown}off_fn
+ * @returns {rmemo_T}
+ */
+export function rmemo__off__add(rmemo, off_fn) {
+	rmemo.o ??= []
+	rmemo.o.push(off_fn)
+	return rmemo
 }
 /**
  * Bind reactive add_def onto the given memo to prevent GC.
@@ -165,13 +188,12 @@ export function rmemo__off(rmemo) {
  * @returns {()=>void}
  */
 export function rmemo__add(memo, add_def) {
-	let pair
+	let val
 	memo.add((...arg_a)=>{
-		pair = memo.a[memo.a.length - 1]
-		return add_def(...arg_a)
+		return val = add_def(...arg_a)
 	})
 	return ()=>{
-		rmemo__off(pair[0])
-		memo.a.splice(memo.a.indexOf(pair), 1)
+		if (val.memo_) rmemo__off(val)
+		if (val instanceof Object) memo.a.splice(memo.a.indexOf(val), 1)
 	}
 }

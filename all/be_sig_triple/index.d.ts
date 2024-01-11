@@ -26,6 +26,6 @@ export type be_sig_triple_T<
 	ctx__set_T<ctx_T, val_T>
 ]&{
 	add<add_val_T>(
-		add_def:(ctx:ctx_T, sig:_sig_T, prev_val:add_val_T|undefined)=>add_val_T
+		add_def:(ctx:ctx_T, sig:_sig_T)=>add_val_T
 	):be_sig_triple_T<val_T, ns_T, _sig_T, ctx_T>
 }

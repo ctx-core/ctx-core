@@ -4,7 +4,19 @@ import { deepStrictEqual } from 'node:assert'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
-import { lock_memosig_, memo_, type memo_T, memosig_, rmemo__off, rmemo__on, rmemo__add, sig_, sig_T } from './index.js'
+import {
+	lock_memosig_,
+	memo_,
+	type memo_T,
+	memosig_,
+	rmemo__add,
+	rmemo__off,
+	rmemo__off__add,
+	rmemo__on,
+	type rmemo_T,
+	sig_,
+	type sig_T
+} from './index.js'
 test('memo_|static value', ()=>{
 	let count = 0
 	const memo = memo_(()=>{
@@ -19,7 +31,7 @@ test('memo_|static value', ()=>{
 })
 test('memo_|def function|rmemo argument', ()=>{
 	const sig = sig_('val0')
-	const memo:memo_T<string>&{ custom?:string } = memo_<string>((_rmemo$:memo_T<string>&{ custom?:string })=>
+	const memo:memo_T<string>&{ custom?:string } = memo_<string>((_rmemo$:sig_T<string>&{ custom?:string })=>
 		`${_rmemo$.custom}-${sig()}`)
 	memo.custom = 'custom_val0'
 	equal(memo(), 'custom_val0-val0')
@@ -172,17 +184,21 @@ test('sig_|undefined', ()=>{
 	equal(memo(), undefined)
 })
 test('rmemo|subscriber|has strong reference to the return value', ()=>{
-	const add_arg_aa:[memo_T<number|undefined>, number|undefined][] = []
+	const add_arg_aa:[sig_T<number|undefined>, number|undefined][] = []
+	let memo:memo_T<number>|undefined
 	const num$ = sig_<number|undefined>(
 		undefined
-	).add<number>((sig, old_val)=>{
-		add_arg_aa.push([sig, old_val])
-		return 99
-	})
+	).add(sig=>
+		memo = memo_<number>(memo=>{
+			add_arg_aa.push([sig, memo.val])
+			return 99
+		}))
 	equal(num$.a, undefined)
 	equal(add_arg_aa, [])
 	equal(num$(), undefined)
-	equal(num$.a![0][1], 99)
+	equal(num$.a![0], memo)
+	equal(memo!.val, 99)
+	equal((num$.a![0] as memo_T<number>).val, 99)
 	equal(add_arg_aa, [[num$, undefined]])
 })
 test('sig_|subscriber|notified if sig is set before read', ()=>{
@@ -190,10 +206,11 @@ test('sig_|subscriber|notified if sig is set before read', ()=>{
 	let subscriber__num:number|undefined = undefined
 	const num$ = sig_<number|undefined>(
 		undefined
-	).add(num$=>{
-		count++
-		subscriber__num = num$()
-	})
+	).add(num$=>
+		memo_(()=>{
+			count++
+			subscriber__num = num$()
+		}))
 	equal(count, 0)
 	equal(subscriber__num, undefined)
 	num$._ = 1
@@ -208,10 +225,11 @@ test('sig_|subscriber|sets sig', ()=>{
 	let count = 0
 	const num$ = sig_(
 		0
-	).add(async num$=>{
-		count++
-		num$._ = base$() + 1
-	})
+	).add(num$=>
+		memo_(()=>{
+			count++
+			num$._ = base$() + 1
+		}))
 	equal(count, 0)
 	equal(num$(), 1)
 	equal(count, 1)
@@ -227,12 +245,12 @@ test('sig_|async subsubscriber|case 1', async ()=>{
 	let count = 0
 	const user$ = sig_<{ id:string }|null>(
 		null
-	).add(async (_user$)=>{
+	).add((_user$)=>memo_(async ()=>{
 		count++
 		id$()
 		const user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
 		_user$._ = user
-	})
+	}))
 	equal(count, 0)
 	equal(user$(), null)
 	equal(count, 1)
@@ -255,13 +273,14 @@ test('sig_|async subsubscriber|case 2', async ()=>{
 	const taskArgumentsCalls:number[][] = []
 	const sum$ = sig_<null|number>(
 		null
-	).add(async sum$=>{
-		taskArgumentsCalls.push([a$(), b$()])
-		for (let i = 0; i < sleepCycles; i++) {
-			await Promise.resolve()
-		}
-		sum$._ = a$() + b$()
-	})
+	).add(sum$=>
+		memo_(async ()=>{
+			taskArgumentsCalls.push([a$(), b$()])
+			for (let i = 0; i < sleepCycles; i++) {
+				await Promise.resolve()
+			}
+			sum$._ = a$() + b$()
+		}))
 	equal(sum$(), null)
 	deepStrictEqual(taskArgumentsCalls, [[1, 2]])
 	a$._ = 10
@@ -312,8 +331,9 @@ test('prevents diamond dependency problem 1', ()=>{
 	const d$ = memo_(()=>a$().replace('a', 'd'))
 	memo_(
 		()=>`${b$()}${c$()}${d$()}`)
-		.add(combined$=>values.push(combined$()))
-		()
+		.add(combined$=>
+			memo_(()=>values.push(combined$()))
+		)()
 	deepStrictEqual(values, ['b0c0d0'])
 	store$._ = 1
 	store$._ = 2
@@ -329,8 +349,9 @@ test('prevents diamond dependency problem 2', ()=>{
 	const e$ = memo_(()=>d$().replace('d', 'e'))
 	memo_<string>(
 		()=>[a$(), e$()].join(''))
-		.add($=>values.push($()))
-		()
+		.add($=>
+			memo_(()=>values.push($()))
+		)()
 	deepStrictEqual(values, ['a0e0'])
 	store$._ = 1
 	deepStrictEqual(values, ['a0e0', 'a1e1'])
@@ -344,8 +365,9 @@ test('prevents diamond dependency problem 3', ()=>{
 	const d$ = memo_(()=>c$().replace('c', 'd'))
 	memo_<string>(
 		()=>`${a$()}${b$()}${c$()}${d$()}`)
-		.add(combined$=>values.push(combined$()))
-		()
+		.add(combined$=>
+			memo_(()=>values.push(combined$()))
+		)()
 	deepStrictEqual(values, ['a0b0c0d0'])
 	store$._ = 1
 	deepStrictEqual(values, ['a0b0c0d0', 'a1b1c1d1'])
@@ -363,12 +385,14 @@ test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
 	const g$ = memo_(()=>`g${f$()}`)
 	memo_(
 		()=>e$())
-		.add(combined1$=>values.push(combined1$()))
-		()
+		.add(combined1$=>
+			memo_(()=>values.push(combined1$()))
+		)()
 	memo_(
 		()=>[e$(), g$()].join(''))
-		.add(combined2$=>values.push(combined2$()))
-		()
+		.add(combined2$=>
+			memo_(()=>values.push(combined2$()))
+		)()
 	deepStrictEqual(values, ['eca0b0da0', 'eca0b0da0gfeca0b0da0'])
 	store1$._ = 1
 	store2$._ = 2
@@ -416,8 +440,9 @@ test('prevents diamond dependency problem 6', ()=>{
 	const c$ = memo_(()=>b$().replace('b', 'c'))
 	memo_(
 		()=>`${a$()}${c$()}`)
-		.add(combined$=>values.push(combined$()))
-		()
+		.add(combined$=>
+			memo_(()=>values.push(combined$()))
+		)()
 	deepStrictEqual(values, ['a0c0'])
 	store1$._ = 1
 	deepStrictEqual(values, ['a0c0', 'a1c0'])
@@ -430,7 +455,8 @@ test('prevents dependency listeners from being out of order', ()=>{
 	const values:string[] = []
 	const b$ = memo_(
 		()=>`${a$()}b`)
-		.add(b$=>values.push(b$()))
+		.add(b$=>
+			memo_(()=>values.push(b$())))
 	equal(b$(), '0ab')
 	deepStrictEqual(values, ['0ab'])
 	equal(a$(), '0a')
@@ -443,46 +469,67 @@ test('computes initial value when argument is undefined', ()=>{
 	equal(one$(), undefined)
 	equal(two$(), false)
 })
-test('.rmemo__on + .rmemo__off', ()=>{
+test('.rmemo__on,.rmemo__off__add,.rmemo__off', ()=>{
 	const base$ = sig_(1)
 	let count = 0
+	const rmemo__off__add_arg_aa:[rmemo_T<number>][] = []
+	const rmemo__on__off_arg_aa:[rmemo_T<number>][] = []
 	const memo$ = memo_(()=>{
 		count++
 		return base$() + 10
+	})
+	rmemo__off__add(memo$, (...arg_a)=>{
+		rmemo__off__add_arg_aa.push(arg_a)
 	})
 	equal(memo$(), 11)
 	equal(count, 1)
 	base$._ = 2
 	equal(memo$(), 12)
 	equal(count, 2)
+	equal(rmemo__off__add_arg_aa, [])
 	rmemo__off(memo$)
+	equal(rmemo__off__add_arg_aa, [[memo$]])
 	base$._ = 3
 	equal(memo$(), 12)
 	equal(count, 2)
+	equal(rmemo__off__add_arg_aa, [[memo$]])
 	rmemo__on(memo$)
 	equal(memo$(), 13)
 	equal(count, 3)
+	equal(rmemo__off__add_arg_aa, [[memo$]])
 	rmemo__off(memo$)
-	rmemo__on(memo$)
+	equal(rmemo__off__add_arg_aa, [[memo$], [memo$]])
+	rmemo__on(memo$, (...arg_a)=>{
+		rmemo__on__off_arg_aa.push(arg_a)
+	})
+	equal(rmemo__off__add_arg_aa, [[memo$], [memo$]])
+	equal(rmemo__on__off_arg_aa, [])
 	equal(count, 4)
 	base$._ = 4
 	equal(memo$(), 14)
 	equal(count, 5)
+	equal(rmemo__off__add_arg_aa, [[memo$], [memo$]])
+	equal(rmemo__on__off_arg_aa, [])
+	rmemo__off(memo$)
+	equal(rmemo__off__add_arg_aa, [[memo$], [memo$], [memo$]])
+	equal(rmemo__on__off_arg_aa, [[memo$]])
 })
 test('rmemo__add', ()=>{
 	const base$ = sig_(1)
-	const add_arg_aa_val_aaa:[[sig_T<number>, string|undefined], number][] = []
-	const off = rmemo__add<number, string>(base$, (...arg_a)=>{
-		add_arg_aa_val_aaa.push([arg_a, arg_a[0]()])
-		return 'val-'+arg_a[0]()
+	const add_arg_aa_val_aaa:[[sig_T<number>], string|undefined, number][] = []
+	const off = rmemo__add<number, memo_T<string>>(base$, (...arg_a)=>{
+		return memo_(val$=>{
+			add_arg_aa_val_aaa.push([arg_a, val$.val, arg_a[0]()])
+			return 'val-' + arg_a[0]()
+		})
 	})
 	equal(add_arg_aa_val_aaa, [])
 	base$()
-	equal(add_arg_aa_val_aaa, [[[base$, undefined], 1]])
+	equal(add_arg_aa_val_aaa, [[[base$], undefined, 1]])
 	base$._ = 2
-	equal(add_arg_aa_val_aaa, [[[base$, undefined], 1], [[base$, 'val-1'], 2]])
+	equal(add_arg_aa_val_aaa, [[[base$], undefined, 1], [[base$], 'val-1', 2]])
 	off()
 	base$._ = 3
-	equal(add_arg_aa_val_aaa, [[[base$, undefined], 1], [[base$, 'val-1'], 2]])
+	equal(add_arg_aa_val_aaa, [[[base$], undefined, 1], [[base$], 'val-1', 2]])
 })
 test.run()
