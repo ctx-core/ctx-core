@@ -1,5 +1,15 @@
 # ctx-core
 
+## 5.17.1
+
+### Patch Changes
+
+- memo\_: add: fix: error when return value is nullish
+
+  size-limit:
+
+      memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: - 4 B
+
 ## 5.17.0
 
 ### Minor Changes

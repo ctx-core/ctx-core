@@ -65,8 +65,10 @@ export function memo_(memo_def, ...add_def_a) {
 	memo.add = add_def=>{
 		if (memo.a) {
 			let v = add_def(memo)
-			if (v instanceof Object) memo.a.push(v)
-			if (v.memo_) v()
+			if (v instanceof Object) {
+				memo.a.push(v)
+				if (v.memo_) v()
+			}
 		} else {
 			add_def_a.push(add_def)
 		}

@@ -183,7 +183,7 @@ test('sig_|undefined', ()=>{
 	equal(sig(), undefined)
 	equal(memo(), undefined)
 })
-test('rmemo|subscriber|has strong reference to the return value', ()=>{
+test('rmemo|add|has strong reference to the return value', ()=>{
 	const add_arg_aa:[sig_T<number|undefined>, number|undefined][] = []
 	let memo:memo_T<number>|undefined
 	const num$ = sig_<number|undefined>(
@@ -201,26 +201,26 @@ test('rmemo|subscriber|has strong reference to the return value', ()=>{
 	equal((num$.a![0] as memo_T<number>).val, 99)
 	equal(add_arg_aa, [[num$, undefined]])
 })
-test('sig_|subscriber|notified if sig is set before read', ()=>{
+test('rmemo|add|notified if sig is set before read', ()=>{
 	let count = 0
-	let subscriber__num:number|undefined = undefined
+	let add__num:number|undefined = undefined
 	const num$ = sig_<number|undefined>(
 		undefined
 	).add(num$=>
 		memo_(()=>{
 			count++
-			subscriber__num = num$()
+			add__num = num$()
 		}))
 	equal(count, 0)
-	equal(subscriber__num, undefined)
+	equal(add__num, undefined)
 	num$._ = 1
 	equal(count, 1)
-	equal(subscriber__num, 1)
+	equal(add__num, 1)
 	num$()
 	equal(count, 1)
-	equal(subscriber__num, 1)
+	equal(add__num, 1)
 })
-test('sig_|subscriber|sets sig', ()=>{
+test('rmemo_|add|sets sig', ()=>{
 	const base$ = sig_(0)
 	let count = 0
 	const num$ = sig_(
@@ -237,7 +237,29 @@ test('sig_|subscriber|sets sig', ()=>{
 	equal(num$(), 6)
 	equal(count, 2)
 })
-test('sig_|async subsubscriber|case 1', async ()=>{
+test('rmemo|add|nullish', ()=>{
+	let add_undefined_count = 0
+	const add_undefined_num$ = sig_(
+		0
+	).add(()=>{
+		add_undefined_count++
+		return undefined
+	})
+	equal(add_undefined_count, 0)
+	equal(add_undefined_num$(), 0)
+	equal(add_undefined_count, 1)
+	let add_null_count = 0
+	const add_null_num$ = sig_(
+		0
+	).add(()=>{
+		add_null_count++
+		return null
+	})
+	equal(add_null_count, 0)
+	equal(add_null_num$(), 0)
+	equal(add_null_count, 1)
+})
+test('sig_|async add|case 1', async ()=>{
 	let resolve:(user:{ id:string })=>void
 	const user0 = { id: 'id-0' }
 	const user1 = { id: 'id-1' }
@@ -266,7 +288,7 @@ test('sig_|async subsubscriber|case 1', async ()=>{
 	await sleep(0)
 	equal(count, 2)
 })
-test('sig_|async subsubscriber|case 2', async ()=>{
+test('sig_|async add|case 2', async ()=>{
 	const a$ = sig_(1)
 	const b$ = sig_(2)
 	const sleepCycles = 5
