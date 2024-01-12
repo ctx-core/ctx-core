@@ -1,7 +1,7 @@
 /// <reference types="./index.d.ts" />
 /** @type {memo_T} */
 let cur_memo
-/** @type {Set<(()=>unknown)&{ l:number }>} */
+/** @type {Set<memo_T>} */
 let queue = new Set
 /**
  * @param {memo_def_T}memo_def
@@ -137,6 +137,15 @@ export function sig_(init_val, ...add_def_a) {
 			? sig.val
 			: init_val,
 	...add_def_a)
+}
+/**
+ * @param {(...arg_a:unknown[])=>unknown}fn
+ * @returns {((...arg_a:unknown[])=>unknown)&{ memo_: typeof memo_ }}
+ * @private
+ */
+export function memo__bind(fn) {
+	fn.memo_ = memo_
+	return fn
 }
 /**
  * Call the rmemo & enable updates from it's parents.

@@ -1,5 +1,19 @@
 # ctx-core
 
+## 5.18.0
+
+### Minor Changes
+
+- minor:
+
+      + memo__bind:
+      	+ _
+      	+ bind
+
+  size-limit:
+
+      memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: + 10 B
+
 ## 5.17.1
 
 ### Patch Changes

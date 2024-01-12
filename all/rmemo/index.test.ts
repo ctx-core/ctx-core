@@ -6,7 +6,7 @@ import { equal } from 'uvu/assert'
 import { sleep } from '../sleep/index.js'
 import {
 	lock_memosig_,
-	memo_,
+	memo_, memo__bind,
 	type memo_T,
 	memosig_,
 	rmemo__add,
@@ -491,7 +491,17 @@ test('computes initial value when argument is undefined', ()=>{
 	equal(one$(), undefined)
 	equal(two$(), false)
 })
-test('.rmemo__on,.rmemo__off__add,.rmemo__off', ()=>{
+test('memo__bind', ()=>{
+	const base$ = sig_(1)
+	const bind_fn = memo__bind(()=>base$() + 10)
+	const bind_memo$ = bind_fn.memo_(bind_fn)
+	equal(bind_fn(), 11)
+	equal(bind_memo$(), 11)
+	base$._ = 2
+	equal(bind_fn(), 12)
+	equal(bind_memo$(), 12)
+})
+test('rmemo__on,rmemo__off__add,rmemo__off', ()=>{
 	const base$ = sig_(1)
 	let count = 0
 	const rmemo__off__add_arg_aa:[rmemo_T<number>][] = []
