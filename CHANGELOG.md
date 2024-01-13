@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.18.1
+
+### Patch Changes
+
+- ./array: fix: + difference\_
+
 ## 5.18.0
 
 ### Minor Changes

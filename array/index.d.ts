@@ -1,3 +1,5 @@
+import { difference_a_ } from '../all/difference_a/index.js'
+export { difference_a_ as difference_ }
 export * from '../all/a_in_idx_a_map/index.js'
 export * from '../all/a_length/index.js'
 export * from '../all/a_present/index.js'
