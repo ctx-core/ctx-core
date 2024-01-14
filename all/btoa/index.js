@@ -1,5 +1,5 @@
 /// <reference types="../btoa/index.d.ts" />
-import { process_release_name } from '../process_release_name'
+import { process_release_name } from '../process_release_name/index.js'
 /**
  * @param {string}str
  * @returns {string}
