@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.18.3
+
+### Patch Changes
+
+- esmock: ^2.6.0 -> ^2.6.1
+
 ## 5.18.2
 
 ### Patch Changes
