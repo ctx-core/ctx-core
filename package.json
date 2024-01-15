@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.18.3",
+	"version": "5.18.4",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -145,7 +145,7 @@
 		"@arethetypeswrong/cli": "^0.13.5",
 		"@ctx-core/preprocess": "^0.1.0",
 		"@size-limit/preset-small-lib": "^11.0.1",
-		"@types/node": "^20.11.1",
+		"@types/node": "^20.11.2",
 		"@types/sinon": "^17.0.3",
 		"c8": "^9.1.0",
 		"check-dts": "^0.7.2",
