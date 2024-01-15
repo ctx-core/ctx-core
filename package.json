@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.18.8",
+	"version": "5.18.9",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -25,116 +25,115 @@
 		"*.d.ts",
 		"*.js",
 		"*.json",
-		"_",
-		"_array",
-		"_atob",
-		"_base16",
-		"_be",
-		"_btoa",
-		"_buffer",
-		"_chain",
-		"_class",
-		"_cli-args",
-		"_color",
-		"_combinators",
-		"_crypto",
-		"_currency",
-		"_data",
-		"_date",
-		"_debounce",
-		"_deep_equal",
-		"_env",
-		"_error",
-		"_falsy",
-		"_fetch",
-		"_fibonacci",
-		"_fs",
-		"_function",
-		"_functional",
-		"_html",
-		"_http",
-		"_math",
-		"_matrix",
-		"_nullish",
-		"_number",
-		"_object",
-		"_promise",
-		"_queue",
-		"_random",
-		"_regex",
-		"_rmemo",
-		"_run",
-		"_set",
-		"_sleep",
-		"_string",
-		"_tempfile",
-		"_test",
-		"_time",
-		"_tuple",
-		"_types",
-		"_uri",
-		"_uuid",
+		"all",
+		"array",
+		"atob",
+		"base16",
+		"be",
+		"btoa",
+		"buffer",
+		"chain",
+		"class",
+		"cli-args",
+		"color",
+		"combinators",
+		"crypto",
+		"currency",
+		"data",
+		"date",
+		"debounce",
+		"deep_equal",
+		"env",
+		"error",
+		"falsy",
+		"fetch",
+		"fibonacci",
+		"fs",
+		"function",
+		"functional",
+		"html",
+		"http",
+		"math",
+		"matrix",
+		"nullish",
+		"number",
+		"object",
+		"promise",
+		"queue",
+		"random",
+		"regex",
+		"rmemo",
+		"run",
+		"set",
+		"sleep",
+		"string",
+		"tempfile",
+		"test",
+		"time",
+		"tuple",
+		"types",
+		"uri",
+		"uuid",
 		"package.json"
 	],
-	"types": "./src/index.d.ts",
 	"exports": {
 		".": "./index.js",
-		"./all": "./_/index.js",
-		"./array": "./_array/index.js",
-		"./atob": "./_atob/index.js",
-		"./base16": "./_base16/index.js",
-		"./be": "./_be/index.js",
-		"./btoa": "./_btoa/index.js",
-		"./buffer": "./_buffer/index.js",
-		"./chain": "./_chain/index.js",
-		"./class": "./_class/index.js",
-		"./cli-args": "./_cli-args/index.js",
-		"./color": "./_color/index.js",
-		"./combinators": "./_combinators/index.js",
-		"./crypto": "./_crypto/index.js",
-		"./currency": "./_currency/index.js",
-		"./data": "./_data/index.js",
-		"./date": "./_date/index.js",
-		"./debounce": "./_debounce/index.js",
-		"./deep_equal": "./_deep_equal/index.js",
-		"./env": "./_env/index.js",
-		"./error": "./_error/index.js",
-		"./falsy": "./_falsy/index.js",
-		"./fetch": "./_fetch/index.js",
-		"./fibonacci": "./_fibonacci/index.js",
-		"./fs": "./_fs/index.js",
-		"./function": "./_function/index.js",
-		"./functional": "./_functional/index.js",
-		"./html": "./_html/index.js",
-		"./http": "./_http/index.js",
-		"./math": "./_math/index.js",
-		"./matrix": "./_matrix/index.js",
-		"./nullish": "./_nullish/index.js",
-		"./number": "./_number/index.js",
-		"./object": "./_object/index.js",
-		"./promise": "./_promise/index.js",
-		"./queue": "./_queue/index.js",
-		"./random": "./_random/index.js",
-		"./regex": "./_regex/index.js",
-		"./rmemo": "./_rmemo/index.js",
-		"./run": "./_run/index.js",
-		"./set": "./_set/index.js",
-		"./sleep": "./_sleep/index.js",
-		"./string": "./_string/index.js",
-		"./tempfile": "./_tempfile/index.js",
-		"./test": "./_test/index.js",
-		"./time": "./_time/index.js",
-		"./tuple": "./_tuple/index.js",
-		"./types": "./_types/index.js",
-		"./uri": "./_uri/index.js",
-		"./uuid": "./_uuid/index.js",
+		"./all": "./all/index.js",
+		"./array": "./array/index.js",
+		"./atob": "./atob/index.js",
+		"./base16": "./base16/index.js",
+		"./be": "./be/index.js",
+		"./btoa": "./btoa/index.js",
+		"./buffer": "./buffer/index.js",
+		"./chain": "./chain/index.js",
+		"./class": "./class/index.js",
+		"./cli-args": "./cli-args/index.js",
+		"./color": "./color/index.js",
+		"./combinators": "./combinators/index.js",
+		"./crypto": "./crypto/index.js",
+		"./currency": "./currency/index.js",
+		"./data": "./data/index.js",
+		"./date": "./date/index.js",
+		"./debounce": "./debounce/index.js",
+		"./deep_equal": "./deep_equal/index.js",
+		"./env": "./env/index.js",
+		"./error": "./error/index.js",
+		"./falsy": "./falsy/index.js",
+		"./fetch": "./fetch/index.js",
+		"./fibonacci": "./fibonacci/index.js",
+		"./fs": "./fs/index.js",
+		"./function": "./function/index.js",
+		"./functional": "./functional/index.js",
+		"./html": "./html/index.js",
+		"./http": "./http/index.js",
+		"./math": "./math/index.js",
+		"./matrix": "./matrix/index.js",
+		"./nullish": "./nullish/index.js",
+		"./number": "./number/index.js",
+		"./object": "./object/index.js",
+		"./promise": "./promise/index.js",
+		"./queue": "./queue/index.js",
+		"./random": "./random/index.js",
+		"./regex": "./regex/index.js",
+		"./rmemo": "./rmemo/index.js",
+		"./run": "./run/index.js",
+		"./set": "./set/index.js",
+		"./sleep": "./sleep/index.js",
+		"./string": "./string/index.js",
+		"./tempfile": "./tempfile/index.js",
+		"./test": "./test/index.js",
+		"./time": "./time/index.js",
+		"./tuple": "./tuple/index.js",
+		"./types": "./types/index.js",
+		"./uri": "./uri/index.js",
+		"./uuid": "./uuid/index.js",
 		"./package.json": "./package.json"
 	},
 	"scripts": {
 		"build": ":",
 		"clean": ":",
 		"exec": "$@",
-		"prepublishOnly": "pnpm clean && pnpm build && pnpm _test",
+		"prepublishOnly": "pnpm clean && pnpm build && pnpm test",
 		"test": "pnpm run /^test:/",
 		"test:size": "size-limit",
 		"test:type": "check-dts",
@@ -166,84 +165,84 @@
 		{
 			"name": "ctx_",
 			"import": {
-				"./_be": "{ ctx_ }"
+				"./be": "{ ctx_ }"
 			},
 			"limit": "33 B"
 		},
 		{
 			"name": "ns_ctx_",
 			"import": {
-				"./_be": "{ ns_ctx_ }"
+				"./be": "{ ns_ctx_ }"
 			},
 			"limit": "85 B"
 		},
 		{
 			"name": "be_",
 			"import": {
-				"./_be": "{ be_ }"
+				"./be": "{ be_ }"
 			},
 			"limit": "99 B"
 		},
 		{
 			"name": "be_ ctx_",
 			"import": {
-				"./_be": "{ be_, ctx_ }"
+				"./be": "{ be_, ctx_ }"
 			},
 			"limit": "131 B"
 		},
 		{
 			"name": "be_ ns_ctx_",
 			"import": {
-				"./_be": "{ be_, ctx_, ns_ctx_ }"
+				"./be": "{ be_, ctx_, ns_ctx_ }"
 			},
 			"limit": "190 B"
 		},
 		{
 			"name": "be_ ctx_ ns_ctx_",
 			"import": {
-				"./_be": "{ be_, ctx_, ns_ctx_ }"
+				"./be": "{ be_, ctx_, ns_ctx_ }"
 			},
 			"limit": "190 B"
 		},
 		{
 			"name": "memo_",
 			"import": {
-				"./_rmemo": "{ memo_ }"
+				"./rmemo": "{ memo_ }"
 			},
 			"limit": "352 B"
 		},
 		{
 			"name": "memo_ sig_",
 			"import": {
-				"./_rmemo": "{ sig_, memo_ }"
+				"./rmemo": "{ sig_, memo_ }"
 			},
 			"limit": "370 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_",
 			"import": {
-				"./_rmemo": "{ sig_, memo_, be_, ctx_ }"
+				"./rmemo": "{ sig_, memo_, be_, ctx_ }"
 			},
 			"limit": "471 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_",
 			"import": {
-				"./_rmemo": "{ sig_, memo_, be_, ctx_, be_memo_pair_, be_sig_triple_ }"
+				"./rmemo": "{ sig_, memo_, be_, ctx_, be_memo_pair_, be_sig_triple_ }"
 			},
 			"limit": "576 B"
 		},
 		{
 			"name": "uuid",
 			"import": {
-				"./_uuid": "{ uuid_ }"
+				"./uuid": "{ uuid_ }"
 			},
 			"limit": "39 B"
 		},
 		{
 			"name": "short uuid",
 			"import": {
-				"./_uuid": "{ short_uuid_ }"
+				"./uuid": "{ short_uuid_ }"
 			},
 			"limit": "116 B"
 		}

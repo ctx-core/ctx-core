@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.18.9
+
+### Patch Changes
+
+- fix: browser esbuild: 'node:' dynamic imports use a variable for the module name to avoid esbuild error
+
 ## 5.18.8
 
 ### Patch Changes

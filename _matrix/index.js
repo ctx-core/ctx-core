@@ -1,7 +1,0 @@
-export * from '../_/columns_nansum_matrix/index.js'
-export * from '../_/matrix__dot__scalar/index.js'
-export * from '../_/matrix__dot/index.js'
-export * from '../_/scalar__matrix__multiply/index.js'
-export * from '../_/matrix__normalize/index.js'
-export * from '../_/unit_matrix/index.js'
-export * from '../_/matrix__validate_length/index.js'

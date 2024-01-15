@@ -5,6 +5,7 @@
 		"moduleResolution": "nodenext",
 		"target": "ESNext",
 		"strict": true,
+		"esModuleInterop": true,
 		"lib": ["ESNext"],
 		"types": [
 			"node"

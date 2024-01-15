@@ -1,6 +1,0 @@
-export * from '../_/tup/index.js'
-export * from '../_/tuple/index.js'
-export * from '../_/tuple__o/index.js'
-export * from '../_/tuple_a_o/index.js'
-export * from '../_/tuple__union/index.js'
-export * from '../_/zip__tuple_a/index.js'
