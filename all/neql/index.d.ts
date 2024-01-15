@@ -1,3 +1,4 @@
+import type { a_nowrap_T } from '../a_nowrap/index.js'
 /**
  * Returns `!==` operator to all values in `a_unwrap`.
  */
@@ -7,5 +8,5 @@ export declare function neql<I>(a_unwrap:I):boolean
  * @param in_value_a
  * @returns {function(*=): boolean}
  */
-export declare function neql_<Arg>(in_value_a:Arg[]):(value:Arg)=>boolean
+export declare function neql_<I>(in_value_a:a_nowrap_T<I>):(value:I)=>boolean
 export { neql_ as _neql, }

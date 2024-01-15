@@ -1,5 +1,15 @@
 # ctx-core
 
+## 5.18.5
+
+### Patch Changes
+
+- fix types:
+
+      neql_
+      eq_
+      neq_
+
 ## 5.18.4
 
 ### Patch Changes
