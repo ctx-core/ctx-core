@@ -7,11 +7,9 @@ import { wrap_concat } from '../wrap_concat/index.js'
  * @returns {boolean}
  */
 export function neq(in_value_a) {
-	const value_a = wrap_a_(in_value_a)
-	let current_value = value_a[0]
-	for (let i = 1; i < value_a.length; i++) {
-		const value = value_a[i]
-		if (current_value == value) return false
+	let [cmp_val, ...rest] = wrap_a_(in_value_a)
+	for (let val of rest) {
+		if (cmp_val == val) return false
 	}
 	return true
 }

@@ -8,5 +8,7 @@ export declare function neql<I>(a_unwrap:I):boolean
  * @param in_value_a
  * @returns {function(*=): boolean}
  */
-export declare function neql_<I>(in_value_a:a_nowrap_T<I>):(value:I)=>boolean
+export declare function neql_<I>(
+	in_value_a:a_nowrap_T<unknown>
+):(value:I)=>boolean
 export { neql_ as _neql, }

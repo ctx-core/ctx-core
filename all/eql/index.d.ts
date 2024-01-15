@@ -6,7 +6,7 @@ export declare function eql<I>(a_unwrap:I):boolean
 /**
  * Returns function that returns `===` operator to all values in `in_value_a`.
  */
-export declare function eql_<I>(in_value_a:a_nowrap_T<I>):(val:I)=>boolean
+export declare function eql_<I>(in_value_a:a_nowrap_T<unknown>):(val:I)=>boolean
 export { eql_ as _eql, }
 /**
  * Returns function that applies `===` operator to `compare` & `value`.

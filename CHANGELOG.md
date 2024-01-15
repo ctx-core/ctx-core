@@ -1,5 +1,16 @@
 # ctx-core
 
+## 5.18.7
+
+### Patch Changes
+
+- fix argument type:
+
+      eq_
+      eql_
+      neq_
+      neql_
+
 ## 5.18.6
 
 ### Patch Changes
