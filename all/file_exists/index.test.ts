@@ -1,5 +1,5 @@
 import esmock from 'esmock'
-import { unlink, writeFile } from 'fs/promises'
+import { unlink, writeFile } from 'node:fs/promises'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { tempfile_path_ } from '../tempfile_path/index.js'

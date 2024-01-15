@@ -1,8 +1,8 @@
 import { preprocess } from '@ctx-core/preprocess'
 import { build } from 'esbuild'
-import { readFile, unlink } from 'fs/promises'
-import { tmpdir } from 'os'
-import { dirname, join, resolve } from 'path'
+import { readFile, unlink } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { dirname, join, resolve } from 'node:path'
 import { test } from 'uvu'
 import { equal, is, throws } from 'uvu/assert'
 import {

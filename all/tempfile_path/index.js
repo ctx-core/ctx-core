@@ -13,9 +13,9 @@ export async function tempfile_path_(
 	if (dir_path == null) {
 		dir_path =
 			typeof window === 'undefined'
-				? await import('fs/promises')
+				? await import('node:fs/promises')
 					.then(fs=>
-						import('os')
+						import('node:os')
 							.then(os=>
 								fs.realpath(os.tmpdir())))
 				: null

@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.18.8
+
+### Patch Changes
+
+- import nodejs core modules using node: prefix
+
 ## 5.18.7
 
 ### Patch Changes
