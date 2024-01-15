@@ -22,7 +22,7 @@ export function eq(a_nowrap) {
  * @returns {eq_fn_T}
  */
 export function eq_(a_nowrap) {
-	return (value)=>eq(wrap_concat(a_nowrap, value))
+	return value=>eq(wrap_concat(a_nowrap, value))
 }
 export {
 	eq_ as _eq,
