@@ -144,7 +144,7 @@
 		"@arethetypeswrong/cli": "^0.13.5",
 		"@ctx-core/preprocess": "^0.1.1",
 		"@size-limit/preset-small-lib": "^11.0.1",
-		"@types/node": "^20.11.2",
+		"@types/node": "^20.11.3",
 		"@types/sinon": "^17.0.3",
 		"c8": "^9.1.0",
 		"check-dts": "^0.7.2",
