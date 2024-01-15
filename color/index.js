@@ -1,5 +1,0 @@
-export * from '../all/color_rgb/index.js'
-export * from '../all/color_hsv/index.js'
-export * from '../all/color_hsv_phi_rgb_a/index.js'
-export * from '../all/color_invert_rgb_a/index.js'
-export * from '../all/color_hex_rgb__comma_delim_str/index.js'
