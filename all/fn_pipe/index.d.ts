@@ -64,7 +64,4 @@ export function fn_pipe<A, B, C, D, E, F, G, H, I, J, K>(
 	_6:($:G)=>H,
 	_7:($:H)=>I,
 	_8:($:I
-	)=>J, ...args:(($:any)=>any)[]):K
-export {
-	fn_pipe as _p_,
-}
+	)=>J, ...args:(($:unknown)=>unknown)[]):K

@@ -1,5 +1,13 @@
 # ctx-core
 
+## 5.19.2
+
+### Patch Changes
+
+- fn_pipe: fix re-export error with P alias:
+
+      fn_pipe as P moved to ./function export
+
 ## 5.19.1
 
 ### Patch Changes

@@ -1,4 +1,9 @@
+import { fn_pipe } from '../all/fn_pipe/index.js'
 import { run } from '../all/run/index.js'
+export {
+	fn_pipe as _p_,
+	fn_pipe as P,
+}
 export { run as _ }
 export * from '../all/LessThan/index.js'
 export * from '../all/NumericRange/index.js'
