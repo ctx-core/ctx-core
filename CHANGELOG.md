@@ -1,5 +1,15 @@
 # ctx-core
 
+## 5.19.0
+
+### Minor Changes
+
+- minor:
+
+      exports: + ./stream
+        + TextDecoderStream
+        + TextEncoderStream
+
 ## 5.18.9
 
 ### Patch Changes

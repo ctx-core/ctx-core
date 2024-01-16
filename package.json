@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.18.9",
+	"version": "5.19.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -66,6 +66,7 @@
 		"run",
 		"set",
 		"sleep",
+		"stream",
 		"string",
 		"tempfile",
 		"test",
@@ -119,6 +120,7 @@
 		"./run": "./run/index.js",
 		"./set": "./set/index.js",
 		"./sleep": "./sleep/index.js",
+		"./stream": "./stream/index.js",
 		"./string": "./string/index.js",
 		"./tempfile": "./tempfile/index.js",
 		"./test": "./test/index.js",
@@ -144,7 +146,7 @@
 		"@arethetypeswrong/cli": "^0.13.5",
 		"@ctx-core/preprocess": "^0.1.1",
 		"@size-limit/preset-small-lib": "^11.0.1",
-		"@types/node": "^20.11.3",
+		"@types/node": "^20.11.4",
 		"@types/sinon": "^17.0.3",
 		"c8": "^9.1.0",
 		"check-dts": "^0.7.2",
