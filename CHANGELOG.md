@@ -1,5 +1,12 @@
 # ctx-core
 
+## 5.19.1
+
+### Patch Changes
+
+- size-limit: ^11.0.1 -> ^11.0.2
+- @size-limit/preset-small-lib: ^11.0.1 -> ^11.0.2
+
 ## 5.19.0
 
 ### Minor Changes
