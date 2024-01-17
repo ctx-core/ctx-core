@@ -141,7 +141,10 @@ export function be__val_(be_or_id, ctx, ns) {
 export function ondelete_be_(val__new, config) {
 	let be = be_(val__new, config)
 	let ondelete_cb_a = []
-	be.ondelete = cb=>ondelete_cb_a.push(cb)
+	be.ondelete = cb=>{
+		ondelete_cb_a.push(cb)
+		return be
+	}
 	be.d = (...state)=>{
 		for (let ondelete_cb of ondelete_cb_a) {
 			ondelete_cb(...state)

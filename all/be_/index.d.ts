@@ -74,7 +74,9 @@ export type ondelete_Be<
 	ns_T extends string = '',
 	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
 > = ((ctx:ctx_T)=>val_T)&be_o_T<val_T, ns_T, ctx_T>&{
-	ondelete(cb:(val:val_T, ctx:ctx_T, be:Be<val_T, ns_T, ctx_T>)=>void):void
+	ondelete(
+		cb:(val:val_T, ctx:ctx_T, be:Be<val_T, ns_T, ctx_T>)=>void
+	):ondelete_Be<val_T, ns_T, ctx_T>
 	d():void
 }
 export type be_o_T<

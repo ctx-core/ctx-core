@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.21.0
+
+### Minor Changes
+
+- ondelete_Be: .ondelete: returns ondelete_Be<val_T, ns_T, ctx_T>
+
 ## 5.20.0
 
 ### Minor Changes
