@@ -1,8 +1,8 @@
-import type { be__val__new_T, be_config_T, Ctx, Ctx_wide_T } from '../be_/index.js'
+import type { be__val__new_T, be_config_T, Ctx_wide_T } from '../be_/index.js'
 export declare function be<
 	val_T extends NonNullable<unknown>,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(
 	ctx:ctx_T,
 	val_:be__val__new_T<val_T, ns_T, ctx_T>,

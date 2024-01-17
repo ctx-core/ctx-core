@@ -1,7 +1,7 @@
 export declare function globalThis__be_<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(val__new:be__val__new_T<val_T, ns_T, ctx_T>, config:be_config_T<ns_T>&{
 	id:string
 }):Be<val_T, ns_T, ctx_T>
@@ -14,7 +14,7 @@ export declare function globalThis__be_<
 export declare function be_<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(
 	val__new:be__val__new_T<val_T, ns_T, ctx_T>,
 	config?:be_config_T<ns_T>
@@ -22,7 +22,7 @@ export declare function be_<
 export declare function ctx__set<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(
 	ctx:ctx_T,
 	be_OR_id:Be<val_T>|string|symbol,
@@ -31,7 +31,7 @@ export declare function ctx__set<
 ):void
 export declare function ctx__delete<
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(
 	ctx:ctx_T,
 	be_OR_id:Be<unknown, ns_T, ctx_T>|string|symbol,
@@ -45,21 +45,21 @@ export declare function ctx__delete<
 export declare function ctx__clear(ctx:Ctx):void
 export declare function be__has_<
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(be_OR_id:Be<unknown, ns_T, ctx_T>|string, ctx:ctx_T, ns?:ns_T):boolean
 export declare function be_map__find<
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(be_OR_id:Be<unknown, ns_T, ctx_T>|string, ctx:ctx_T, ns?:ns_T):BeMap<ns_T>
 export declare function be__val_<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(be_OR_id:Be<val_T, ns_T, ctx_T>|string, ctx:ctx_T, ns?:ns_T):val_T|unknown|null
 export declare function ondelete_be_<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(
 	val__new:ondelete_be__val__new_T<val_T, ns_T, ctx_T>,
 	config?:be_config_T<ns_T>
@@ -67,12 +67,12 @@ export declare function ondelete_be_<
 export type Be<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 > = ((ctx:ctx_T)=>val_T)&be_o_T<val_T, ns_T, ctx_T>
 export type ondelete_Be<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 > = ((ctx:ctx_T)=>val_T)&be_o_T<val_T, ns_T, ctx_T>&{
 	ondelete(
 		cb:(val:val_T, ctx:ctx_T, be:Be<val_T, ns_T, ctx_T>)=>void
@@ -82,7 +82,7 @@ export type ondelete_Be<
 export type be_o_T<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>,
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 > = {
 	id:string|Be<val_T, ns_T, ctx_T>
 	ns:ns_T
@@ -104,12 +104,12 @@ export type BeMapO<ns_union_T extends string> =
 export type be__val__new_T<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 > = (ctx:ctx_T, be:Be<val_T, ns_T, ctx_T>)=>val_T
 export type ondelete_be__val__new_T<
 	val_T,
 	ns_T extends string = '',
-	ctx_T extends Ctx = Ctx_wide_T<ns_T>
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 > =
 	(
 		ctx:ctx_T,
@@ -131,7 +131,18 @@ export type Ctx_s_T<ns_union_T extends string = string> = {
 export type Ctx_s_wide_T<ns_union_T extends string> = {
 	s:BeMapO<ns_union_T>
 }
-export type ctx__be_T<ctx_T extends Ctx, be_val_T, ns_T extends string> =
-	Be<be_val_T, ns_T, ctx_T>
-export type ctx__get_T<ctx_T extends Ctx, val_T> = (ctx:ctx_T)=>val_T
-export type ctx__set_T<ctx_T extends Ctx, val_T> = (ctx:ctx_T, val:val_T)=>void
+export type ctx__be_T<
+	be_val_T,
+	ns_T extends string = '',
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
+> = Be<be_val_T, ns_T, ctx_T>
+export type ctx__get_T<
+	val_T,
+	ns_T extends string = '',
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
+> = (ctx:ctx_T)=>val_T
+export type ctx__set_T<
+	val_T,
+	ns_T extends string = '',
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
+> = (ctx:ctx_T, val:val_T)=>void
