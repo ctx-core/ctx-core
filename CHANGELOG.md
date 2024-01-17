@@ -1,5 +1,26 @@
 # ctx-core
 
+## 5.20.0
+
+### Minor Changes
+
+- exports: + ./event_log:
+
+      + event_log:
+      	+ event_log$_
+      	+ event_log_
+      + event_log__add
+      + event_log_limit:
+      	+ event_log_limit$_
+      	+ event_log_limit_
+      	+ event_log_limit__set
+      + event_log__set_limit
+      + event_log_record_T
+      + event_log_T
+      + event_log_add_T
+      + event_log_set_limit_T
+      + event_log__T
+
 ## 5.19.2
 
 ### Patch Changes

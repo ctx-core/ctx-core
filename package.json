@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.19.2",
+	"version": "5.20.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -45,6 +45,7 @@
 		"deep_equal",
 		"env",
 		"error",
+		"event_log",
 		"falsy",
 		"fetch",
 		"fibonacci",
@@ -99,6 +100,7 @@
 		"./deep_equal": "./deep_equal/index.js",
 		"./env": "./env/index.js",
 		"./error": "./error/index.js",
+		"./event_log": "./event_log/index.js",
 		"./falsy": "./falsy/index.js",
 		"./fetch": "./fetch/index.js",
 		"./fibonacci": "./fibonacci/index.js",
