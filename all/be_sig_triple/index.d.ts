@@ -1,4 +1,4 @@
-import type { Be, be_config_T, Ctx, ctx__be_T, ctx__get_T, ctx__set_T, Ctx_wide_T } from '../be_/index.js'
+import type { Be, be_config_T, ctx__be_T, ctx__get_T, ctx__set_T, Ctx_wide_T } from '../be_/index.js'
 import type { sig_T } from '../rmemo/index.js'
 export declare function be_sig_triple_<
 	val_T,
