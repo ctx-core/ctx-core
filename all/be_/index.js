@@ -41,6 +41,34 @@ export function be_(val__new, config) {
 	return be
 }
 /**
+ * @param {string}ns
+ * @param {be__val__new_T}val__new
+ * @returns {Be}
+ * @private
+ */
+export function ns_be_(ns, val__new) {
+	return be_(val__new, { ns })
+}
+/**
+ * @param {string}id
+ * @param {be__val__new_T}val__new
+ * @returns {Be}
+ * @private
+ */
+export function id_be_(id, val__new) {
+	return be_(val__new, { id })
+}
+/**
+ * @param {string}ns
+ * @param {string}id
+ * @param {be__val__new_T}val__new
+ * @returns {Be}
+ * @private
+ */
+export function ns_id_be_(ns, id, val__new) {
+	return be_(val__new, { ns, id })
+}
+/**
  * Auto-memoization function for the Ctx.
  * Memoized on globalThis to allow packages being loaded multiple times, which can happen during bundling.
  *

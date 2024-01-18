@@ -19,7 +19,7 @@ import {
 	type Ctx_s_T,
 	type Ctx_s_wide_T,
 	type Ctx_wide_T,
-	globalThis__be_,
+	globalThis__be_, id_be_, ns_be_, ns_id_be_,
 	ondelete_be_
 } from '../be_/index.js'
 import { ctx__new, ns_ctx__new } from '../ctx/index.js'
@@ -88,7 +88,9 @@ test('be_|ns_ctx__new', ()=>{
 	equal(ctx1.s[''].has(root_.id), false)
 	equal(ctx2.s[''].has(root_.id), false)
 	equal(ctx3.s[''].has(root_.id), true)
-	const child_ = be_(ctx=>root_(ctx) + 1, { id: 'child_' })
+	const child_ = be_(
+		ctx=>root_(ctx) + 1,
+		{ id: 'child_' })
 	equal(child_(ctx), 2)
 	equal(ctx0.s[''].has(child_.id), true)
 	equal(ctx1.s[''].has(child_.id), false)
@@ -101,13 +103,14 @@ test('be_|ns', ()=>{
 	const ctx1 = ns_ctx__new('ctx1')
 	const ctx = ns_ctx__new(ctx0, ctx1)
 	const be__ctx_a:Ctx_wide_T<'ctx1'>[] = []
-	const root_ = be_(ctx=>{
-		be__ctx_a.push(ctx)
-		return 1
-	}, {
-		ns: 'ctx1',
-		id: 'root_'
-	})
+	const root_ = be_<number, 'ctx1'>(
+		ctx=>{
+			be__ctx_a.push(ctx)
+			return 1
+		}, {
+			id: 'root_',
+			ns: 'ctx1',
+		})
 	equal(root_(ctx), 1)
 	equal(be__ctx_a, [ctx])
 	// @ts-expect-error TS2322
@@ -148,7 +151,7 @@ test('be_|ns|types', ()=>{
 		? typeof ctx
 		: never>>
 	type test_ctx_Ctx = Expect<Equal<typeof ctx, Ctx<''|'ctx1'>>>
-	const root_ = be_(
+	const root_ = be_<number, 'ctx1'>(
 		ctx=>{
 			type test_be_ctx_argument = Expect<Equal<typeof ctx, Ctx_wide_T<'ctx1'>>>
 			return 1
@@ -206,6 +209,29 @@ test('be_|circular dependency|DEBUG=1', async ()=>{
 	} finally {
 		await unlink(tempfile)
 	}
+})
+test('ns_be_', ()=>{
+	const valid_ctx = ns_ctx__new('test_ns')
+	const val_ = ns_be_('test_ns', ()=>true)
+	equal(val_(valid_ctx), true)
+	// @ts-expect-error TS2322
+	throws(()=>val_(ctx__new()))
+})
+test('id_be_', ()=>{
+	const valid_ctx = ctx__new()
+	const val_ = id_be_('test_id', ()=>true)
+	equal(val_(valid_ctx), true)
+	equal(val_.id, 'test_id')
+	// @ts-expect-error TS2322
+	throws(()=>val_(ns_ctx__new('test_ns')))
+})
+test('ns_id_be_', ()=>{
+	const valid_ctx = ns_ctx__new('test_ns')
+	const val_ = ns_id_be_('test_ns', 'test_id', ()=>true)
+	equal(val_(valid_ctx), true)
+	equal(val_.id, 'test_id')
+	// @ts-expect-error TS2322
+	throws(()=>val_(ctx__new()))
 })
 test('ctx__set', ()=>{
 	const ctx0 = ns_ctx__new('ctx0')
@@ -288,8 +314,7 @@ test('ctx__delete|be', ()=>{
 	// @ts-expect-error TS7053
 	equal(ctx1.s[''], undefined)
 	const ns__num_ =
-		be_(()=>1,
-			{ ns: 'ctx1' })
+		ns_be_('ctx1', ()=>1)
 	ns__num_(ns_ctx)
 	// @ts-expect-error TS2345
 	equal(ctx0.s[''].has(ns__num_.id), false)
