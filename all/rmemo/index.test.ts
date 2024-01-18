@@ -31,8 +31,9 @@ test('memo_|static value', ()=>{
 })
 test('memo_|def function|rmemo argument', ()=>{
 	const sig = sig_('val0')
-	const memo:memo_T<string>&{ custom?:string } = memo_<string>((_rmemo$:sig_T<string>&{ custom?:string })=>
-		`${_rmemo$.custom}-${sig()}`)
+	const memo =
+		memo_<string, { custom?:string }>(memo=>
+			`${memo.custom}-${sig()}`)
 	memo.custom = 'custom_val0'
 	equal(memo(), 'custom_val0-val0')
 	memo.custom = 'custom_val1'

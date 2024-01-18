@@ -72,17 +72,17 @@ test('be_sig_triple_|+be', ()=>{
 		foobar$_,
 		foobar_,
 		foobar__set,
-	] = be_sig_triple_<number, 'test_ns', custom_sig_T>(
+	] = be_sig_triple_<number, 'test_ns', { custom: string }>(
 		be_(ctx=>{
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const foobar$ =
-				sig_(
+				sig_<number, { custom: string }>(
 					1
-				).add(()=>add_count++) as custom_sig_T
+				).add(()=>add_count++)
 			foobar$.custom = 'custom-val'
-			return foobar$ as custom_sig_T
+			return foobar$
 		}, { id: 'foobar', ns: 'test_ns' }))
 	equal(add_count, 0)
 	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 1)
@@ -102,6 +102,3 @@ test('be_sig_triple_|+be', ()=>{
 	equal(add_count, 1)
 })
 test.run()
-type custom_sig_T = sig_T<number>&{
-	custom:string
-}

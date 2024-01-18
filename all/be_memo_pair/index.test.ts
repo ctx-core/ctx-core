@@ -117,14 +117,14 @@ test('be_memo_pair_|be', ()=>{
 	const [
 		foobar$_,
 		foobar_,
-	] = be_memo_pair_<number, 'test_ns', custom_memo_T>(
+	] = be_memo_pair_<number, 'test_ns', { custom: string }>(
 		be_(_ctx=>{
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			type test__ctx = Expect<Equal<typeof _ctx, Ctx_wide_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
-			const foobar$ = memo_(
+			const foobar$ = memo_<number, { custom: string }>(
 				()=>base_(ctx) + 1
-			).add(()=>add_count++) as custom_memo_T
+			).add(()=>add_count++)
 			equal(_ctx.s.test_ns, ctx.s.test_ns)
 			foobar$.custom = 'custom-val'
 			return foobar$
@@ -150,4 +150,3 @@ test('be_memo_pair_|be', ()=>{
 	equal(add_count, 1)
 })
 test.run()
-type custom_memo_T = memo_T<number>&{ custom:string }

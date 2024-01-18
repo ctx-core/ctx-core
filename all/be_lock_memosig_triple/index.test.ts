@@ -16,9 +16,7 @@ test('be_lock_memosig_triple_', ()=>{
 		foobar$_,
 		foobar_,
 		foobar__set,
-	] = be_lock_memosig_triple_<number, '', sig_T<number>&{
-		count:number
-	}>((
+	] = be_lock_memosig_triple_<number, '', { count:number }>((
 		_ctx,
 		foobar$
 	)=>{
@@ -110,19 +108,19 @@ test('be_lock_memosig_triple_|+be', ()=>{
 		foobar$_,
 		foobar_,
 		foobar__set,
-	] = be_lock_memosig_triple_<number, 'test_ns', custom_sig_T>(
+	] = be_lock_memosig_triple_<number, 'test_ns', { custom: string }>(
 		be_(ctx=>{
 			/* eslint-disable @typescript-eslint/no-unused-vars */
 			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const foobar$ =
-				memosig_(
+				memosig_<number, { custom: string }>(
 					()=>base_(ctx) + 1
 				).add(foobar$=>
 					memo_(()=>{
 						foobar$()
 						add_count++
-					})) as custom_sig_T
+					}))
 			foobar$.custom = 'custom-val'
 			return foobar$
 		}, { id: 'foobar', ns: 'test_ns' }))
@@ -152,6 +150,3 @@ test('be_lock_memosig_triple_|+be', ()=>{
 	equal(add_count, 3)
 })
 test.run()
-type custom_sig_T = sig_T<number>&{
-	custom:string
-}
