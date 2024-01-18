@@ -17,11 +17,12 @@ export declare function be_<
 	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(
 	val__new:be__val__new_T<val_T, ns_T, ctx_T>,
-	...config:
-		ns_T extends ''
-			? []|[config:be_config_T<ns_T>]
-			: [config:be_config_T<ns_T>]
+	...config:be_config_arg_a_T<ns_T>
 ):Be<val_T, ns_T, ctx_T>
+export type be_config_arg_a_T<ns_T extends string = ''> =
+	ns_T extends ''
+		? []|[config:be_config_T<ns_T>]
+		: [config:be_config_T<ns_T>]
 export declare function ns_be_<
 	val_T,
 	ns_T extends string,

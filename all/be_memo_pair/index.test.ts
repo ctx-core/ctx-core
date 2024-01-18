@@ -5,7 +5,7 @@ import { be_sig_triple_ } from '../be_sig_triple/index.js'
 import { ctx__new, ns_ctx__new } from '../ctx/index.js'
 import { memo_, type memo_T } from '../rmemo/index.js'
 import type { Equal, Expect } from '../test/index.js'
-import { be_memo_pair_ } from './index.js'
+import { be_memo_pair_, id_be_memo_pair_, ns_be_memo_pair_, ns_id_be_memo_pair_ } from './index.js'
 test('be_memo_pair_', ()=>{
 	const [
 		,
@@ -36,7 +36,7 @@ test('be_memo_pair_', ()=>{
 	equal(foobar_(ctx), 3)
 	equal(foobar$_(ctx).count, 2)
 })
-test('be_memo_pair_|+id|+ns|+oninit|+add', ()=>{
+test('be_memo_pair_|+id|+ns|+add', ()=>{
 	const ctx = ns_ctx__new('test_ns')
 	let add_count = 0
 	const [
@@ -148,5 +148,133 @@ test('be_memo_pair_|be', ()=>{
 	equal((ctx.s.test_ns.get('foobar')![0] as memo_T<number>)._, 3)
 	equal(foobar$_(ctx).custom, 'custom-val')
 	equal(add_count, 1)
+})
+test('ns_be_memo_pair_', ()=>{
+	const ctx = ns_ctx__new('test_ns')
+	let add_count = 0
+	const [
+		,
+		add_dep_,
+		add_dep__set
+	] = be_sig_triple_(()=>1,
+		{ ns: 'test_ns' })
+	const [
+		,
+		base_,
+		base__set,
+	] = be_sig_triple_(()=>1,
+		{ ns: 'test_ns' })
+	const [
+		foobar$_,
+		foobar_,
+	] = ns_be_memo_pair_(
+		'test_ns',
+		ctx=>base_(ctx) + 1,
+	).add((ctx, foobar$)=>memo_(()=>{
+		/* eslint-disable @typescript-eslint/no-unused-vars */
+		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+		/* eslint-enable @typescript-eslint/no-unused-vars */
+		add_count++
+		add_dep__set(ctx, add_count + foobar$())
+	}))
+	equal(add_count, 0)
+	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 2)
+	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 2)
+	equal(foobar$_(ctx)._, 2)
+	equal(foobar_(ctx), 2)
+	equal(add_count, 1)
+	equal(add_dep_(ctx), 3)
+	base__set(ctx, 2)
+	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 3)
+	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 3)
+	equal(foobar$_(ctx)._, 3)
+	equal(foobar_(ctx), 3)
+	equal(add_count, 2)
+	equal(add_dep_(ctx), 5)
+})
+test('id_be_memo_pair_', ()=>{
+	const ctx = ctx__new()
+	let add_count = 0
+	const [
+		,
+		add_dep_,
+		add_dep__set
+	] = be_sig_triple_(()=>1)
+	const [
+		,
+		base_,
+		base__set,
+	] = be_sig_triple_(()=>1)
+	const [
+		foobar$_,
+		foobar_,
+	] = id_be_memo_pair_(
+		'foobar',
+		ctx=>base_(ctx) + 1
+	).add((ctx, foobar$)=>memo_(()=>{
+		/* eslint-disable @typescript-eslint/no-unused-vars */
+		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<''>>>
+		/* eslint-enable @typescript-eslint/no-unused-vars */
+		add_count++
+		add_dep__set(ctx, add_count + foobar$())
+	}))
+	equal(add_count, 0)
+	equal(foobar$_(ctx)._, 2)
+	equal(foobar_(ctx), 2)
+	equal((ctx.s[''].get('foobar')![0] as memo_T<number>)._, 2)
+	equal(add_count, 1)
+	equal(add_dep_(ctx), 3)
+	base__set(ctx, 2)
+	equal(foobar$_(ctx)._, 3)
+	equal(foobar_(ctx), 3)
+	equal((ctx.s[''].get('foobar')![0] as memo_T<number>)._, 3)
+	equal(add_count, 2)
+	equal(add_dep_(ctx), 5)
+})
+test('ns_id_be_memo_pair_', ()=>{
+	const ctx = ns_ctx__new('test_ns')
+	let add_count = 0
+	const [
+		,
+		add_dep_,
+		add_dep__set
+	] = be_sig_triple_(()=>1,
+		{ ns: 'test_ns' })
+	const [
+		,
+		base_,
+		base__set,
+	] = be_sig_triple_(()=>1,
+		{ ns: 'test_ns' })
+	const [
+		foobar$_,
+		foobar_,
+	] = ns_id_be_memo_pair_(
+		'test_ns',
+		'foobar',
+		ctx=>base_(ctx) + 1
+	).add((ctx, foobar$)=>memo_(()=>{
+		/* eslint-disable @typescript-eslint/no-unused-vars */
+		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+		/* eslint-enable @typescript-eslint/no-unused-vars */
+		add_count++
+		add_dep__set(ctx, add_count + foobar$())
+	}))
+	equal(add_count, 0)
+	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 2)
+	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 2)
+	equal(foobar$_(ctx)._, 2)
+	equal(foobar_(ctx), 2)
+	equal((ctx.s.test_ns.get('foobar')![0] as memo_T<number>)._, 2)
+	equal(add_count, 1)
+	equal(add_dep_(ctx), 3)
+	base__set(ctx, 2)
+	equal(foobar$_(ns_ctx__new(ctx__new(), ctx))._, 3)
+	equal(foobar_(ns_ctx__new(ctx__new(), ctx)), 3)
+	equal(foobar$_(ctx)._, 3)
+	equal(foobar_(ctx), 3)
+	equal((ctx.s.test_ns.get('foobar')![0] as memo_T<number>)._, 3)
+	equal(add_count, 2)
+	equal(add_dep_(ctx), 5)
 })
 test.run()

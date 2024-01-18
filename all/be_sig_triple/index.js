@@ -36,3 +36,41 @@ export function be_sig_triple_(
 	}
 	return be_sig_triple
 }
+/**
+ * @param {string}ns
+ * @param {be__val__new_T<unknown>}val__new
+ * @returns {be_sig_triple_T}
+ * @private
+ */
+export function ns_be_sig_triple_(
+	ns,
+	val__new
+) {
+	return be_sig_triple_(val__new, { ns })
+}
+/**
+ * @param {string}id
+ * @param {be__val__new_T<unknown>}val__new
+ * @returns {be_sig_triple_T}
+ * @private
+ */
+export function id_be_sig_triple_(
+	id,
+	val__new
+) {
+	return be_sig_triple_(val__new, { id })
+}
+/**
+ * @param {string}ns
+ * @param {string}id
+ * @param {be__val__new_T<unknown>}val__new
+ * @returns {be_sig_triple_T}
+ * @private
+ */
+export function ns_id_be_sig_triple_(
+	ns,
+	id,
+	val__new
+) {
+	return be_sig_triple_(val__new, { ns, id })
+}
