@@ -12,7 +12,7 @@ export declare function be_memo_pair_<
 	E = unknown,
 	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(
-	rmemo__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
+	val__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
 	...config:be_config_arg_a_T<ns_T>
 ):be_memo_pair_T<val_T, ns_T, E, ctx_T>
 export declare function ns_be_memo_pair_<
@@ -22,7 +22,7 @@ export declare function ns_be_memo_pair_<
 	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
 >(
 	ns:ns_T,
-	val__new:(ctx:ctx_T)=>val_T,
+	val__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
 ):be_memo_pair_T<val_T, ns_T, E, ctx_T>
 export declare function id_be_memo_pair_<
 	val_T,
@@ -30,7 +30,7 @@ export declare function id_be_memo_pair_<
 	ctx_T extends Ctx_wide_T<''> = Ctx_wide_T<''>,
 >(
 	id:string,
-	val__new:(ctx:ctx_T)=>val_T,
+	val__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
 ):be_memo_pair_T<val_T, '', E, ctx_T>
 export declare function ns_id_be_memo_pair_<
 	val_T,
@@ -40,7 +40,7 @@ export declare function ns_id_be_memo_pair_<
 >(
 	ns:ns_T,
 	id:string,
-	val__new:(ctx:ctx_T)=>val_T,
+	val__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
 ):be_memo_pair_T<val_T, ns_T, E, ctx_T>
 export type be_memo_pair_T<
 	val_T,
