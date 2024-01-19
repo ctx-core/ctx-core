@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.25.3
+
+### Patch Changes
+
+- memo_T: fix: readonly a?:rmemo_a_T
+
 ## 5.25.2
 
 ### Patch Changes

@@ -20,7 +20,7 @@ export type circular_rmemo_T<E = unknown> =
 	(circular_memo_T|circular_sig_T|circular_lock_memosig_T)&E
 export type memo_T<val_T, E = unknown> = (()=>val_T)&{
 	readonly _:val_T
-	readonly a?:rmemo_a_T[]
+	readonly a?:rmemo_a_T
 	readonly f?:rmemo_f_T
 	readonly s?:rmemo_r_T
 	readonly t:rmemo_r_T[]
