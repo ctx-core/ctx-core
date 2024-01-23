@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.27.2
+
+### Patch Changes
+
+- version bump
+
 ## 5.27.1
 
 ### Patch Changes
