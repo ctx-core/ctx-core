@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.28.0
+
+### Minor Changes
+
+- ./rmemo: + run*or_val*
+
 ## 5.27.2
 
 ### Patch Changes

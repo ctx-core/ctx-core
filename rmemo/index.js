@@ -1,4 +1,4 @@
-import { memo__bind, rmemo__add, rmemo__off, rmemo__on } from './/index.js'
+import { memo__bind, rmemo__off, rmemo__on, rmemo__add } from './/index.js'
 export { memo__bind as _, memo__bind as bind, rmemo__off as off, rmemo__on as on, rmemo__add as subscribe }
 export * from '../all/be/index.js'
 export * from '../all/be_/index.js'
@@ -13,6 +13,7 @@ export * from '../all/nullish__none/index.js'
 export * from '../all/rmemo/index.js'
 export * from '../all/rmemo__wait/index.js'
 export * from '../all/run/index.js'
+export * from '../all/run_or_val/index.js'
 export * from '../all/sleep/index.js'
 export * from '../all/timeout/index.js'
 export * from '../all/tup/index.js'
