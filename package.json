@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.28.0",
+	"version": "5.28.1",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -153,7 +153,7 @@
 		"c8": "^9.1.0",
 		"check-dts": "^0.7.2",
 		"esbuild": "^0.19.12",
-		"esmock": "^2.6.2",
+		"esmock": "^2.6.3",
 		"sinon": "^17.0.1",
 		"size-limit": "^11.0.2",
 		"tsx": "^4.7.0",
