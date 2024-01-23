@@ -1,5 +1,15 @@
 # ctx-core
 
+## 5.26.0
+
+### Minor Changes
+
+- ./html:
+
+      + background_image_style_
+      + background_image_style_o_
+      + html_style_url_: + style_url_ alias
+
 ## 5.25.5
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import { html_attr_, raw__html_attr_ } from '../all/html_attr/index.js'
 import { html_attrs_ } from '../all/html_attrs/index.js'
 import { html_class_, html_class__ } from '../all/html_class/index.js'
 import { html_dataset__data_attrs_ } from '../all/html_dataset__data_attrs/index.js'
-import { html_style_, html_style__ } from '../all/html_style/index.js'
+import { html_style_, html_style__, html_style_url_ } from '../all/html_style/index.js'
 import { html_style__assign } from '../all/html_style__assign/index.js'
 import { html_styles_o_ } from '../all/html_styles_o/index.js'
 import { js_html_ } from '../all/js_html/index.js'
@@ -25,7 +25,7 @@ export { html_attrs_ as attrs_, html_attrs_ as _attrs }
 export { html_class_ as class_, html_class_ as _class, }
 export { html_class__ as class__, html_class__ as class_2, }
 export { html_dataset__data_attrs_ as dataset__data_attrs_ }
-export { html_style_ as style_, html_style_ as _style, }
+export { html_style_ as style_, html_style_ as _style, html_style_url_ as style_url_ }
 export { html_style__ as style__, html_style__ as style_2, }
 export {
 	html_style__assign as assign_style,
