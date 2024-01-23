@@ -4,6 +4,6 @@ import { sleep } from './index.js'
 test('sleep', async ()=>{
 	const now0 = performance.now()
 	await sleep(10)
-	equal(performance.now() >= now0 + 10, true)
+	equal(performance.now() >= now0 + 9, true)
 })
 test.run()

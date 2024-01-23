@@ -1,5 +1,13 @@
 # ctx-core
 
+## 5.25.4
+
+### Patch Changes
+
+- import_meta_env\_\_ensure: fix: browser error:
+
+      - ∋ Object.assign
+
 ## 5.25.3
 
 ### Patch Changes
