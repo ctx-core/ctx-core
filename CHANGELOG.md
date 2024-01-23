@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.25.5
+
+### Patch Changes
+
+- event_log: fix: infinite recursion error
+
 ## 5.25.4
 
 ### Patch Changes
