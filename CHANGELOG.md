@@ -1,5 +1,14 @@
 # ctx-core
 
+## 5.29.0
+
+### Minor Changes
+
+- ./uri:
+
+      url__join: arguments: ...url_segment_a:nested_url_segment_a_T
+      + nested_url_segment_a_T
+
 ## 5.28.1
 
 ### Patch Changes
