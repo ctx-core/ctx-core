@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.30.0
+
+### Minor Changes
+
+- - memo\_\_bind_T<A extends unknown[], R, E = unknown>
+
 ## 5.29.0
 
 ### Minor Changes

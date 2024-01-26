@@ -5,7 +5,9 @@ export declare function memosig_<val_T, E = unknown>(def:memo_def_T<val_T, E>):s
 export declare function lock_memosig_<val_T, E = unknown>(def:memo_def_T<val_T, E>):sig_T<val_T, E>
 export declare function memo__bind<A extends unknown[], R, E = unknown>(
 	fn:(...arg_a:A)=>R
-):((...arg_a:A)=>R)&{
+):memo__bind_T<A, R, E>
+export type memo__bind_T<A extends unknown[], R, E = unknown> =
+	((...arg_a:A)=>R)&{
 	memo_<val_T>(def:memo_def_T<val_T, E>):memo_T<val_T>
 }
 export declare function rmemo__on<val_T, E = unknown>(rmemo:rmemo_T<val_T, E>, off_fn?:(rmemo:rmemo_T<val_T, E>)=>unknown):void
