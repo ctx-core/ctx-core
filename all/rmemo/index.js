@@ -208,3 +208,9 @@ export function rmemo__add(memo, add_def) {
 		if (val instanceof Object) memo.a.splice(memo.a.indexOf(val), 1)
 	}
 }
+/**
+ * @param {rmemo_T}rmemo
+ */
+export function rmemo__unset(rmemo) {
+	delete rmemo.val
+}

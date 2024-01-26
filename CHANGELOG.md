@@ -1,5 +1,15 @@
 # ctx-core
 
+## 5.31.0
+
+### Minor Changes
+
+- ./rmemo: + rmemo\_\_unset: delete rmemo.val
+
+  size-limit:
+
+      memo_ sig_ be_ ctx_: - 1 B
+
 ## 5.30.0
 
 ### Minor Changes

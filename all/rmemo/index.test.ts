@@ -12,7 +12,7 @@ import {
 	rmemo__add,
 	rmemo__off,
 	rmemo__off__add,
-	rmemo__on,
+	rmemo__on, rmemo__unset,
 	type rmemo_T,
 	sig_,
 	type sig_T
@@ -564,5 +564,14 @@ test('rmemo__add', ()=>{
 	off()
 	base$._ = 3
 	equal(add_arg_aa_val_aaa, [[[base$], undefined, 1], [[base$], 'val-1', 2]])
+})
+test('rmemo__unset', ()=>{
+	const base$ = sig_(1)
+	equal('val' in base$, false)
+	equal(base$(), 1)
+	equal(base$.val, 1)
+	equal('val' in base$, true)
+	rmemo__unset(base$)
+	equal('val' in base$, false)
 })
 test.run()
