@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.31.1
+
+### Patch Changes
+
+- be\_: argument type: ...config→...config_arg_a
+
 ## 5.31.0
 
 ### Minor Changes
