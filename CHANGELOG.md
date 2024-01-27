@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.31.2
+
+### Patch Changes
+
+- esbuild: ^0.19.12 -> ^0.20.0
+
 ## 5.31.1
 
 ### Patch Changes
