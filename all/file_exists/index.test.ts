@@ -46,7 +46,7 @@ test('file_exists_ + file_exists__waitfor|browser', async ()=>{
 		await unlink(tempfile_path)
 	}
 	equal(await browser_file_exists_(tempfile_path), false)
-	equal(err?.message, 'Timeout 10ms')
+	equal(err?.message, 'no browser support')
 })
 test('browser|build', async ()=>{
 	await build({

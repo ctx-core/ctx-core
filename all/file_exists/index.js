@@ -15,18 +15,30 @@ export {
 	file_exists_ as path__exists_
 }
 /**
- * @param {string}path
+ * @param {string|(()=>unknown|Promise<unknown>)}path_OR_op
  * @param {number}[timeout]
  * @param {number|((promise:waitfor_Promise<boolean>)=>Promise<number>)}[period]
  * @returns {Promise<boolean>}
  */
 export function file_exists__waitfor(
-	path,
+	path_OR_op,
 	timeout,
 	period
 ) {
-	return waitfor(()=>
-		file_exists_(path),
+	return waitfor(async ()=>{
+		// eslint-disable-next-line no-constant-condition
+		for (; 1;) {
+			try {
+				return await (
+					typeof path_OR_op === 'string'
+						? file_exists_(path_OR_op)
+						: path_OR_op()
+				)
+			} catch (err) {
+				if (err.code !== 'ENOENT') throw err
+			}
+		}
+	},
 	timeout ?? 5000,
 	period ?? 0)
 }

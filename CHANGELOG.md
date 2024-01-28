@@ -1,5 +1,13 @@
 # ctx-core
 
+## 5.33.0
+
+### Minor Changes
+
+- Cancel: name: 'Cancel'
+- - promise\_\_cancel
+- file_exists\_\_waitfor: path:string→path_OR_op:string|(()=>unknown|Promise<unknown>)
+
 ## 5.32.1
 
 ### Patch Changes
