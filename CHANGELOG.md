@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.32.1
+
+### Patch Changes
+
+- is*entry_file*: fix: return type: boolean
+
 ## 5.32.0
 
 ### Minor Changes
