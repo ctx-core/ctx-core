@@ -3,7 +3,6 @@ import { unlink, writeFile } from 'node:fs/promises'
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
 import { tempfile_path_ } from '../tempfile_path/index.js'
-import { waitfor_Promise } from '../waitfor/index.js'
 import { file_exists_, file_exists__waitfor } from './index.js'
 test('file_exists_ + file_exists__waitfor|server', async ()=>{
 	const tempfile_path = await tempfile_path_()
