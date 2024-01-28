@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.32.0
+
+### Minor Changes
+
+- - browser-specific exports
+
 ## 5.31.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.31.2",
+	"version": "5.32.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -80,57 +80,210 @@
 	],
 	"exports": {
 		".": "./index.js",
-		"./all": "./all/index.js",
-		"./array": "./array/index.js",
-		"./atob": "./atob/index.js",
-		"./base16": "./base16/index.js",
-		"./be": "./be/index.js",
-		"./btoa": "./btoa/index.js",
-		"./buffer": "./buffer/index.js",
-		"./chain": "./chain/index.js",
-		"./class": "./class/index.js",
-		"./cli-args": "./cli-args/index.js",
-		"./color": "./color/index.js",
-		"./combinators": "./combinators/index.js",
-		"./crypto": "./crypto/index.js",
-		"./currency": "./currency/index.js",
-		"./data": "./data/index.js",
-		"./date": "./date/index.js",
-		"./debounce": "./debounce/index.js",
-		"./deep_equal": "./deep_equal/index.js",
-		"./env": "./env/index.js",
-		"./error": "./error/index.js",
-		"./event_log": "./event_log/index.js",
-		"./falsy": "./falsy/index.js",
-		"./fetch": "./fetch/index.js",
-		"./fibonacci": "./fibonacci/index.js",
-		"./fs": "./fs/index.js",
-		"./function": "./function/index.js",
-		"./functional": "./functional/index.js",
-		"./html": "./html/index.js",
-		"./http": "./http/index.js",
-		"./math": "./math/index.js",
-		"./matrix": "./matrix/index.js",
-		"./nullish": "./nullish/index.js",
-		"./number": "./number/index.js",
-		"./object": "./object/index.js",
-		"./promise": "./promise/index.js",
-		"./queue": "./queue/index.js",
-		"./random": "./random/index.js",
-		"./regex": "./regex/index.js",
-		"./rmemo": "./rmemo/index.js",
-		"./run": "./run/index.js",
-		"./set": "./set/index.js",
-		"./sleep": "./sleep/index.js",
-		"./stream": "./stream/index.js",
-		"./string": "./string/index.js",
-		"./tempfile": "./tempfile/index.js",
-		"./test": "./test/index.js",
-		"./time": "./time/index.js",
-		"./tuple": "./tuple/index.js",
-		"./types": "./types/index.js",
-		"./uri": "./uri/index.js",
-		"./uuid": "./uuid/index.js",
+		"./all": {
+			"browser": "./all/index.browser.js",
+			"default": "./all/index.js"
+		},
+		"./array": {
+			"browser": "./array/index.browser.js",
+			"default": "./array/index.js"
+		},
+		"./atob": {
+			"browser": "./atob/index.browser.js",
+			"default": "./atob/index.js"
+		},
+		"./base16": {
+			"browser": "./base16/index.browser.js",
+			"default": "./base16/index.js"
+		},
+		"./be": {
+			"browser": "./be/index.browser.js",
+			"default": "./be/index.js"
+		},
+		"./btoa": {
+			"browser": "./btoa/index.browser.js",
+			"default": "./btoa/index.js"
+		},
+		"./buffer": {
+			"browser": "./buffer/index.browser.js",
+			"default": "./buffer/index.js"
+		},
+		"./chain": {
+			"browser": "./chain/index.browser.js",
+			"default": "./chain/index.js"
+		},
+		"./class": {
+			"browser": "./class/index.browser.js",
+			"default": "./class/index.js"
+		},
+		"./cli-args": {
+			"browser": "./cli-args/index.browser.js",
+			"default": "./cli-args/index.js"
+		},
+		"./color": {
+			"browser": "./color/index.browser.js",
+			"default": "./color/index.js"
+		},
+		"./combinators": {
+			"browser": "./combinators/index.browser.js",
+			"default": "./combinators/index.js"
+		},
+		"./crypto": {
+			"browser": "./crypto/index.browser.js",
+			"default": "./crypto/index.js"
+		},
+		"./currency": {
+			"browser": "./currency/index.browser.js",
+			"default": "./currency/index.js"
+		},
+		"./data": {
+			"browser": "./data/index.browser.js",
+			"default": "./data/index.js"
+		},
+		"./date": {
+			"browser": "./date/index.browser.js",
+			"default": "./date/index.js"
+		},
+		"./debounce": {
+			"browser": "./debounce/index.browser.js",
+			"default": "./debounce/index.js"
+		},
+		"./deep_equal": {
+			"browser": "./deep_equal/index.browser.js",
+			"default": "./deep_equal/index.js"
+		},
+		"./env": {
+			"browser": "./env/index.browser.js",
+			"default": "./env/index.js"
+		},
+		"./error": {
+			"browser": "./error/index.browser.js",
+			"default": "./error/index.js"
+		},
+		"./event_log": {
+			"browser": "./event_log/index.browser.js",
+			"default": "./event_log/index.js"
+		},
+		"./falsy": {
+			"browser": "./falsy/index.browser.js",
+			"default": "./falsy/index.js"
+		},
+		"./fetch": {
+			"browser": "./fetch/index.browser.js",
+			"default": "./fetch/index.js"
+		},
+		"./fibonacci": {
+			"browser": "./fibonacci/index.browser.js",
+			"default": "./fibonacci/index.js"
+		},
+		"./fs": {
+			"browser": "./fs/index.browser.js",
+			"default": "./fs/index.js"
+		},
+		"./function": {
+			"browser": "./function/index.browser.js",
+			"default": "./function/index.js"
+		},
+		"./functional": {
+			"browser": "./functional/index.browser.js",
+			"default": "./functional/index.js"
+		},
+		"./html": {
+			"browser": "./html/index.browser.js",
+			"default": "./html/index.js"
+		},
+		"./http": {
+			"browser": "./http/index.browser.js",
+			"default": "./http/index.js"
+		},
+		"./math": {
+			"browser": "./math/index.browser.js",
+			"default": "./math/index.js"
+		},
+		"./matrix": {
+			"browser": "./matrix/index.browser.js",
+			"default": "./matrix/index.js"
+		},
+		"./nullish": {
+			"browser": "./nullish/index.browser.js",
+			"default": "./nullish/index.js"
+		},
+		"./number": {
+			"browser": "./number/index.browser.js",
+			"default": "./number/index.js"
+		},
+		"./object": {
+			"browser": "./object/index.browser.js",
+			"default": "./object/index.js"
+		},
+		"./promise": {
+			"browser": "./promise/index.browser.js",
+			"default": "./promise/index.js"
+		},
+		"./queue": {
+			"browser": "./queue/index.browser.js",
+			"default": "./queue/index.js"
+		},
+		"./random": {
+			"browser": "./random/index.browser.js",
+			"default": "./random/index.js"
+		},
+		"./regex": {
+			"browser": "./regex/index.browser.js",
+			"default": "./regex/index.js"
+		},
+		"./rmemo": {
+			"browser": "./rmemo/index.browser.js",
+			"default": "./rmemo/index.js"
+		},
+		"./run": {
+			"browser": "./run/index.browser.js",
+			"default": "./run/index.js"
+		},
+		"./set": {
+			"browser": "./set/index.browser.js",
+			"default": "./set/index.js"
+		},
+		"./sleep": {
+			"browser": "./sleep/index.browser.js",
+			"default": "./sleep/index.js"
+		},
+		"./stream": {
+			"browser": "./stream/index.browser.js",
+			"default": "./stream/index.js"
+		},
+		"./string": {
+			"browser": "./string/index.browser.js",
+			"default": "./string/index.js"
+		},
+		"./tempfile": {
+			"browser": "./tempfile/index.browser.js",
+			"default": "./tempfile/index.js"
+		},
+		"./test": {
+			"browser": "./test/index.browser.js",
+			"default": "./test/index.js"
+		},
+		"./time": {
+			"browser": "./time/index.browser.js",
+			"default": "./time/index.js"
+		},
+		"./tuple": {
+			"browser": "./tuple/index.browser.js",
+			"default": "./tuple/index.js"
+		},
+		"./types": {
+			"browser": "./types/index.browser.js",
+			"default": "./types/index.js"
+		},
+		"./uri": {
+			"browser": "./uri/index.browser.js",
+			"default": "./uri/index.js"
+		},
+		"./uuid": {
+			"browser": "./uuid/index.browser.js",
+			"default": "./uuid/index.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"scripts": {

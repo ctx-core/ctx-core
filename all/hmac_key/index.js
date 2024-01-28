@@ -1,14 +1,14 @@
 /// <reference types="../hmac_key/index.d.ts" />
 import { crypto_ } from '../crypto/index.js'
 /**
- * @param {digest__algorithm_T}algorithm
+ * @param {digest__algorithm_T}hash
  * @param {string|BufferSource}key
  * @returns {Promise<CryptoKey>}
  * @see https://lukasmurdock.com/web-hmac/
  * @private
  */
 export async function hmac_key_(
-	algorithm,
+	hash,
 	key
 ) {
 	if (typeof key === 'string') {
@@ -24,7 +24,7 @@ export async function hmac_key_(
 		key,
 		{
 			name: 'HMAC',
-			hash: algorithm
+			hash: hash
 		},
 		true,
 		['sign', 'verify'])

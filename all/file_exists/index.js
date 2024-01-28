@@ -1,6 +1,5 @@
-import { process_release_name } from '../process_release_name/index.js'
+import { access, constants } from 'node:fs/promises'
 import { waitfor } from '../waitfor/index.js'
-let node_fs_promises = 'node:fs/promises'
 /**
  * @param {string}path
  * @returns {Promise<boolean>}
@@ -8,11 +7,9 @@ let node_fs_promises = 'node:fs/promises'
  */
 export async function file_exists_(path) {
 	return (
-		(process_release_name ?? false)
-		&& import(node_fs_promises).then(({ access, constants })=>
-			access(path, constants.F_OK)
-				.then(()=>true)
-				.catch(()=>false)))
+		access(path, constants.F_OK)
+			.then(()=>true)
+			.catch(()=>false))
 }
 export {
 	file_exists_ as path__exists_

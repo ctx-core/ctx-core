@@ -1,4 +1,3 @@
-/// <reference types="../crypto__sign/index.d.ts" />
 import { crypto_ } from '../crypto/index.js'
 /**
  * @param {crypto__sign__algorithm_T}algorithm

@@ -1,7 +1,7 @@
+import { tmpdir } from 'node:os'
+import { realpath } from 'node:fs/promises'
 import { crypto_ } from '../crypto/index.js'
 import { url__join } from '../url__join/index.js'
-let node_fs_promises = 'node:fs/promises'
-let node_os = 'node:os'
 /**
  * @param {string}[dir_path]
  * @param {string}[extension]
@@ -15,11 +15,7 @@ export async function tempfile_path_(
 	if (dir_path == null) {
 		dir_path =
 			typeof window === 'undefined'
-				? await import(node_fs_promises)
-					.then(fs=>
-						import(node_os)
-							.then(os=>
-								fs.realpath(os.tmpdir())))
+				? await realpath(tmpdir())
 				: null
 	}
 	const crypto = await crypto_()

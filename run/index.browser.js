@@ -1,0 +1,13 @@
+import { run } from '../all/run/index.browser.js'
+export { run as _ }
+export * from '../all/apply/index.browser.js'
+export * from '../all/bind_apply/index.browser.js'
+export * from '../all/bind_call/index.browser.js'
+export * from '../all/bind_map_apply/index.browser.js'
+export * from '../all/bind_map_call/index.browser.js'
+export * from '../all/call/index.browser.js'
+export * from '../all/call_fn_a/index.browser.js'
+export * from '../all/call_or_fn/index.browser.js'
+export * from '../all/run/index.browser.js'
+export * from '../all/run_or_val/index.browser.js'
+export * from '../all/tap/index.browser.js'
