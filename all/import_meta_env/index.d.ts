@@ -1,10 +1,10 @@
-export function import_meta_env_<R extends ImportMetaEnv>():R
-export function import_meta_env__ensure<R extends ImportMetaEnv>():R
+export function import_meta_env_<R extends import_meta_env_T>():R
+export function import_meta_env__ensure<R extends import_meta_env_T>():R
 declare global {
-	interface ImportMeta {
-		readonly env:ImportMetaEnv
+	interface import_meta_T {
+		readonly env:import_meta_env_T
 	}
 }
-interface ImportMetaEnv {
+interface import_meta_env_T {
 	[key:string]:string
 }

@@ -1,5 +1,13 @@
 # ctx-core
 
+## 5.34.0
+
+### Minor Changes
+
+- ImportMeta→import_meta_T
+
+  ImportMetaEnv→import_meta_env_T
+
 ## 5.33.0
 
 ### Minor Changes
