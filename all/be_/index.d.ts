@@ -47,6 +47,15 @@ export declare function ns_id_be_<
 	id:string,
 	val__new:be__val__new_T<val_T, ns_T, ctx_T>
 ):Be<val_T, ns_T, ctx_T>
+export declare function ctx__get<
+	val_T,
+	ns_T extends string = '',
+	ctx_T extends Ctx_wide_T<ns_T> = Ctx_wide_T<ns_T>,
+>(
+	ctx:ctx_T,
+	be_OR_id:Be<val_T>|string|symbol,
+	ns?:ns_T
+):val_T
 export declare function ctx__set<
 	val_T,
 	ns_T extends string = '',

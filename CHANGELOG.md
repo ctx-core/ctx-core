@@ -1,5 +1,12 @@
 # ctx-core
 
+## 5.35.0
+
+### Minor Changes
+
+- ./be,./object,./rmemo: + ctx\_\_get
+- - ./dom: + window**ctx**set
+
 ## 5.34.0
 
 ### Minor Changes

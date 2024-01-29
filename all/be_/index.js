@@ -14,21 +14,21 @@ export function be_(val__new, config) {
 	let be = ctx=>{
 		let be_map = ctx.s[be.ns]
 		/* @if DEBUG **
-			// ~ 30 B
-			if (!be_map) throw Error('ctx_no_ns: \'' + be.ns + '\'')
-		/* @endif */
+		 // ~ 30 B
+		 if (!be_map) throw Error('ctx_no_ns: \'' + be.ns + '\'')
+		 /* @endif */
 		// config is not used anymore so reusing to reduce bundle size
 		config = be_map.get(be.id)
 		if (config) return config[0]
 		/* @if DEBUG **
-			// 5-11 B
-			// circular dependency state
-			// if val__new calls this be before returning, 'cir' will be the value of this be
-			// 'cir' is used instead of 'circular' to reduce the payload by a few bytes
-			config = ['cir', ctx, be]
-			be_map.set(be.id, config)
-			config[0] = val__new(ctx, be)
-		/* @endif */
+		 // 5-11 B
+		 // circular dependency state
+		 // if val__new calls this be before returning, 'cir' will be the value of this be
+		 // 'cir' is used instead of 'circular' to reduce the payload by a few bytes
+		 config = ['cir', ctx, be]
+		 be_map.set(be.id, config)
+		 config[0] = val__new(ctx, be)
+		 /* @endif */
 		/* @if !DEBUG */
 		config = [val__new(ctx, be), ctx, be]
 		be_map.set(be.id, config)
@@ -81,6 +81,20 @@ export function ns_id_be_(ns, id, val__new) {
  * @private
  */
 export { be_ as globalThis__be_ }
+/**
+ * @param {Ctx}ctx
+ * @param {Be|string|symbol}be_OR_id
+ * @param {string}[ns]
+ * @returns {unknown}
+ * @private
+ */
+export function ctx__get(
+	ctx,
+	be_OR_id,
+	ns = be_OR_id.ns ?? ''
+) {
+	return ctx.s[ns].get(be_OR_id.id ?? be_OR_id)?.[0]
+}
 /**
  * @param {Ctx}ctx
  * @param {Be|string|symbol}be_OR_id
@@ -141,24 +155,24 @@ export function be__has_(...arg_a) {
 	return Boolean(be_map__find(...arg_a))
 }
 /**
- * @param {Be}be_or_id
+ * @param {Be}be_OR_id
  * @param {Ctx}ctx
  * @param {string}[ns]
  * @returns {Ctx}
  * @private
  */
-export function be_map__find(be_or_id, ctx, ns = be_or_id.ns ?? '') {
-	return ctx.s[ns].has(be_or_id.id ?? be_or_id) ? ctx.s[ns] : _undefined
+export function be_map__find(be_OR_id, ctx, ns = be_OR_id.ns ?? '') {
+	return ctx.s[ns].has(be_OR_id.id ?? be_OR_id) ? ctx.s[ns] : _undefined
 }
 /**
- * @param {Be|string}be_or_id
+ * @param {Be|string}be_OR_id
  * @param {Ctx}ctx
  * @param {string}[ns]
  * @returns {unknown}
  * @private
  */
-export function be__val_(be_or_id, ctx, ns) {
-	return be_map__find(be_or_id, ctx, ns)?.get?.(be_or_id.id ?? be_or_id)?.[0]
+export function be__val_(be_OR_id, ctx, ns) {
+	return be_map__find(be_OR_id, ctx, ns)?.get?.(be_OR_id.id ?? be_OR_id)?.[0]
 }
 /**
  * @param {be__val__new_T}val__new
