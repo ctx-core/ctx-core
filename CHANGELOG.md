@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.35.1
+
+### Patch Changes
+
+- package.json: fix: include dom directory
+
 ## 5.35.0
 
 ### Minor Changes

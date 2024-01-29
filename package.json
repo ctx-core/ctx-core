@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.35.0",
+	"version": "5.35.1",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -43,6 +43,7 @@
 		"date",
 		"debounce",
 		"deep_equal",
+		"dom",
 		"env",
 		"error",
 		"event_log",
