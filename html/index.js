@@ -1,5 +1,6 @@
 import { html_ } from './/index.js'
 import { html_attr_, raw__html_attr_ } from '../all/html_attr/index.js'
+import { html_attr_val_ } from '../all/html_attr_val/index.js'
 import { html_attrs_ } from '../all/html_attrs/index.js'
 import { html_class_, html_class__ } from '../all/html_class/index.js'
 import { html_dataset__data_attrs_ } from '../all/html_dataset__data_attrs/index.js'
@@ -9,6 +10,7 @@ import { html_styles_o_ } from '../all/html_styles_o/index.js'
 import { js_html_ } from '../all/js_html/index.js'
 import { links_html_ } from '../all/links_html/index.js'
 export * from '../all/html_attr/index.js'
+export * from '../all/html_attr_val/index.js'
 export * from '../all/html_attrs/index.js'
 export * from '../all/html_class/index.js'
 export * from '../all/html_dataset__data_attrs/index.js'
@@ -20,6 +22,7 @@ export * from '../all/html_style__assign/index.js'
 export * from '../all/html_styles_o/index.js'
 export { html_ as _html, html_ as html__escape }
 export { html_attr_ as attr_ }
+export { html_attr_val_ as attr_val_ }
 export { raw__html_attr_ as raw__attr_ }
 export { html_attrs_ as attrs_, html_attrs_ as _attrs }
 export { html_class_ as class_, html_class_ as _class, }

@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.36.0
+
+### Minor Changes
+
+- ./all,./html: + html*attr_val*
+
 ## 5.35.2
 
 ### Patch Changes
