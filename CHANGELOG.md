@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.35.2
+
+### Patch Changes
+
+- update dependencies
+
 ## 5.35.1
 
 ### Patch Changes
