@@ -1,5 +1,14 @@
 # ctx-core
 
+## 5.36.2
+
+### Patch Changes
+
+- ./stream: fix: remove undefined at the end of the buffer:
+
+      TextDecoderStream
+      TextEncoderStream
+
 ## 5.36.1
 
 ### Patch Changes

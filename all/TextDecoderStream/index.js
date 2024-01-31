@@ -30,17 +30,6 @@ export class TextDecoderStream extends TransformStream {
 					controller.enqueue(decoded)
 				}
 			},
-			flush(controller) {
-				// If {fatal: false} is in options (the default), then the final call to
-				// decode() can produce extra output (usually the unicode replacement
-				// character 0xFFFD). When fatal is true, this call is just used for its
-				// side-effect of throwing a TypeError exception if the input is
-				// incomplete.
-				const output = decoder.decode()
-				if (output.length > 0) {
-					controller.enqueue(output)
-				}
-			}
 		})
 		this.encoding = encoding
 		this.fatal = fatal
