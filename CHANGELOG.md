@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.36.1
+
+### Patch Changes
+
+- update dependencies
+
 ## 5.36.0
 
 ### Minor Changes
