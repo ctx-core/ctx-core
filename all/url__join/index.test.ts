@@ -23,5 +23,8 @@ test('url__join', ()=>{
 	equal(
 		url__join(['http://localhost/foo/bar/baz?id=1', [['something=else']]]),
 		'http://localhost/foo/bar/baz?id=1&something=else')
+	equal(
+		url__join(['http://localhost/', '/foo/bar/baz?id=1', 'something=else']),
+		'http://localhost/foo/bar/baz?id=1&something=else')
 })
 test.run()

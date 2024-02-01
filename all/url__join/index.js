@@ -9,16 +9,14 @@ export function url__join(...url_segment_a) {
 	for (let url_segment of url_segment_a.flat(Infinity)) {
 		let url_segment_str = '' + url_segment
 		url += (
-			~[
-				'/',
-				'?',
-				'&'
-			].indexOf(url_segment_str[0])
-			|| (!url && url_segment_str.includes('://'))
-				? url_segment_str
-				: in_query
-					? '&' + url_segment_str
-					: '/' + url_segment_str
+			url_segment_str[0] === '/' && url.slice(-1) === '/'
+				? url_segment_str.slice(1)
+				: ~['/', '?', '&'].indexOf(url_segment_str[0])
+				|| (!url && url_segment_str.includes('://'))
+					? url_segment_str
+					: in_query
+						? '&' + url_segment_str
+						: '/' + url_segment_str
 		)
 		if (url_segment_str.includes('?')) in_query = 1
 	}

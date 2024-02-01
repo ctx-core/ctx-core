@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.36.3
+
+### Patch Changes
+
+- ./uri: url\_\_join: fix: '//' condition when segment ends with '/' & following segment starts with '/'
+
 ## 5.36.2
 
 ### Patch Changes
