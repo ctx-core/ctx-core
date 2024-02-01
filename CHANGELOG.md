@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.36.4
+
+### Patch Changes
+
+- ./uri: url\_\_join: fix: '//' when last character of segment is '/' & next segment does not begin with '/'
+
 ## 5.36.3
 
 ### Patch Changes
