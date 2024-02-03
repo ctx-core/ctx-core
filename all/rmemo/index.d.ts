@@ -66,8 +66,8 @@ export type memo_def_T<val_T, E = unknown> = (sig:sig_T<val_T, E>)=>val_T
 export type rmemo_a_T = unknown[]
 export type rmemo_add_def_T<val_T, add_val_T, E = unknown> = (sig:sig_T<val_T, E>)=>add_val_T
 export type rmemo_f_T = (()=>void)&{
-	// readonly l:number
-	// readonly s:rmemo_T<unknown>[]
-	// readonly t:rmemo_T<unknown>[]
+	readonly l:number
+	readonly s:rmemo_T<unknown>[]
+	readonly t:rmemo_T<unknown>[]
 }
 export type rmemo_r_T = WeakRef<rmemo_f_T>&{ readonly d?: ()=>rmemo_f_T }

@@ -1,5 +1,31 @@
 # ctx-core
 
+## 5.37.0
+
+### Minor Changes
+
+- minor: ./rmemo:
+
+      state is stored in globalThis.rmemo: fix: issue when multiple instances of rmemo is in the codebase: bundles
+      rmemo__wait: fix: Garbage Collection prematurely collecting memo
+      rmemo_f_T:
+        readonly l:number
+        readonly s:rmemo_T<unknown>[]
+        readonly t:rmemo_T<unknown>[]
+
+  size-limit:
+
+      memo_: + 20 B
+      memo_ sig_: + 21 B
+      memo_ sig_ be_ ctx_: + 29 B
+      memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: + 19 B
+
+### Patch Changes
+
+- debounce: fix: ∋ clearTimeout
+- rate_limit: fix: ∋ clearTimeout
+- timeout_promise: fix: clearTimeout when an error occurs: clearTimeout in finally instead of then
+
 ## 5.36.4
 
 ### Patch Changes

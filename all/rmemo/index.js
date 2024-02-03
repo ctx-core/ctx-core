@@ -1,8 +1,10 @@
 /// <reference types="./index.d.ts" />
-/** @type {memo_T} */
-let cur_memo
-/** @type {Set<memo_T>} */
-let queue = new Set
+/**
+ * @type {{ c?:memo_T, q:Set<memo_T> }}
+ * $.c child memo calling the memo
+ * $.q queue
+ */
+let $ = globalThis.rmemo ??= { q: new Set }
 /**
  * @param {memo_def_T}memo_def
  * @param {rmemo_add_def_T}add_def_a
@@ -15,17 +17,15 @@ export function memo_(memo_def, ...add_def_a) {
 		if (!('val' in memo)) {
 			memo.f()
 		}
-		if (cur_memo) {
-			if (!memo.t.includes(
-				cur_memo.s ||= new WeakRef(cur_memo.f)
-			)) {
-				memo.t.push(cur_memo.s)
+		if ($.c) {
+			if (!memo.t.includes($.c.s ??= new WeakRef($.c.f))) {
+				memo.t.push($.c.s)
 			}
-			if (cur_memo.f.l < memo.f.l + 1) cur_memo.f.l = memo.f.l + 1
-			// memo is called by cur_memo's conditional execution...next change to memo will notify cur_memo
-			cur_memo.f.s.push(memo)
-			// prevent memo from GC while cur_memo still has a strong reference
-			if (!cur_memo.f.t.includes(memo)) cur_memo.f.t.push(memo)
+			if ($.c.f.l < memo.f.l + 1) $.c.f.l = memo.f.l + 1
+			// memo is called by $.c's conditional execution...next change to memo will notify $.c
+			$.c.f.s.push(memo)
+			// prevent memo from GC while $.c still has a strong reference
+			if (!$.c.f.t.includes(memo)) $.c.f.t.push(memo)
 		}
 		return memo.val
 	}
@@ -35,8 +35,8 @@ export function memo_(memo_def, ...add_def_a) {
 			if (memo.val !== val) {
 				memo.t = memo.t.filter(r=>{
 					r = r.deref()
-					if (r && r.s.includes(memo)) { // if added by cur_memo.f.s.push(memo), add to queue
-						queue.add(r)
+					if (r?.s.includes(memo)) { // if added by $.c.f.s.push(memo), add to $.q
+						$.q.add(r)
 					}
 					return r
 				})
@@ -46,11 +46,11 @@ export function memo_(memo_def, ...add_def_a) {
 				memo.a = []
 				add_def_a.map(memo.add)
 			}
-			cur_refresh_loop:for (let cur_refresh of queue) {
-				queue.delete(cur_refresh)
-				for (let queue_refresh of queue) {
+			cur_refresh_loop:for (let cur_refresh of $.q) {
+				$.q.delete(cur_refresh)
+				for (let queue_refresh of $.q) {
 					if (cur_refresh.l > queue_refresh.l) {
-						queue.add(cur_refresh)
+						$.q.add(cur_refresh)
 						continue cur_refresh_loop
 					}
 				}
@@ -76,15 +76,15 @@ export function memo_(memo_def, ...add_def_a) {
 	}
 	memo.memo_ = memo_
 	memo.f = ()=>{
-		let prev_memo = cur_memo
-		cur_memo = memo
-		memo.f.s = [] // reset references in memo_def conditional execution path...see cur_memo.f.s.push(memo)
+		let prev_memo = $.c
+		$.c = memo
+		memo.f.s = [] // reset references in memo_def conditional execution path...see $.c.f.s.push(memo)
 		try {
 			memo._ = memo_def(memo)
 		} catch (err) {
 			console.error(err)
 		}
-		cur_memo = prev_memo // catch does not throw
+		$.c = prev_memo // catch does not throw
 	}
 	memo.f.l = 0
 	memo.f.s = []

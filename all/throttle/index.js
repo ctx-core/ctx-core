@@ -7,15 +7,15 @@
  */
 export function throttle(fn, threshold = 250, _this) {
 	threshold || (threshold = 250)
-	let last, deferTimer
+	let last, defer_timeout_id
 	return function(...arg_a) {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		_this ||= this
 		const now = +new Date
 		if (last && now < last + threshold) {
 			// hold on to it
-			clearTimeout(deferTimer)
-			deferTimer = setTimeout(()=>{
+			clearTimeout(defer_timeout_id)
+			defer_timeout_id = setTimeout(()=>{
 				last = now
 				fn.apply(_this, arg_a)
 			}, threshold)

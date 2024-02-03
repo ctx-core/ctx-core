@@ -16,7 +16,7 @@ export function rmemo__wait(
 	error
 ) {
 	let memo
-	const _subscribe_wait = new Promise(resolve=>{
+	let _subscribe_wait = new Promise(resolve=>{
 		memo = memo_(()=>{
 			if (condition_fn(rmemo())) {
 				resolve(rmemo())
@@ -32,5 +32,7 @@ export function rmemo__wait(
 			error)
 	// prevent GC
 	promise.m = memo
+	let timeout_id = setTimeout(()=>promise.m(), timeout)
+	promise.catch(()=>{}).finally(()=>clearTimeout(timeout_id))
 	return promise
 }

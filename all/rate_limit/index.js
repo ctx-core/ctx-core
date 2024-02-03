@@ -22,22 +22,23 @@ export function rate_limit_(
 			start = now
 		}
 		rate = ops_num / (allow_bursts ? 1 : elapsed)
-		return new Promise(async (resolve, reject)=>{
+		let timeout_id
+		return new Promise((resolve, reject)=>{
 			try {
 				if (rate < max_rate) {
 					if (queue_a.length) {
-						if (fn) queue_a.push(async ()=>resolve(await fn())
-						)
+						if (fn) queue_a.push(async ()=>resolve(await fn()))
 						ops_num += 1
 						queue_a.shift()().then()
 					} else {
 						ops_num += 1
-						resolve(await fn())
+						fn()
+							.then(val=>resolve(val))
+							.finally(()=>clearTimeout(timeout_id))
 					}
 				} else {
-					if (fn) queue_a.push(async ()=>resolve(await fn())
-					)
-					setTimeout(rate_limit, 1 / max_rate)
+					if (fn) queue_a.push(async ()=>resolve(await fn()))
+					timeout_id = setTimeout(rate_limit, 1 / max_rate)
 				}
 			} catch (err) {
 				reject(err)

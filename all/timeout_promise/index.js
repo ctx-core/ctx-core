@@ -22,10 +22,7 @@ export function timeout_promise(
 		typeof promise === 'function' ? promise() : promise,
 		timeout,
 		cancel_promise,
-	]).then(result=>{
-		clearTimeout(id)
-		return result
-	})
+	]).finally(()=>clearTimeout(id))
 	ret_promise.cancel = cancel_promise__resolve
 	return ret_promise
 }

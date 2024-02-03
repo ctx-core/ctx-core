@@ -17,6 +17,7 @@ export function debounce(func, wait, immediate) {
 			resolve = in_resolve
 			reject = in_reject
 		})
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const apply_this = this
 		const later = async ()=>{
 			timeout = null
@@ -31,7 +32,7 @@ export function debounce(func, wait, immediate) {
 		if (callNow) {
 			await invoke()
 		}
-		return promise
+		return promise.finally(()=>clearTimeout(timeout))
 		async function invoke() {
 			try {
 				const in_rv = func.apply(apply_this, arg_a)
