@@ -1,5 +1,11 @@
 # ctx-core
 
+## 5.38.0
+
+### Minor Changes
+
+- - calling: calls & returns argument function
+
 ## 5.37.0
 
 ### Minor Changes
