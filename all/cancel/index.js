@@ -7,11 +7,11 @@ export class Cancel extends Error {
 }
 export function promise__cancel(promise) {
 	promise.cancel?.()
-	promise.catch(()=>{})
+	promise.catch?.(()=>{})
 	return promise
 }
 export function promise__cancel__throw(promise) {
 	promise.cancel?.()
-	promise.catch(()=>{})
+	promise.catch?.(()=>{})
 	throw new Cancel
 }

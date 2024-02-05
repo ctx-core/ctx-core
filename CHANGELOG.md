@@ -1,5 +1,14 @@
 # ctx-core
 
+## 5.38.1
+
+### Patch Changes
+
+- fix: handle non-promise objects: noop:
+
+      promise__cancel
+      promise__cancel__throw
+
 ## 5.38.0
 
 ### Minor Changes
