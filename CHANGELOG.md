@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.1.0
+
+### Minor Changes
+
+- wide_ctx_T<ns_union_T extends string = ''>: default ns_union_T to ''
+
 ## 6.0.0
 
 ### Major Changes
