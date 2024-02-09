@@ -1,5 +1,12 @@
 # ctx-core
 
+## 5.38.2
+
+### Patch Changes
+
+- @arethetypeswrong/cli: ^0.13.6 -> ^0.13.8
+- @types/node: ^20.11.16 -> ^20.11.17
+
 ## 5.38.1
 
 ### Patch Changes

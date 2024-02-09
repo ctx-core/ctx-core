@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "5.38.1",
+	"version": "5.38.2",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -303,11 +303,11 @@
 		"disable:test:coverage": "c8 pnpm test:unit"
 	},
 	"devDependencies": {
-		"@arethetypeswrong/cli": "^0.13.6",
+		"@arethetypeswrong/cli": "^0.13.8",
 		"@ctx-core/preprocess": "^0.1.1",
 		"@size-limit/preset-small-lib": "^11.0.2",
 		"@types/jsdom": "^21.1.6",
-		"@types/node": "^20.11.16",
+		"@types/node": "^20.11.17",
 		"@types/sinon": "^17.0.3",
 		"c8": "^9.1.0",
 		"check-dts": "^0.7.2",
