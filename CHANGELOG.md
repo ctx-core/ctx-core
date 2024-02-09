@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.1.1
+
+### Patch Changes
+
+- is*server*: ∋ !is*browser*()
+
 ## 6.1.0
 
 ### Minor Changes

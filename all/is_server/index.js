@@ -1,3 +1,4 @@
+import { is_browser_ } from '../is_browser/index.js'
 export function is_server_() {
-	return !!globalThis.process?.release?.name
+	return !is_browser_()
 }
