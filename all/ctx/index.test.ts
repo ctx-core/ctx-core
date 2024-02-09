@@ -1,6 +1,6 @@
 import { test } from 'uvu'
 import { equal, is } from 'uvu/assert'
-import { type Ctx, type Ctx_s_T } from '../be_/index.js'
+import { type ctx_T, type ctx_s_T } from '../be_/index.js'
 import { ctx__new, is_ctx_, ns_ctx_, ns_ctx__new } from '../ctx/index.js'
 import type { Equal, Expect } from '../test/index.js'
 test('ctx__new', ()=>{
@@ -18,17 +18,17 @@ test('source_ctx__new', ()=>{
 test('ns_ctx__new|types', ()=>{
 	/* eslint-disable @typescript-eslint/no-unused-vars */
 	const empty_ctx = ns_ctx__new('')
-	type test_empty_ctx = Expect<Equal<typeof empty_ctx, Ctx<''>>>
+	type test_empty_ctx = Expect<Equal<typeof empty_ctx, ctx_T<''>>>
 	const single_ctx = ns_ctx__new('test_ns')
-	type test_single_ctx = Expect<Equal<typeof single_ctx, Ctx<'test_ns'>>>
+	type test_single_ctx = Expect<Equal<typeof single_ctx, ctx_T<'test_ns'>>>
 	// @ts-expect-error TS2345
-	type test_single_ctx_fail = Expect<Equal<typeof single_ctx, Ctx<'fail'>>>
+	type test_single_ctx_fail = Expect<Equal<typeof single_ctx, ctx_T<'fail'>>>
 	const triple_ctx =
 		ns_ctx__new('test_ns', empty_ctx, 'test_ns2')
-	type test_triple_ctx = Expect<Equal<typeof triple_ctx, Ctx<''|'test_ns'|'test_ns2'>>>
+	type test_triple_ctx = Expect<Equal<typeof triple_ctx, ctx_T<''|'test_ns'|'test_ns2'>>>
 	// @ts-expect-error TS2345
-	type test_triple_ctx_fail = Expect<Equal<typeof triple_ctx, Ctx<''|'test_ns'|'test_ns2'|'fail'>>>
-	type test_triple_ctx_s = Expect<Equal<typeof triple_ctx.s, Ctx_s_T<''|'test_ns'|'test_ns2'>>>
+	type test_triple_ctx_fail = Expect<Equal<typeof triple_ctx, ctx_T<''|'test_ns'|'test_ns2'|'fail'>>>
+	type test_triple_ctx_s = Expect<Equal<typeof triple_ctx.s, ctx_s_T<''|'test_ns'|'test_ns2'>>>
 	/* eslint-enable @typescript-eslint/no-unused-vars */
 })
 test('is_ctx_', ()=>{

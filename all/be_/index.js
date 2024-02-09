@@ -1,9 +1,9 @@
 /// <reference types="./index.d.ts" />
 let _undefined
 /**
- * Auto-memoization function for the Ctx.
+ * Auto-memoization function for the ctx_T.
  *
- * Returns a function to ensure that a member id is defined on a Ctx,
+ * Returns a function to ensure that a member id is defined on a ctx_T,
  * otherwise it caches & uses the return value of val__new.
  * @param {be__val__new_T}val__new
  * @param {be_config_T}[config]
@@ -69,7 +69,7 @@ export function ns_id_be_(ns, id, val__new) {
 	return be_(val__new, { ns, id })
 }
 /**
- * Auto-memoization function for the Ctx.
+ * Auto-memoization function for the ctx_T.
  * Memoized on globalThis to allow packages being loaded multiple times, which can happen during bundling.
  *
  * Returns a function to ensure that a member id_OR_val_ is defined on a ctx object,
@@ -82,7 +82,7 @@ export function ns_id_be_(ns, id, val__new) {
  */
 export { be_ as globalThis__be_ }
 /**
- * @param {Ctx}ctx
+ * @param {ctx_T}ctx
  * @param {Be|string|symbol}be_OR_id
  * @param {string}[ns]
  * @returns {unknown}
@@ -96,7 +96,7 @@ export function ctx__get(
 	return ctx.s[ns].get(be_OR_id.id ?? be_OR_id)?.[0]
 }
 /**
- * @param {Ctx}ctx
+ * @param {ctx_T}ctx
  * @param {Be|string|symbol}be_OR_id
  * @param {unknown}val
  * @param {string}[ns]
@@ -118,7 +118,7 @@ export function ctx__set(
 	ctx.s[ns].set(state[1], state)
 }
 /**
- * @param {Ctx}ctx
+ * @param {ctx_T}ctx
  * @param {Be|string|symbol}be_OR_id
  * @param {string}[ns]
  */
@@ -137,7 +137,7 @@ export function ctx__delete(
  * Clear all BeMap values by running ctx__delete on all stored Be functions.
  * This behavior can be used in conjunction with ondelete_be_ to run the ondelete callbacks
  * on all of the ondelete_be functions.
- * @param {Ctx}ctx
+ * @param {ctx_T}ctx
  */
 export function ctx__clear(ctx) {
 	for (let ns in ctx.s) {
@@ -147,7 +147,7 @@ export function ctx__clear(ctx) {
 	}
 }
 /**
- * @param {[Be|string, Ctx]|[Be|string, Ctx, string]}arg_a
+ * @param {[Be|string, ctx_T]|[Be|string, ctx_T, string]}arg_a
  * @returns {boolean}
  * @private
  */
@@ -156,9 +156,9 @@ export function be__has_(...arg_a) {
 }
 /**
  * @param {Be}be_OR_id
- * @param {Ctx}ctx
+ * @param {ctx_T}ctx
  * @param {string}[ns]
- * @returns {Ctx}
+ * @returns {ctx_T}
  * @private
  */
 export function be_map__find(be_OR_id, ctx, ns = be_OR_id.ns ?? '') {
@@ -166,7 +166,7 @@ export function be_map__find(be_OR_id, ctx, ns = be_OR_id.ns ?? '') {
 }
 /**
  * @param {Be|string}be_OR_id
- * @param {Ctx}ctx
+ * @param {ctx_T}ctx
  * @param {string}[ns]
  * @returns {unknown}
  * @private

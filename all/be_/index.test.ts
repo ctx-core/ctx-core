@@ -12,13 +12,13 @@ import {
 	be__val_,
 	be_map__find,
 	type BeMapO,
-	type Ctx,
+	type ctx_T,
 	ctx__clear,
 	ctx__delete,
 	ctx__set,
-	type Ctx_s_T,
-	type Ctx_s_wide_T,
-	type Ctx_wide_T,
+	type ctx_s_T,
+	type wide_ctx_s_T,
+	type wide_ctx_T,
 	globalThis__be_, id_be_, ns_be_, ns_id_be_,
 	ondelete_be_
 } from '../be_/index.js'
@@ -102,7 +102,7 @@ test('be_|ns', ()=>{
 	const ctx0 = ctx__new()
 	const ctx1 = ns_ctx__new('ctx1')
 	const ctx = ns_ctx__new(ctx0, ctx1)
-	const be__ctx_a:Ctx_wide_T<'ctx1'>[] = []
+	const be__ctx_a:wide_ctx_T<'ctx1'>[] = []
 	const root_ = be_<number, 'ctx1'>(
 		ctx=>{
 			be__ctx_a.push(ctx)
@@ -122,38 +122,38 @@ test('be_|ns', ()=>{
 test('be_|ns|types', ()=>{
 	/* eslint-disable @typescript-eslint/no-unused-vars */
 	const ctx0 = ctx__new()
-	type test_ctx0_s = Expect<Equal<typeof ctx0.s, Ctx_s_T<''>>>
+	type test_ctx0_s = Expect<Equal<typeof ctx0.s, ctx_s_T<''>>>
 	// @ts-expect-error TS2345
-	type test_ctx0_s_fail = Expect<Equal<typeof ctx0.s, Ctx_s_T<'fail'>>>
-	type test_ctx0 = Expect<Equal<typeof ctx0, Ctx<''>>>
+	type test_ctx0_s_fail = Expect<Equal<typeof ctx0.s, ctx_s_T<'fail'>>>
+	type test_ctx0 = Expect<Equal<typeof ctx0, ctx_T<''>>>
 	// @ts-expect-error TS2345
-	type test_ctx0_fail = Expect<Equal<typeof ctx0, Ctx<'fail'>>>
+	type test_ctx0_fail = Expect<Equal<typeof ctx0, ctx_T<'fail'>>>
 	const ctx1 = ns_ctx__new('ctx1')
-	type test_ctx1_s = Expect<Equal<typeof ctx1.s, Ctx_s_T<'ctx1'>>>
+	type test_ctx1_s = Expect<Equal<typeof ctx1.s, ctx_s_T<'ctx1'>>>
 	// @ts-expect-error TS2345
-	type test_ctx1_fail = Expect<Equal<typeof ctx1, Ctx<'fail'>>>
+	type test_ctx1_fail = Expect<Equal<typeof ctx1, ctx_T<'fail'>>>
 	// @ts-expect-error TS2345
-	type test_ctx1_s_fail = Expect<Equal<typeof ctx1, Ctx_s_T<''|'fail'>>>
-	type test_ctx1_w_empty_string = Expect<Equal<typeof ctx1, Ctx<'ctx1'>>>
-	type test_ctx1 = Expect<Equal<typeof ctx1, Ctx<'ctx1'>>>
+	type test_ctx1_s_fail = Expect<Equal<typeof ctx1, ctx_s_T<''|'fail'>>>
+	type test_ctx1_w_empty_string = Expect<Equal<typeof ctx1, ctx_T<'ctx1'>>>
+	type test_ctx1 = Expect<Equal<typeof ctx1, ctx_T<'ctx1'>>>
 	const ctx = ns_ctx__new(ctx0, ctx1)
 	type test_ctx_s_wide_T = Expect<Equal<
-		typeof ctx.s, typeof ctx extends Ctx_s_wide_T<''|'ctx1'>
+		typeof ctx.s, typeof ctx extends wide_ctx_s_T<''|'ctx1'>
 		? typeof ctx.s
 		: never>>
 	type test_ctx_s_BeMapO = Expect<Equal<
 		typeof ctx.s, typeof ctx.s extends BeMapO<''|'ctx1'>
 		? typeof ctx.s
 		: never>>
-	type test_ctx_s = Expect<Equal<typeof ctx.s, Ctx_s_T<''|'ctx1'>>>
+	type test_ctx_s = Expect<Equal<typeof ctx.s, ctx_s_T<''|'ctx1'>>>
 	type test_ctx_extends = Expect<Equal<
-		typeof ctx, typeof ctx extends Ctx_wide_T<''|'ctx1'>
+		typeof ctx, typeof ctx extends wide_ctx_T<''|'ctx1'>
 		? typeof ctx
 		: never>>
-	type test_ctx_Ctx = Expect<Equal<typeof ctx, Ctx<''|'ctx1'>>>
+	type test_ctx_Ctx = Expect<Equal<typeof ctx, ctx_T<''|'ctx1'>>>
 	const root_ = be_<number, 'ctx1'>(
 		ctx=>{
-			type test_be_ctx_argument = Expect<Equal<typeof ctx, Ctx_wide_T<'ctx1'>>>
+			type test_be_ctx_argument = Expect<Equal<typeof ctx, wide_ctx_T<'ctx1'>>>
 			return 1
 		}, {
 			ns: 'ctx1',
@@ -161,7 +161,7 @@ test('be_|ns|types', ()=>{
 		})
 	/* eslint-enable @typescript-eslint/no-unused-vars */
 })
-test('be_|Ctx generic type', ()=>{
+test('be_|ctx_T generic type', ()=>{
 	const valid_ctx = ns_ctx__new('test_ns')
 	const val_ = be_<boolean, 'test_ns'>(()=>
 		true,
@@ -170,11 +170,11 @@ test('be_|Ctx generic type', ()=>{
 	// @ts-expect-error TS2322
 	throws(()=>val_(ctx__new()))
 })
-test('be_|Ctx|ns', ()=>{
+test('be_|ctx_T|ns', ()=>{
 	const ctx0 = ctx__new()
 	const ctx1 = ctx__new()
 	const ctx = ns_ctx__new(ctx0, ctx1)
-	const nested__ctx_ = be_<[Ctx]>(ctx=>
+	const nested__ctx_ = be_<[ctx_T]>(ctx=>
 		[ctx],
 	{ id: 'nested__ctx_' })
 	equal(nested__ctx_(ctx), [ctx])
@@ -431,11 +431,11 @@ test('be__val_', ()=>{
 	equal(be__val_('val_', ns_ctx, 'test_ns'), true)
 })
 test('ondelete_be_', ()=>{
-	const ondelete0_arg_aa:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>][] = []
-	const ondelete1_arg_aa:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>][] = []
-	const _ondelete0 = (...arg_a:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>])=>
+	const ondelete0_arg_aa:[val:number, ctx:ctx_T, be:Be<number, ''|'test_ns'>][] = []
+	const ondelete1_arg_aa:[val:number, ctx:ctx_T, be:Be<number, ''|'test_ns'>][] = []
+	const _ondelete0 = (...arg_a:[val:number, ctx:ctx_T, be:Be<number, ''|'test_ns'>])=>
 		ondelete0_arg_aa.push(arg_a)
-	const _ondelete1 = (...arg_a:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>])=>
+	const _ondelete1 = (...arg_a:[val:number, ctx:ctx_T, be:Be<number, ''|'test_ns'>])=>
 		ondelete1_arg_aa.push(arg_a)
 	const be =
 		ondelete_be_<number>((ctx, { ondelete })=>{
@@ -458,11 +458,11 @@ test('ondelete_be_', ()=>{
 	equal(ondelete1_arg_aa, [[1, ctx, be], [1, ctx, be]])
 })
 test('ctx__clear', ()=>{
-	const ondelete0_arg_aa:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>][] = []
-	const ondelete1_arg_aa:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>][] = []
-	const _ondelete0 = (...arg_a:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>])=>
+	const ondelete0_arg_aa:[val:number, ctx:ctx_T, be:Be<number, ''|'test_ns'>][] = []
+	const ondelete1_arg_aa:[val:number, ctx:ctx_T, be:Be<number, ''|'test_ns'>][] = []
+	const _ondelete0 = (...arg_a:[val:number, ctx:ctx_T, be:Be<number, ''|'test_ns'>])=>
 		ondelete0_arg_aa.push(arg_a)
-	const _ondelete1 = (...arg_a:[val:number, ctx:Ctx, be:Be<number, ''|'test_ns'>])=>
+	const _ondelete1 = (...arg_a:[val:number, ctx:ctx_T, be:Be<number, ''|'test_ns'>])=>
 		ondelete1_arg_aa.push(arg_a)
 	const be0 =
 		ondelete_be_<number>((ctx, { ondelete })=>{

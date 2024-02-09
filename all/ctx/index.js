@@ -1,6 +1,6 @@
 /// <reference types="../be_/index.d.ts" />
 /**
- * @returns {Ctx}
+ * @returns {ctx_T}
  * @private
  */
 export function ctx__new() {
@@ -8,8 +8,8 @@ export function ctx__new() {
 }
 export { ctx__new as ctx_ }
 /**
- * @param {string|Ctx}[ns_a]
- * @returns {Ctx}
+ * @param {string|ctx_T}[ns_a]
+ * @returns {ctx_T}
  * @private
  */
 export function ns_ctx__new(...ns_a) {

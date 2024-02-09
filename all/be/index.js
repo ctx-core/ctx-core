@@ -1,7 +1,7 @@
 /// <reference types="../be_/index.d.ts" />
 import { be_ } from '../be_/index.js'
 /**
- * @param {Ctx}ctx
+ * @param {ctx_T}ctx
  * @param {be__val__new_T}val_
  * @param {be_config_T}[config]
  * @returns {NonNullable<unknown>}

@@ -1,5 +1,16 @@
 # ctx-core
 
+## 6.0.0
+
+### Major Changes
+
+- ./be,./object,./rmemo:
+
+      Ctx→ctx_T
+      Ctx_wide_T→wide_ctx_T
+      Ctx_s_T→ctx_s_T
+      Ctx_s_wide_T→wide_ctx_s_T
+
 ## 5.38.2
 
 ### Patch Changes

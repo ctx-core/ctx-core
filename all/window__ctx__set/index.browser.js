@@ -1,7 +1,7 @@
 /// <reference types="ctx-core" />
 import { ctx__get } from '../be_/index.js'
 /**
- * @param {Ctx_wide_T<''>}ctx
+ * @param {wide_ctx_T<''>}ctx
  */
 export function window__ctx__set(ctx) {
 	window.ctx = ctx

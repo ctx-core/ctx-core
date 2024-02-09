@@ -1,6 +1,6 @@
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
-import { be_, type Ctx_wide_T } from '../be_/index.js'
+import { be_, type wide_ctx_T } from '../be_/index.js'
 import { be_sig_triple_ } from '../be_sig_triple/index.js'
 import { ctx__new, ns_ctx__new } from '../ctx/index.js'
 import { memo_, memosig_, type sig_T } from '../rmemo/index.js'
@@ -66,7 +66,7 @@ test('be_lock_memosig_triple_|+id|+ns', ()=>{
 	] = be_lock_memosig_triple_<number, 'test_ns'>(
 		ctx=>{
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+			type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			return base_(ctx) + 1
 		},
@@ -116,7 +116,7 @@ test('be_lock_memosig_triple_|+be', ()=>{
 	] = be_lock_memosig_triple_<number, 'test_ns', { custom: string }>(
 		be_(ctx=>{
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+			type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const foobar$ =
 				memosig_<number, { custom: string }>(
@@ -178,7 +178,7 @@ test('ns_be_lock_memosig_triple_', ()=>{
 		'test_ns',
 		ctx=>{
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+			type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			return base_(ctx) + 1
 		},
@@ -230,7 +230,7 @@ test('id_be_lock_memosig_triple_', ()=>{
 		'foobar',
 		ctx=>{
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<''>>>
+			type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<''>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			return base_(ctx) + 1
 		},
@@ -282,7 +282,7 @@ test('ns_id_be_lock_memosig_triple_', ()=>{
 		'foobar',
 		ctx=>{
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+			type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			return base_(ctx) + 1
 		},

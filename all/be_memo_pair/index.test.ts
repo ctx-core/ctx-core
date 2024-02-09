@@ -1,6 +1,6 @@
 import { test } from 'uvu'
 import { equal } from 'uvu/assert'
-import { be_, type Ctx_wide_T } from '../be_/index.js'
+import { be_, type wide_ctx_T } from '../be_/index.js'
 import { be_sig_triple_ } from '../be_sig_triple/index.js'
 import { ctx__new, ns_ctx__new } from '../ctx/index.js'
 import { memo_, type memo_T } from '../rmemo/index.js'
@@ -20,7 +20,7 @@ test('be_memo_pair_', ()=>{
 		foobar$
 	)=>{
 		/* eslint-disable @typescript-eslint/no-unused-vars */
-		type test__ctx = Expect<Equal<typeof _ctx, Ctx_wide_T<''>>>
+		type test__ctx = Expect<Equal<typeof _ctx, wide_ctx_T<''>>>
 		/* eslint-enable @typescript-eslint/no-unused-vars */
 		equal(_ctx, ctx)
 		foobar$.count = (foobar$.count ||= 0) + 1
@@ -59,7 +59,7 @@ test('be_memo_pair_|+id|+ns|+add', ()=>{
 		{ id: 'foobar', ns: 'test_ns' }
 	).add((ctx, foobar$)=>memo_(()=>{
 		/* eslint-disable @typescript-eslint/no-unused-vars */
-		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+		type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<'test_ns'>>>
 		/* eslint-enable @typescript-eslint/no-unused-vars */
 		add_count++
 		add_dep__set(ctx, add_count + foobar$())
@@ -93,7 +93,7 @@ test('be_memo_pair_|add|receives a memosig to set the value of the memo', ()=>{
 		foobar_,
 	] = be_memo_pair_(ctx=>{
 		/* eslint-disable @typescript-eslint/no-unused-vars */
-		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<''>>>
+		type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<''>>>
 		/* eslint-enable @typescript-eslint/no-unused-vars */
 		return 1
 	}).add((ctx, foobar$)=>memo_(()=>{
@@ -120,7 +120,7 @@ test('be_memo_pair_|be', ()=>{
 	] = be_memo_pair_<number, 'test_ns', { custom: string }>(
 		be_(_ctx=>{
 			/* eslint-disable @typescript-eslint/no-unused-vars */
-			type test__ctx = Expect<Equal<typeof _ctx, Ctx_wide_T<'test_ns'>>>
+			type test__ctx = Expect<Equal<typeof _ctx, wide_ctx_T<'test_ns'>>>
 			/* eslint-enable @typescript-eslint/no-unused-vars */
 			const foobar$ = memo_<number, { custom: string }>(
 				()=>base_(ctx) + 1
@@ -172,7 +172,7 @@ test('ns_be_memo_pair_', ()=>{
 		ctx=>base_(ctx) + 1,
 	).add((ctx, foobar$)=>memo_(()=>{
 		/* eslint-disable @typescript-eslint/no-unused-vars */
-		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+		type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<'test_ns'>>>
 		/* eslint-enable @typescript-eslint/no-unused-vars */
 		add_count++
 		add_dep__set(ctx, add_count + foobar$())
@@ -213,7 +213,7 @@ test('id_be_memo_pair_', ()=>{
 		ctx=>base_(ctx) + 1
 	).add((ctx, foobar$)=>memo_(()=>{
 		/* eslint-disable @typescript-eslint/no-unused-vars */
-		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<''>>>
+		type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<''>>>
 		/* eslint-enable @typescript-eslint/no-unused-vars */
 		add_count++
 		add_dep__set(ctx, add_count + foobar$())
@@ -255,7 +255,7 @@ test('ns_id_be_memo_pair_', ()=>{
 		ctx=>base_(ctx) + 1
 	).add((ctx, foobar$)=>memo_(()=>{
 		/* eslint-disable @typescript-eslint/no-unused-vars */
-		type test_ctx = Expect<Equal<typeof ctx, Ctx_wide_T<'test_ns'>>>
+		type test_ctx = Expect<Equal<typeof ctx, wide_ctx_T<'test_ns'>>>
 		/* eslint-enable @typescript-eslint/no-unused-vars */
 		add_count++
 		add_dep__set(ctx, add_count + foobar$())
