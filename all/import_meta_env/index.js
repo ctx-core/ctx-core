@@ -1,7 +1,4 @@
 export function import_meta_env_() {
-	return import_meta_env__ensure()
-}
-export function import_meta_env__ensure() {
 	if (!import.meta.env) {
 		import.meta.env = new Proxy(globalThis.process?.env ?? {}, {
 			get(target, prop, receiver) {
@@ -14,3 +11,4 @@ export function import_meta_env__ensure() {
 	}
 	return import.meta.env
 }
+export { import_meta_env_ as import_meta_env__ensure }
