@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "6.1.1",
+	"version": "6.1.2",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -304,7 +304,7 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.13.8",
-		"@ctx-core/preprocess": "^0.1.1",
+		"@ctx-core/preprocess": "^0.1.2",
 		"@size-limit/preset-small-lib": "^11.0.2",
 		"@types/jsdom": "^21.1.6",
 		"@types/node": "^20.11.17",
@@ -316,7 +316,7 @@
 		"jsdom": "^24.0.0",
 		"sinon": "^17.0.1",
 		"size-limit": "^11.0.2",
-		"tsx": "^4.7.0",
+		"tsx": "^4.7.1",
 		"typescript": "next",
 		"uvu": "^0.5.6"
 	},

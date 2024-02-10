@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.1.2
+
+### Patch Changes
+
+- tsx: ^4.7.0 -> ^4.7.1
+
 ## 6.1.1
 
 ### Patch Changes
