@@ -16,8 +16,8 @@ export interface queue_T {
 	get item_count():number
 }
 export interface queue_waiting_T {
-	fn:()=>Promise<any>
-	fulfil:(v:any)=>void
-	reject:(err:any)=>void
+	fn:()=>Promise<unknown>
+	fulfil:(v:unknown)=>void
+	reject:(err:unknown)=>void
 }
 export type queue_item_T = queue_waiting_T
