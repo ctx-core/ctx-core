@@ -13,22 +13,26 @@ let _undefined
 export function be_(val__new, config) {
 	let be = ctx=>{
 		let be_map = ctx.s[be.ns]
+		// @formatter:off
 		/* @if DEBUG **
-		 // ~ 30 B
-		 if (!be_map) throw Error('ctx_no_ns: \'' + be.ns + '\'')
-		 /* @endif */
+		// ~ 30 B
+		if (!be_map) throw Error('ctx_no_ns: \'' + be.ns + '\'')
+		/* @endif */
 		// config is not used anymore so reusing to reduce bundle size
+		// @formatter:on
 		config = be_map.get(be.id)
 		if (config) return config[0]
+		// @formatter:off
 		/* @if DEBUG **
-		 // 5-11 B
-		 // circular dependency state
-		 // if val__new calls this be before returning, 'cir' will be the value of this be
-		 // 'cir' is used instead of 'circular' to reduce the payload by a few bytes
-		 config = ['cir', ctx, be]
-		 be_map.set(be.id, config)
-		 config[0] = val__new(ctx, be)
-		 /* @endif */
+		// 5-11 B
+		// circular dependency state
+		// if val__new calls this be before returning, 'cir' will be the value of this be
+		// 'cir' is used instead of 'circular' to reduce the payload by a few bytes
+		config = ['cir', ctx, be]
+		be_map.set(be.id, config)
+		config[0] = val__new(ctx, be)
+		/* @endif */
+		// @formatter:on
 		/* @if !DEBUG */
 		config = [val__new(ctx, be), ctx, be]
 		be_map.set(be.id, config)
