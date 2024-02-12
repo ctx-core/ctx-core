@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.2.0
+
+### Minor Changes
+
+- timeout_promise: + handle Infinity ms argument: remove timeout from ∋ Promise.race
+
 ## 6.1.3
 
 ### Patch Changes
