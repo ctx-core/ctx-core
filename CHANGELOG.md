@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.2.3
+
+### Patch Changes
+
+- @arethetypeswrong/cli: ^0.13.9 -> ^0.13.10
+
 ## 6.2.2
 
 ### Patch Changes
