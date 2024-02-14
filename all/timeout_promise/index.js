@@ -25,7 +25,7 @@ export function timeout_promise(
 	/** @type {cancel_Promise} */
 	let ret_promise = Promise.race([
 		typeof promise === 'function' ? promise() : promise,
-		timeout,
+		...(timeout ? [timeout] : []),
 		cancel_promise,
 	]).finally(()=>clearTimeout(id))
 	ret_promise.cancel = cancel_promise__resolve

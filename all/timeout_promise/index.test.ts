@@ -15,6 +15,17 @@ test('timeout_promise|success', async ()=>{
 	equal(await promise, true)
 	equal(count, 1)
 })
+test('timeout_promise|Infinity|success', async ()=>{
+	let count = 0
+	const promise = timeout_promise(run(async ()=>{
+		count++
+		await sleep(10)
+		return true
+	}), Infinity)
+	equal(count, 1)
+	equal(await promise, true)
+	equal(count, 1)
+})
 test('timeout_promise|timeout', async ()=>{
 	let count = 0
 	let err:Error|undefined = undefined

@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.2.2
+
+### Patch Changes
+
+- timeout_promise: fix: Infinity argument should wait until condition is met without any time limit
+
 ## 6.2.1
 
 ### Patch Changes
