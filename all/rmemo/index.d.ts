@@ -19,6 +19,7 @@ export declare function rmemo__add<val_T, listener_val_T, E = unknown>(
 ):()=>void
 export declare function rmemo__unset(rmemo:rmemo_T<unknown>):void
 export type rmemo_T<val_T, E = unknown> = memo_T<val_T, E>|sig_T<val_T, E>|lock_memosig_T<val_T, E>
+export type rmemolike_T<val_T, E = unknown> = (()=>val_T)&E
 export type circular_rmemo_T<E = unknown> =
 	(circular_memo_T|circular_sig_T|circular_lock_memosig_T)&E
 export type memo_T<val_T, E = unknown> = (()=>val_T)&{
