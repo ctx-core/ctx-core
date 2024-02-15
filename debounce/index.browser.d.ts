@@ -1,1 +1,1 @@
-export * from './index.js'
+export * from '../all/debounce/index.browser.js'

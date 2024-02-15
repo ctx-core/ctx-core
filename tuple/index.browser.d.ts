@@ -1,1 +1,6 @@
-export * from './index.js'
+export * from '../all/tup/index.browser.js'
+export * from '../all/tuple/index.browser.js'
+export * from '../all/tuple__o/index.browser.js'
+export * from '../all/tuple_a_o/index.browser.js'
+export * from '../all/tuple__union/index.browser.js'
+export * from '../all/zip__tuple_a/index.browser.js'

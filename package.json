@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "6.3.0",
+	"version": "6.4.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -55,6 +55,7 @@
 		"functional",
 		"html",
 		"http",
+		"json",
 		"math",
 		"matrix",
 		"nullish",
@@ -200,6 +201,10 @@
 		"./http": {
 			"browser": "./http/index.browser.js",
 			"default": "./http/index.js"
+		},
+		"./json": {
+			"browser": "./json/index.browser.js",
+			"default": "./json/index.js"
 		},
 		"./math": {
 			"browser": "./math/index.browser.js",

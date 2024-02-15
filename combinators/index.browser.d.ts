@@ -1,1 +1,1 @@
-export * from './index.js'
+export * from '../all/combinators/index.browser.js'

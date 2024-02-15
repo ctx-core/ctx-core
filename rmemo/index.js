@@ -1,4 +1,4 @@
-import { memo__bind, rmemo__off, rmemo__on, rmemo__add } from './/index.js'
+import { memo__bind, rmemo__off, rmemo__on, rmemo__add } from '../all/rmemo/index.js'
 export { memo__bind as _, memo__bind as bind, rmemo__off as off, rmemo__on as on, rmemo__add as subscribe }
 export * from '../all/be/index.js'
 export * from '../all/be_/index.js'

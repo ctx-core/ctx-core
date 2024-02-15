@@ -1,5 +1,19 @@
 # ctx-core
 
+## 6.4.0
+
+### Minor Changes
+
+- - json\_\_parse
+- - ./json
+
+    - json\_\_parse
+    - json_T
+
+### Patch Changes
+
+- browser exports: export \* from module index.browser.d.ts
+
 ## 6.3.0
 
 ### Minor Changes

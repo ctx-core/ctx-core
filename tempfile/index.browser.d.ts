@@ -1,1 +1,1 @@
-export * from './index.js'
+export * from '../all/tempfile_path/index.browser.js'

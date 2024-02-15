@@ -1,1 +1,1 @@
-export * from './index.js'
+export * from '../all/test/index.browser.js'
