@@ -12,15 +12,18 @@ import {
 	be__val_,
 	be_map__find,
 	type BeMapO,
-	type ctx_T,
 	ctx__clear,
 	ctx__delete,
 	ctx__set,
 	type ctx_s_T,
+	type ctx_T,
+	globalThis__be_,
+	id_be_,
+	ns_be_,
+	ns_id_be_,
+	ondelete_be_,
 	type wide_ctx_s_T,
-	type wide_ctx_T,
-	globalThis__be_, id_be_, ns_be_, ns_id_be_,
-	ondelete_be_
+	type wide_ctx_T
 } from '../be_/index.js'
 import { ctx__new, ns_ctx__new } from '../ctx/index.js'
 import { tempfile_path_ } from '../tempfile_path/index.js'
