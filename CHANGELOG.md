@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.4.3
+
+### Patch Changes
+
+- esbuild: ^0.20.0 -> ^0.20.1
+
 ## 6.4.2
 
 ### Patch Changes
