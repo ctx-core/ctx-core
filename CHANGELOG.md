@@ -1,5 +1,13 @@
 # ctx-core
 
+## 6.4.4
+
+### Patch Changes
+
+- size-limit:
+
+      memo_ sig_ be_ ctx_: - 3 B
+
 ## 6.4.3
 
 ### Patch Changes
