@@ -1,5 +1,15 @@
 # ctx-core
 
+## 6.4.6
+
+### Patch Changes
+
+- short*uuid*: more efficient algorithm
+
+  size-limit:
+
+      short uuid: - 1 B
+
 ## 6.4.5
 
 ### Patch Changes

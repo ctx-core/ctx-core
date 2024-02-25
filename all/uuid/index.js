@@ -11,15 +11,17 @@ export {
  * @private
  */
 export function short_uuid_(uuid) {
-	uuid = (uuid ?? crypto.randomUUID()).replaceAll('-', '')
+	uuid ??= crypto.randomUUID()
 	let str = ''
-	for (let i = 0; i < uuid.length; i += 2)
+	for (let i = 0; i < uuid.length; i += 2) {
+		if (uuid[i] === '-') ++i
 		str += String.fromCharCode(parseInt(uuid.slice(i, i + 2), 16))
-	return btoa(str).replace('==', '')
+	}
+	return btoa(str).slice(0, 22)
 }
 /**
  * @returns {string}
- * @see {@link https://gist.github.com/LeverOne/1308368}
+ * @see {https://gist.github.com/LeverOne/1308368}
  * @private
  */
 export function polyfill_uuid_() {
