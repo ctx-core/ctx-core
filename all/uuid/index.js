@@ -5,13 +5,21 @@ export {
 	uuid_ as _uuid,
 	uuid_ as uuid,
 }
+export function short_uuid_() {
+	let uuid = crypto.randomUUID()
+	let str = ''
+	for (let i = 0; i < uuid.length; i += 2) {
+		if (uuid[i] === '-') ++i
+		str += String.fromCharCode(parseInt(uuid.slice(i, i + 2), 16))
+	}
+	return btoa(str).slice(0, 22)
+}
 /**
- * @param {string}[uuid]
+ * @param {string}uuid
  * @returns {string}
  * @private
  */
-export function short_uuid_(uuid) {
-	uuid ??= crypto.randomUUID()
+export function uuid__compact(uuid) {
 	let str = ''
 	for (let i = 0; i < uuid.length; i += 2) {
 		if (uuid[i] === '-') ++i

@@ -1,5 +1,20 @@
 # ctx-core
 
+## 6.5.0
+
+### Minor Changes
+
+- minor:
+
+      short_uuid_: does not take argument: generates short uuid
+      + uuid__compact: takes a uuid argument & returns the compacted uuid
+
+  size-limit:
+
+      uuid_: + 2 B
+      short_uuid_: - 2 B
+      + uuid__compact: 107 B
+
 ## 6.4.6
 
 ### Patch Changes
