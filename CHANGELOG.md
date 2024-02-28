@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.5.1
+
+### Patch Changes
+
+- @types/node: ^20.11.20 -> ^20.11.22
+
 ## 6.5.0
 
 ### Minor Changes
