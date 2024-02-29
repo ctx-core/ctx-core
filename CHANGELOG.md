@@ -1,10 +1,20 @@
 # ctx-core
 
+## 6.5.3
+
+### Patch Changes
+
+- html*class*,class\_: reduce size
+
+  size-limit:
+
+      class: - 7 B
+
 ## 6.5.2
 
 ### Patch Changes
 
-- ./html: html_class_,class_: reduce size-limit: 101 B
+- ./html: html*class*,class\_: reduce size-limit: 101 B
 - @types/node: ^20.11.22 -> ^20.11.24
 
 ## 6.5.1
