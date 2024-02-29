@@ -1,19 +1,17 @@
-/// <reference types="../attr/index.d.ts" />
-import { isArray } from '../isArray/index.js'
 /**
  * Returns class html attribute from r
  * @param {attr_def_T}class_def_a
  * @returns {string}
  * @example
  * class_({class_1: true, html_class__: false, class_3: true}) // returns 'class_1 class_3'
+ * @see https://github.com/lukeed/clsx
  */
 export function html_class_(...class_def_a) {
-	const a = []
-	for (let i = 0; i < class_def_a.length; i++) {
-		const class_def = class_def_a[i]
+	let a = []
+	for (let class_def of class_def_a) {
 		if (typeof class_def === 'string') {
 			a.push(class_def)
-		} else if (isArray(class_def)) {
+		} else if (Array.isArray(class_def)) {
 			a.push(...class_def)
 		} else if (typeof class_def === 'object') {
 			for (let key in class_def) {
