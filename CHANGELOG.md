@@ -1,5 +1,13 @@
 # ctx-core
 
+## 6.5.6
+
+### Patch Changes
+
+- size-limit: ^11.0.3 -> ^11.1.0
+- @types/node: ^20.11.26 -> ^20.11.27
+- @size-limit/preset-small-lib: ^11.0.3 -> ^11.1.0
+
 ## 6.5.5
 
 ### Patch Changes
