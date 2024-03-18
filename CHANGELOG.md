@@ -1,5 +1,13 @@
 # ctx-core
 
+## 6.5.9
+
+### Patch Changes
+
+- ns_ctx\_\_new: fix: automatic ns string literal type narrowing for up to 9 arguments:
+
+      casting the string <'literal_ns'>'literal_ns' is supported for > 9 arguments
+
 ## 6.5.8
 
 ### Patch Changes
