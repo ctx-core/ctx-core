@@ -160,8 +160,7 @@ export type ctx_T<ns_T extends string = string> = Readonly<{
 	 */
 	ns_T?:ns_T
 }>
-export type wide_ctx_T<ns_union_T extends string = ''> =
-	ctx_T&wide_ctx_s_T<ns_union_T>
+export type wide_ctx_T<ns_union_T extends string = ''> = wide_ctx_s_T<ns_union_T>&{ is_ctx:true }
 export type ctx_s_T<ns_union_T extends string = string> = {
 	[K in ns_union_T]:BeMap<K>
 }

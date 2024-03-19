@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.6.0
+
+### Minor Changes
+
+- wide_ctx_T: widen type: fix incorrect type errors: - ctx_T&
+
 ## 6.5.10
 
 ### Patch Changes
