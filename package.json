@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "6.6.0",
+	"version": "6.6.1",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -19,7 +19,11 @@
 		"url": "https://github.com/ctx-core/ctx-core.git"
 	},
 	"license": "Apache-2.0",
-	"author": "Brian Takita",
+	"author": {
+		"name": "Brian Takita",
+		"url": "https://briantakita.me",
+		"email": "info+ctx-core@briantakita.me"
+	},
 	"type": "module",
 	"files": [
 		"*.d.ts",
@@ -308,7 +312,7 @@
 		"disable:test:coverage": "c8 pnpm test:unit"
 	},
 	"devDependencies": {
-		"@ctx-core/preprocess": "^0.1.2",
+		"@ctx-core/preprocess": "^0.1.3",
 		"@size-limit/preset-small-lib": "^11.1.1",
 		"@types/jsdom": "^21.1.6",
 		"@types/node": "^20.11.29",

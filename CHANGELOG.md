@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.6.1
+
+### Patch Changes
+
+- package.json: author: url,email
+
 ## 6.6.0
 
 ### Minor Changes
