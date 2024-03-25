@@ -4,7 +4,7 @@
  * $.c child memo calling the memo
  * $.q queue
  */
-let $ = globalThis.rmemo ??= { q: new Set }
+let $ = globalThis.__rmemo__ ??= { q: new Set }
 /**
  * @param {memo_def_T}memo_def
  * @param {rmemo_add_def_T}add_def_a

@@ -1,5 +1,17 @@
 # ctx-core
 
+## 6.7.0
+
+### Minor Changes
+
+- globalThis.**rmemo** stores global rmemo state: fix: name collision with globalThis.rmemo: was used as a dom Element id
+
+  size-limit:
+
+        memo_: + 4 B
+        memo_ sig_: + 4 B
+        memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: + 2 B
+
 ## 6.6.2
 
 ### Patch Changes
