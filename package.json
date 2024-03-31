@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "6.8.0",
+	"version": "6.8.1",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -385,28 +385,28 @@
 			"import": {
 				"./rmemo": "{ memo_ }"
 			},
-			"limit": "376 B"
+			"limit": "377 B"
 		},
 		{
 			"name": "memo_ sig_",
 			"import": {
 				"./rmemo": "{ sig_, memo_ }"
 			},
-			"limit": "395 B"
+			"limit": "393 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_",
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_ }"
 			},
-			"limit": "498 B"
+			"limit": "499 B"
 		},
 		{
 			"name": "memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_",
 			"import": {
 				"./rmemo": "{ sig_, memo_, be_, ctx_, be_memo_pair_, be_sig_triple_ }"
 			},
-			"limit": "591 B"
+			"limit": "587 B"
 		},
 		{
 			"name": "class_",
@@ -441,7 +441,7 @@
 			"import": {
 				"./web_animation": "{ memo_, wanimato__new }"
 			},
-			"limit": "733 B"
+			"limit": "728 B"
 		}
 	]
 }

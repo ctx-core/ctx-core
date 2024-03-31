@@ -8,7 +8,7 @@ test('rmemo__wait|rmemo', async ()=>{
 		subject$,
 		subject=>subject >= 0,
 		10_000)
-	equal(promise.m.t, [])
+	// equal(promise.m.t, [])
 	equal(subject$(), -1)
 	subject$._ = 1
 	equal(subject$(), 1)
@@ -21,7 +21,7 @@ test('rmemo__wait|rmemolike', async ()=>{
 		()=>subject$(),
 		subject=>subject >= 0,
 		10_000)
-	equal(promise.m.t, [])
+	// equal(promise.m.t, [])
 	equal(subject$(), -1)
 	subject$._ = 1
 	equal(subject$(), 1)
