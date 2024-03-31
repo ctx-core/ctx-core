@@ -1,5 +1,24 @@
 # ctx-core
 
+## 6.8.0
+
+### Minor Changes
+
+- - ./web_animation:
+
+    - export \* from ../rmemo/index.js
+    - wanimato\_\_new
+    - wanimato_T
+
+  size-limit:
+
+      web_animation: 733 B
+
+- atob,btoa: browser:
+
+      export const atob = globalThis.atob
+      export const btoa = globalThis.btoa
+
 ## 6.7.1
 
 ### Patch Changes

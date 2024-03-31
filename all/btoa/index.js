@@ -8,7 +8,7 @@ export function btoa(str) {
 	return (
 		process_release_name
 			? new Buffer(str).toString('base64')
-			: window.btoa(str)
+			: globalThis.btoa(str)
 	)
 }
 /**

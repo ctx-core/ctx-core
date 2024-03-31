@@ -2,8 +2,6 @@
 
 The ctx-core library is a 0 dependency library with several exports to support general app development. This library has several exports to limit what is loaded into memory & to make tree-shaking less intensive. Some of the underlying functions are in multiple exports. The full list of exports is below. There is varying comprehensiveness & usage for these functions.
 
-
-
 ## Development Monorepo
 
 The [development monorepo](https://github.com/ctx-core/dev) used to have the ctx-core/ctx-core project name but has been moved to make room for this package.
@@ -117,3 +115,5 @@ The docs for rmemo are in https://github.com/ctx-core/rmemo. Since the source fo
 ## ctx-core/uri
 
 ## ctx-core/uuid
+
+## ctx-core/web_animation

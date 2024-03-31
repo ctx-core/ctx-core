@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "6.7.1",
+	"version": "6.8.0",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -82,6 +82,7 @@
 		"types",
 		"uri",
 		"uuid",
+		"web_animation",
 		"package.json"
 	],
 	"exports": {
@@ -298,6 +299,10 @@
 			"browser": "./uuid/index.browser.js",
 			"default": "./uuid/index.js"
 		},
+		"./web_animation": {
+			"browser": "./web_animation/index.browser.js",
+			"default": "./web_animation/index.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"scripts": {
@@ -430,6 +435,13 @@
 				"./uuid": "{ uuid__compact }"
 			},
 			"limit": "107 B"
+		},
+		{
+			"name": "web_animation",
+			"import": {
+				"./web_animation": "{ memo_, wanimato__new }"
+			},
+			"limit": "733 B"
 		}
 	]
 }
