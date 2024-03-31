@@ -12,19 +12,18 @@ let $ = globalThis.__rmemo__ ??= { q: new Set }
  * @private
  */
 export function memo_(memo_def, ...add_def_a) {
-	let t = []
 	/** @type {memo_T} */
 	let memo = ()=>{
 		'val' in memo || memo.f()
 		if ($.c) {
-			if (!t.includes($.c.r ??= new WeakRef($.c))) {
-				t.push($.c.r)
+			if (!memo.t.includes($.c.s ??= new WeakRef($.c.f))) {
+				memo.t.push($.c.s)
 			}
-			if ($.c.l < memo.l + 1) $.c.l = memo.l + 1
+			if ($.c.f.l < memo.f.l + 1) $.c.f.l = memo.f.l + 1
 			// memo is called by $.c's conditional execution...next change to memo will notify $.c
-			$.c.t.push(memo)
+			$.c.f.s.push(memo)
 			// prevent memo from GC while $.c still has a strong reference
-			if (!$.c.i.includes(memo)) $.c.i.push(memo)
+			if (!$.c.f.t.includes(memo)) $.c.f.t.push(memo)
 		}
 		return memo.val
 	}
@@ -32,9 +31,9 @@ export function memo_(memo_def, ...add_def_a) {
 		get: memo,
 		set: val=>{
 			if (memo.val !== val) {
-				t = t.filter(r=>{
+				memo.t = memo.t.filter(r=>{
 					r = r.deref()
-					if (r?.t.includes(memo)) { // if added by $.c.t.push(memo), add to $.q
+					if (r?.s.includes(memo)) { // if added by $.c.f.s.push(memo), add to $.q
 						$.q.add(r)
 					}
 					return r
@@ -53,7 +52,7 @@ export function memo_(memo_def, ...add_def_a) {
 						continue cur_refresh_loop
 					}
 				}
-				cur_refresh.f()
+				cur_refresh()
 			}
 		},
 	})
@@ -77,7 +76,7 @@ export function memo_(memo_def, ...add_def_a) {
 	memo.f = ()=>{
 		let prev_memo = $.c
 		$.c = memo
-		memo.t = [] // reset references in memo_def conditional execution path...see $.c.t.push(memo)
+		memo.f.s = [] // reset references in memo_def conditional execution path...see $.c.f.s.push(memo)
 		try {
 			memo._ = memo_def(memo)
 		} catch (err) {
@@ -85,9 +84,10 @@ export function memo_(memo_def, ...add_def_a) {
 		}
 		$.c = prev_memo // catch does not throw
 	}
-	memo.l = 0
+	memo.f.l = 0
+	memo.f.s = []
+	memo.f.t = []
 	memo.t = []
-	memo.i = []
 	return memo
 }
 export { memo_ as memosig_ }
@@ -153,8 +153,8 @@ export function memo__bind(fn) {
  */
 export function rmemo__on(rmemo, off_fn) {
 	if (off_fn) rmemo__off__add(rmemo, off_fn)
-	if (rmemo.r?.d) {
-		rmemo.r.deref = rmemo.r.d
+	if (rmemo.s?.d) {
+		rmemo.s.deref = rmemo.s.d
 	}
 	rmemo.f()
 	return rmemo
@@ -165,9 +165,9 @@ export function rmemo__on(rmemo, off_fn) {
  * @returns {rmemo_T}
  */
 export function rmemo__off(rmemo) {
-	if (rmemo.r) {
-		rmemo.r.d ??= rmemo.r.deref
-		rmemo.r.deref = ()=>{
+	if (rmemo.s) {
+		rmemo.s.d ??= rmemo.s.deref
+		rmemo.s.deref = ()=>{
 		}
 	}
 	for (let a_o of rmemo.a ?? []) {

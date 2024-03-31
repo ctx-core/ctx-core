@@ -1,5 +1,19 @@
 # ctx-core
 
+## 6.8.2
+
+### Patch Changes
+
+- revert over aggressize size optimization: fix: breaking changes
+
+  size-limit:
+
+      memo_: - 1 B
+      memo_ sig_: + 1 B
+      memo_ sig_ be_ ctx_: - 1 B
+      memo_ sig_ be_ ctx_ be_memo_pair_ be_sig_triple_: + 4 B
+      web_animation: + 2 B
+
 ## 6.8.1
 
 ### Patch Changes
