@@ -26,11 +26,8 @@ export type memo_T<val_T, E = unknown> = (()=>val_T)&{
 	readonly _:val_T
 	readonly a?:rmemo_a_T
 	readonly f?:rmemo_f_T
-	readonly s?:rmemo_r_T
-	readonly t:rmemo_r_T[]
 	readonly l:number
-	readonly u:rmemo_T<unknown>[]
-	readonly v:rmemo_T<unknown>[]
+	readonly t:rmemo_r_T[]
 	readonly val:val_T
 	add<add_val_T>(add_def:rmemo_add_def_T<val_T, add_val_T>):memo_T<val_T, E>
 	memo_<_val_T, E = unknown>(def:memo_def_T<_val_T>):memo_T<_val_T, E>
@@ -43,7 +40,7 @@ export type sig_T<val_T, E = unknown> = (()=>val_T)&{
 	readonly a?:rmemo_a_T
 	readonly f?:rmemo_f_T
 	readonly l:number
-	readonly t:rmemo_T<unknown>[]
+	readonly t:rmemo_r_T[]
 	readonly val:val_T
 	add<add_val_T>(fn:rmemo_add_def_T<val_T, add_val_T>):sig_T<val_T, E>
 	memo_<_val_T, E = unknown>(def:memo_def_T<_val_T>):memo_T<_val_T, E>

@@ -1,5 +1,11 @@
 # ctx-core
 
+## 6.8.3
+
+### Patch Changes
+
+- memo_T,sig_T: fix: internal state types
+
 ## 6.8.2
 
 ### Patch Changes
