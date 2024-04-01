@@ -8,36 +8,36 @@ export function wanimato__new($, el, animation_) {
 	if ($.val?.el === el) return $.val
 	let _animation = animation_(el)
 	_animation.addEventListener('finish', ()=>{
-		$._ = {
+		$.set({
 			...$(),
 			is_finish: true,
 			finish_currentTime: $().animation.currentTime
-		}
+		})
 	})
 	_animation.addEventListener('remove', ()=>{
-		$._ = {
+		$.set({
 			...$(),
 			is_remove: true
-		}
+		})
 	})
 	let play_state__ensure = ()=>{
 		if ($().is_play !== true || $().is_finish !== false) {
-			$._ = {
+			$.set({
 				...$(),
 				is_play: true,
 				is_finish: false
-			}
+			})
 		}
 	}
 	let begin_state__ensure__setTimeout = ()=>{
 		setTimeout(
 			()=>{
 				if ($().is_play !== !!_animation.currentTime || $().is_finish !== false) {
-					$._ = {
+					$.set({
 						...$(),
 						is_play: !!_animation.currentTime,
 						is_finish: false,
-					}
+					})
 				}
 			},
 			_animation.currentTime / -_animation.playbackRate)
@@ -62,21 +62,21 @@ export function wanimato__new($, el, animation_) {
 		finish() {
 			_animation.finish()
 			if ($().is_play !== false || $().is_finish !== !!_animation.currentTime) {
-				$._ = {
+				$.set({
 					...$(),
 					is_play: false,
 					is_finish: !!_animation.currentTime
-				}
+				})
 			}
 		},
 		cancel() {
 			_animation.cancel()
 			if ($().is_play !== false || $().is_finish !== false) {
-				$._ = {
+				$.set({
 					...$(),
 					is_play: false,
 					is_finish: false
-				}
+				})
 			}
 		},
 		updatePlaybackRate(playbackRate) {

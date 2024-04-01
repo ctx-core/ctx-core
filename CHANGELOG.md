@@ -1,5 +1,27 @@
 # ctx-core
 
+## 7.0.0
+
+### Major Changes
+
+- breaking changes from 6.9.0:
+
+      memo_: more efficient instantiation: + ∋ memo__run: replaces instantiated .f function with closure scope
+      ._ getter removed:
+      	memo_
+      	sig_
+      	memosig_
+      	lock_memosig_
+      ._ = setter renamed to .set():
+      	sig_
+      	memosig_
+      	lock_memosig_
+      remove argument: - config?:be_config_T:
+      	be_memo_pair_
+      	be_sig_triple_
+      	be_memosig_triple_
+      	be_lock_memosig_triple_
+
 ## 6.9.0
 
 ### Minor Changes
