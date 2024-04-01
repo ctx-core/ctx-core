@@ -1,5 +1,5 @@
-import type { Be, be_config_arg_a_T, ctx__be_T, ctx__get_T, wide_ctx_T } from '../be_/index.js'
-import type { memo_T, sig_T } from '../rmemo/index.js'
+import type { Be, ctx__be_T, ctx__get_T, wide_ctx_T } from '../be_/index.js'
+import type { be_rmemo_config_arg_a_T, memo_T, sig_T } from '../rmemo/index.js'
 export declare function be_memo_pair_<
 	val_T,
 	ns_T extends string = '',
@@ -13,7 +13,7 @@ export declare function be_memo_pair_<
 	ctx_T extends wide_ctx_T<ns_T> = wide_ctx_T<ns_T>,
 >(
 	val__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
-	...config:be_config_arg_a_T<ns_T>
+	...config:be_rmemo_config_arg_a_T<ns_T>
 ):be_memo_pair_T<val_T, ns_T, E, ctx_T>
 export declare function ns_be_memo_pair_<
 	val_T,

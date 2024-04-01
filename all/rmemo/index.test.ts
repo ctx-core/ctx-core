@@ -19,14 +19,14 @@ import {
 } from './index.js'
 test('memo_|static value', ()=>{
 	let count = 0
-	const memo = memo_(()=>{
+	const memo$ = memo_(()=>{
 		count++
 		return 'rmemo-value'
 	})
 	equal(count, 0)
-	equal(memo(), 'rmemo-value')
+	equal(memo$(), 'rmemo-value')
 	equal(count, 1)
-	equal(memo(), 'rmemo-value')
+	equal(memo$(), 'rmemo-value')
 	equal(count, 1)
 })
 test('memo_|def function|rmemo argument', ()=>{
@@ -38,17 +38,17 @@ test('memo_|def function|rmemo argument', ()=>{
 	equal(memo(), 'custom_val0-val0')
 	memo.custom = 'custom_val1'
 	equal(memo(), 'custom_val0-val0')
-	sig._ = 'val1'
+	sig('val1')
 	equal(memo(), 'custom_val1-val1')
 })
 test('memo_|side effect', ()=>{
 	const history:string[] = []
 	const s = sig_('This')
 	memo_(()=>history.push(s()))()
-	s._ = 'is'
-	s._ = 'a'
-	s._ = 'test'
-	s._ = 'test'
+	s('is')
+	s('a')
+	s('test')
+	s('test')
 	equal(history, ['This', 'is', 'a', 'test'])
 })
 test('memo_|undefined', ()=>{
@@ -73,33 +73,33 @@ test('memo_|conditional', ()=>{
 	const sum$ = memo_(()=>(++trigger_count, cond$() ? a$() + b$() : c$() + d$()))
 	equal(sum$(), 3)
 	equal(trigger_count, 1)
-	a$._ = 11
+	a$(11)
 	equal(sum$(), 13)
 	equal(trigger_count, 2)
-	b$._ = 12
+	b$(12)
 	equal(sum$(), 23)
 	equal(trigger_count, 3)
 	// Changing c$ or d$ won't triggered the effect as they're not its current dependencies
-	c$._ = 13
+	c$(13)
 	equal(sum$(), 23)
 	equal(trigger_count, 3)
-	d$._ = 14
+	d$(14)
 	equal(sum$(), 23)
 	equal(trigger_count, 3)
-	cond$._ = false
+	cond$(false)
 	equal(sum$(), 27)
 	equal(trigger_count, 4)
-	c$._ = 23
+	c$(23)
 	equal(sum$(), 37)
 	equal(trigger_count, 5)
-	d$._ = 24
+	d$(24)
 	equal(sum$(), 47)
 	equal(trigger_count, 6)
 	// Changing a$ or b$ won't triggered the effect as they're not its current dependencies
-	a$._ = 21
+	a$(21)
 	equal(sum$(), 47)
 	equal(trigger_count, 6)
-	b$._ = 22
+	b$(22)
 	equal(sum$(), 47)
 	equal(trigger_count, 6)
 })
@@ -109,20 +109,20 @@ test('memosig_', ()=>{
 	// TODO: Jetbrains or Typescript type inference is wrong without generic
 	const selected_index$ = memosig_<number>(()=>(items$(), 0))
 	const selected_item$ = memo_(()=>items$()[selected_index$()])
-	num_items$._ = 3
+	num_items$(3)
 	equal(num_items$(), 3)
 	equal(items$().join(','), 'Item 1,Item 2,Item 3')
 	equal(selected_index$(), 0)
 	equal(selected_item$(), 'Item 1')
-	selected_index$._ = 2
+	selected_index$(2)
 	equal(selected_index$(), 2)
 	equal(selected_item$(), 'Item 3')
-	num_items$._ = 5
+	num_items$(5)
 	equal(num_items$(), 5)
 	equal(items$().join(','), 'Item 1,Item 2,Item 3,Item 4,Item 5')
 	equal(selected_index$(), 0)
 	equal(selected_item$(), 'Item 1')
-	selected_index$._ = 3
+	selected_index$(3)
 	equal(selected_index$(), 3)
 	equal(selected_item$(), 'Item 4')
 })
@@ -132,15 +132,15 @@ test('lock_memosig_', ()=>{
 	// TODO: Jetbrains or Typescript type inference is wrong without generic
 	const selected_index$ = lock_memosig_<number>(()=>(items$(), 0))
 	const selected_item$ = memo_(()=>items$()[selected_index$()])
-	num_items$._ = 3
+	num_items$(3)
 	equal(num_items$(), 3)
 	equal(items$().join(','), 'Item 1,Item 2,Item 3')
 	equal(selected_index$(), 0)
 	equal(selected_item$(), 'Item 1')
-	selected_index$._ = 2
+	selected_index$(2)
 	equal(selected_index$(), 2)
 	equal(selected_item$(), 'Item 3')
-	num_items$._ = 5
+	num_items$(5)
 	equal(num_items$(), 5)
 	equal(selected_index$(), 2)
 })
@@ -161,7 +161,7 @@ test('memo_|error|case 2', ()=>{
 	equal(r1(), 2)
 	equal(r2(), 1)
 	equal(r3(), 1)
-	rw0._ = 3
+	rw0(3)
 	equal(r1(), 6)
 	// r2() keeps it's old value of 1 due to error
 	equal(r2(), 1)
@@ -170,12 +170,12 @@ test('memo_|error|case 2', ()=>{
 test('sig_', ()=>{
 	const sig = sig_('val0')
 	equal(sig(), 'val0')
-	sig._ = 'val1'
+	sig('val1')
 	equal(sig(), 'val1')
 })
 test('sig_|set before read', ()=>{
 	const sig = sig_('val0')
-	sig._ = 'val1'
+	sig('val1')
 	equal(sig(), 'val1')
 })
 test('sig_|undefined', ()=>{
@@ -188,12 +188,14 @@ test('rmemo|add|has strong reference to the return value', ()=>{
 	const add_arg_aa:[sig_T<number|undefined>, number|undefined][] = []
 	let memo:memo_T<number>|undefined
 	const num$ = sig_<number|undefined>(
-		undefined
-	).add(sig=>
-		memo = memo_<number>(memo=>{
-			add_arg_aa.push([sig, memo.val])
-			return 99
-		}))
+		undefined,
+		[
+			sig=>
+				memo = memo_<number>(memo=>{
+					add_arg_aa.push([sig, memo.val])
+					return 99
+				})
+		])
 	equal(num$.a, undefined)
 	equal(add_arg_aa, [])
 	equal(num$(), undefined)
@@ -206,15 +208,17 @@ test('rmemo|add|notified if sig is set before read', ()=>{
 	let count = 0
 	let add__num:number|undefined = undefined
 	const num$ = sig_<number|undefined>(
-		undefined
-	).add(num$=>
-		memo_(()=>{
-			count++
-			add__num = num$()
-		}))
+		undefined,
+		[
+			num$=>
+				memo_(()=>{
+					count++
+					add__num = num$()
+				})
+		])
 	equal(count, 0)
 	equal(add__num, undefined)
-	num$._ = 1
+	num$(1)
 	equal(count, 1)
 	equal(add__num, 1)
 	num$()
@@ -225,37 +229,43 @@ test('rmemo_|add|sets sig', ()=>{
 	const base$ = sig_(0)
 	let count = 0
 	const num$ = sig_(
-		0
-	).add(num$=>
-		memo_(()=>{
-			count++
-			num$._ = base$() + 1
-		}))
+		0,
+		[
+			num$=>
+				memo_(()=>{
+					count++
+					num$(base$() + 1)
+				})
+		])
 	equal(count, 0)
 	equal(num$(), 1)
 	equal(count, 1)
-	base$._ = 5
+	base$(5)
 	equal(num$(), 6)
 	equal(count, 2)
 })
 test('rmemo|add|nullish', ()=>{
 	let add_undefined_count = 0
 	const add_undefined_num$ = sig_(
-		0
-	).add(()=>{
-		add_undefined_count++
-		return undefined
-	})
+		0,
+		[
+			()=>{
+				add_undefined_count++
+				return undefined
+			}
+		])
 	equal(add_undefined_count, 0)
 	equal(add_undefined_num$(), 0)
 	equal(add_undefined_count, 1)
 	let add_null_count = 0
 	const add_null_num$ = sig_(
-		0
-	).add(()=>{
-		add_null_count++
-		return null
-	})
+		0,
+		[
+			()=>{
+				add_null_count++
+				return null
+			}
+		])
 	equal(add_null_count, 0)
 	equal(add_null_num$(), 0)
 	equal(add_null_count, 1)
@@ -267,13 +277,15 @@ test('sig_|async add|case 1', async ()=>{
 	const id$ = sig_('id-0')
 	let count = 0
 	const user$ = sig_<{ id:string }|null>(
-		null
-	).add((_user$)=>memo_(async ()=>{
-		count++
-		id$()
-		const user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
-		_user$._ = user
-	}))
+		null,
+		[
+			(_user$)=>memo_(async ()=>{
+				count++
+				id$()
+				const user:{ id:string } = await new Promise(_resolve=>resolve = _resolve)
+				_user$(user)
+			})
+		])
 	equal(count, 0)
 	equal(user$(), null)
 	equal(count, 1)
@@ -282,7 +294,7 @@ test('sig_|async add|case 1', async ()=>{
 	equal(count, 1)
 	equal(user$(), user0)
 	equal(count, 1)
-	id$._ = 'id-1'
+	id$('id-1')
 	equal(count, 2)
 	equal(user$(), user0)
 	resolve!(user1)
@@ -295,19 +307,21 @@ test('sig_|async add|case 2', async ()=>{
 	const sleepCycles = 5
 	const taskArgumentsCalls:number[][] = []
 	const sum$ = sig_<null|number>(
-		null
-	).add(sum$=>
-		memo_(async ()=>{
-			taskArgumentsCalls.push([a$(), b$()])
-			for (let i = 0; i < sleepCycles; i++) {
-				await Promise.resolve()
-			}
-			sum$._ = a$() + b$()
-		}))
+		null,
+		[
+			sum$=>
+				memo_(async ()=>{
+					taskArgumentsCalls.push([a$(), b$()])
+					for (let i = 0; i < sleepCycles; i++) {
+						await Promise.resolve()
+					}
+					sum$(a$() + b$())
+				})
+		])
 	equal(sum$(), null)
 	deepStrictEqual(taskArgumentsCalls, [[1, 2]])
-	a$._ = 10
-	b$._ = 20
+	a$(10)
+	b$(20)
 	for (let i = 0; i < sleepCycles; i++) {
 		equal(sum$(), null)
 		await Promise.resolve()
@@ -337,7 +351,7 @@ test('memo_+sig_|simple graph', ()=>{
 	equal(dep1$(), 'base0-dep0-dep1')
 	equal(dep0$(), 'base0-dep0')
 	equal(base$(), 'base0')
-	base$._ = 'base1'
+	base$('base1')
 	equal(base$(), 'base1')
 	equal(dep0$(), 'base1-dep0')
 	equal(dep1$(), 'base1-dep0-dep1')
@@ -353,13 +367,14 @@ test('prevents diamond dependency problem 1', ()=>{
 	const c$ = memo_(()=>a$().replace('a', 'c'))
 	const d$ = memo_(()=>a$().replace('a', 'd'))
 	memo_(
-		()=>`${b$()}${c$()}${d$()}`)
-		.add(combined$=>
-			memo_(()=>values.push(combined$()))
-		)()
+		()=>`${b$()}${c$()}${d$()}`,
+		[
+			combined$=>
+				memo_(()=>values.push(combined$()))
+		])()
 	deepStrictEqual(values, ['b0c0d0'])
-	store$._ = 1
-	store$._ = 2
+	store$(1)
+	store$(2)
 	deepStrictEqual(values, ['b0c0d0', 'b1c1d1', 'b2c2d2'])
 })
 test('prevents diamond dependency problem 2', ()=>{
@@ -371,12 +386,12 @@ test('prevents diamond dependency problem 2', ()=>{
 	const d$ = memo_(()=>c$().replace('c', 'd'))
 	const e$ = memo_(()=>d$().replace('d', 'e'))
 	memo_<string>(
-		()=>[a$(), e$()].join(''))
-		.add($=>
+		()=>[a$(), e$()].join(''),
+		[$=>
 			memo_(()=>values.push($()))
-		)()
+		])()
 	deepStrictEqual(values, ['a0e0'])
-	store$._ = 1
+	store$(1)
 	deepStrictEqual(values, ['a0e0', 'a1e1'])
 })
 test('prevents diamond dependency problem 3', ()=>{
@@ -387,12 +402,12 @@ test('prevents diamond dependency problem 3', ()=>{
 	const c$ = memo_(()=>b$().replace('b', 'c'))
 	const d$ = memo_(()=>c$().replace('c', 'd'))
 	memo_<string>(
-		()=>`${a$()}${b$()}${c$()}${d$()}`)
-		.add(combined$=>
+		()=>`${a$()}${b$()}${c$()}${d$()}`,
+		[combined$=>
 			memo_(()=>values.push(combined$()))
-		)()
+		])()
 	deepStrictEqual(values, ['a0b0c0d0'])
-	store$._ = 1
+	store$(1)
 	deepStrictEqual(values, ['a0b0c0d0', 'a1b1c1d1'])
 })
 test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
@@ -407,18 +422,18 @@ test('autosubscribe: prevents diamond dependency problem 4 (complex)', ()=>{
 	const f$ = memo_(()=>`f${e$()}`)
 	const g$ = memo_(()=>`g${f$()}`)
 	memo_(
-		()=>e$())
-		.add(combined1$=>
+		()=>e$(),
+		[combined1$=>
 			memo_(()=>values.push(combined1$()))
-		)()
+		])()
 	memo_(
-		()=>[e$(), g$()].join(''))
-		.add(combined2$=>
+		()=>[e$(), g$()].join(''),
+		[combined2$=>
 			memo_(()=>values.push(combined2$()))
-		)()
+		])()
 	deepStrictEqual(values, ['eca0b0da0', 'eca0b0da0gfeca0b0da0'])
-	store1$._ = 1
-	store2$._ = 2
+	store1$(1)
+	store2$(2)
 	deepStrictEqual(values, [
 		'eca0b0da0',
 		'eca0b0da0gfeca0b0da0',
@@ -447,10 +462,10 @@ test('prevents diamond dependency problem 5', ()=>{
 	equal(events, '')
 	equal(displayName$(), 'John Doe')
 	equal(events, 'display short full ')
-	firstName$._ = 'Benedict'
+	firstName$('Benedict')
 	equal(displayName$(), 'Benedict Doe')
 	equal(events, 'display short full short full display ')
-	firstName$._ = 'Montgomery'
+	firstName$('Montgomery')
 	equal(displayName$(), 'Montgomery')
 	equal(events, 'display short full short full display short full display ')
 })
@@ -462,12 +477,12 @@ test('prevents diamond dependency problem 6', ()=>{
 	const b$ = memo_(()=>`b${store2$()}`)
 	const c$ = memo_(()=>b$().replace('b', 'c'))
 	memo_(
-		()=>`${a$()}${c$()}`)
-		.add(combined$=>
+		()=>`${a$()}${c$()}`,
+		[combined$=>
 			memo_(()=>values.push(combined$()))
-		)()
+		])()
 	deepStrictEqual(values, ['a0c0'])
-	store1$._ = 1
+	store1$(1)
 	deepStrictEqual(values, ['a0c0', 'a1c0'])
 })
 test('prevents dependency listeners from being out of order', ()=>{
@@ -477,13 +492,14 @@ test('prevents dependency listeners from being out of order', ()=>{
 	})
 	const values:string[] = []
 	const b$ = memo_(
-		()=>`${a$()}b`)
-		.add(b$=>
-			memo_(()=>values.push(b$())))
+		()=>`${a$()}b`,
+		[b$=>
+			memo_(()=>values.push(b$()))
+		])
 	equal(b$(), '0ab')
 	deepStrictEqual(values, ['0ab'])
 	equal(a$(), '0a')
-	base$._ = 1
+	base$(1)
 	deepStrictEqual(values, ['0ab', '1ab'])
 })
 test('computes initial value when argument is undefined', ()=>{
@@ -498,7 +514,7 @@ test('memo__bind', ()=>{
 	const bind_memo$ = bind_fn.memo_(bind_fn)
 	equal(bind_fn(), 11)
 	equal(bind_memo$(), 11)
-	base$._ = 2
+	base$(2)
 	equal(bind_fn(), 12)
 	equal(bind_memo$(), 12)
 })
@@ -516,13 +532,13 @@ test('rmemo__on,rmemo__off__add,rmemo__off', ()=>{
 	})
 	equal(memo$(), 11)
 	equal(count, 1)
-	base$._ = 2
+	base$(2)
 	equal(memo$(), 12)
 	equal(count, 2)
 	equal(rmemo__off__add_arg_aa, [])
 	rmemo__off(memo$)
 	equal(rmemo__off__add_arg_aa, [[memo$]])
-	base$._ = 3
+	base$(3)
 	equal(memo$(), 12)
 	equal(count, 2)
 	equal(rmemo__off__add_arg_aa, [[memo$]])
@@ -538,7 +554,7 @@ test('rmemo__on,rmemo__off__add,rmemo__off', ()=>{
 	equal(rmemo__off__add_arg_aa, [[memo$], [memo$]])
 	equal(rmemo__on__off_arg_aa, [])
 	equal(count, 4)
-	base$._ = 4
+	base$(4)
 	equal(memo$(), 14)
 	equal(count, 5)
 	equal(rmemo__off__add_arg_aa, [[memo$], [memo$]])
@@ -559,10 +575,10 @@ test('rmemo__add', ()=>{
 	equal(add_arg_aa_val_aaa, [])
 	base$()
 	equal(add_arg_aa_val_aaa, [[[base$], undefined, 1]])
-	base$._ = 2
+	base$(2)
 	equal(add_arg_aa_val_aaa, [[[base$], undefined, 1], [[base$], 'val-1', 2]])
 	off()
-	base$._ = 3
+	base$(3)
 	equal(add_arg_aa_val_aaa, [[[base$], undefined, 1], [[base$], 'val-1', 2]])
 })
 test('rmemo__unset', ()=>{
