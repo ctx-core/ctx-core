@@ -28,7 +28,7 @@ export type memo__bind_T<A extends unknown[], R, E = unknown> =
 }
 export declare function rmemo__on<val_T, E = unknown>(rmemo:rmemo_T<val_T, E>, off_fn?:(rmemo:rmemo_T<val_T, E>)=>unknown):void
 export declare function rmemo__off<val_T, E = unknown>(rmemo:rmemo_T<val_T, E>):void
-export declare function rmemo__off__add<val_T, E = unknown>(rmemo:rmemo_T<val_T>, off_fn:(rmemo:rmemo_T<val_T, E>)=>unknown):void
+export declare function rmemo__off__add<val_T, E = unknown>(rmemo:rmemo_T<val_T, E>, off_fn:(rmemo:rmemo_T<val_T, E>)=>unknown):void
 export declare function rmemo__add<val_T, listener_val_T, E = unknown>(
 	rmemo:rmemo_T<val_T, E>,
 	listener:(sig:sig_T<val_T, E>)=>listener_val_T

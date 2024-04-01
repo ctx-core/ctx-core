@@ -1,5 +1,11 @@
 # ctx-core
 
+## 7.0.1
+
+### Patch Changes
+
+- rmemo**off**add: fix: argument type
+
 ## 7.0.0
 
 ### Major Changes
