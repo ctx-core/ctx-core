@@ -101,6 +101,30 @@ export declare function ondelete_be_<
 	val__new:ondelete_be__val__new_T<val_T, ns_T, ctx_T>,
 	config?:be_config_T<ns_T>
 ):ondelete_Be<val_T, ns_T, ctx_T>
+export declare function ns_ondelete_be_<
+	val_T,
+	ns_T extends string,
+	ctx_T extends wide_ctx_T<ns_T> = wide_ctx_T<ns_T>,
+>(
+	ns:ns_T,
+	val__new:ondelete_be__val__new_T<val_T, ns_T, ctx_T>
+):ondelete_Be<val_T, ns_T, ctx_T>
+export declare function id_ondelete_be_<
+	val_T,
+	ctx_T extends wide_ctx_T<''> = wide_ctx_T<''>,
+>(
+	id:string,
+	val__new:ondelete_be__val__new_T<val_T, '', ctx_T>
+):ondelete_Be<val_T, '', ctx_T>
+export declare function ns_id_ondelete_be_<
+	val_T,
+	ns_T extends string,
+	ctx_T extends wide_ctx_T<ns_T> = wide_ctx_T<ns_T>,
+>(
+	ns:ns_T,
+	id:string,
+	val__new:be__val__new_T<val_T, ns_T, ctx_T>
+):ondelete_Be<val_T, ns_T, ctx_T>
 export type Be<
 	val_T,
 	ns_T extends string = '',

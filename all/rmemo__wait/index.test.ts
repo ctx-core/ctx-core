@@ -10,7 +10,7 @@ test('rmemo__wait|rmemo', async ()=>{
 		10_000)
 	// equal(promise.m.t, [])
 	equal(subject$(), -1)
-	subject$._ = 1
+	subject$.set(1)
 	equal(subject$(), 1)
 	await promise
 	equal(subject$(), 1)
@@ -23,7 +23,7 @@ test('rmemo__wait|rmemolike', async ()=>{
 		10_000)
 	// equal(promise.m.t, [])
 	equal(subject$(), -1)
-	subject$._ = 1
+	subject$.set(1)
 	equal(subject$(), 1)
 	await promise
 	equal(subject$(), 1)

@@ -5,74 +5,76 @@ import { be_ } from '../be_/index.js'
 import { memo_ } from '../rmemo/index.js'
 /**
  * @param {Be|be__val__new_T<unknown>}be_OR_val__new
+ * @param {be_rmemo_add_def_T[]}[add_def_a1]
  * @param {be_config_T}[config]
  * @returns {be_memo_pair_T}
  * @private
  */
 export function be_memo_pair_(
 	be_OR_val__new,
+	add_def_a1,
 	config,
 ) {
-	let add_def_a = []
 	/** @type {Be} */
 	let be =
 		be_OR_val__new.is_be
 			? be_OR_val__new
 			: be_(ctx=>
-				add_def_a.reduce(
-					(memo, add_def)=>
-						memo.add((...arg_a)=>add_def(ctx, ...arg_a)),
-					memo_(
-						memo=>be_OR_val__new(ctx, memo))),
+				memo_(
+					memo=>be_OR_val__new(ctx, memo),
+					(add_def_a1 ?? []).map(add_def=>{
+						return memo=>add_def(ctx, memo)
+					})),
 			config)
-	let be_memo_pair = [
+	return [
 		be,
-		ctx=>be(ctx)._,
+		ctx=>be(ctx)(),
 		(ctx, val)=>{
-			be(ctx)._ = val
+			be(ctx).set(val)
 		},
 	]
-	be_memo_pair.add = add_def=>{
-		add_def_a.push(add_def)
-		return be_memo_pair
-	}
-	return be_memo_pair
 }
 /**
  * @param {string}ns
  * @param {be__val__new_T<unknown>}val__new
+ * @param {be_rmemo_add_def_T[]}[add_def_a1]
  * @returns {be_memo_pair_T}
  * @private
  */
 export function ns_be_memo_pair_(
 	ns,
-	val__new
+	val__new,
+	add_def_a1
 ) {
-	return be_memo_pair_(val__new, { ns })
+	return be_memo_pair_(val__new, add_def_a1, { ns })
 }
 /**
  * @param {string}id
  * @param {be__val__new_T<unknown>}val__new
+ * @param {be_rmemo_add_def_T[]}[add_def_a1]
  * @returns {be_memo_pair_T}
  * @private
  */
 export function id_be_memo_pair_(
 	id,
-	val__new
+	val__new,
+	add_def_a1
 ) {
-	return be_memo_pair_(val__new, { id })
+	return be_memo_pair_(val__new, add_def_a1, { id })
 }
 /**
  * @param {string}ns
  * @param {string}id
  * @param {be__val__new_T<unknown>}val__new
+ * @param {be_rmemo_add_def_T[]}[add_def_a1]
  * @returns {be_memo_pair_T}
  * @private
  */
 export function ns_id_be_memo_pair_(
 	ns,
 	id,
-	val__new
+	val__new,
+	add_def_a1
 ) {
-	return be_memo_pair_(val__new, { ns, id })
+	return be_memo_pair_(val__new, add_def_a1, { ns, id })
 }

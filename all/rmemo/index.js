@@ -12,60 +12,59 @@ let $ = globalThis.__rmemo__ ??= { q: new Set }
  * @private
  */
 export function memo_(memo_def, add_def_a1) {
-	let wr_a1 = []
 	/** @type {memo_T} */
-	let memo = (...val_a1)=>{
-		if (val_a1.length) {
-			if (memo.val !== val_a1[0]) {
-				wr_a1 = wr_a1.filter(r=>{
-					r = r.deref()
-					if (r?.r.includes(memo)) { // if added by $.c.r.push(memo), add to $.q
-						$.q.add(r)
-					}
-					return r
-				})
+	let memo = ()=>{
+		'val' in memo || memo__run(memo)
+		if ($.c) {
+			if (!memo.r.includes($.c.s ??= new WeakRef($.c))) {
+				memo.r.push($.c.s)
 			}
-			memo.val = val_a1[0]
-			if (!memo.a) {
-				memo.a = []
-				add_def_a1.map(add_def=>{
-					let v = add_def(memo)
-					if (v instanceof Object) {
-						memo.a.push(v)
-						if (v.memo_) v()
-					}
-				})
-			}
-			cur_refresh_loop:for (let cur_memo of $.q) {
-				$.q.delete(cur_memo)
-				for (let queue_refresh of $.q) {
-					if (cur_memo.l > queue_refresh.l) {
-						$.q.add(cur_memo)
-						continue cur_refresh_loop
-					}
-				}
-				memo__run(cur_memo)
-			}
-		} else {
-			'val' in memo || memo__run(memo)
-			if ($.c) {
-				if (!wr_a1.includes($.c.s ??= new WeakRef($.c))) {
-					wr_a1.push($.c.s)
-				}
-				if ($.c.l < memo.l + 1) $.c.l = memo.l + 1
-				// memo is called by $.c's conditional execution...next change to memo will notify $.c
-				$.c.r.push(memo)
-				// prevent memo from GC while $.c still has a strong reference
-				if (!$.c.t.includes(memo)) $.c.t.push(memo)
-			}
+			if ($.c.l < memo.l + 1) $.c.l = memo.l + 1
+			// memo is called by $.c's conditional execution...next change to memo will notify $.c
+			$.c.u.push(memo)
+			// prevent memo from GC while $.c still has a strong reference
+			if (!$.c.t.includes(memo)) $.c.t.push(memo)
 		}
 		return memo.val
 	}
+	memo.set = val=>{
+		if (memo.val !== val) {
+			memo.r = memo.r.filter(r=>{
+				r = r.deref()
+				if (r?.u.includes(memo)) { // if added by $.c.u.push(memo), add to $.q
+					$.q.add(r)
+				}
+				return r
+			})
+		}
+		memo.val = val
+		if (!memo.a) {
+			memo.a = []
+			add_def_a1.map(add_def=>{
+				let v = add_def(memo)
+				if (v instanceof Object) {
+					memo.a.push(v)
+					if (v.memo_) v()
+				}
+			})
+		}
+		cur_refresh_loop:for (let cur_memo of $.q) {
+			$.q.delete(cur_memo)
+			for (let queue_refresh of $.q) {
+				if (cur_memo.l > queue_refresh.l) {
+					$.q.add(cur_memo)
+					continue cur_refresh_loop
+				}
+			}
+			memo__run(cur_memo)
+		}
+	}
 	memo.l = 0
-	memo.r = []
-	memo.t = []
-	memo.b = add_def_a1 ??= []
 	memo.d = memo_def
+	memo.b = add_def_a1 ??= []
+	memo.r = []
+	memo.u = []
+	memo.t = []
 	memo.memo_ = memo_
 	return memo
 }
@@ -89,26 +88,22 @@ export function sig_(init_val, add_def_a) {
  * @returns {sig_T}
  * @private
  */
-export function lock_memosig_(memo_def, add_def_a) {
-	let memo = memo_(memo=>
-		memo.lock ? memo() : memo_def(memo),
-	add_def_a)
+export function lock_memosig_(memo_def, ...add_def_a) {
 	let lock_memosig = new Proxy(
 		/** @type {sig_T} */
-		(...val_a1)=>{
-			if (val_a1.length) {
-				memo.lock = 1
-			}
-			return memo(...val_a1)
-		},
+		memo_(memo=>
+			memo.lock ? memo() : memo_def(memo),
+		...add_def_a),
 		{
-			get(_lock_memosig, prop) {
+			get(memo, prop) {
+				if (prop === 'set') {
+					return val=>{
+						memo.lock = 1
+						memo[prop](val)
+					}
+				}
 				return memo[prop]
 			},
-			set(lock_memosig, prop, val) {
-				memo[prop] = val
-				return 1
-			}
 		})
 	return lock_memosig
 }
@@ -203,9 +198,9 @@ export function rmemo__unset(rmemo) {
 function memo__run(memo) {
 	let prev_memo = $.c
 	$.c = memo
-	memo.r = [] // reset references in memo_def conditional execution path...see $.c.r.push(memo)
+	memo.u = [] // reset references in memo_def conditional execution path...see $.c.u.push(memo)
 	try {
-		memo(memo.d(memo))
+		memo.set(memo.d(memo))
 	} catch (err) {
 		console.error(err)
 	}

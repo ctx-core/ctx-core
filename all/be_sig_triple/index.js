@@ -5,72 +5,75 @@ import { be_ } from '../be_/index.js'
 import { sig_ } from '../rmemo/index.js'
 /**
  * @param {Be<sig_T>|be__val__new_T<unknown>}be_OR_val__new
+ * @param {be_rmemo_add_def_T[]}[add_def_a1]
  * @param {be_config_T}[config]
  * @returns {be_sig_triple_T}
  * @private
  */
 export function be_sig_triple_(
 	be_OR_val__new,
+	add_def_a1,
 	config
 ) {
-	let add_def_a = []
 	/** @ype {Be<sig_T>} */
 	let be =
 		be_OR_val__new.is_be
 			? be_OR_val__new
 			: be_(ctx=>
-				add_def_a.reduce(
-					(sig, add_def)=>sig.add((...arg_a)=>add_def(ctx, ...arg_a)),
-					sig_(be_OR_val__new(ctx))),
+				sig_(
+					be_OR_val__new(ctx),
+					(add_def_a1 ?? []).map(add_def=>
+						sig=>add_def(ctx, sig))),
 			config)
-	let be_sig_triple = [
+	return [
 		be,
 		ctx=>be(ctx)(),
 		(ctx, val)=>{
-			be(ctx)._ = val
+			be(ctx).set(val)
 		},
 	]
-	be_sig_triple.add = add_def=>{
-		add_def_a.push(add_def)
-		return be_sig_triple
-	}
-	return be_sig_triple
 }
 /**
  * @param {string}ns
  * @param {be__val__new_T<unknown>}val__new
+ * @param {be_rmemo_add_def_T[]}[add_def_a1]
  * @returns {be_sig_triple_T}
  * @private
  */
 export function ns_be_sig_triple_(
 	ns,
-	val__new
+	val__new,
+	add_def_a1
 ) {
-	return be_sig_triple_(val__new, { ns })
+	return be_sig_triple_(val__new, add_def_a1, { ns })
 }
 /**
  * @param {string}id
  * @param {be__val__new_T<unknown>}val__new
+ * @param {be_rmemo_add_def_T[]}[add_def_a1]
  * @returns {be_sig_triple_T}
  * @private
  */
 export function id_be_sig_triple_(
 	id,
-	val__new
+	val__new,
+	add_def_a1
 ) {
-	return be_sig_triple_(val__new, { id })
+	return be_sig_triple_(val__new, add_def_a1, { id })
 }
 /**
  * @param {string}ns
  * @param {string}id
  * @param {be__val__new_T<unknown>}val__new
+ * @param {be_rmemo_add_def_T[]}[add_def_a1]
  * @returns {be_sig_triple_T}
  * @private
  */
 export function ns_id_be_sig_triple_(
 	ns,
 	id,
-	val__new
+	val__new,
+	add_def_a1
 ) {
-	return be_sig_triple_(val__new, { ns, id })
+	return be_sig_triple_(val__new, add_def_a1, { ns, id })
 }

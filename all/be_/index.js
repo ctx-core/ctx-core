@@ -199,3 +199,31 @@ export function ondelete_be_(val__new, config) {
 	}
 	return be
 }
+/**
+ * @param {string}ns
+ * @param {be__val__new_T}val__new
+ * @returns {Be}
+ * @private
+ */
+export function ns_ondelete_be_(ns, val__new) {
+	return ondelete_be_(val__new, { ns })
+}
+/**
+ * @param {string}id
+ * @param {be__val__new_T}val__new
+ * @returns {Be}
+ * @private
+ */
+export function id_ondelete_be_(id, val__new) {
+	return ondelete_be_(val__new, { id })
+}
+/**
+ * @param {string}ns
+ * @param {string}id
+ * @param {be__val__new_T}val__new
+ * @returns {Be}
+ * @private
+ */
+export function ns_id_ondelete_be_(ns, id, val__new) {
+	return ondelete_be_(val__new, { ns, id })
+}

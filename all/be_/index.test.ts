@@ -19,8 +19,11 @@ import {
 	type ctx_T,
 	globalThis__be_,
 	id_be_,
+	id_ondelete_be_,
 	ns_be_,
 	ns_id_be_,
+	ns_id_ondelete_be_,
+	ns_ondelete_be_,
 	ondelete_be_,
 	type wide_ctx_s_T,
 	type wide_ctx_T
@@ -459,6 +462,29 @@ test('ondelete_be_', ()=>{
 	ctx__delete(ctx, be)
 	equal(ondelete0_arg_aa, [[1, ctx, be], [1, ctx, be]])
 	equal(ondelete1_arg_aa, [[1, ctx, be], [1, ctx, be]])
+})
+test('ns_ondelete_be_', ()=>{
+	const valid_ctx = ns_ctx__new('test_ns')
+	const val_ = ns_ondelete_be_('test_ns', ()=>true)
+	equal(val_(valid_ctx), true)
+	// @ts-expect-error TS2322
+	throws(()=>val_(ctx__new()))
+})
+test('id_ondelete_be_', ()=>{
+	const valid_ctx = ctx__new()
+	const val_ = id_ondelete_be_('test_id', ()=>true)
+	equal(val_(valid_ctx), true)
+	equal(val_.id, 'test_id')
+	// @ts-expect-error TS2322
+	throws(()=>val_(ns_ctx__new('test_ns')))
+})
+test('ns_id_ondelete_be_', ()=>{
+	const valid_ctx = ns_ctx__new('test_ns')
+	const val_ = ns_id_ondelete_be_('test_ns', 'test_id', ()=>true)
+	equal(val_(valid_ctx), true)
+	equal(val_.id, 'test_id')
+	// @ts-expect-error TS2322
+	throws(()=>val_(ctx__new()))
 })
 test('ctx__clear', ()=>{
 	const ondelete0_arg_aa:[val:number, ctx:ctx_T, be:Be<number, ''|'test_ns'>][] = []

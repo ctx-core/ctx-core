@@ -1,5 +1,5 @@
 import type { Be, ctx__be_T, ctx__get_T, wide_ctx_T } from '../be_/index.js'
-import type { be_rmemo_config_arg_a_T, memo_T, sig_T } from '../rmemo/index.js'
+import type { be_rmemo_add_def_T, memo_T, sig_T } from '../rmemo/index.js'
 export declare function be_memo_pair_<
 	val_T,
 	ns_T extends string = '',
@@ -13,7 +13,7 @@ export declare function be_memo_pair_<
 	ctx_T extends wide_ctx_T<ns_T> = wide_ctx_T<ns_T>,
 >(
 	val__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
-	...config:be_rmemo_config_arg_a_T<ns_T>
+	add_def_a1?:be_rmemo_add_def_T<val_T, ns_T, E, ctx_T>[]
 ):be_memo_pair_T<val_T, ns_T, E, ctx_T>
 export declare function ns_be_memo_pair_<
 	val_T,
@@ -23,6 +23,7 @@ export declare function ns_be_memo_pair_<
 >(
 	ns:ns_T,
 	val__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
+	add_def_a1?:be_rmemo_add_def_T<val_T, ns_T, E, ctx_T>[]
 ):be_memo_pair_T<val_T, ns_T, E, ctx_T>
 export declare function id_be_memo_pair_<
 	val_T,
@@ -31,6 +32,7 @@ export declare function id_be_memo_pair_<
 >(
 	id:string,
 	val__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
+	add_def_a1?:be_rmemo_add_def_T<val_T, '', E, ctx_T>[]
 ):be_memo_pair_T<val_T, '', E, ctx_T>
 export declare function ns_id_be_memo_pair_<
 	val_T,
@@ -41,6 +43,7 @@ export declare function ns_id_be_memo_pair_<
 	ns:ns_T,
 	id:string,
 	val__new:(ctx:ctx_T, memo:sig_T<val_T, E>)=>val_T,
+	add_def_a1?:be_rmemo_add_def_T<val_T, ns_T, E, ctx_T>[]
 ):be_memo_pair_T<val_T, ns_T, E, ctx_T>
 export type be_memo_pair_T<
 	val_T,
@@ -50,8 +53,4 @@ export type be_memo_pair_T<
 > = [
 	ctx__be_T<memo_T<val_T, E>, ns_T, ctx_T>,
 	ctx__get_T<val_T, ns_T, ctx_T>,
-]&{
-	add<add_val_T>(
-		add_def:(ctx:ctx_T, sig:sig_T<val_T, E>)=>add_val_T
-	):be_memo_pair_T<val_T, ns_T, E, ctx_T>
-}
+]
