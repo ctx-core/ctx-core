@@ -1,5 +1,15 @@
 # ctx-core
 
+## 7.1.0
+
+### Minor Changes
+
+- minor:
+
+      + id_be
+      + ns_be
+      + ns_id_be
+
 ## 7.0.2
 
 ### Patch Changes
