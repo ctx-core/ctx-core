@@ -1,5 +1,17 @@
 # ctx-core
 
+## 7.0.2
+
+### Patch Changes
+
+- ./rmemo: memo_T: private prop types: readonly unknown types for cleaner typescript messages
+
+  ./web_animation: wanimato\_\_new: widen argument type: $:memo_T<wanimato_T>|memo_T<wanimato_T|nullish>
+
+  size-limit:
+
+      web_animation: - 1 B
+
 ## 7.0.1
 
 ### Patch Changes

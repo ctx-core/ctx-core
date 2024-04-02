@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "7.0.1",
+	"version": "7.0.2",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -441,7 +441,7 @@
 			"import": {
 				"./web_animation": "{ memo_, wanimato__new }"
 			},
-			"limit": "707 B"
+			"limit": "706 B"
 		}
 	]
 }

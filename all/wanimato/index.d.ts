@@ -1,7 +1,7 @@
 import type { nullish } from '../nullish/index.js'
-import type { sig_T } from '../rmemo/index.js'
+import type { memo_T } from '../rmemo/index.js'
 export declare function wanimato__new<E extends Element>(
-	$:sig_T<wanimato_T|nullish>,
+	$:memo_T<wanimato_T>|memo_T<wanimato_T|nullish>,
 	el:E,
 	animation_:(el:E)=>Animation
 ):wanimato_T

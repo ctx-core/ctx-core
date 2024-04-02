@@ -44,13 +44,13 @@ export type memo_T<val_T, E = unknown> = (()=>val_T)&{
 		add_def_a1?:rmemo_add_def_T<val_T, E>[]
 	):memo_T<_val_T, E>
 	val:val_T
-	readonly a?:rmemo_a_T
-	readonly b:rmemo_add_def_T<val_T, E>[]
-	readonly d:()=>val_T
-	readonly l:number
-	readonly r:rmemo_r_T[]
-	readonly u:rmemo_T<unknown>[]
-	readonly t:rmemo_T<unknown>[]
+	readonly a:unknown
+	readonly b:unknown
+	readonly d:unknown
+	readonly l:unknown
+	readonly r:unknown
+	readonly u:unknown
+	readonly t:unknown
 }&E
 interface _circular_memo_T extends memo_T<_circular_memo_T> {
 }

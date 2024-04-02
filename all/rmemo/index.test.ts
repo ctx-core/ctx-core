@@ -199,9 +199,9 @@ test('rmemo|add|has strong reference to the return value', ()=>{
 	equal(num$.a, undefined)
 	equal(add_arg_aa, [])
 	equal(num$(), undefined)
-	equal(num$.a![0], memo)
+	equal((<any>num$.a)![0], memo)
 	equal(memo!.val, 99)
-	equal((num$.a![0] as memo_T<number>).val, 99)
+	equal((<memo_T<number>>(<any>num$.a)![0]).val, 99)
 	equal(add_arg_aa, [[num$, undefined]])
 })
 test('rmemo|add|notified if sig is set before read', ()=>{
