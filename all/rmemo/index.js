@@ -20,7 +20,7 @@ export function memo_(memo_def, add_def_a1) {
 				memo.r.push($.c.s)
 			}
 			if ($.c.l < memo.l + 1) $.c.l = memo.l + 1
-			// memo is called by $.c's conditional execution...next change to memo will notify $.c
+			// memo called by $.c's conditional execution...next change to memo will notify $.c
 			$.c.u.push(memo)
 			// prevent memo from GC while $.c still has a strong reference
 			if (!$.c.t.includes(memo)) $.c.t.push(memo)
