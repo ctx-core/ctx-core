@@ -1,5 +1,11 @@
 # ctx-core
 
+## 7.2.0
+
+### Minor Changes
+
+- - ref\_\_bind
+
 ## 7.1.5
 
 ### Patch Changes
