@@ -35,7 +35,12 @@ export function file_exists__waitfor(
 						: path_OR_op()
 				)
 			} catch (err) {
-				if (err.code !== 'ENOENT') throw err
+				if (
+					err.code !== 'ENOENT'
+					&& !err.message?.include('ENOENT')
+				) {
+					throw err
+				}
 			}
 		}
 	},

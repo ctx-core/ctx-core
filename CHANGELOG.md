@@ -1,5 +1,13 @@
 # ctx-core
 
+## 7.2.1
+
+### Patch Changes
+
+- file_exists\_\_waitfor: catch: err.message: contains ENOENT: fix: pass
+
+  See https://github.com/oven-sh/bun/issues/8481
+
 ## 7.2.0
 
 ### Minor Changes
