@@ -37,7 +37,7 @@ export function file_exists__waitfor(
 			} catch (err) {
 				if (
 					err.code !== 'ENOENT'
-					&& !err.message?.include('ENOENT')
+					&& !err.message?.includes('ENOENT')
 				) {
 					throw err
 				}

@@ -1,5 +1,11 @@
 # ctx-core
 
+## 7.2.2
+
+### Patch Changes
+
+- file_exists\_\_waitfor: catch: fix: check for Error message includes ENOENT
+
 ## 7.2.1
 
 ### Patch Changes

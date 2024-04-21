@@ -17,6 +17,14 @@ test('file_exists_ + file_exists__waitfor|server', async ()=>{
 		await unlink(tempfile_path)
 	}
 })
+test('file_exists__waitfor|bun error', async ()=>{
+	let count = 0
+	await file_exists__waitfor(()=>{
+		++count
+		if (count < 5) throw Error('error: ENOENT reading /some/file.js')
+		return true
+	})
+})
 test('file_exists__waitfor|server|cancel', async ()=>{
 	const tempfile_path = await tempfile_path_()
 	equal(await file_exists_(tempfile_path), false)
