@@ -1,5 +1,12 @@
 # ctx-core
 
+## 7.2.4
+
+### Patch Changes
+
+- @types/node: ^20.12.8 -> ^20.12.10
+- esbuild: ^0.20.2 -> ^0.21.0
+
 ## 7.2.3
 
 ### Patch Changes
