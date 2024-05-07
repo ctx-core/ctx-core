@@ -1,5 +1,11 @@
 # ctx-core
 
+## 7.2.5
+
+### Patch Changes
+
+- sinon: ^17.0.1 -> ^17.0.2
+
 ## 7.2.4
 
 ### Patch Changes
