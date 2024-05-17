@@ -1,5 +1,12 @@
 # ctx-core
 
+## 7.2.10
+
+### Patch Changes
+
+- sinon: ^17.0.2 -> ^18.0.0
+- esbuild: ^0.21.2 -> ^0.21.3
+
 ## 7.2.9
 
 ### Patch Changes
