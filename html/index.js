@@ -1,4 +1,4 @@
-import { html_ } from './/index.js'
+import { html_ } from './index.js'
 import { html_attr_, raw__html_attr_ } from '../all/html_attr/index.js'
 import { html_attr_val_ } from '../all/html_attr_val/index.js'
 import { html_attrs_ } from '../all/html_attrs/index.js'

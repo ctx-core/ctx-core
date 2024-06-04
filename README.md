@@ -117,3 +117,5 @@ The docs for rmemo are in https://github.com/ctx-core/rmemo. Since the source fo
 ## ctx-core/uuid
 
 ## ctx-core/web_animation
+
+The docs for ctx-core/web_animation are in https://github.com/ctx-core/web_animation. Since the source for ctx-core/web_animation has 0 dependencies & is isomorphic, it lives in the ctx-core/web_animation export. This allows ctx-core/web_animation to be used within ctx-core without added a dependency.

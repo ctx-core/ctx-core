@@ -1,5 +1,11 @@
 # ctx-core
 
+## 7.2.15
+
+### Patch Changes
+
+- ./web_animation: browser: fix: + rmemo exports
+
 ## 7.2.14
 
 ### Patch Changes
