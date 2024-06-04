@@ -1,4 +1,4 @@
-import { html_ } from './/index.browser.js'
+import { html_ } from './index.browser.js'
 import { html_attr_, raw__html_attr_ } from '../all/html_attr/index.browser.js'
 import { html_attr_val_ } from '../all/html_attr_val/index.browser.js'
 import { html_attrs_ } from '../all/html_attrs/index.browser.js'
