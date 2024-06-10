@@ -1,5 +1,11 @@
 # ctx-core
 
+## 7.2.18
+
+### Patch Changes
+
+- esbuild: ^0.21.4 -> ^0.21.5
+
 ## 7.2.17
 
 ### Patch Changes
