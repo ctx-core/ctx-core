@@ -185,7 +185,7 @@ test('be_|ctx_T|ns', ()=>{
 	{ id: 'nested__ctx_' })
 	equal(nested__ctx_(ctx), [ctx])
 })
-test.skip('be_|circular dependency|DEBUG=1', async ()=>{
+test('be_|circular dependency|DEBUG=1', async ()=>{
 	const dir = dirname(new URL(import.meta.url).pathname)
 	const source = await readFile(
 		resolve(join(dir, '../be_/index.js'))

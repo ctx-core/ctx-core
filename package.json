@@ -313,7 +313,7 @@
 		"test": "pnpm run /^test:/",
 		"test:size": "size-limit",
 		"test:type": "check-dts",
-		"test:unit": "NODE_OPTIONS=--loader=esmock tsx node_modules/uvu/bin.js . '\\.test\\.(ts|js)$'",
+		"test:unit": "tsx node_modules/uvu/bin.js . '\\.test\\.(ts|js)$'",
 		"disable:test:coverage": "c8 pnpm test:unit"
 	},
 	"devDependencies": {
@@ -325,7 +325,6 @@
 		"c8": "^9.1.0",
 		"check-dts": "^0.8.0",
 		"esbuild": "^0.21.5",
-		"esmock": "^2.6.5",
 		"jsdom": "^24.1.0",
 		"sinon": "^18.0.0",
 		"size-limit": "^11.1.4",
