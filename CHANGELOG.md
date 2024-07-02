@@ -1,5 +1,12 @@
 # ctx-core
 
+## 7.2.26
+
+### Patch Changes
+
+- esbuild: ^0.22.0 -> ^0.23.0
+- esbuild: ^0.21.5 -> ^0.22.0
+
 ## 7.2.25
 
 ### Patch Changes

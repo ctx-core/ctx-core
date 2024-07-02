@@ -1,6 +1,6 @@
 {
 	"name": "ctx-core",
-	"version": "7.2.25",
+	"version": "7.2.26",
 	"description": "ctx-core core library",
 	"keywords": [
 		"ctx-core",
@@ -324,7 +324,7 @@
 		"@types/sinon": "^17.0.3",
 		"c8": "^10.1.2",
 		"check-dts": "^0.8.0",
-		"esbuild": "^0.21.5",
+		"esbuild": "^0.23.0",
 		"jsdom": "^24.1.0",
 		"sinon": "^18.0.0",
 		"size-limit": "^11.1.4",
