@@ -1,5 +1,11 @@
 # ctx-core
 
+## 7.2.29
+
+### Patch Changes
+
+- @types/node: ^20.14.11 -> ^20.14.12
+
 ## 7.2.28
 
 ### Patch Changes
