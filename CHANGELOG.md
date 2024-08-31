@@ -1,5 +1,13 @@
 # ctx-core
 
+## 7.2.31
+
+### Patch Changes
+
+- esbuild: ^0.23.0 -> ^0.23.1
+- @types/node: ^22.2.0 -> ^22.5.1
+- jsdom: ^24.1.1 -> ^25.0.0
+
 ## 7.2.30
 
 ### Patch Changes
