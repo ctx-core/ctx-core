@@ -14,6 +14,7 @@ let $ = globalThis.__rmemo__ ??= { q: new Set }
 export function memo_(memo_def, add_def_a1) {
 	/** @type {memo_T} */
 	let memo = ()=>{
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		'val' in memo || memo__run(memo)
 		if ($.c) {
 			if (!memo.r.includes($.c.s ??= new WeakRef($.c))) {
