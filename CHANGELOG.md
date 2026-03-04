@@ -1,5 +1,22 @@
 # ctx-core
 
+## 7.2.33
+
+### Patch Changes
+
+- c8: ^10.1.3 -> ^11.0.0
+- size-limit: ^11.2.0 -> ^12.0.0
+- esbuild: ^0.23.1 -> ^0.27.3
+- @types/sinon: ^17.0.4 -> ^21.0.0
+- @types/jsdom: ^21.1.7 -> ^28.0.0
+- sinon: ^21.0.1 -> ^21.0.2
+- check-dts: ^0.8.2 -> ^0.9.0
+- tsx: ^4.20.6 -> ^4.21.0
+- @types/node: ^22.19.0 -> ^25.3.3
+- jsdom: ^25.0.1 -> ^28.1.0
+- @size-limit/preset-small-lib: ^11.2.0 -> ^12.0.0
+- sinon: ^18.0.1 -> ^21.0.1
+
 ## 7.2.32
 
 ### Patch Changes
@@ -381,7 +398,6 @@
 ### Minor Changes
 
 - - ./web_animation:
-
     - export \* from ../rmemo/index.js
     - wanimato\_\_new
     - wanimato_T
@@ -563,7 +579,6 @@
 
 - - json\_\_parse
 - - ./json
-
     - json\_\_parse
     - json_T
 
@@ -2081,7 +2096,6 @@
 
 - - rmemo_val_T
 - rmemo helper functions:
-
   - be*rmemo_pair*
   - be_rmemo_pair_T
   - be*rsig_triple*
