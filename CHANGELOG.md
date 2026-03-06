@@ -1,5 +1,11 @@
 # ctx-core
 
+## 7.2.34
+
+### Patch Changes
+
+- chore: migrate scripts from pnpm to bun
+
 ## 7.2.33
 
 ### Patch Changes
